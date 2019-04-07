@@ -1,0 +1,130 @@
+.nav-btns,
+.deliverables,
+.section-one,
+.sub-section-one,
+.sub-section-two {
+   display: flex;
+   flex-direction: row;
+}
+
+.sub-section-one {
+    width: 50%;
+}
+
+.sub-section-two {
+    width: 60%;
+    text-align: center;
+
+}
+.hours-section,
+.add-section  {
+    width: 50%;
+    text-align: center;
+}
+
+.hours,
+.number{
+    width: 100%;
+}
+
+.add-btn {
+    width: 60%;
+    vertical-align: middle;
+}
+
+.sub-section-one-btn {
+    width: 20%;
+    border: 1px solid;
+}
+
+.single-field {
+    border: 1px solid;
+    width: 50%;
+}
+
+.edit-plan,
+.edit-deliverables {
+    margin: 10px auto;
+}
+
+
+
+.day-of-week-options,
+.deliverable-options {
+    width: 50%;
+}
+
+.day-of-week-select,
+.student-deliverable {
+    width: 80%;
+    margin:0 auto;
+}
+
+.day-of-week,
+.deliverable {
+    text-align: center;
+}
+
+.deliverable,
+.day-of-week {
+    flex-direction: column;
+}
+
+@media screen and (max-width: 767px) {
+    .section-one {
+        flex-direction: column;
+    }
+
+    .sub-section-one,
+    .sub-section-two {
+        width: 100%;
+        margin-bottom: 4px;
+    }
+
+    .single-field {
+        border: 0;
+    }
+
+    .section-one {
+        margin-bottom: 4px;
+        border: 1px solid;
+    }
+
+}
+
+
+
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+
+   .deliverables,
+   .deliverable-types,
+   .sub-section-one,
+   .sub-section-two {
+      flex-direction: column;
+   }
+
+   .section-one {
+       margin-bottom: 4px;
+       border: 1px solid;
+   }
+
+   .single-field {
+       width: 100%;
+       border:0;
+   }
+
+   .deliverable-type,
+   .deliverable
+   {
+      width: 100%;
+   }
+
+   .review-nav-btn {
+      width: 100%;
+      margin-bottom: 10px;
+   }
+   
+
+}
+

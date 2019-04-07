@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Executive Followup - Starter Wireframe</title>
+  <meta name="author" content="Missy Maloney">
+  <meta name="description" content="Keep track of your college school work.">
+  <meta name="keywords" content="Thinkful">
+
+  <!-- responsive viewport tag, tells small screens that it is responsive -->
+  <meta name="viewport" content="width=device-width, initial-scale=1"> 
+  <!-- stylesheets -->
+  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="css/reviewandplan.css">
+  
+  <!--  favicon link will go here-->
+  
+
+
+</head>
+<body>
+    <nav id="top-nav" role="navigation">
+            <h3 id="nav-logo">ExecFollowup</h3>
+            <h3 id="view-past-weeks">View Past Weeks</h3>
+            <h3 id="update-profile">Update Profile</h3>
+            <h3 id="logout">Logout</h3>
+    </nav>
+    <main role="main">
+        <header role="banner">
+            <h1>Review and Plan</h1>
+            <p>Review the past week.</p>
+            <div class="student-details">
+                            <div class="student-detail">
+                                <p>Which was the easiest and which was the hardest?</p>
+                            </div>
+        </header>
+        <div class="wrapper">
+                <section>
+                        <div class="difficulties">
+                            <div class="difficulty">
+                                    <label class='form-title' for="difficulty-easiest">Easiest</label>
+                                    <select class="form-inputs" name="difficulty-easiest"  required>
+                                            <option class='class-name' value="Calc">Calc</option>
+                                            <option class='class-name' value="English">English</option>
+                                            <option class='class-name' value="World History">World History</option>
+                                            <option class='class-name' value="French">French</option>
+                                            <option class='class-name' value="Biology">Biology</option>
+                                    </select>
+                            </div>
+                            <div class="difficulty">
+                                    <label class='form-title' for="difficulty-hardest">Hardest</label>
+                                    <select class="form-inputs" name="difficulty-hardest"  required>
+                                            <option class='class-name' value="Calc">Calc</option>
+                                            <option class='class-name' value="English">English</option>
+                                            <option class='class-name' value="World History">World History</option>
+                                            <option class='class-name' value="French">French</option>
+                                            <option class='class-name' value="Biology">Biology</option>
+                                    </select>
+                            </div>  
+                        </div>
+                    </div>       
+                </section>
+                <section>
+                        <div class="nav-btns">
+                            <div class="nav-btn">
+                                    <button class="basic-btn nav-btn back">Back</button>
+                            </div>
+                            <div class="nav-btn">
+                                    <button class="basic-btn nav-btn next">Next</button>
+                            </div>
+                        </div>  
+                </section>
+        </div>
+    </main>
+    <footer role="content-info">Footer</footer>
+</body>
+</html>

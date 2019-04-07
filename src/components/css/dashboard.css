@@ -1,0 +1,13 @@
+.details {
+    display:flex;
+    flex-direction: row;
+}
+
+.prep,
+.deliverables {
+    text-align:left;
+    padding: 5px;
+    border: 1px solid gray;
+    width: 50%;
+}
+

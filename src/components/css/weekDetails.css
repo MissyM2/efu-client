@@ -1,0 +1,269 @@
+
+/* student info section */
+.student-details,
+.week-details {
+    width: 50%;
+    margin:0 auto;
+}
+
+.student-detail,
+.week-details {
+    display:flex;
+    flex-direction: row;
+    align-content: center;
+    text-align:left;
+}
+
+.basic-detail {
+    width: 50%;
+    text-align: center;
+}
+
+.left {
+    text-align: left;
+}
+
+.attitude-details,
+.difficulty-details {
+    display:flex;
+    flex-direction: row;
+    width: 75%;
+    margin: 0 auto;
+}
+
+.attitude-detail,
+.difficulty-detail{
+    width:50%;
+    text-align:center;
+}
+
+.class-list,
+.class-body,
+.class-deliverables {
+    display: flex;
+    flex-direction: row;
+}
+
+.class-item {
+    border: 1px solid gray;
+    padding:5px;
+}
+
+.class-body {
+    width: 20%;
+}
+
+.class-desc-body{
+    width: 25%;   
+}
+
+.class-deliverables {
+    width: 40%;
+}
+
+.edit {
+    width: 10%;
+}
+
+.class-info {
+    width: 50%;
+}
+
+.exam {
+    width: 33%;
+}
+
+.date-time {
+    width: 34%;
+}
+
+.prep {
+    width: 33%;
+}
+
+.class-info,
+.grade {
+    text-align:center;
+}
+
+.class-desc-head {
+    width: 100%;
+}
+
+.class-body,
+.class-desc-body {
+    text-align: left;
+}
+
+.add-class-btn {
+    text-align:center;
+    padding-top: 12px;
+}
+
+.edit-class-btn {
+    margin:0 auto;
+    margin-top: 8px;
+}
+
+.add-class-btn {
+    width: 10%;
+}
+#add-class-form,
+.add-class-title-num {
+    display: flex;
+    flex-direction: row;
+}
+
+.add-class-title-num {
+    width:40%;
+}
+
+.add-class-desc {
+    width: 50%;
+}
+
+
+#class-desc-input,
+    #class-num-input,
+    #class-title-input {
+        width:100%;
+    }
+
+
+
+
+@media screen and (max-width: 767px) {
+
+    .class-list {
+        flex-direction:column;
+    }
+
+    .class-body,
+    .class-desc-body,
+    .class-deliverables,
+    .edit-class-btn {
+        width:100%;
+    }
+
+    #add-class-form {
+        flex-direction: column;
+    }
+
+    .add-class-btn{
+        width: 100%;
+        text-align:center;
+    }
+
+    .edit-class-btn {
+        margin-top: 2px;
+        margin-bottom: 15px;
+        width: 100%;
+        text-align:center;
+    }
+
+    .student-details {
+        width: 100%;
+    } 
+
+    .basic-detail {
+        width: 50%;
+        text-align: center;
+    }
+
+    .left {
+        text-align: left;
+    }
+
+    .stud-name-label,
+    .stud-school-label,
+    .stud-term-label,
+    .week-num,
+    .liked,
+    .hardest{
+        padding-left: 90px;
+    }
+
+    .week-details,
+    .attitude-details,
+    .difficulty-details {
+        width: 100%;
+       
+    }
+
+    .week-ending {
+        font-weight: bold;
+    }
+    
+}
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+
+    .student-details {
+        width: 100%;
+    } 
+
+    .class-deliverables  {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .class-list {
+        border: 1px solid;
+    }
+
+    .class-item {
+        width: 100%;
+        text-align: center;
+        border:none;
+    }
+
+    .edit {
+        margin-top: 15px;
+    }
+
+    .class-info {
+        font-weight: bold;
+    }
+
+    .week-details,
+    .attitude-details,
+    .difficulty-details {
+        width: 100%;
+       
+    }
+
+    .liked,
+    .hardest,
+    .week-num {
+        padding-left:0;
+    }
+
+    .basic-detail {
+        width: 50%;
+        text-align: center;
+    }
+
+    .left {
+        text-align: left;
+    }
+
+    .stud-name-label,
+    .stud-school-label,
+    .stud-term-label {
+        padding-left: 30px;
+    }
+
+    .week-ending {
+        font-weight:bold;
+    }
+
+    .class-item {
+        padding:2px;
+    }
+
+    .class-weekly-note {
+        text-align: left;
+        padding:0 3px;
+    }
+
+}

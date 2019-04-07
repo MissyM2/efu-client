@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Executive Followup - Starter Wireframe</title>
+  <meta name="author" content="Missy Maloney">
+  <meta name="description" content="Keep track of your college school work.">
+  <meta name="keywords" content="Thinkful">
+
+  <!-- responsive viewport tag, tells small screens that it is responsive -->
+  <meta name="viewport" content="width=device-width, initial-scale=1"> 
+  <!-- stylesheets -->
+  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="css/reviewandplan.css">
+  
+  <!--  favicon link will go here-->
+  
+
+
+</head>
+<body>
+    <nav id="top-nav" role="navigation">
+            <h3 id="nav-logo">ExecFollowup</h3>
+            <h3 id="view-past-weeks">Weeks</h3>
+            <h3 id="update-profile">Profile</h3>
+            <h3 id="logout">Logout</h3>
+    </nav>
+    <main role="main">
+        <header role="banner">
+            <h1>Review and Plan</h1>
+            <p>Class Review and Plan</p>
+            <div class="student-details">
+                            <div class="student-detail">
+                                <div class="basic-header basic-detail left stud-name-label">OK, now here are the deliverables for this class.  Do you want to add another?</div>
+                                <p>What is due next week?</p>
+                            </div>
+        </header>
+        <div class="wrapper">
+                <section>
+                        <div class="class-grade-info">
+                                <h3 class="class-title">Class Number 1:  Biology 101</h3>
+                </section>
+                <section>
+                <div class="class-grade-info">
+                        <h3 class="class-title">Current Deliverables</h3>
+                        <div class="view-deliverables">
+                                <div class="view-deliverable">
+                                        <div class="class-title-body">Quiz</div>
+                                </div>
+                                <div class="view-deliverable">
+                                        <div>Wednesday, April 12, 2019</div>
+                                </div>
+                                <div class="view-deliverable">
+                                        <div>Hrs Prep: 2</div>
+                                </div>
+                                <div class="view-deliverable">
+                                        <button class="center-btn basic-btn" type="submit">Edit</button>
+                                </div>   
+                        </div>
+                </section>
+                <section>
+                        <form id="record-deliverable">
+                                <div class="form-section sec-one" >
+                                        <h4 class="center">Select Deliverable Type</h4>
+                                        <p class="center instruction">Hover over the deliverable type to see the definition.</p>
+                                        <div class="deliverable-types"> 
+                                                <div class="deliverable-type">
+                                                        <div class="input-btn">
+                                                                <input type="radio" name="deliverable-type" value="0" class="deliverable-type-radio" checked>
+                                                        </div>
+                                                        <div class="pressure">High Pressure Deliverable</div>
+                                                </div>
+                                                <div class="deliverable-type">
+                                                        <div class="input-btn">
+                                                                <input type="radio" name="deliverable-type" value="0" class="deliverable-type-radio" checked>
+                                                        </div>
+                                                        <div class="pressure">Medium Pressure Deliverable</div>
+                                                </div>
+                                                <div class="deliverable-type">
+                                                        <div class="input-btn">
+                                                                <input type="radio" name="deliverable-type" value="0" class="deliverable-type-radio" checked>
+                                                        </div>
+                                                        <div class="pressure">Less Pressure Deliverable</div>
+                                                </div>
+                                        </div>
+                                </div>
+                                <div>
+                                    <h4 class="center">Deliverable</h4>
+                                    <div class="deliverables">
+                                            <div class="deliverable">
+                                                    <p class="center instruction">Select an assignment for this class that is due sometime next week.</p>
+                                                    <div class="deliverable-inputs">
+                                                            <select class="center" name="deliverable-short-desc-select"  required>
+                                                                    <option class="high-pressure-deliverable" value="test">test</option>
+                                                                    <option class="high-pressure-deliverable" value="exam">exam</option>
+                                                                    <option class="high-pressure-deliverable" value="midterm">midterm</option>
+                                                                    <option class="high-pressure-deliverable" value="final">final</option>
+                                                                    <option class="medium-pressure-deliverable" value="group project">group project</option>
+                                                                    <option class="medium-pressure-deliverable" value="term project">term project</option>
+                                                                    <option class="medium-pressure-deliverable" value="term paper">term paper</option>
+                                                                    <option class="medium-pressure-deliverable" value="long-term project">long-term project</option>
+                                                                    <option class="less-pressure-deliverable" value="weekly quiz">weekly quiz</option>
+                                                                    <option class="less-pressure-deliverable" value="bi-weekly quiz">bi-weekly quiz</option>
+                                                                    <option class="less-pressure-deliverable" value="weekly lab">weekly lab</option>
+                                                                    <option class="less-pressure-deliverable" value="bi-weekly lab">bi-weekly lab</option>
+                                                                    <option class="less-pressure-deliverable" value="homework">homework</option>
+                                                                    <option value="other">other</option>
+                                                            </select>
+                                                    </div>
+                                        </div>
+                                        <div class="deliverable">
+                                                    <p class="center instruction">Add the due date for the assignment due next week.</p>
+                                                    <div class="date-inputs">
+                                                            <div class="date-input">
+                                                                <input class="border" type="number" name="date-month" placeholder="01" min="1" max="12" required=""> .
+                                                                <input class="border" type="number" name="date-day" class="date-day"  placeholder="01" min="1" max="31" required=""> .
+                                                                <input class="border" type="number" name="date-year" class="date-year" placeholder="2019" min="2019" max="2020" required="">
+                                                            </div>
+                                                    </div>
+                                                    
+                                        </div>
+
+                                    </div> 
+                                </div>
+                                <div>
+                                    <h4 class="center">Deliverable Notes</h4> 
+                                        <div class="notes">
+                                                <p class="center instruction">Add any notes on the topics or study chapters here.</p>
+                                                <div class="notes-text center">
+                                                        <textarea rows="10" placeholder="cumulative material" required></textarea>
+                                                </div>
+                                        </div>   
+                                </div>
+                                <div class="sub-nav-buttons center ">
+                                        <button class="basic-btn nav-btn add-deliverable" type="submit">Add your deliverable</button>
+                                </div>
+                              </form>
+
+                </section>
+                <section>
+                        <div class="sub-nav-buttons center ">
+                                <button class="basic-btn nav-btn add-deliverable" type="submit">Finished adding deliverables.  Go to the next class.</button>
+                        </div>
+                </section>
+                <section>
+                        <div class="nav-btns">
+                            <div class="nav-btn">
+                                    <button class="basic-btn nav-btn back">Back</button>
+                            </div>
+                        </div>  
+                </section>
+        </div>
+    </main>
+    <footer role="content-info">Footer</footer>
+</body>
+</html>

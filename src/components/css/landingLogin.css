@@ -1,0 +1,16 @@
+.form-section {
+    display:flex;
+    flex-direction: row;
+}
+
+#login-form {
+    padding-left: 50px;
+}
+
+#login-btns {
+    text-align: center;
+}
+
+#ask-to-reg{
+    padding-top: 10px;
+}

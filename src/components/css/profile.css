@@ -1,0 +1,161 @@
+
+.class-headers,
+.class-list,
+.class-body,
+.school-info {
+    display: flex;
+    flex-direction: row;
+}
+
+.school-info {
+    justify-content: center;
+    width: 100%;
+}
+.school-detail {
+    margin: 10px 15px;
+    width:40%;
+}
+
+.school-input {
+    width: 100%;
+}
+
+.class-body {
+    width: 40%;
+}
+
+.class-title-body,
+.class-number-body,
+.class-desc-body {
+    width: 50%;
+    border: 1px solid gray;
+    padding:5px;
+}
+
+.class-desc-head {
+    width: 100%;
+}
+
+.class-body,
+.class-desc-body {
+    text-align: left;
+}
+
+.add-class-btn {
+    text-align:center;
+    padding-top: 12px;
+}
+
+.edit-class-btn {
+    margin:0 auto;
+    margin-top: 8px;
+}
+
+.add-class-btn {
+    width: 10%;
+}
+
+.weeks-wrapper {
+    display:flex;
+    flex-direction: row;
+}
+
+.weeks-details {
+    width:35%;
+    margin: 7px;
+}
+
+.add-week {
+    margin: 0 auto;
+    background-color:  #ccc;
+    border: 1px solid black;
+    border-radius: 3px;
+    padding: 8px;
+}
+
+#add-class-form,
+.add-class-title-num {
+    display: flex;
+    flex-direction: row;
+}
+
+.add-class-title-num {
+    width:40%;
+}
+
+.add-class-desc {
+    width: 50%;
+}
+
+.week-num,
+.week-date,
+.add-week-btn {
+    text-align:center;
+}
+
+.week-list {
+    display:flex;
+    flex-direction: row;
+}
+
+#class-desc-input,
+    #class-num-input,
+    #class-title-input {
+        width:100%;
+    }
+
+
+
+
+@media screen and (max-width: 767px) {
+    .class-list,
+    .school-info {
+        flex-direction: column;
+    }
+
+    .school-detail {
+        margin:10px auto;
+    }
+
+    .weeks-wrapper {
+        flex-direction:column;
+    }
+    .class-headers,
+    .class-body,
+    .class-desc-body{
+        width:100%;
+    }
+
+    .class-desc-body {
+        margin-bottom: 10px;
+    }
+
+    .weeks-details,
+    .add-week {
+        width: 100%;
+
+    }
+
+    #add-class-form {
+        flex-direction: column;
+    }
+
+    .add-class-btn{
+        width: 100%;
+        text-align:center;
+    }
+
+    .edit-class-btn {
+        margin-top: 2px;
+        margin-bottom: 15px;
+        width: 100%;
+        text-align:center;
+    }
+   
+
+
+    
+}
+
+/*@media screen and (max-width: 480px) {}*/
+
