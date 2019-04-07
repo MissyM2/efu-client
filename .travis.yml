@@ -1,0 +1,12 @@
+language: node_js
+node_js: node
+cache:
+  directories:
+  - node_modules
+deploy:
+  provider: heroku
+  api_key:
+    secure: HLu16OlFI/mXUPDJ+L/Ls21uFWoCb0c8eZNDWqxdEj8NRIJXysL4TMkxdYPOtZTjP72zEJHpZRVg3QpyWvyH1+S3hR4IKZLS91PROFzUUKYQTyShIyk57h5bCMHjy8SPg5J46wZA3xrAebEYxc3MLTeraa19YjkZEUCcGwaLmGT0O5bJkHcMyurXU935vgST3KGM4KsDnBIDswXhws4LTr/w7S5BA1dXk8pbiazD9jK/4KoF05ogEewtcCchYteoxaMcRQ9/MfgKioowBaoOERTuq5ZJn9G4j5Wg7ZrOsX1FyT7IVegzV3RwmGxO/zelH3fyaGT73f/Dwi8F6Pmnl8eAZ7I2hkm77MzjnxnnBqliWpIz3+NcpGN5d9Ugyq8cEjR4DJdRi6a6yuokNah/7RxgONUMGEbHGubeoQRUfNpM8IEG1tOmcUQu815gz++Y9tdmbeb4xaWU+g4/DRM1b2oXEMVMDAhG5vWuDoQNR/X+na1FYR3wNeBWBsSl6K1330lNBRqXFZzU/DKeVb4FtZlKcxEi2VWE1rw4pwtV29uJCDZoC3ZCaVSL80VKl64KdtfuqkagcJpNzLPMtFtc0p1WrN6FD2bi1g8wDlLkkoWqgk9LC+PnSdIFubStR87rq+XsBzPja3fwLWCum0rjzwh5BVgaEdommkrV46Xy5eE=
+  app: shrouded-shore-47035
+  on:
+    repo: MissyM2/efu-client
