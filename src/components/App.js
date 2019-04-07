@@ -1,7 +1,7 @@
 import React from 'react';
-import './App.css';
-import MainNav from '.main-nav';
-import LandingLogin from '.landing-login';
+import './css/index.css';
+import MainNav from './main-nav';
+import LandingLogin from './landing-login';
 
 export default function App(props) {
   return (
@@ -27,4 +27,3 @@ export default function App(props) {
     );
   }
 
-export default App;
