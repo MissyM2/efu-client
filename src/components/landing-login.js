@@ -5,7 +5,7 @@ export default function LandingLogin(props) {
             <section class="login-section">
                 <div>
                     <h3>Login here</h3>
-                    <h3><a href="/dashboard.js" /></h3>
+                    <h3><a href="./dashboard.js">Dashboard</a></h3>
                 </div>
                 <div>
                     <form id="login-form">

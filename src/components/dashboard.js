@@ -9,6 +9,7 @@ import {
 export default function Dashboard(props) {
     return (
         <Router>
+            <h3>This is the Dashboard</h3>
                 <Today />
                 <ThisWeek />
                 <ReviewAndPlan />
