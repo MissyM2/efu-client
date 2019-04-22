@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './css/index.css';
 
-export default function Registration(props) {
+export default function registrationPage(props) {
   return (
             <section class="login-section">
                 <div>

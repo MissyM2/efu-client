@@ -3,8 +3,15 @@
     flex-direction: row;
 }
 
+.landingLogin {
+    background-color: gray;
+    width: 350px;
+    margin: 0 auto;
+}
+
 #login-form {
     padding-left: 50px;
+    width: 200px;
 }
 
 #login-btns {

@@ -1,5 +1,4 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import MainNav from './main-nav';
 
 export default function Weeks(props) {
