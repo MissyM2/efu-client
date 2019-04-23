@@ -1,6 +1,9 @@
 import React from 'react';
 import AddweekForm from './addweek-form';
+import {addWeek} from '../actions/protected-data';
 import {connect} from 'react-redux';
+
+import './css/week.css';
 
 
 export class Week extends React.Component {
@@ -9,9 +12,9 @@ export class Week extends React.Component {
     }
     
     render() {
-        const weeks = this.props.weeks.map((weekNum, weekStartDate, weekEndDate, index) => 
+        const weekslist = this.props.weekslist.map((weeklist, index) => 
             <li className="week-wrapper" key={index}>
-                    <Week {...week} />
+                    <Week {...weeklist} />
             </li>
         );
 

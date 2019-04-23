@@ -8,7 +8,7 @@ export class SchoolTerm extends React.Component {
     render() {
         const schoolterms = this.props.schoolterms.map((schoolterm, index) => 
         <li className="schoolterm-wrapper" key={index}>
-            <Schoolterm {...termcourse} />
+            <SchoolTerm {...schoolterm} />
         </li>
         );
 
@@ -21,8 +21,8 @@ export class SchoolTerm extends React.Component {
                         <li className="add-term-wrapper">
                             <AddschooltermForm
                                 type="schoolterm"
-                                onAdd={schoolTermName =>
-                                    this.addSchoolTerm(schoolTermName)} />
+                                onAdd={schooltermName =>
+                                    this.addSchoolTerm(schooltermName)} />
                         </li>
                     </ul>
             </div>
@@ -30,7 +30,7 @@ export class SchoolTerm extends React.Component {
     }
 }
 
-Schoolterm.defaultProps = {
+SchoolTerm.defaultProps = {
     title: ''
 };
 

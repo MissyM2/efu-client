@@ -1,5 +1,6 @@
 import React from 'react';
 import AddtermcourseForm from './addtermcourse-form';
+import {addTermcourse} from '../actions/protected-data';
 import { connect } from 'react-redux';
 
 import './css/term-course.css';
@@ -22,7 +23,7 @@ export class TermCourse extends React.Component {
                             <AddtermcourseForm
                                 type="termcourse"
                                 onAdd={(termcourseName, termcourseDesc) => 
-                                    this.addTermCourse(termcourseName, termcourseDesc)}  />
+                                    this.addTermcourse(termcourseName, termcourseDesc)}  />
                         </li>
                     </ul>
             </div>  

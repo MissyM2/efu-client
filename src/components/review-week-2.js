@@ -1,6 +1,5 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import Week from './week';
 
 import './css/reviewandplan.css';
 
@@ -11,18 +10,8 @@ export class ReviewAndPlan extends React.Component {
                 <h2>review-and-plan</h2>
                 <h2>Review and Plan</h2>
                 <div id="review-and-plan">
-                    <h3>This is the current week. (should they be able to change weeks?) </h3>
-                    <Week />
+                    <button id="review-and-plan-btn" type="submit">Review and Plan</button>
                 </div>
-                <div className="nav-btns">
-                    <button>
-                            Back:Week Details Scr
-                    </button>     
-                    <button>
-                            Next: Attitude Scr
-                    </button>     
-                </div>
-                
             </div>
         );
     }

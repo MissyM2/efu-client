@@ -3,6 +3,8 @@ import './css/index.css';
 import MainNav from './main-nav';
 import LandingLogin from './landing-login';
 
+import './css/week-details.css';
+
 export default function App(props) {
   return (
       <div>

@@ -1,8 +1,8 @@
 import React from 'react';
-import {reduxForm, Field} from 'redux-form';
+import {reduxForm, Field, focus} from 'redux-form';
 
 import Input from './input';
-import {required, nonEmpty, matches, length, isTrimmed} from '../validators';
+import {required, nonEmpty, isTrimmed} from '../validators';
 
 import './css/schoolterm-form.css';
 
