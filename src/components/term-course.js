@@ -1,11 +1,15 @@
 import React from 'react';
 import AddtermcourseForm from './addtermcourse-form';
-import {addTermcourse} from '../actions/protected-data';
+import {fetchAddTermcourse} from '../actions/protected-data';
 import { connect } from 'react-redux';
 
 import './css/term-course.css';
 
 export class TermCourse extends React.Component {
+    fetchAddTermcourse(termcourse) {
+        this.props.dispatch(fetchAddTermcourse(termcourse, this.props.index));
+    }
+
     render() {
         const termcourses = this.props.termcourses.map((termcourse,index) => 
             <li className="termcourse-wrapper" key={index}>
@@ -22,8 +26,8 @@ export class TermCourse extends React.Component {
                         <li className="add-course-wrapper">
                             <AddtermcourseForm
                                 type="termcourse"
-                                onAdd={(termcourseName, termcourseDesc) => 
-                                    this.addTermcourse(termcourseName, termcourseDesc)}  />
+                                onAdd={(termcourse) => 
+                                    this.fetchAddTermcourse(termcourse)}  />
                         </li>
                     </ul>
             </div>  

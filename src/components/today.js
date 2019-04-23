@@ -1,50 +1,41 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {fetchProtectedData} from '../actions/protected-data';
+import {fetchGetDeliverables} from '../actions/protected-data';
+import {SingleDeliverable} from './single-deliverable'
 
 import './css/today.css';
 
 export class Today extends React.Component {
-        componentDidMount() {
-                this.props.dispatch(fetchProtectedData()); 
+        //componentDidMount() {
+         //       this.props.dispatch(fetchProtectedData());
+        //}
+        fetchGetDeliverables(deliverable) {
+                this.props.dispatch(fetchGetDeliverables(deliverable, this.props.index));
         }
 
         render() {
+                const deliverables = this.props.deliverables.map((deliverable, index) =>
+                        <li className="deliverable-wrapper" key={index}>
+                                <SingleDeliverable {...deliverable} />
+                        </li>
+                        );
+                
                 return (
-                        <div className="today">
-                        <div className="dashboard-username">
-                                Username: {this.props.username}
-                        </div>
-                        <div className="dashboard-name">Name:  {this.props.name}</div>
-
-                                <h2>Today</h2>
-                                <div className="details">
-                                <div className="dashboard-protected-data">
-                                        Protected data: {this.props.protectedData}
-                                </div> 
-                                        <div className="prep">
-                                                <h3>Hours of Prep Needed Today: 3</h3>
-                                                <p>Biology: 1.5 hours</p>
-                                                <p>English 1.5 hours</p>
-                                        </div>
-                                        <div className="deliverables">
-                                                <h3>Deliverables Due Today: 1</h3>
-                                                <p>World History:  Quiz</p>
-                                        </div>
-                                </div>             
-                        </div>
+                        <div>
+                                <h2>Today's Deliverables</h2>
+                                <h2>{this.props.title}</h2>
+                                <ul className="deliverables">
+                                        {deliverables}
+                                </ul>
+                        </div>  
+                );
                 );
         }
 }
 
-const mapStateToProps = state => {
-        const {currentUser} = state.auth;
-        return {
-                username: state.auth.currentUser.username,
-                name: `${currentUser.firstName} ${currentUser.lastName}`,
-                protectedData: state.protectedData.data
-        }
-}
+Today.defaultProps = {
+        title: ''
+};
 
-export default connect(mapStateToProps)(Today);
+export default connect()(Today);
         

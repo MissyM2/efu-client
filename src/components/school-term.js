@@ -1,10 +1,15 @@
 import React from 'react';
 import AddschooltermForm from './addschoolterm-form';
+import {fetchAddSchoolterm} from '../actions/protected-data';
+
 import {connect} from 'react-redux';
 
 import './css/school-term.css';
 
 export class SchoolTerm extends React.Component {
+    fetchAddSchoolterm(schoolterm) {
+        this.props.dispatch(fetchAddSchoolterm((schoolterm), this.props.index));
+    }
     render() {
         const schoolterms = this.props.schoolterms.map((schoolterm, index) => 
         <li className="schoolterm-wrapper" key={index}>
@@ -21,8 +26,8 @@ export class SchoolTerm extends React.Component {
                         <li className="add-term-wrapper">
                             <AddschooltermForm
                                 type="schoolterm"
-                                onAdd={schooltermName =>
-                                    this.addSchoolTerm(schooltermName)} />
+                                onAdd={schoolterm =>
+                                    this.fetchAddSchoolterm(schoolterm)} />
                         </li>
                     </ul>
             </div>

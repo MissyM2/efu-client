@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import Week from './week';
+import Week from './single-week';
 
 import './css/reviewandplan.css';
 
