@@ -6,7 +6,8 @@ import {fetchProtectedData} from '../actions/protected-data';
 import Today from './today';
 import ThisWeek from './this-week';
 import ReviewAndPlan from './review-and-plan';
-import './css/reviewandplan.css';
+
+import './css/dashboard.css';
 
 export class Dashboard extends React.Component {
     componentDidMount() {
@@ -27,7 +28,7 @@ export class Dashboard extends React.Component {
                         <h3>Take charge of your academic life.</h3>
                         <h3>Plan and track your academic progress with small, achievable goals and collaborating with a mentor.</h3>
                     </div>
-                    <div class="skills-suggestion">Today's Reminder:  <em>Using pen and paper to write things down, 
+                    <div className="skills-suggestion">Today's Reminder:  <em>Using pen and paper to write things down, 
                                     instead of taking notes on a laptop, helps boost memory retention.</em>
                     </div>
                         <div className="board">

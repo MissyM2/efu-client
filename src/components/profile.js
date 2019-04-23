@@ -1,9 +1,9 @@
 import React from 'react';
 import './css/index.css';
 import MainNav from './main-nav';
-import SchoolTerm from './school-term';
-import TermClass from './term-class';
-import Week from './week';
+import SchoolTermForm from './schoolterm-form';
+import TermCourse from './term-course';
+import WeekForm from './week-form';
 
 export default function App(props) {
   return (
@@ -15,9 +15,9 @@ export default function App(props) {
                 <h3>Take charge of your academic life.</h3>
             </header>
             <div class="wrapper">
-                <SchoolTerm />
-                <TermClass />
-                <Week />
+                <SchoolTermForm />
+                <TermCourse />
+                <WeekForm />
           </div>
         </main>
       </div>

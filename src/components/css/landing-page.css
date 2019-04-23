@@ -1,23 +1,11 @@
-.form-section {
-    display:flex;
-    flex-direction: row;
-}
 
-.landingLogin {
-    background-color: gray;
+.landingPage {
     width: 350px;
+    padding-top: 120px;
     margin: 0 auto;
 }
 
-#login-form {
-    padding-left: 50px;
-    width: 200px;
+button {
+    margin: 20px;
 }
 
-#login-btns {
-    text-align: center;
-}
-
-#ask-to-reg{
-    padding-top: 10px;
-}

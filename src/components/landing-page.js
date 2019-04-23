@@ -19,9 +19,10 @@ export function LandingPage(props) {
                 <div>
                     <h3>Login here</h3>
                     <LoginForm />
-                    <Link to="/register">Register</Link>
+                    <button>
+                        <Link to="/register">Register</Link>
+                    </button>
                 </div>
-                
             </div>
     );
 }

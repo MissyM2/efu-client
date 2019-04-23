@@ -1,13 +1,15 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Route, Link, withRouter} from 'react-router-dom';
+import {Route, withRouter} from 'react-router-dom';
 
-import './css/index.css';
+import './css/app.css'
 
 import MainNav from './main-nav';
 import LandingPage from './landing-page';
 import Dashboard from './dashboard';
 import RegistrationPage from './registration-page';
+import Profile from './profile';
+import Weeks from './weeks';
 
 import {refreshAuthToken} from '../actions/auth';
 
@@ -44,16 +46,16 @@ export class App extends React.Component {
   render(){
     return(
           <div className="app">
+          <h2>app</h2>
               <div>
                   <MainNav />
               </div>
-              <header role="banner">
-                  <h1><Link to="/">Executive Followup</Link></h1>
-              </header>
               <main role="main">
                   <Route exact path="/" component={LandingPage} />
                   <Route exact path="/dashboard" component={Dashboard} />
                   <Route exact path="/register" component={RegistrationPage} />
+                  <Route exact path="/profile" component={Profile} />
+                  <Route exact path="/weeks" component={Weeks} />
               </main>
         </div>
     );   

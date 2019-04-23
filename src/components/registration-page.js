@@ -1,52 +1,29 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './css/index.css';
+import {connect} from 'react-redux';
+import {Link, Redirect} from 'react-router-dom';
 
-export default function registrationPage(props) {
-  return (
-            <section class="login-section">
-                <div>
-                    <h3>Register here</h3>
-                </div>
-                <div>
-                    <form id="login-form">
-                            <div class="form-section">
-                                    <div class="inline-label">
-                                        <label for="user-name">Name</label>
-                                    </div>
-                                    <div class="inline-input">
-                                        <input type="text" name="user-name" placeholder="first name last name" required></input>
-                                    </div>
-                            </div>
-                            <div class="form-section">
-                                <div class="inline-label">
-                                    <label for="user-id">Email Address</label>
-                                </div>
-                                <div class="inline-input">
-                                    <input type="text" name="user-id" placeholder="student@followup.com" required></input>
-                                </div>
-                            </div>
-                            <div class="form-section">
-                                <div class="inline-label">
-                                    <label for="user-pass">Password</label>
-                                </div>
-                                <div class="inline-input">
-                                    <input type="password" name="user-pass" placeholder="password" required></input>
-                                </div>
-                            </div>
-                            <div class="form-section">
-                                    <div class="inline-label">
-                                        <label for="confirm-pass">Confirm Password</label>
-                                    </div>
-                                    <div class="inline-input">
-                                        <input type="password" name="confirm-pass" placeholder="password" required></input>
-                                    </div>
-                                </div>
-                            <div id="login-btns">
-                                <button id="reg-btn" type="submit">Register</button>
-                            </div>    
-                    </form>
-                </div>
-            </section>
-  );
+import RegistrationForm from './registration-form';
+
+import './css/registration-page.css';
+
+export function RegistrationPage(props) {
+    // If we are logged in (which happens automatically when registration
+    // is successful) redirect to the user's dashboard
+    if (props.loggedIn) {
+        return <Redirect to="/dashboard" />;
+    }
+    return (
+        <div className="registration-page">
+            <h2>registration-page</h2>
+            <h2>Register for Executive Followup</h2>
+            <RegistrationForm />
+            <Link to="/">Login</Link>
+        </div>
+    );
 }
+
+const mapStateToProps = state => ({
+    loggedIn: state.auth.currentUser !== null
+});
+
+export default connect(mapStateToProps)(RegistrationPage);

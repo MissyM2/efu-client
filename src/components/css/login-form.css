@@ -1,0 +1,12 @@
+.login-form {
+    width: 300px;
+    margin:0 auto;
+    border: 1px solid red;
+    text-align:center;
+}
+
+button {
+    margin: 5px 20px;
+}
+
+

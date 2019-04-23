@@ -21,3 +21,6 @@ export default function reducer(state=initialState, action) {
     }
     return state;
 }
+
+// not sure what to do with this?
+// actions from addTermCourse, addSchoolterm and addWeeks

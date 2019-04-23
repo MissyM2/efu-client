@@ -1,6 +1,8 @@
 import React from 'react';
 import MainNav from './main-nav';
 
+import './css/weeks.css';
+
 export default function Weeks(props) {
     return (
         <div>

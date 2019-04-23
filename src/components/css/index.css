@@ -14,19 +14,11 @@
     width: 100%;
   }
   
-  nav,
   footer {
     padding: 1% 0;
     background-color: #aaa;
   }
   
-  nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 10;
-  }
   
   header {
     padding-top: 90px 
@@ -131,16 +123,7 @@
     width: 60%;
   }
 
-  #top-nav{
-    display:flex;
-    flex-direction: row;
-  }
-
-  #nav-logo{
-    padding:0 10px;
-    width: 60%;
-    text-align:left;
-  }
+  
 
 #view-past-weeks,
 #update-profile,

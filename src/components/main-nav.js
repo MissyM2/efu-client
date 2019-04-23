@@ -1,11 +1,11 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+//import ReactDOM from 'react-dom';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {clearAuth} from '../actions/auth';
 import {clearAuthToken} from '../local-storage';
 
-import './css/index.css';
+import './css/main-nav.css';
 
 export class MainNav extends React.Component {
 

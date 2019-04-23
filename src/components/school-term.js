@@ -1,33 +1,38 @@
 import React from 'react';
-import {
-        BrowserRouter as Router,
-        Route,
-        Redirect,
-        Switch
-} from 'react-router-dom';
+import AddschooltermForm from './addschoolterm-form';
+import {connect} from 'react-redux';
 
-export default function SchoolTerm(props) {
-    return (
-        <Router>
-            <section>
-                <h2>My School Details</h2>
-                <div class="school-info">
-                    <div class="school-detail">
-                        <div class="basic-header">School Name</div>
-                        <div>
-                                <input class="school-input" type="text" name="school-name" placeholder="My College"></input>
-                        </div>
-                    </div>
-                    <div class="school-detail" >
-                            <div class="basic-header">Term</div>
-                            <div>
-                                <input class="school-input" type="text" name="term" placeholder="Spring Semester"></input>
-                            </div>                                   
-                    </div>  
-                </div>         
-            </section>
-        </Router>
-    );
+import './css/school-term.css';
+
+export class SchoolTerm extends React.Component {
+    render() {
+        const schoolterms = this.props.schoolterms.map((schoolterm, index) => 
+        <li className="schoolterm-wrapper" key={index}>
+            <Schoolterm {...termcourse} />
+        </li>
+        );
+
+        return (
+        <div>
+                    <h2>schoolterm-form</h2>
+                    <h2>{this.props.title}</h2>
+                    <ul className="schoolterms">
+                        {schoolterms}
+                        <li className="add-term-wrapper">
+                            <AddschooltermForm
+                                type="schoolterm"
+                                onAdd={schoolTermName =>
+                                    this.addSchoolTerm(schoolTermName)} />
+                        </li>
+                    </ul>
+            </div>
+        );
+    }
 }
 
+Schoolterm.defaultProps = {
+    title: ''
+};
+
+export default connect()(SchoolTerm);
                 
