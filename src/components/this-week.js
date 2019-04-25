@@ -3,7 +3,7 @@ import {fetchGetDeliverables} from '../actions/protected-data';
 import {SingleDeliverable} from './single-deliverable'
 import {connect} from 'react-redux';
 
-import './css/this-week.css';
+import './css/view-deliverables.css';
 
 export class ThisWeek extends React.Component{
         componentDidMount() {
@@ -13,13 +13,13 @@ export class ThisWeek extends React.Component{
         render() {
                 const deliverables = this.props.deliverables.map((deliverable, index) =>
                         <li className="deliverable-wrapper" key={index}>
-                                <SingleDeliverable {...deliverable} />
+                                <SingleDeliverable index={index} {...deliverable} />
                         </li>
                         );
                 return (
-                        <div>
+                        <div className="deliverables-wrapper">
                                 <h2>{this.props.title}</h2>
-                                <ul className="deliverables">
+                                <ul className="deliverables-list">
                                         {deliverables}
                                 </ul>
                         </div>  
@@ -27,10 +27,11 @@ export class ThisWeek extends React.Component{
         }
 }
 
-const mapStateToProps = props => {
+const mapStateToProps = state => {
+        console.log(state);
         return {
-                deliverables: props.deliverables,
-                title: "these are the deliverables for this week"
+                deliverables: state.protectedData.deliverables,
+                title: "Deliverables for this week"
         }
 }
 

@@ -4,19 +4,15 @@ import requiresLogin from './requires-login';
 
 import Today from './today';
 import ThisWeek from './this-week';
-import ReviewAndPlan from './review-and-plan';
+//import ReviewAndPlan from './review-and-plan';
 
 import './css/dashboard.css';
 
 export class Dashboard extends React.Component {
-    //componentDidMount(){
-    //    this.props.dispatch()
-    //}
-
-
     render() {
         return (
                 <div className="dashboard">
+                    <h3>This is the Dashboard</h3>
                     <div className="dashboard-username">
                         Username: {this.props.username}
                     </div>
@@ -29,11 +25,10 @@ export class Dashboard extends React.Component {
                                     instead of taking notes on a laptop, helps boost memory retention.</em>
                     </div>
                         <div className="board">
-                        <h3>This is the Dashboard</h3>
+                        
                             <Today />
-                            {/*<ThisWeek />
-                            <ReviewAndPlan />*/}
-                            hi, there
+                            <ThisWeek />
+                            {/*<ReviewAndPlan />*/}
                         </div>
                 </div>
         );

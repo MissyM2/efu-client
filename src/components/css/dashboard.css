@@ -1,13 +1,15 @@
-.details {
-    display:flex;
-    flex-direction: row;
+
+.dashboard {
+    margin-top: 100px;
+    text-align:middle;
+    padding: 5px;
+    border: 1px solid orange;
+    width: 100%;
 }
 
-.prep,
-.deliverables {
-    text-align:left;
-    padding: 5px;
-    border: 1px solid gray;
-    width: 50%;
+.board {
+    width: 100%;
+    border: 1px solid blue;
+    margin: 0 auto;
 }
 

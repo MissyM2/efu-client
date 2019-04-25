@@ -1,0 +1,17 @@
+.deliverables-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border: 1px solid purple;
+}
+
+.deliverable-wrapper {
+    border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+}
+
+.deliverables-list {
+    list-style: none;
+    margin: 0 auto;
+}

@@ -204,6 +204,43 @@ export const fetchGetDeliverables = () => (dispatch, getState) => {
         });
 };
 
+// fetch for getting deliverables for TODAY
+export const FETCH_GETDELIVERABLESTODAY_SUCCESS = 'FETCH_GETDELIVERABLESTODAY_SUCCESS';
+export const fetchGetDeliverablesTodaySuccess = deliverables => {
+    console.log('actions: deliverables inside getdeliverables_success ', deliverables);
+    return {
+        type: FETCH_GETDELIVERABLESTODAY_SUCCESS,
+        payload: {deliverables}
+    }
+};
+
+export const FETCH_GETDELIVERABLESTODAY_ERROR = 'FETCH_GETDELIVERABLESTODAY_ERROR';
+export const fetchGetDeliverablesTodayError = error => ({
+    type: FETCH_GETDELIVERABLESTODAY_ERROR,
+    error
+});
+
+export const fetchGetDeliverablesToday = () => (dispatch, getState) => {
+    const authToken = getState().auth.authToken;
+    return fetch(`${API_BASE_URL}/deliverables`, {
+        method: 'GET',
+        headers: {
+            // Provide our auth token as credentials
+            Authorization: `Bearer ${authToken}`
+        }
+    })
+        .then(res => normalizeResponseErrors(res))
+        .then(res => {
+            return res.json();
+        })
+        //.then(deliverables=> console.log('deliverables after fetch, headed to fetchsuccess', deliverables))
+        .then(deliverables => dispatch(fetchGetDeliverablesTodaySuccess(deliverables)))
+        .catch(err => {
+            console.log(err);
+            dispatch(fetchGetDeliverablesTodayError(err));
+        });
+};
+
 // fetch for getting all weeks
 export const FETCH_GETWEEKS_SUCCESS = 'FETCH_GETWEEKS_SUCCESS';
 export const fetchGetWeeksSuccess = week => ({

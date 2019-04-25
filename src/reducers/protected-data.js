@@ -12,7 +12,9 @@ import {
     FETCH_ADDDELIVERABLE_SUCCESS,
     FETCH_ADDDELIVERABLE_ERROR,
     FETCH_GETDELIVERABLES_SUCCESS,
-    FETCH_GETDELIVERABLES_ERROR
+    FETCH_GETDELIVERABLES_ERROR,
+    FETCH_GETDELIVERABLESTODAY_SUCCESS,
+    FETCH_GETDELIVERABLESTODAY_ERROR
 } from '../actions/protected-data';
 
 const initialState = {
@@ -82,13 +84,27 @@ export default function reducer(state=initialState, action) {
             error: action.error
         });
     } else if (action.type === FETCH_GETDELIVERABLES_SUCCESS) {
-        console.log('reducer: GETDELIVERABLES_SUCCESS action is', action);
+        console.log('reducer: GETDELIVERABLES_SUCCESS action.payload.deliverables is', action.payload.deliverables);
         return Object.assign({}, state, {
-            items: action.payload.items,
+            deliverables: action.payload.deliverables,
             loading: false,
             error: null
         });
     } else if (action.type === FETCH_GETDELIVERABLES_ERROR) {
+        console.log(action);
+        return Object.assign({}, state, {
+            loading: false,
+            error: action.error,
+            items: []
+        });
+    } else if (action.type === FETCH_GETDELIVERABLESTODAY_SUCCESS) {
+        console.log('reducer: GETDELIVERABLESTODAY_SUCCESS action.payload.deliverables is', action.payload.deliverables);
+        return Object.assign({}, state, {
+            deliverables: action.payload.deliverables,
+            loading: false,
+            error: null
+        });
+    } else if (action.type === FETCH_GETDELIVERABLESTODAY_ERROR) {
         console.log(action);
         return Object.assign({}, state, {
             loading: false,
