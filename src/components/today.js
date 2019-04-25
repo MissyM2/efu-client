@@ -12,8 +12,7 @@ export class Today extends React.Component {
         }
        
         render() {
-                const {error, loading, products} = this.props;
-                console.log('random ');
+                const {error, loading, deliverables} = this.props;
                {/*const deliverables = this.props.deliverables.map((singledeliverable, index) =>
                       <li className="deliverable-wrapper" key={index}>
                                <SingleDeliverable {...singledeliverable} />
@@ -40,13 +39,10 @@ export class Today extends React.Component {
 const mapStateToProps = state => {
         console.log(state);
         return {
-        //deliverables: state.deliverables.items,
-        //loading: state.deliverables.loading,
-        //error: state.deliverables.error
-        deliverables: state.protectedData.deliverables,
-        loading: state.protectedData.loading,
-        error: state.protectedData.error
-        }
+                deliverables: state.protectedData.deliverables,
+                loading: state.protectedData.loading,
+                error: state.protectedData.error
+        };
         
 };
 
