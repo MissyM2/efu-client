@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 import './css/single-deliverable.css';
 
@@ -18,12 +17,4 @@ export function SingleDeliverable(props) {
 
 }
 
-//const mapStateToProps = (state, props) => ({
-//        const deliverableId = props.match.params.deliverableId;
- //       return Object.assign({}, deliverable, {
- //               deliverableId
- ////       });
-
-//};
-
-export default connect(mapStateToProps)(SingleDeliverable);
+export default (SingleDeliverable);

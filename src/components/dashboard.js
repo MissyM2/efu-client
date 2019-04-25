@@ -9,6 +9,9 @@ import ReviewAndPlan from './review-and-plan';
 import './css/dashboard.css';
 
 export class Dashboard extends React.Component {
+    //componentDidMount(){
+    //    this.props.dispatch()
+    //}
 
 
     render() {
@@ -28,8 +31,9 @@ export class Dashboard extends React.Component {
                         <div className="board">
                         <h3>This is the Dashboard</h3>
                             <Today />
-                            <ThisWeek />
-                            <ReviewAndPlan />
+                            {/*<ThisWeek />
+                            <ReviewAndPlan />*/}
+                            hi, there
                         </div>
                 </div>
         );

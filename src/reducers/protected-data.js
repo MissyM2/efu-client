@@ -12,9 +12,7 @@ import {
     FETCH_ADDDELIVERABLE_SUCCESS,
     FETCH_ADDDELIVERABLE_ERROR,
     FETCH_GETDELIVERABLES_SUCCESS,
-    FETCH_GETDELIVERABLES_ERROR,
-    FETCH_ADDPLANOFACTION_SUCCESS,
-    FETCH_ADDPLANOFACTION_ERROR
+    FETCH_GETDELIVERABLES_ERROR
 } from '../actions/protected-data';
 
 const initialState = {
@@ -23,7 +21,8 @@ const initialState = {
     schoolterms: [],
     grades: [],
     deliverables:[],
-    planofactions: [],
+    items:[],
+    loading: false,
     error: null
 };
 
@@ -73,15 +72,6 @@ export default function reducer(state=initialState, action) {
         return Object.assign({}, state, {
             error: action.error
         });
-    } else if (action.type === FETCH_ADDPLANOFACTION_SUCCESS) {
-        return Object.assign({}, state, {
-            planofactions: [...state.planofactions, action.planofaction],
-            error: null
-        });
-    } else if (action.type === FETCH_ADDPLANOFACTION_ERROR) {
-        return Object.assign({}, state, {
-            error: action.error
-        });
     } else if (action.type === FETCH_GETWEEKS_SUCCESS) {
         return Object.assign({}, state, {
             weeks: [...state.weeks, action.week],
@@ -92,13 +82,18 @@ export default function reducer(state=initialState, action) {
             error: action.error
         });
     } else if (action.type === FETCH_GETDELIVERABLES_SUCCESS) {
+        console.log('reducer: GETDELIVERABLES_SUCCESS action is', action);
         return Object.assign({}, state, {
-            deliverables: [...state.deliverables, action.deliverable],
+            items: action.payload.items,
+            loading: false,
             error: null
         });
     } else if (action.type === FETCH_GETDELIVERABLES_ERROR) {
+        console.log(action);
         return Object.assign({}, state, {
-            error: action.error
+            loading: false,
+            error: action.error,
+            items: []
         });
     }
     return state;

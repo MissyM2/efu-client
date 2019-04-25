@@ -4,9 +4,9 @@ import {reduxForm, Field, focus} from 'redux-form';
 import Input from './input';
 import {required, nonEmpty, isTrimmed} from '../validators';
 
-import './css/addtermcourse-form.css';
+import './css/addcourse-form.css';
 
-export class AddtermcourseForm extends React.Component {
+export class AddcourseForm extends React.Component {
     onSubmit(values) {
         console.log(values);
     };
@@ -14,7 +14,7 @@ export class AddtermcourseForm extends React.Component {
     render() {
         return (
                 <form
-                    className="termcourse-form"
+                    className="course-form"
                     onSubmit={this.props.handleSubmit(values => this.onSubmit(values)
                     )}>
                     
@@ -45,6 +45,6 @@ export class AddtermcourseForm extends React.Component {
 }
 
 export default reduxForm({
-    form: 'addtermcourse',
-    onSubmitFail: (errors, dispatch) => dispatch(focus('addtermcourse', 'course-title'))
-})(AddtermcourseForm);
+    form: 'addcourse',
+    onSubmitFail: (errors, dispatch) => dispatch(focus('addcourse', 'course-title'))
+})(AddcourseForm);

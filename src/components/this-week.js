@@ -6,14 +6,9 @@ import {connect} from 'react-redux';
 import './css/this-week.css';
 
 export class ThisWeek extends React.Component{
-        //componentDidMount() {
-         //       this.props.dispatch(fetchProtectedData());
-        //}
-        fetchGetDeliverables(deliverable) {
-                this.props.dispatch(fetchGetDeliverables(deliverable, this.props.index));
+        componentDidMount() {
+                this.props.dispatch(fetchGetDeliverables());
         }
-        
-        
 
         render() {
                 const deliverables = this.props.deliverables.map((deliverable, index) =>
@@ -23,7 +18,6 @@ export class ThisWeek extends React.Component{
                         );
                 return (
                         <div>
-                                <h2>deliverables</h2>
                                 <h2>{this.props.title}</h2>
                                 <ul className="deliverables">
                                         {deliverables}
@@ -33,8 +27,11 @@ export class ThisWeek extends React.Component{
         }
 }
 
-Deliverable.defaultProps = {
-        title: ''
-};
+const mapStateToProps = props => {
+        return {
+                deliverables: props.deliverables,
+                title: "these are the deliverables for this week"
+        }
+}
 
-export default connect()(ThisWeek);
+export default connect(mapStateToProps)(ThisWeek);

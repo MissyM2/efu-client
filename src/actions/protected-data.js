@@ -151,41 +151,13 @@ export const fetchAddDeliverableData = () => (dispatch, getState) => {
     })
         .then(res => normalizeResponseErrors(res))
         .then(res => res.json())
-        .then(({deliverable}) => dispatch(fetchAddDeliverableSuccess(deliverable)))
+        //.then(console.log(deliverable))
+        //.then(({deliverable}) => console.log(deliverable))
         .catch(err => {
             dispatch(fetchAddDeliverableError(err));
         });
 };
 
-// fetch for adding plan of actions
-export const FETCH_ADDPLANOFACTION_SUCCESS = 'FETCH_ADDPLANOFACTION_SUCCESS';
-export const fetchAddPlanofactionSuccess = (planofaction) => ({
-    type: FETCH_ADDPLANOFACTION_SUCCESS,
-    planofaction
-});
-
-export const FETCH_ADDPLANOFACTION_ERROR = 'FETCH_ADDPLANOFACTION_ERROR';
-export const fetchAddPlanofactionError = error => ({
-    type: FETCH_ADDPLANOFACTION_ERROR,
-    error
-});
-
-export const fetchAddPlanofactionData = () => (dispatch, getState) => {
-    const authToken = getState().auth.authToken;
-    return fetch(`${API_BASE_URL}/planofaction`, {
-        method: 'POST',
-        headers: {
-            // Provide our auth token as credentials
-            Authorization: `Bearer ${authToken}`
-        }
-    })
-        .then(res => normalizeResponseErrors(res))
-        .then(res => res.json())
-        .then(({deliverable}) => dispatch(fetchAddPlanofactionSuccess(deliverable)))
-        .catch(err => {
-            dispatch(fetchAddPlanofactionError(err));
-        });
-};
 
 
 
@@ -195,12 +167,15 @@ export const fetchAddPlanofactionData = () => (dispatch, getState) => {
 //
 /////////////////////////////////
 
-// fetch for getting deliverables BY WEEK NUMBER
+// fetch for getting deliverables 
 export const FETCH_GETDELIVERABLES_SUCCESS = 'FETCH_GETDELIVERABLES_SUCCESS';
-export const fetchGetDeliverablesSuccess = (deliverable) => ({
-    type: FETCH_GETDELIVERABLES_SUCCESS,
-    deliverable
-});
+export const fetchGetDeliverablesSuccess = deliverables => {
+    console.log('actions: deliverables inside getdeliverables_success ', deliverables);
+    return {
+        type: FETCH_GETDELIVERABLES_SUCCESS,
+        payload: {deliverables}
+    }
+};
 
 export const FETCH_GETDELIVERABLES_ERROR = 'FETCH_GETDELIVERABLES_ERROR';
 export const fetchGetDeliverablesError = error => ({
@@ -210,7 +185,7 @@ export const fetchGetDeliverablesError = error => ({
 
 export const fetchGetDeliverables = () => (dispatch, getState) => {
     const authToken = getState().auth.authToken;
-    return fetch(`${API_BASE_URL}/deliverable`, {
+    return fetch(`${API_BASE_URL}/deliverables`, {
         method: 'GET',
         headers: {
             // Provide our auth token as credentials
@@ -218,9 +193,13 @@ export const fetchGetDeliverables = () => (dispatch, getState) => {
         }
     })
         .then(res => normalizeResponseErrors(res))
-        .then(res => res.json())
-        .then(({deliverable}) => dispatch(fetchGetDeliverablesSuccess(deliverable)))
+        .then(res => {
+            return res.json();
+        })
+        //.then(deliverables=> console.log('deliverables after fetch, headed to fetchsuccess', deliverables))
+        .then(deliverables => dispatch(fetchGetDeliverablesSuccess(deliverables)))
         .catch(err => {
+            console.log(err);
             dispatch(fetchGetDeliverablesError(err));
         });
 };

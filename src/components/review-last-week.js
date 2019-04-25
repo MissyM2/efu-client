@@ -39,10 +39,24 @@ export class ReviewWeekAttitudeForm extends React.Component {
                             name="liked-least"
                             validate={[required, nonEmpty, isTrimmed]} 
                         />
+                        <label htmlFor="most-difficult">Most Difficult</label>
+                        <Field 
+                            component={Input} 
+                            type="text" 
+                            name="most-difficult"
+                            validate={[required, nonEmpty, isTrimmed]} 
+                        />
+                        <label htmlFor="least-difficult">Liked Least</label>
+                        <Field 
+                            component={Input} 
+                            type="text" 
+                            name="least-difficult"
+                            validate={[required, nonEmpty, isTrimmed]} 
+                        />
                         <button
                             type="submit"
                             disabled={this.props.pristine || this.props.submitting}>
-                            Add Attitude
+                            Add Attitude and Difficulty
                         </button>     
             </form>
                 <div className="nav-btns">
