@@ -28,7 +28,6 @@ export class ThisWeek extends React.Component{
 }
 
 const mapStateToProps = state => {
-        console.log(state);
         return {
                 deliverables: state.protectedData.deliverables,
                 title: "Deliverables for this week"

@@ -7,7 +7,7 @@ import {normalizeResponseErrors} from './utils';
 //
 /////////////////////////////////
 
-// fetch for adding schoolterms
+// fetch for adding terms
 export const FETCH_ADDSCHOOLTERM_SUCCESS = 'FETCH_ADDSCHOOLTERM_SUCCESS';
 export const fetchAddSchooltermSuccess = termcourse => ({
     type: FETCH_ADDSCHOOLTERM_SUCCESS,
@@ -37,7 +37,7 @@ export const fetchAddSchoolterm = () => (dispatch, getState) => {
         });
 };
 
-// fetch for adding termcourses
+// fetch for adding courses
 export const FETCH_ADDTERMCOURSE_SUCCESS = 'FETCH_ADDTERMCOURSE_SUCCESS';
 export const fetchAddTermcourseSuccess = termcourse => ({
     type: FETCH_ADDTERMCOURSE_SUCCESS,
@@ -167,10 +167,106 @@ export const fetchAddDeliverableData = () => (dispatch, getState) => {
 //
 /////////////////////////////////
 
+// fetch for getting terms
+export const FETCH_GETTERMS_SUCCESS = 'FETCH_GETTERMS_SUCCESS';
+export const fetchGetTermsSuccess = terms => {;
+    return {
+        type: FETCH_GETTERMS_SUCCESS,
+        payload: {terms}
+    }
+};
+
+export const FETCH_GETTERMS_ERROR = 'FETCH_GETTERMS_ERROR';
+export const fetchGetTermsError = error => ({
+    type: FETCH_GETTERMS_ERROR,
+    error
+});
+
+export const fetchGetTerms = () => (dispatch, getState) => {
+    const authToken = getState().auth.authToken;
+    return fetch(`${API_BASE_URL}/terms`, {
+        method: 'GET',
+        headers: {
+            // Provide our auth token as credentials
+            Authorization: `Bearer ${authToken}`
+        }
+    })
+        .then(res => normalizeResponseErrors(res))
+        .then(res => res.json())
+        .then(terms => dispatch(fetchGetTermsSuccess(terms)))
+        .catch(err => {
+            dispatch(fetchGetTermsError(err));
+        });
+};
+
+// fetch for getting all weeks
+export const FETCH_GETWEEKS_SUCCESS = 'FETCH_GETWEEKS_SUCCESS';
+export const fetchGetWeeksSuccess = weeks => {
+    return {
+        type: FETCH_GETWEEKS_SUCCESS,
+        payload: {weeks}
+    } 
+};
+
+export const FETCH_GETWEEKS_ERROR = 'FETCH_GETWEEKS_ERROR';
+export const fetchGetWeeksError = error => ({
+    type: FETCH_GETWEEKS_ERROR,
+    error
+});
+
+export const fetchGetWeeks = () => (dispatch, getState) => {
+    const authToken = getState().auth.authToken;
+    return fetch(`${API_BASE_URL}/weeks`, {
+        method: 'GET',
+        headers: {
+            Authorization: `Bearer ${authToken}`
+        }
+    })
+        .then(res => normalizeResponseErrors(res))
+        .then(res => res.json())
+        .then(weeks => dispatch(fetchGetWeeksSuccess(weeks)))
+        .catch(err => {
+            dispatch(fetchGetWeeksError(err));
+        });
+};
+
+// fetch for getting all courses
+export const FETCH_GETCOURSES_SUCCESS = 'FETCH_GETCOURSES_SUCCESS';
+export const fetchGetCoursesSuccess = courses => ({
+    type: FETCH_GETCOURSES_SUCCESS,
+    payload: {courses}
+});
+
+export const FETCH_GETCOURSES_ERROR = 'FETCH_GETCOURSES_ERROR';
+export const fetchGetCoursesError = error => ({
+    type: FETCH_GETCOURSES_ERROR,
+    error
+});
+
+export const fetchGetCourses = () => (dispatch, getState) => {
+    const authToken = getState().auth.authToken;
+    return fetch(`${API_BASE_URL}/courses`, {
+        method: 'GET',
+        headers: {
+            // Provide our auth token as credentials
+            Authorization: `Bearer ${authToken}`
+        }
+    })
+        .then(res => normalizeResponseErrors(res))
+        .then(res => res.json())
+        .then((courses) => {
+            console.log('courses haS SUCCEEDED: ', courses)
+            return dispatch(fetchGetCoursesSuccess(courses))
+        })
+        .catch(err => {
+            dispatch(fetchGetCoursesError(err));
+        });
+};
+
+
 // fetch for getting deliverables 
 export const FETCH_GETDELIVERABLES_SUCCESS = 'FETCH_GETDELIVERABLES_SUCCESS';
 export const fetchGetDeliverablesSuccess = deliverables => {
-    console.log('actions: deliverables inside getdeliverables_success ', deliverables);
     return {
         type: FETCH_GETDELIVERABLES_SUCCESS,
         payload: {deliverables}
@@ -196,7 +292,6 @@ export const fetchGetDeliverables = () => (dispatch, getState) => {
         .then(res => {
             return res.json();
         })
-        //.then(deliverables=> console.log('deliverables after fetch, headed to fetchsuccess', deliverables))
         .then(deliverables => dispatch(fetchGetDeliverablesSuccess(deliverables)))
         .catch(err => {
             console.log(err);
@@ -204,69 +299,6 @@ export const fetchGetDeliverables = () => (dispatch, getState) => {
         });
 };
 
-// fetch for getting deliverables for TODAY
-export const FETCH_GETDELIVERABLESTODAY_SUCCESS = 'FETCH_GETDELIVERABLESTODAY_SUCCESS';
-export const fetchGetDeliverablesTodaySuccess = deliverables => {
-    console.log('actions: deliverables inside getdeliverables_success ', deliverables);
-    return {
-        type: FETCH_GETDELIVERABLESTODAY_SUCCESS,
-        payload: {deliverables}
-    }
-};
 
-export const FETCH_GETDELIVERABLESTODAY_ERROR = 'FETCH_GETDELIVERABLESTODAY_ERROR';
-export const fetchGetDeliverablesTodayError = error => ({
-    type: FETCH_GETDELIVERABLESTODAY_ERROR,
-    error
-});
 
-export const fetchGetDeliverablesToday = () => (dispatch, getState) => {
-    const authToken = getState().auth.authToken;
-    return fetch(`${API_BASE_URL}/deliverables`, {
-        method: 'GET',
-        headers: {
-            // Provide our auth token as credentials
-            Authorization: `Bearer ${authToken}`
-        }
-    })
-        .then(res => normalizeResponseErrors(res))
-        .then(res => {
-            return res.json();
-        })
-        //.then(deliverables=> console.log('deliverables after fetch, headed to fetchsuccess', deliverables))
-        .then(deliverables => dispatch(fetchGetDeliverablesTodaySuccess(deliverables)))
-        .catch(err => {
-            console.log(err);
-            dispatch(fetchGetDeliverablesTodayError(err));
-        });
-};
 
-// fetch for getting all weeks
-export const FETCH_GETWEEKS_SUCCESS = 'FETCH_GETWEEKS_SUCCESS';
-export const fetchGetWeeksSuccess = week => ({
-    type: FETCH_GETWEEKS_SUCCESS,
-    week
-});
-
-export const FETCH_GETWEEKS_ERROR = 'FETCH_GETWEEKS_ERROR';
-export const fetchGetWeeksError = error => ({
-    type: FETCH_GETWEEKS_ERROR,
-    error
-});
-
-export const fetchGetWeeks = () => (dispatch, getState) => {
-    const authToken = getState().auth.authToken;
-    return fetch(`${API_BASE_URL}/week`, {
-        method: 'GET',
-        headers: {
-            // Provide our auth token as credentials
-            Authorization: `Bearer ${authToken}`
-        }
-    })
-        .then(res => normalizeResponseErrors(res))
-        .then(res => res.json())
-        .then(({week}) => dispatch(fetchGetWeeksSuccess(week)))
-        .catch(err => {
-            dispatch(fetchGetWeeksError(err));
-        });
-};

@@ -1,12 +1,12 @@
 import React from 'react';
 import './css/index.css';
 import MainNav from './main-nav';
-import SchoolTerm from './school-term';
-import TermCourse from './term-course';
-import Week from './week';
+import Terms from './terms';
+import Courses from './courses';
+import Weeks from './weeks';
 
 import './css/profile.css';
-import { connect } from 'tls';
+import { connect } from 'react-redux';
 
 export class Profile extends React.Component {
     render() {
@@ -18,10 +18,10 @@ export class Profile extends React.Component {
                       <h1>Executive Followup</h1>
                       <h3>Take charge of your academic life.</h3>
                   </header>
-                  <div class="wrapper">
-                      <SchoolTerm />
-                      <TermCourse />
-                      <Week />
+                  <div className="wrapper">
+                      <Terms />
+                      <Courses />
+                      <Weeks />
                 </div>
               </main>
             </div>

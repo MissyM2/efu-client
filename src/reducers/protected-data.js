@@ -1,26 +1,28 @@
 import {
-    FETCH_ADDTERMCOURSE_SUCCESS,
-    FETCH_ADDTERMCOURSE_ERROR,
-    FETCH_ADDWEEK_SUCCESS,
-    FETCH_ADDWEEK_ERROR,
-    FETCH_GETWEEKS_SUCCESS,
-    FETCH_GETWEEKS_ERROR,
     FETCH_ADDSCHOOLTERM_SUCCESS,
     FETCH_ADDSCHOOLTERM_ERROR,
-    FETCH_ADDGRADE_SUCCESS,
-    FETCH_ADDGRADE_ERROR,
+    FETCH_ADDWEEK_SUCCESS,
+    FETCH_ADDWEEK_ERROR,
+    FETCH_ADDTERMCOURSE_SUCCESS,
+    FETCH_ADDTERMCOURSE_ERROR,
     FETCH_ADDDELIVERABLE_SUCCESS,
     FETCH_ADDDELIVERABLE_ERROR,
+    FETCH_ADDGRADE_SUCCESS,
+    FETCH_ADDGRADE_ERROR,
+    FETCH_GETTERMS_SUCCESS,
+    FETCH_GETTERMS_ERROR,
+    FETCH_GETWEEKS_SUCCESS,
+    FETCH_GETWEEKS_ERROR,
+    FETCH_GETCOURSES_SUCCESS,
+    FETCH_GETCOURSES_ERROR,
     FETCH_GETDELIVERABLES_SUCCESS,
     FETCH_GETDELIVERABLES_ERROR,
-    FETCH_GETDELIVERABLESTODAY_SUCCESS,
-    FETCH_GETDELIVERABLESTODAY_ERROR
 } from '../actions/protected-data';
 
 const initialState = {
-    termcourses:[],
+    terms: [],
     weeks: [],
-    schoolterms: [],
+    courses:[],
     grades: [],
     deliverables:[],
     items:[],
@@ -74,38 +76,52 @@ export default function reducer(state=initialState, action) {
         return Object.assign({}, state, {
             error: action.error
         });
-    } else if (action.type === FETCH_GETWEEKS_SUCCESS) {
+    } else if (action.type === FETCH_GETTERMS_SUCCESS) {
         return Object.assign({}, state, {
-            weeks: [...state.weeks, action.week],
-            error: null
-        });
-    } else if (action.type === FETCH_GETWEEKS_ERROR) {
-        return Object.assign({}, state, {
-            error: action.error
-        });
-    } else if (action.type === FETCH_GETDELIVERABLES_SUCCESS) {
-        console.log('reducer: GETDELIVERABLES_SUCCESS action.payload.deliverables is', action.payload.deliverables);
-        return Object.assign({}, state, {
-            deliverables: action.payload.deliverables,
+            terms: action.payload.terms,
             loading: false,
             error: null
         });
-    } else if (action.type === FETCH_GETDELIVERABLES_ERROR) {
+    } else if (action.type === FETCH_GETTERMS_ERROR) {
         console.log(action);
         return Object.assign({}, state, {
             loading: false,
             error: action.error,
             items: []
         });
-    } else if (action.type === FETCH_GETDELIVERABLESTODAY_SUCCESS) {
-        console.log('reducer: GETDELIVERABLESTODAY_SUCCESS action.payload.deliverables is', action.payload.deliverables);
+    } else if (action.type === FETCH_GETCOURSES_SUCCESS) {
+        console.log('reducer: GETCOURSES_SUCCESS action.payload.courses is', action.payload.courses);
+        return Object.assign({}, state, {
+            courses: action.payload.courses,
+            loading: false,
+            error: null
+        });
+    } else if (action.type === FETCH_GETCOURSES_ERROR) {
+        console.log(action)
+        return Object.assign({}, state, {
+            loading: false,
+            error: action.error,
+            items:[]
+        });
+    } else if (action.type === FETCH_GETWEEKS_SUCCESS) {
+        return Object.assign({}, state, {
+            weeks: action.payload.weeks,
+            loading: false,
+            error: null
+        });
+    } else if (action.type === FETCH_GETWEEKS_ERROR) {
+        return Object.assign({}, state, {
+            loading: false,
+            error: action.error,
+            items: []
+        });
+    } else if (action.type === FETCH_GETDELIVERABLES_SUCCESS) {
         return Object.assign({}, state, {
             deliverables: action.payload.deliverables,
             loading: false,
             error: null
         });
-    } else if (action.type === FETCH_GETDELIVERABLESTODAY_ERROR) {
-        console.log(action);
+    } else if (action.type === FETCH_GETDELIVERABLES_ERROR) {
         return Object.assign({}, state, {
             loading: false,
             error: action.error,

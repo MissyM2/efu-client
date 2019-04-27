@@ -12,8 +12,10 @@ import MainNav from './main-nav';
 import LandingPage from './landing-page';
 import Dashboard from './dashboard';
 import RegistrationPage from './registration-page';
-/*import Profile from './profile';
-import Weeks from './weeks';*/
+import Profile from './profile';
+import Terms from './terms';
+import Weeks from './weeks';
+import Courses from './courses';
 
 import {refreshAuthToken} from '../actions/auth';
 
@@ -59,9 +61,11 @@ export class App extends React.Component {
                                 <Route exact path="/" component={LandingPage} />
                                 <Route exact path="/dashboard" component={Dashboard} />
                                 <Route exact path="/register" component={RegistrationPage} />
-                                {/*.<Route exact path="/profile" component={Profile} />
+                                <Route exact path="/profile" component={Profile} />
                                 <Route exact path="/weeks" component={Weeks} />
-                                <Route exact path="/grades" component={Grades} />
+                                <Route exact path="/terms" component={Terms} />
+                                <Route exact path="/courses" component={Courses} />
+                                {/*<Route exact path="/grades" component={Grades} />
                                 <Route exact path="/deliverables" component={Deliverables} />*/}
                             </main>
                         </div>
