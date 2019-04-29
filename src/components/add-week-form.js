@@ -1,61 +1,97 @@
 import React from 'react';
-import {reduxForm, Field, focus} from 'redux-form';
 
-import Input from './input';
 import {required, nonEmpty, isTrimmed} from '../validators';
 
-import './css/addweek-form.css';
+import './css/add-form.css';
 
-export class AddweekForm extends React.Component {
-    onSubmit(values) {
-        console.log(values);
+export class AddWeekForm extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            editing: false
+        }
+        this.onSubmit = this.onSubmit.bind(this);
+    }
+
+    onSubmit(event) {
+        event.preventDefault();
+
+        const newWeek = {
+            termDesc: this.termDescInput.value.trim(),
+            weekNum:this.weekNumInput.value,
+            startDate:this.startDateInput.value,
+            endDate: this.endDateInput.value
+        }
+        console.log(newWeek);
+        if (newWeek && this.props.onAdd) {
+            this.props.onAdd(newWeek);
+        }
+        this.termDescInput.value = '';
+        this.weekNumInput.value='';
+        this.startDateInput.value='';
+        this.endDateInput.value='';
     };
 
+    setEditing(editing) {
+        this.setState({
+            editing
+        });
+    }
+
+
     render() {
+        if (!this.state.editing) {
+            return (
+                <div className="add-button"
+                    onClick={() => this.setEditing(true)}>
+                    <a href='#'> Add a {this.props.type}...</a>
+                </div> 
+            )
+        }
         return (
             <form 
-                className="week-form"
-                onSubmit={this.props.handleSubmit(values => this.onSubmit(values)
-                    )}>
-                    <label htmlFor="week-num">Week Number</label>
-                    <Field 
-                        component={Input} 
-                        type="text" 
-                        placeholder="1" 
-                        name="week-num"
+                className="week week-form"
+                onSubmit={e => this.onSubmit(e)} >
+                    <label htmlFor="term">Term</label>
+                    <input type="text" 
+                        ref={input => this.termDescInput = input}
+                        placeholder="Spring, 2019" 
+                        name="term"
                         validate={[required, nonEmpty, isTrimmed]} 
+                    />
+                    <label htmlFor="week-num">Week Number</label>
+                    <input type="number" 
+                        ref={input => this.weekNumInput = input}
+                        name="week-num"
+                        validate={[required, nonEmpty]} 
                     />
                     <label htmlFor="week-startdate">Week Start Date</label>
-                    <Field 
-                        component={Input} 
-                        type="text" 
-                        placeholder="01/01/2019" 
-                        name="week-startdate"
-                        validate={[required, nonEmpty, isTrimmed]} 
+                    <input type="date" 
+                        ref={input => this.startDateInput = input}
+                        placeholder="01/01/2000" 
+                        name="start-date"
+                        validate={[required, nonEmpty]} 
                     />
                     <label htmlFor="week-enddate">Week End Date</label>
-                    <Field 
-                        component={Input} 
-                        type="text" 
-                        placeholder="01/08/2019" 
-                        name="week-enddate"
-                        validate={[required, nonEmpty, isTrimmed]} 
+                    <input type="date" 
+                        ref={input => this.endDateInput = input}
+                        placeholder="01/08/2000" 
+                        name="end-date"
+                        validate={[required, nonEmpty]} 
                     />
-                    <button
-                        type="submit"
+                    <button 
+                        type="submit" 
                         disabled={this.props.pristine || this.props.submitting}>
                         Add Week
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => this.setEditing(false)}>
+                        Cancel
                     </button>     
             </form>
            
         );
     } 
 }
-
-export default reduxForm({
-    form: 'addweekform',
-    onSubmitFail: (errors, dispatch) =>
-        dispatch(focus('addweekform', Object.keys(errors)[0]))
-})(AddweekForm);
-
-                
+ 

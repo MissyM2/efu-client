@@ -1,3 +1,58 @@
+
+.data-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border: 1px solid purple;
+    
+}
+.single-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    list-style: none;
+}
+
+.items-list {
+    list-style-type: none;
+    margin:0;
+    padding: 0;
+}
+
+.item-details {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.item-data {
+    padding: 3px 10px;
+    border: 1px solid yellow;
+
+}
+
+.week-wrapper {
+    margin-bottom: 120px;
+   
+}
+
+
+
+
+.data-list {
+    display:flex;
+    flex-direction: row;
+    list-style: none;
+    margin: 0 auto;
+}
+
+.weeks-list {
+    display:flex;
+    flex-direction: column;
+    list-style: none;
+}
+
+
 .section-one,
 .sub-section-one {
     display:flex;
@@ -76,6 +131,3 @@
 
     
 }
-
-
-

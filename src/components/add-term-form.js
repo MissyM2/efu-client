@@ -1,35 +1,49 @@
 import React from 'react';
-import {reduxForm, Field, focus} from 'redux-form';
 
-import Input from './input';
-import {required, nonEmpty, isTrimmed} from '../validators';
+import './css/add-form.css';
 
-import './css/term-form.css';
+export class AddTermForm extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            editing: false
+        }
+        this.onSubmit = this.onSubmit.bind(this);
+    }
 
-export class AddtermForm extends React.Component {
-    onSubmit(value) {
-        console.log(value);
-    };
+    onSubmit(event) {
+        event.preventDefault();
+        const term = this.textInput.value.trim();
+        if (term && this.props.onAdd) {
+            this.props.onAdd(term);
+        }
+        this.textInput.value = '';
+    }
 
+    setEditing(editing) {
+        this.setState({
+            editing
+        });
+    }
+
+
+    
     render() {
+       if (!this.state.editing) {
+           return (
+               <div className="add-button"
+                onClick={() => this.setEditing(true)}>
+                    <a href='#'>Add a {this.props.type}...</a>
+               </div>
+           );
+       }
+
         return (
-            <form
-                className="term-form"
-                onSubmit={this.props.handleSubmit(value =>
-                    this.onSubmit(value)
-                    )}>
-                    <label htmlFor="term-name">Term Name</label>
-                    <Field 
-                        component={Input} 
-                        type="text" 
-                        placeholder="Spring, 2019" 
-                        name="term-name"
-                        validate={[required, nonEmpty, isTrimmed]} 
-                    />
-                    <button
-                        type="submit"
-                        disabled={this.props.pristine || this.props.submitting}>
-                        Add Term
+            <form className="term add-form" onSubmit={e => this.onSubmit(e)}>
+                    <input type="text" ref={input => this.textInput = input} />
+                    <button type="submit">Add Term</button>
+                    <button type="button" onClick={() => this.setEditing(false)}>
+                       Cancel
                     </button>
             </form>
         );
@@ -37,11 +51,3 @@ export class AddtermForm extends React.Component {
     }
     
 }
-
-export default reduxForm({
-    form: 'addterm',
-    onSubmitFail: (errors, dispatch) =>
-        dispatch(focus('addterm', Object.keys(errors)[0]))
-})(AddtermForm);
-
-                

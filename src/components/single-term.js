@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './css/single-term.css';
+import './css/view-terms.css';
 
 export function SingleTerm(props) {
         return (

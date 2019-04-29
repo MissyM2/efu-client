@@ -1,19 +1,19 @@
 import React from 'react';
-
 import { connect } from 'react-redux';
 
 import {SingleCourse} from './single-course';
+import {AddCourseForm} from './add-course-form';
+import {fetchGetCourses, fetchAddCourse} from '../actions/protected-data';
 
-import {fetchGetCourses} from '../actions/protected-data';
-
-//import AddcourseForm from './addcourse-form';
-//import {fetchAddcourse} from '../actions/protected-data';
-
-import './css/view-courses.css';
+import './css/view-profile.css';
 
 export class Courses extends React.Component {
     componentDidMount() {
         this.props.dispatch(fetchGetCourses());
+    }
+
+    fetchAddCourse(newCourse) {
+        this.props.dispatch(fetchAddCourse(newCourse));
     }
 
     render() {
@@ -24,17 +24,17 @@ export class Courses extends React.Component {
         );
 
         return (
-            <div className="courses-wrapper">
+            <div className="data-wrapper">
                     <h2>{this.props.title}</h2>
-                    <ul className="courses-list">
+                    <ul className="data-list">
                         {courses}
-                        {/*<li className="add-course-wrapper">
-                            <AddcourseForm
-                                type="course"
-                                onAdd={(course) => 
-                                    this.fetchAddcourse(course)}  />
-                                </li>*/}
                     </ul>
+                    <div className="add-course-wrapper">
+                        <AddCourseForm
+                            type="newCourse"
+                            onAdd={newCourse => 
+                                this.fetchAddCourse(newCourse)}  />
+                    </div>
             </div>  
         );
 
@@ -42,7 +42,7 @@ export class Courses extends React.Component {
 }
 
 const mapStateToProps = state => {
-    console.log(state);
+    //console.log(state);
     return {
         courses: state.protectedData.courses,
         title: "Your courses"

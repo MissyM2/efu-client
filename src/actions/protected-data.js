@@ -8,62 +8,67 @@ import {normalizeResponseErrors} from './utils';
 /////////////////////////////////
 
 // fetch for adding terms
-export const FETCH_ADDSCHOOLTERM_SUCCESS = 'FETCH_ADDSCHOOLTERM_SUCCESS';
-export const fetchAddSchooltermSuccess = termcourse => ({
-    type: FETCH_ADDSCHOOLTERM_SUCCESS,
-    termcourse
+export const FETCH_ADDTERM_SUCCESS = 'FETCH_ADDTERM_SUCCESS';
+export const fetchAddTermSuccess = term => ({
+    type: FETCH_ADDTERM_SUCCESS,
+    term
 });
 
-export const FETCH_ADDSCHOOLTERM_ERROR = 'FETCH_ADDSCHOOLTERM_ERROR';
-export const fetchAddSchooltermError = error => ({
-    type: FETCH_ADDSCHOOLTERM_ERROR,
+export const FETCH_ADDTERM_ERROR = 'FETCH_ADDTERM_ERROR';
+export const fetchAddTermError = error => ({
+    type: FETCH_ADDTERM_ERROR,
     error
 });
 
-export const fetchAddSchoolterm = () => (dispatch, getState) => {
+export const fetchAddTerm = value => (dispatch, getState) => {
     const authToken = getState().auth.authToken;
-    return fetch(`${API_BASE_URL}/schoolterm`, {
+    return fetch(`${API_BASE_URL}/terms`, {
         method: 'POST',
         headers: {
             // Provide our auth token as credentials
-            Authorization: `Bearer ${authToken}`
-        }
+            Authorization: `Bearer ${authToken}`,
+            "Content-Type": 'application/json'
+        },
+        body: JSON.stringify({termDesc:value})
     })
         .then(res => normalizeResponseErrors(res))
         .then(res => res.json())
-        .then(({schoolterm}) => dispatch(fetchAddSchooltermSuccess(schoolterm)))
+        .then(term => dispatch(fetchAddTermSuccess(term)))
         .catch(err => {
-            dispatch(fetchAddSchooltermError(err));
+            dispatch(fetchAddTermError(err));
         });
 };
 
 // fetch for adding courses
-export const FETCH_ADDTERMCOURSE_SUCCESS = 'FETCH_ADDTERMCOURSE_SUCCESS';
-export const fetchAddTermcourseSuccess = termcourse => ({
-    type: FETCH_ADDTERMCOURSE_SUCCESS,
-    termcourse
+export const FETCH_ADDCOURSE_SUCCESS = 'FETCH_ADDCOURSE_SUCCESS';
+export const fetchAddCourseSuccess = course => ({
+    type: FETCH_ADDCOURSE_SUCCESS,
+    course
 });
 
-export const FETCH_ADDTERMCOURSE_ERROR = 'FETCH_ADDTERMCOURSE_ERROR';
-export const fetchAddTermcourseError = error => ({
-    type: FETCH_ADDTERMCOURSE_ERROR,
+export const FETCH_ADDCOURSE_ERROR = 'FETCH_ADDCOURSE_ERROR';
+export const fetchAddCourseError = error => ({
+    type: FETCH_ADDCOURSE_ERROR,
     error
 });
 
-export const fetchAddTermcourse = () => (dispatch, getState) => {
+export const fetchAddCourse = newCourse => (dispatch, getState) => {
     const authToken = getState().auth.authToken;
-    return fetch(`${API_BASE_URL}/termcourse`, {
+    console.log('inside fetch', newCourse);
+    return fetch(`${API_BASE_URL}/courses`, {
         method: 'POST',
         headers: {
             // Provide our auth token as credentials
-            Authorization: `Bearer ${authToken}`
-        }
+            Authorization: `Bearer ${authToken}`,
+            "Content-Type": 'application/json'
+        },
+        body: JSON.stringify(newCourse)
     })
         .then(res => normalizeResponseErrors(res))
         .then(res => res.json())
-        .then(({termcourse}) => dispatch(fetchAddTermcourseSuccess(termcourse)))
+        .then(newCourse => dispatch(fetchAddCourseSuccess(newCourse)))
         .catch(err => {
-            dispatch(fetchAddTermcourseError(err));
+            dispatch(fetchAddCourseError(err));
         });
 };
 
@@ -80,18 +85,21 @@ export const fetchAddWeekError = error => ({
     error
 });
 
-export const fetchAddWeekData = () => (dispatch, getState) => {
+export const fetchAddWeek = newWeek => (dispatch, getState) => {
+    console.log('inside fetch', newWeek);
     const authToken = getState().auth.authToken;
-    return fetch(`${API_BASE_URL}/week`, {
+    return fetch(`${API_BASE_URL}/weeks`, {
         method: 'POST',
         headers: {
             // Provide our auth token as credentials
-            Authorization: `Bearer ${authToken}`
-        }
+            Authorization: `Bearer ${authToken}`,
+            "Content-Type": 'application/json'
+        },
+        body: JSON.stringify(newWeek)
     })
         .then(res => normalizeResponseErrors(res))
         .then(res => res.json())
-        .then(({week}) => dispatch(fetchAddWeekSuccess(week)))
+        .then((newWeek) => dispatch(fetchAddWeekSuccess(newWeek)))
         .catch(err => {
             dispatch(fetchAddWeekError(err));
         });
@@ -216,6 +224,7 @@ export const fetchGetWeeksError = error => ({
 
 export const fetchGetWeeks = () => (dispatch, getState) => {
     const authToken = getState().auth.authToken;
+    console.log('got to fetchGetWeeks');
     return fetch(`${API_BASE_URL}/weeks`, {
         method: 'GET',
         headers: {
@@ -224,9 +233,43 @@ export const fetchGetWeeks = () => (dispatch, getState) => {
     })
         .then(res => normalizeResponseErrors(res))
         .then(res => res.json())
-        .then(weeks => dispatch(fetchGetWeeksSuccess(weeks)))
+        .then(weeks => {
+            console.log('weeks are ', weeks);
+            dispatch(fetchGetWeeksSuccess(weeks))
+        })
         .catch(err => {
             dispatch(fetchGetWeeksError(err));
+        });
+};
+
+// fetch for getting week by current week num
+export const FETCH_GETWEEKBYCURRENTWEEKNUM_SUCCESS = 'FETCH_GETWEEKBYCURRENTWEEKNUM_SUCCESS';
+export const fetchGetWeekByCurrentWeekNumSuccess = week => {
+    return {
+        type: FETCH_GETWEEKBYCURRENTWEEKNUM_SUCCESS,
+        payload: {week}
+    } 
+};
+
+export const FETCH_GETWEEKBYCURRENTWEEKNUM_ERROR = 'FETCH_GETWEEKBYCURRENTWEEKNUM_ERROR';
+export const fetchGetWeekByCurrentWeekNumError = error => ({
+    type: FETCH_GETWEEKBYCURRENTWEEKNUM_ERROR,
+    error
+});
+
+export const fetchGetWeekByCurrentWeekNum = () => (dispatch, getState) => {
+    const authToken = getState().auth.authToken;
+    return fetch(`${API_BASE_URL}/weeks`, {
+        method: 'GET',
+        headers: {
+            Authorization: `Bearer ${authToken}`
+        }
+    })
+        .then(res => normalizeResponseErrors(res))
+        .then(res => res.json())
+        .then(week => dispatch(fetchGetWeekByCurrentWeekNumSuccess(week)))
+        .catch(err => {
+            dispatch(fetchGetWeekByCurrentWeekNumError(err));
         });
 };
 
@@ -255,7 +298,6 @@ export const fetchGetCourses = () => (dispatch, getState) => {
         .then(res => normalizeResponseErrors(res))
         .then(res => res.json())
         .then((courses) => {
-            console.log('courses haS SUCCEEDED: ', courses)
             return dispatch(fetchGetCoursesSuccess(courses))
         })
         .catch(err => {
@@ -296,6 +338,79 @@ export const fetchGetDeliverables = () => (dispatch, getState) => {
         .catch(err => {
             console.log(err);
             dispatch(fetchGetDeliverablesError(err));
+        });
+};
+
+// fetch for getting suggestions
+export const FETCH_GETSUGGESTIONS_SUCCESS = 'FETCH_GETSUGGESTIONS_SUCCESS';
+export const fetchGetSuggestionsSuccess = suggestions => {;
+    return {
+        type: FETCH_GETSUGGESTIONS_SUCCESS,
+        payload: {suggestions}
+    }
+};
+
+export const FETCH_GETSUGGESTIONS_ERROR = 'FETCH_GETSUGGESTIONS_ERROR';
+export const fetchGetSuggestionsError = error => ({
+    type: FETCH_GETSUGGESTIONS_ERROR,
+    error
+});
+
+export const fetchGetSuggestions = () => (dispatch, getState) => {
+    const authToken = getState().auth.authToken;
+    return fetch(`${API_BASE_URL}/suggestions`, {
+        method: 'GET',
+        headers: {
+            // Provide our auth token as credentials
+            Authorization: `Bearer ${authToken}`
+        }
+    })
+        .then(res => normalizeResponseErrors(res))
+        .then(res => res.json())
+        .then(suggestions => {
+            //console.log('suggestions haS SUCCEEDED: ', suggestions)
+            dispatch(fetchGetSuggestionsSuccess(suggestions))
+        })
+        .catch(err => {
+            dispatch(fetchGetTermsError(err));
+        });
+};
+
+/////////////////////////////////
+//
+//  FETCHES FOR UPDATING (PUT)  
+//
+/////////////////////////////////
+
+// fetch for updating week data
+export const FETCH_UPDATEWEEK_SUCCESS = 'FETCH_UPDATEWEEK_SUCCESS';
+export const fetchUpdateWeekSuccess = weekNum => ({
+    type: FETCH_UPDATEWEEK_SUCCESS,
+    weekNum
+});
+
+export const FETCH_UPDATEWEEK_ERROR = 'FETCH_UPDATEWEEK_ERROR';
+export const fetchUpdateWeekError = error => ({
+    type: FETCH_UPDATEWEEK_ERROR,
+    error
+});
+
+export const fetchUpdateWeek = value => (dispatch, getState) => {
+    const authToken = getState().auth.authToken;
+    return fetch(`${API_BASE_URL}/weeks`, {
+        method: 'PUT',
+        headers: {
+            // Provide our auth token as credentials
+            Authorization: `Bearer ${authToken}`,
+            "Content-Type": 'application/json'
+        },
+        body: JSON.stringify({weekNum:value})
+    })
+        .then(res => normalizeResponseErrors(res))
+        .then(res => res.json())
+        .then(weekNum => dispatch(fetchUpdateWeekSuccess(weekNum)))
+        .catch(err => {
+            dispatch(fetchUpdateWeekError(err));
         });
 };
 

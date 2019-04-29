@@ -1,12 +1,12 @@
 import React from 'react';
 
-import './css/single-deliverable.css';
+import './css/view-deliverables.css';
 
 export function SingleDeliverable(props) {
     return (
-            <div className="single-deliverable">
+            <div className="single-item">
                 <div className="item-data courseName">{props.course.courseName}</div>
-                <div className="deliverable-details">
+                <div className="item-details">
                         <div className="item-data dueDate">{props.dueDate}</div>
                         <div className="item-data pressure">{props.pressure}</div>
                         <div className="item-data prephrs">{props.prephrs}</div>

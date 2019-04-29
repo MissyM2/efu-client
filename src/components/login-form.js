@@ -8,7 +8,8 @@ import './css/login-form.css';
 
 export class LoginForm extends React.Component {
     onSubmit(values) {
-        return this.props.dispatch(login(values.username, values.password));
+        //return this.props.dispatch(login(values.username, values.password));
+        return this.props.dispatch(login("sarah@gmail.com", "sarah9515"));
     }
 
     render() {
@@ -33,7 +34,8 @@ export class LoginForm extends React.Component {
                     type="text"
                     name="username"
                     id="username"
-                    validate={[required, nonEmpty]}
+                    defaultValue="sarah@gmail.com"
+                    /*validate={[required, nonEmpty]}*/
                 />
                 <label htmlFor="password">Password</label>
                 <Field
@@ -41,9 +43,11 @@ export class LoginForm extends React.Component {
                     type="password"
                     name="password"
                     id="password"
-                    validate={[required, nonEmpty]}
+                    defaultValue="sarah9515"
+                    /*validate={[required, nonEmpty]}*/
                 />
-                <button disabled={this.props.pristine || this.props.submitting}>
+                {/*<button disabled={this.props.pristine || this.props.submitting}>*/}
+                <button>
                     Log in
                 </button>
             </form>

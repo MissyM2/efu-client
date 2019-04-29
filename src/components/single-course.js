@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './css/single-course.css';
+import './css/view-courses.css';
 
 export function SingleCourse(props) {
     return (

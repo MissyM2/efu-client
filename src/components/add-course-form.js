@@ -1,50 +1,75 @@
 import React from 'react';
-import {reduxForm, Field, focus} from 'redux-form';
 
-import Input from './input';
 import {required, nonEmpty, isTrimmed} from '../validators';
 
-import './css/addcourse-form.css';
 
-export class AddcourseForm extends React.Component {
-    onSubmit(values) {
-        console.log(values);
+import './css/add-form.css';
+
+export class AddCourseForm extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            editing: false
+        }
+        this.onSubmit = this.onSubmit.bind(this);
+    }
+
+    onSubmit(event) {
+        event.preventDefault();
+
+        const newCourse = {
+            termDesc: this.termDescInput.value.trim(),
+            courseName: this.courseNameInput.value.trim()
+        }
+        console.log(newCourse)
+        if (newCourse && this.props.onAdd) {
+            this.props.onAdd(newCourse);
+        }
+        this.termDescInput.value = '';
+        this.courseNameInput.value = '';
     };
+
+    setEditing(editing) {
+        this.setState({
+            editing
+        });
+    }
     
     render() {
+        if (!this.state.editing) {
+            return (
+                <div className="add-button"
+                    onClick={() => this.setEditing(true)}>
+                    <a href='#'> Add a {this.props.type}...</a>
+                </div>
+            )
+        }
+
         return (
                 <form
-                    className="course-form"
-                    onSubmit={this.props.handleSubmit(values => this.onSubmit(values)
-                    )}>
+                    className="term add-form"
+                    onSubmit={e => this.onSubmit(e)}>
                     
-                    <label htmlFor="course-title">Course Title</label>
-                    <Field 
-                        component={Input} 
-                        type="text" 
+                    <label htmlFor="term-desc">Term Desc</label>
+                    <input type="text" 
+                        ref={input => this.termDescInput = input}
+                        placeholder="Spring, 2019" 
+                        name="term-desc"
+                        validate={[required, nonEmpty, isTrimmed]} 
+                    />
+                    <label htmlFor="course-name">Course Name</label>
+                    <input type="text" 
+                        ref={input => this.courseNameInput = input}
                         placeholder="Biology 101" 
-                        name="course-title"
+                        name="course-name"
                         validate={[required, nonEmpty, isTrimmed]} 
                     />
-                    <label htmlFor="course-desc">course Description</label>
-                    <Field 
-                        component={Input} 
-                        type="text" 
-                        name="course-desc"
-                        validate={[required, nonEmpty, isTrimmed]} 
-                    />
-                    <button
-                        type="submit"
-                        disabled={this.props.pristine || this.props.submitting}>
-                        Add course
+                    <button type="submit">Add Course</button>
+                    <button type="button" onClick={() => this.setEditing(false)}>
+                       Cancel
                     </button>
                 </form>
         );
 
     }
 }
-
-export default reduxForm({
-    form: 'addcourse',
-    onSubmitFail: (errors, dispatch) => dispatch(focus('addcourse', 'course-title'))
-})(AddcourseForm);

@@ -16,6 +16,8 @@ import Profile from './profile';
 import Terms from './terms';
 import Weeks from './weeks';
 import Courses from './courses';
+import Suggestions from './suggestions';
+import ReviewAndPlan from './review-and-plan';
 
 import {refreshAuthToken} from '../actions/auth';
 
@@ -65,8 +67,9 @@ export class App extends React.Component {
                                 <Route exact path="/weeks" component={Weeks} />
                                 <Route exact path="/terms" component={Terms} />
                                 <Route exact path="/courses" component={Courses} />
-                                {/*<Route exact path="/grades" component={Grades} />
-                                <Route exact path="/deliverables" component={Deliverables} />*/}
+                                <Route exact path="/suggestions" component={Suggestions} />
+                                <Route exact path="/reviewandplan" component={ReviewAndPlan} />
+                                
                             </main>
                         </div>
                 </Router>  
@@ -80,4 +83,7 @@ const mapStateToProps = state => ({
 });
 
 export default withRouter(connect(mapStateToProps)(App));
+
+//<Route exact path="/grades" component={Grades} />
+ //                               <Route exact path="/deliverables" component={Deliverables} />*/</Router>
 
