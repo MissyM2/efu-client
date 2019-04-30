@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 import './css/add-form.css';
 
@@ -33,7 +34,7 @@ export class AddTermForm extends React.Component {
            return (
                <div className="add-button"
                 onClick={() => this.setEditing(true)}>
-                    <a href='#'>Add a {this.props.type}...</a>
+                    <Link to= '#'>Add a {this.props.type}...</Link>
                </div>
            );
        }

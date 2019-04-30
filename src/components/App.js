@@ -17,7 +17,8 @@ import Terms from './terms';
 import Weeks from './weeks';
 import Courses from './courses';
 import Suggestions from './suggestions';
-import ReviewAndPlan from './review-and-plan';
+//import ReviewLastWeek from './review-last-week';
+//import PlanNextWeek from './plan-next-week';
 
 import {refreshAuthToken} from '../actions/auth';
 
@@ -68,7 +69,8 @@ export class App extends React.Component {
                                 <Route exact path="/terms" component={Terms} />
                                 <Route exact path="/courses" component={Courses} />
                                 <Route exact path="/suggestions" component={Suggestions} />
-                                <Route exact path="/reviewandplan" component={ReviewAndPlan} />
+                                {/*<Route exact path="/reviewlastweek" component={ReviewLastWeek} />
+                                <Route exact path="/plannextweek" component={PlanNextWeek} />*/}
                                 
                             </main>
                         </div>

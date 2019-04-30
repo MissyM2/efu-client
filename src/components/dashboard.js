@@ -1,11 +1,12 @@
 import React from 'react';
+//import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import requiresLogin from './requires-login';
 
 import TodayDeliverables from './today-deliverables';
 import ThisWeekDeliverables from './this-week-deliverables';
 import Suggestions from './suggestions';
-import ReviewLastWeek from './review-last-week';
+//import ReviewLastWeek from './review-last-week';
 
 import './css/dashboard.css';
 
@@ -26,12 +27,15 @@ export class Dashboard extends React.Component {
                         <Suggestions />
                     </div>
                         <div className="board">
-                            <TodayDeliverables />
+                           <TodayDeliverables />
                             <ThisWeekDeliverables />
-                            <div className="review-and-plan">
-                            this is where review last week will go
-                                {/*<ReviewLastWeek /> */}
+                            {/*<div className="review-and-plan">
+                            Review Last Week and Plan for Next Week
+                                <Link to="/reviewlastweek">Review Last Week</Link>
+                                <Link to="/plannextweek">Plan Next Week</Link>
+       
                             </div>
+                             */}
                         </div>
                 </div>
         );

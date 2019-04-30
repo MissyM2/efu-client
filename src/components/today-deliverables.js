@@ -7,6 +7,7 @@ import './css/view-deliverables.css';
 
 export class TodayDeliverables extends React.Component {
         render() {
+                console.log('this props for today dels ', this.props.todayDels);
                const todayDels = this.props.todayDels.map((singledeliverable, index) =>
                         <li className="singledeliverable-wrapper" key={index}>
                                 <SingleDeliverable index={index} {...singledeliverable} />
@@ -32,7 +33,7 @@ const mapStateToProps = state => {
                         let dueDate = new Date(deliverable.dueDate);
                         dueDate = dueDate.getFullYear() + '-' + (dueDate.getMonth() + 1) + "-" + dueDate.getDate();
                         //console.log("today is: " + today + " --- dueDate is: " + dueDate);
-                        return today == dueDate;
+                        return today === dueDate;
                 }),
                 title: "Deliverables for Today"
         };

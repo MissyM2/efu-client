@@ -13,3 +13,10 @@
     margin: 0 auto;
 }
 
+.review-and-plan {
+    display: flex;
+    flex-direction: column;
+    padding-top: 80px;
+    padding-bottom: 150px;
+}
+

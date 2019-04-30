@@ -26,13 +26,46 @@ import {
 } from '../actions/protected-data';
 
 const initialState = {
-    terms: [],
-    weeks: [],
-    courses:[],
-    grades: [],
-    deliverables:[],
+    terms: [{
+        termDesc:''
+    }],
+    weeks: [{
+        user: '',
+        term:'',
+        weekNum: 0,
+        likedLeast: '',
+        likedMost: '',
+        mostDifficult: '',
+        leastDifficult: ''
+    }],
+    courses:[{
+        user: '',
+        term: '',
+        courseName:''
+    }],
+    grades: [{
+        user: '',
+        week: '',
+        course: '',
+        gradeNum: 0
+    }],
+    deliverables:[{
+        user:'',
+        term: '',
+        week:'',
+        course: '',
+        dueDate: '',
+        deliverableName: '',
+        pressure: '',
+        desc: '',
+        prephrs: 0
+    }],
     items:[],
-    suggestions: [],
+    suggestions: [{
+        category:'',
+        desc: '',
+        credit: ''
+    }],
     loading: false,
     error: null
 };
@@ -153,6 +186,8 @@ export default function reducer(state=initialState, action) {
                 items: []
             };
         case FETCH_GETDELIVERABLES_SUCCESS:
+        console.log('reducer: GETCOURSES_SUCCESS action.payload.courses is', action.payload.deliverables);
+
             return {
                 ...state,
                 deliverables: action.payload.deliverables,
@@ -160,6 +195,7 @@ export default function reducer(state=initialState, action) {
                 error: null
             };
         case FETCH_GETDELIVERABLES_ERROR:
+        console.log('reducer: GETCOURSES_ERROR action.payload.courses is', action.error);
             return {
                 ...state,
                 loading: false,

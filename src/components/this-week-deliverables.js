@@ -1,6 +1,6 @@
 import React from 'react';
+import {SingleDeliverable} from './single-deliverable';
 import {fetchGetDeliverables} from '../actions/protected-data';
-import {SingleDeliverable} from './single-deliverable'
 import {connect} from 'react-redux';
 
 import './css/view-deliverables.css';
@@ -15,6 +15,7 @@ export class ThisWeekDeliverables extends React.Component{
         // display all deliverables  that fall between the startDate and the endDate for that week
 
         render() {
+                console.log('this props for thisweekDels ', this.props.thisweekDels);
                 const thisweekDels = this.props.thisweekDels.map((deliverable, index) =>
                         <li className="deliverable-wrapper" key={index}>
                                 <SingleDeliverable index={index} {...deliverable} />
@@ -33,7 +34,11 @@ export class ThisWeekDeliverables extends React.Component{
 
 const mapStateToProps = state => {
         return {
-                thisweekDels: state.protectedData.deliverables,
+                thisweekDels: state.protectedData.deliverables.filter(deliverable => {
+                        let thisWeekNum = 1;
+                        let delWeekNum = deliverable.weekNum;
+                        return thisWeekNum === delWeekNum;
+                }),
                 title: "Deliverables for this week"
         }
 }

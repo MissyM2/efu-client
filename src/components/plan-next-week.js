@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 //import {Weeks} from './weeks';
 import {SingleWeek} from './single-week';
 
-import {fetchGetWeekByCurrentWeekNum} from '../actions/protected-data';
+//import {fetchGetWeekByCurrentWeekNum} from '../actions/protected-data';
 
 
 import './css/reviewandplan.css';
@@ -24,7 +24,7 @@ export class ReviewLastWeek extends React.Component {
 */
     
     render() {
-
+{/*}
         const thisweek = this.props.weeks.map((thisweek, index) =>
             <div key={index}>
                 <SingleWeek {...thisweek} />            
@@ -44,9 +44,11 @@ export class ReviewLastWeek extends React.Component {
                 <div> the button and details to edit this form goes here</div>
             </div>
         );
+          */}
     }
+  
 }
-
+/*
 const mapStateToProps = state => {
     const {currentUser} = state.auth;
     return {
@@ -55,8 +57,6 @@ const mapStateToProps = state => {
         title: "Review Last Week"
     };
 };
+*/
 
-export default connect(mapStateToProps)(ReviewLastWeek);
-    
-        
-   
+//export default connect(mapStateToProps)(ReviewLastWeek);

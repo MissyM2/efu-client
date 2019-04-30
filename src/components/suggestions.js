@@ -1,8 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-import {SingleSuggestion} from './single-suggestion';
-
 import {fetchGetSuggestions} from '../actions/protected-data';
 
 import './css/view-profile.css';
@@ -13,20 +11,15 @@ export class Suggestions extends React.Component {
     }
     
     render() {
-        const suggestions = this.props.suggestions.map((singlesuggestion, index) => 
-                <li key={index}>
-                    <SingleSuggestion index={index} {...singlesuggestion} />
-                </li>
-
-                );
 
         return (
-                <div className="data-wrapper">
-                    <h2>{this.props.title}</h2>
-                    <ul className="data-list">
-                        {suggestions}
-                    </ul>
-                   
+            <div className="data-wrapper">
+                <h2>{this.props.title}</h2>
+                <ul className="item-details">
+                    <li className="item-data">{this.props.currentSuggestion.category}</li>
+                    <li className="item-data">{this.props.currentSuggestion.desc}</li>
+                    <li className="item-data">{this.props.currentSuggestion.credit}</li>
+                </ul>
             </div>
         );
     }
@@ -34,7 +27,7 @@ export class Suggestions extends React.Component {
 
 const mapStateToProps = state => {
     return {
-            suggestions: state.protectedData.suggestions,
+            currentSuggestion: state.protectedData.suggestions[Math.floor(Math.random() * state.protectedData.suggestions.length)],
             title: "Your Daily Suggestion"
     };
     

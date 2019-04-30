@@ -334,7 +334,10 @@ export const fetchGetDeliverables = () => (dispatch, getState) => {
         .then(res => {
             return res.json();
         })
-        .then(deliverables => dispatch(fetchGetDeliverablesSuccess(deliverables)))
+        .then(deliverables => {
+            console.log('deliverables are ', deliverables);
+            dispatch(fetchGetDeliverablesSuccess(deliverables))
+        })
         .catch(err => {
             console.log(err);
             dispatch(fetchGetDeliverablesError(err));
