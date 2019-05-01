@@ -2,6 +2,7 @@
 .data-wrapper {
     display: flex;
     flex-direction: column;
+    margin-top: 50px;
     width: 100%;
     border: 1px solid purple;
     
@@ -28,6 +29,43 @@
     padding: 0;
 }
 
+.thisweek-group-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.thisweek-group {
+    display:flex;
+    flex-direction: row;
+    border: 1px solid;
+    width: 100%;
+    padding: 10px;
+    margin: 0 auto;
+}
+
+.week-detail {
+    display:flex;
+    flex-direction: row;
+    padding: 3px 10px;
+    border: 1px solid yellow;
+    width: 50%;
+    text-align: left;
+    margin: 0 auto;
+
+}
+
+.week-detail-label {
+    border: 1px solid pink;
+    width: 35%;
+    padding-right: 5px;
+}
+
+.week-detail-data{
+    border: 1px solid lightgreen;
+    width: 60%;
+    padding-left: 5px;
+}
+
 .item-data {
     padding: 3px 10px;
     border: 1px solid yellow;
@@ -37,6 +75,23 @@
 .week-wrapper {
     margin-bottom: 120px;
    
+}
+
+.update-btn {
+    width:25%;
+    margin: 15px auto;
+}
+
+
+.edit-btns {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin: 0;
+}
+
+.single-course {
+    border: 1px solid pink;
 }
 
 
@@ -97,40 +152,3 @@
     width: 100%;
 }
 
-@media screen and (max-width: 767px) {
-    .section-one {
-        flex-direction: column;
-    }
-
-    .week-info,
-    .week-detail {
-        width: 100%;
-    }
-
-    .week-num,
-    .week-end,
-    .week-deliv,
-    .week-prep {
-        width: 50%;
-    }
-
-    .week-view-btn {
-        width: 100%;
-    }
-}
-
-@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
-    .section-one {
-        flex-direction: column;
-    }
-
-    .sub-section-one {
-        flex-direction:column;
-    }
-
-    .single-field {
-        width: 100%;
-    }
-
-    
-}

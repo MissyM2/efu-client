@@ -7,7 +7,7 @@ import './css/view-deliverables.css';
 
 export class TodayDeliverables extends React.Component {
         render() {
-                console.log('this props for today dels ', this.props.todayDels);
+                //console.log('this props for today dels ', this.props.todayDels);
                const todayDels = this.props.todayDels.map((singledeliverable, index) =>
                         <li className="singledeliverable-wrapper" key={index}>
                                 <SingleDeliverable index={index} {...singledeliverable} />

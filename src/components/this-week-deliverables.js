@@ -15,7 +15,7 @@ export class ThisWeekDeliverables extends React.Component{
         // display all deliverables  that fall between the startDate and the endDate for that week
 
         render() {
-                console.log('this props for thisweekDels ', this.props.thisweekDels);
+                //console.log('this props for thisweekDels ', this.props.thisweekDels);
                 const thisweekDels = this.props.thisweekDels.map((deliverable, index) =>
                         <li className="deliverable-wrapper" key={index}>
                                 <SingleDeliverable index={index} {...deliverable} />
@@ -24,6 +24,16 @@ export class ThisWeekDeliverables extends React.Component{
                 return (
                         <div className="deliverables-wrapper">
                                 <h2>{this.props.title}</h2>
+                                <div className="items-list-labels">
+                                        <div className="item-data courseName">CourseName</div>
+                                        <div className="item-data termDesc">TermDesc</div>
+                                        <div className="item-data weekNum">WeekNum</div>
+                                        <div className="item-data dueDate">DueDate</div>
+                                        <div className="item-data pressure">Pressure</div>
+                                        <div className="item-data prephrs">prephrs</div>
+                                        <div className="item-data deliverableName">deliverableName</div>
+                                </div>
+                               
                                 <ul className="items-list">
                                         {thisweekDels}
                                 </ul>

@@ -5,25 +5,15 @@
     border: 1px solid purple;
 }
 
-.singledeliverable-wrapper {
-    border: 1px solid;
+.singlecourse-wrapper {
+    border: 1px solid green;
     width: 100%;
+    margin: 10px;
 }
 
 .single-item {
     width: 100%;
     list-style: none;
-}
-.items-list-labels {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-}
-
-.items-list-labels > .item-data {
-    font-weight: bold;
-    border: 1px solid red;
-    width: 15%;
 }
 
 .items-list {
@@ -32,21 +22,24 @@
     padding: 0;
 }
 
-.single-item-details  {
+.item-details {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-   
 }
-.single-item-details  > .item-data {
-    border: 1px solid yellow;
-    width: 15%;
-}
-/*
+
 .item-data {
     padding: 3px 10px;
     border: 1px solid yellow;
-    width: 15%;
 
 }
-*/
+
+.course-field {
+    font-weight: bold;
+    text-align: left;
+}
+
+.course-deliverables-field {
+    text-align: left;
+    padding-left: 60px;
+}

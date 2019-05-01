@@ -1,5 +1,5 @@
 import React from 'react';
-//import {Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import requiresLogin from './requires-login';
 
@@ -29,13 +29,12 @@ export class Dashboard extends React.Component {
                         <div className="board">
                            <TodayDeliverables />
                             <ThisWeekDeliverables />
-                            {/*<div className="review-and-plan">
+                            <div className="review-and-plan">
                             Review Last Week and Plan for Next Week
                                 <Link to="/reviewlastweek">Review Last Week</Link>
                                 <Link to="/plannextweek">Plan Next Week</Link>
        
-                            </div>
-                             */}
+                             </div>
                         </div>
                 </div>
         );
