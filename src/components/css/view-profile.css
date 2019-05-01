@@ -1,4 +1,4 @@
-
+/*
 .data-wrapper {
     display: flex;
     flex-direction: column;
@@ -54,6 +54,32 @@
 
 }
 
+*/
+
+.weeks-wrapper {
+    margin-top: 100px;
+    margin-bottom: 120px;
+    border: 1px solid;
+   
+}
+
+.weeks-section {
+   
+    border: 1px solid blue;
+}
+/*
+.items-list-label {
+    display: flex;
+    flex-direction: row;
+}
+/*
+.week-data-item {
+    padding: 3px 10px;
+    border: 1px solid yellow;
+    width: 15%;
+}
+*/
+/*
 .week-detail-label {
     border: 1px solid pink;
     width: 35%;
@@ -69,13 +95,10 @@
 .item-data {
     padding: 3px 10px;
     border: 1px solid yellow;
-
 }
 
-.week-wrapper {
-    margin-bottom: 120px;
-   
-}
+
+
 
 .update-btn {
     width:25%;
@@ -111,44 +134,4 @@
 }
 
 
-.section-one,
-.sub-section-one {
-    display:flex;
-    flex-direction:row;
-}
-
-.section-one {
-    margin-bottom: 10px;
-}
-
-.single-field {
-    border:1px solid;
-    padding: 4px;
-}
-
-.week-info,
-.week-detail {
-    width: 40%;
-}
-
-.week-view-btn {
-    width: 20%;
-}
-
-.week-num {
-    width: 40%;
-}
-
-.week-end {
-    width: 60%;
-}
-
-.week-deliv,
-.week-prep {
-    width: 50%;
-}
-
-.week-view-plan {
-    width: 100%;
-}
-
+*/

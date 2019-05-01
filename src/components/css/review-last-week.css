@@ -1,63 +1,64 @@
-.data-wrapper {
+
+
+
+
+
+/*  Week Stuff */
+.student-section{
+    display: flex;
+    flex-direction: row;
+}
+
+.myweek-wrapper {
+    width: 100%;
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+.myweek-label {
+    font-weight: bold;
+}
+
+.myweekitem {
+    width: 50%;
+    border: 1px solid;
+}
+
+/*  grades stuff */
+
+.myweek-grades-wrapper {
+    width: 100%;
+}
+
+.courses-grades-wrapper {
+    width: 100%;
+    border: 1px solid;
+    margin: 0 auto;
+}
+
+.course-grades-list {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    border: 1px solid purple;
-}
-
-.singledeliverable-wrapper {
-    border: 1px solid;
-    width: 100%;
-}
-
-.single-item {
-    width: 100%;
+    border: 1px solid red;
+    width: 75%;
+    margin: 0 auto;
     list-style: none;
 }
 
-.items-list {
-    list-style-type: none;
-    margin:0;
-    padding: 0;
-}
-
-.item-details {
+.course-grade-detail {
+    width: 100%;
+    border: 1px solid green;
     display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-}
-
-.item-data {
-    padding: 3px 10px;
-    border: 1px solid yellow;
-
-}
-
-.course-list {
-    display: flex;
-    flex-direction: column;
-}
-
-.singlecourse-wrapper {
-    display: flex;
-    flex-direction: column;
-}
-
-.course-detail {
-    display: flex;
-    flex-direction: row; 
-    width: 50%;
+    flex-direction:row;
     margin: 0 auto;
 }
 
 .course-field {
-    width: 25%;
-    border: 1px solid orange;
-    text-align: left;
+    border: 1px solid;
+    width: 50%;
+   
 }
 .grade-field {
-    width: 25%;
-    border: 1px solid orange;
-    text-align: center;
-    
+    border: 1px solid;
+    width: 50%;
 }

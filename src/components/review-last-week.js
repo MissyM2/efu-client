@@ -4,7 +4,8 @@ import {connect} from 'react-redux';
 import {fetchGetWeeks} from '../actions/protected-data';
 import {fetchGetCourses} from '../actions/protected-data';
 
-import {SingleCourse} from './single-course';
+import {ReviewLastWeekCourses} from './review-last-week-courses';
+import {SingleEditWeek} from './single-edit-week';
 
 import './css/review-last-week.css';
 
@@ -15,11 +16,18 @@ export class ReviewLastWeek extends React.Component {
     }
     
     render() {
-        
+            console.log('this.props for current week', this.props.myWeeks);
             console.log('this props for my Courses ', this.props.myCourses);
+
+            const myWeeks = this.props.myWeeks.map((singleeditweek, index) => 
+                <div key={index}>
+                             <SingleEditWeek index={index} {...singleeditweek} />
+                    </div>
+            );
+
             const myCourses = this.props.myCourses.map((singlecourse, index) =>
-                     <li className="course-detail" key={index}>
-                             <div className="course-field"><SingleCourse index={index} {...singlecourse} /></div>
+                     <li className="course-grade-detail" key={index}>
+                             <div className="course-field"><ReviewLastWeekCourses index={index} {...singlecourse} /></div>
                              <div className="grade-field">GRADE FIELD</div>
                      </li>
             );
@@ -27,75 +35,22 @@ export class ReviewLastWeek extends React.Component {
         return (
             
             <div>
-                    <h2>{this.props.title}</h2>
-                    <div className="mylastweek-wrapper">
-                        <h3>{this.props.characteristicsSubtitle}</h3>
-                        <div className="thisweek-group-details">
-                            <div className="thisweek-group">
-                                <div className="week-detail">
-                                    <div className="week-detail-label">
-                                        Week Number:
-                                    </div>
-                                    <div className="week-detail-data">
-                                        {this.props.currentWeek.weekNum}
-                                    </div>
-                                </div>
-                                <div className="week-detail">
-                                    <div className="week-detail-label">
-                                        Term Description:
-                                    </div>
-                                    <div className="week-detail-data">
-                                        {this.props.currentWeek.termDesc}
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="thisweek-group">
-                                    <div className="week-detail">
-                                        <div className="week-detail-label">
-                                            Liked Least:
-                                        </div>
-                                        <div className="week-detail-data">
-                                            {this.props.currentWeek.likedLeast}
-                                        </div>
-                                    </div>
-                                    <div className="week-detail">
-                                        <div className="week-detail-label">
-                                            Liked Most:
-                                        </div>
-                                        <div className="week-detail-data">
-                                            {this.props.currentWeek.likedMost}
-                                        </div>
-                                    </div>
-                            </div>
-                            <div className="thisweek-group">
-                                    <div className="week-detail">
-                                        <div className="week-detail-label">
-                                            Most Difficult:
-                                        </div>
-                                        <div className="week-detail-data">
-                                            {this.props.currentWeek.mostDifficult}
-                                        </div>
-                                    </div>
-                                    <div className="week-detail">
-                                        <div className="week-detail-label">
-                                            Most Difficult:
-                                        </div>
-                                        <div className="week-detail-data">
-                                            {this.props.currentWeek.mostDifficult}
-                                        </div>
-                                    </div>
-                            </div> 
-                        </div>
-                        <button className="update-btn" type="button">Click to Update Details for This Week</button>
-                    </div>
-                    <div className="mylastweek-grades-wrapper">
+                    <div className="myweek-wrapper">
+                        <h2>{this.props.myWeekTitle}</h2>
+                        <div>
+                            {myWeeks}
+                        </div> 
+                        <button class="action-btns small-btn update-btn" data-id="${this.props.myWeeks.id}" data-likedMost="${this.props.myWeeks.likedMost}" data-likedLeast="${this.props.myWeeks.likedLeast}" data-mostDifficult="${this.props.myWeeks.mostDifficult}" data-leastDifficult="${this.props.myWeeks.leastDifficult}">Update the Details of My Week</button>
+                    </div> 
+                    <div className="myweek-grades-wrapper">
                         <h2>{this.props.gradesSubtitle}</h2>
-                        <div className="data-wrapper">
-                            <ul className="course-list">
+                        <div className="courses-grades-wrapper">
+                            <ul className="course-grades-list">
                                 {myCourses}
                             </ul>
-                        </div>  
-                        <button className="update-btn" type="button">Click to Commit Grades for This Week</button>
+                        </div> 
+                        <button class="action-btns small-btn update-btn" data-id="${this.props.myWeeks.id}" data-likedMost="${this.props.myWeeks.likedMost}" data-likedLeast="${this.props.myWeeks.likedLeast}" data-mostDifficult="${this.props.myWeeks.mostDifficult}" data-leastDifficult="${this.props.myWeeks.leastDifficult}">Update My Grades for My Week</button>
+                        
                     </div>
             </div>
 
@@ -105,11 +60,16 @@ export class ReviewLastWeek extends React.Component {
 
 const mapStateToProps = state => {
     return {
-            currentWeek: state.protectedData.weeks[Math.floor(Math.random() * state.protectedData.weeks.length)],
+            myWeeks: state.protectedData.weeks.filter(week => {
+                console.log('inside mapStateToProps: week', week);
+                return week.weekNum === 2;
+                
+            }),
             myCourses: state.protectedData.courses.filter(course => {
+                console.log('inside mapStateToProps: course', course);
                 return course.term === 'Spring, 2019';
             }),
-            title: "Review Last Week",
+            myWeekTitle: "Review Last Week",
             characteristicsSubtitle: "What did you think about last week?",
             gradesSubtitle: "What are your grades after last week?"
     };
@@ -117,4 +77,3 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps)(ReviewLastWeek);
-                

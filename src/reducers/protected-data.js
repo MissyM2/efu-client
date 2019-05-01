@@ -142,7 +142,7 @@ export default function reducer(state=initialState, action) {
                 items: []
         };
         case FETCH_GETCOURSES_SUCCESS:
-            //console.log('reducer: GETCOURSES_SUCCESS action.payload.courses is', action.payload.courses);
+            console.log('reducer: GETCOURSES_SUCCESS action.payload.courses is', action.payload.courses);
             return {
                 ...state,
                 courses: action.payload.courses,
@@ -158,6 +158,7 @@ export default function reducer(state=initialState, action) {
                 items:[]
             };
         case FETCH_GETWEEKS_SUCCESS:
+            console.log(' the is the action.payload', action.payload.weeks);
             return {
                 ...state,
                 weeks: action.payload.weeks,
