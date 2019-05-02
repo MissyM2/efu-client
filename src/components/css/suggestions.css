@@ -1,0 +1,50 @@
+ul {
+    list-style-type: none;
+}
+
+.suggestion-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border: 1px solid purple;
+}
+
+.suggestion-details {
+    width: 60%;
+    margin: 0 auto;
+}
+
+.single-term {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid;
+}
+
+.suggestion-data-item {
+    width: 100%;
+    border: 1px solid red;
+    padding: 5px;
+}
+
+.add-term-wrapper {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.category {
+    font-style:italic;
+}
+
+.desc {
+    font-weight: bold;
+}
+
+.credit {
+    text-align: right;
+    font-style: italic;
+}
+
+
+
+
+

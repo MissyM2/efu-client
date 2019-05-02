@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 
 import {SingleDeliverable} from './single-deliverable';
 
-import './css/view-deliverables.css';
+import './css/deliverables.css';
 
 export class TodayDeliverables extends React.Component {
         render() {
@@ -16,10 +16,12 @@ export class TodayDeliverables extends React.Component {
                 
                 return (
                         <div className="data-wrapper">
-                                <h2>{this.props.title}</h2>
-                                <ul className="items-list">
-                                        {todayDels}
-                                </ul>
+                                <h3>{this.props.title}, {this.props.todayDate}</h3>
+                                <div className="deliverable-section">
+                                        <ul className="items-list">
+                                                {todayDels}
+                                        </ul>
+                                </div>  
                         </div> 
                         );
         }
@@ -35,7 +37,8 @@ const mapStateToProps = state => {
                         //console.log("today is: " + today + " --- dueDate is: " + dueDate);
                         return today === dueDate;
                 }),
-                title: "Deliverables for Today"
+                title: "Deliverables for Today",
+                todayDate: "04/15/2019 (hardcoded"
         };
         
 };

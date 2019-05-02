@@ -1,0 +1,7 @@
+button {
+    margin:0;
+}
+.edit-btns {
+    display:flex;
+    margin:5px 10px;
+}

@@ -3,7 +3,7 @@ import {SingleDeliverable} from './single-deliverable';
 import {fetchGetDeliverables} from '../actions/protected-data';
 import {connect} from 'react-redux';
 
-import './css/view-deliverables.css';
+import './css/deliverables.css';
 
 export class ThisWeekDeliverables extends React.Component{
         componentDidMount() {
@@ -23,7 +23,7 @@ export class ThisWeekDeliverables extends React.Component{
                         );
                 return (
                         <div className="deliverables-wrapper">
-                                <h2>{this.props.title}</h2>
+                                <h3>{this.props.title} for {this.props.termDesc}, Week {this.props.weekNum}</h3>
                                 <div className="items-list-labels">
                                         <div className="item-data courseName">CourseName</div>
                                         <div className="item-data termDesc">TermDesc</div>
@@ -33,10 +33,13 @@ export class ThisWeekDeliverables extends React.Component{
                                         <div className="item-data prephrs">prephrs</div>
                                         <div className="item-data deliverableName">deliverableName</div>
                                 </div>
+                                <div className="deliverable-section">
+                                        <ul className="items-list">
+                                                {thisweekDels}
+                                        </ul>
+                                </div>
                                
-                                <ul className="items-list">
-                                        {thisweekDels}
-                                </ul>
+                                
                         </div>  
                         );
         }
@@ -49,7 +52,9 @@ const mapStateToProps = state => {
                         let delWeekNum = deliverable.weekNum;
                         return thisWeekNum === delWeekNum;
                 }),
-                title: "Deliverables for this week"
+                title: "Deliverables for this week",
+                termDesc: "Spring, 2019 (hardcoded)",
+                weekNum: "2 (hardcoded)"
         }
 }
 

@@ -18,7 +18,7 @@ export class Profile extends React.Component {
                       <h1>Executive Followup</h1>
                       <h3>Take charge of your academic life.</h3>
                   </header>
-                  <div className="wrapper">
+                  <div className="profile-wrapper">
                       <Terms />
                       <Courses />
                       <Weeks />

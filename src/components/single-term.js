@@ -1,11 +1,15 @@
 import React from 'react';
 
-import './css/view-terms.css';
+import {EditBtns} from './edit-btns';
+
+
+import './css/terms.css';
 
 export function SingleTerm(props) {
         return (
             <div className="single-term">
-                <div className="item-data termdesc">{props.termDesc}</div>
+                <div className="term-data-item termdesc">{props.termDesc}</div>
+                <EditBtns type="term" />
             </div>
         );
 }

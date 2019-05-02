@@ -5,7 +5,7 @@ import {SingleCourse} from './single-course';
 import {AddCourseForm} from './add-course-form';
 import {fetchGetCourses, fetchAddCourse} from '../actions/protected-data';
 
-import './css/view-profile.css';
+import './css/courses.css';
 
 export class Courses extends React.Component {
     componentDidMount() {
@@ -26,9 +26,11 @@ export class Courses extends React.Component {
         return (
             <div className="data-wrapper">
                     <h2>{this.props.title}</h2>
-                    <ul className="data-list">
-                        {courses}
-                    </ul>
+                    <div className="course-section">
+                        <ul className="course-list">
+                            {courses}
+                        </ul>
+                    </div>
                     <div className="add-course-wrapper">
                         <AddCourseForm
                             type="newCourse"

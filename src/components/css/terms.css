@@ -1,34 +1,39 @@
-.courses-wrapper {
+.terms-wrapper {
     display: flex;
     flex-direction: column;
     width: 100%;
     border: 1px solid purple;
 }
 
-.course-section {
+.term-section {
     display: flex;
     flex-direction: column;
     margin: 0 auto;
 }
 
-.course-list {
+.term-list {
     display:flex;
     flex-direction: row;
 }
 
-.single-course {
+
+.single-term {
     display: flex;
     flex-direction: column;
     border: 1px solid;
 }
 
-.course-data-item {
+.term-data-item {
     width: 100%;
     border: 1px solid red;
 }
 
-.add-course-wrapper {
+.add-term-wrapper {
     margin-top: 15px;
     margin-bottom: 15px;
 }
+
+
+
+
 

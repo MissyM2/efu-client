@@ -1,34 +1,32 @@
-.courses-wrapper {
+.weeks-wrapper {
     display: flex;
     flex-direction: column;
     width: 100%;
     border: 1px solid purple;
 }
 
-.course-section {
+.weeks-section {
     display: flex;
     flex-direction: column;
-    margin: 0 auto;
 }
 
-.course-list {
+.weeks-list {
     display:flex;
+    flex-direction: column;
+}
+
+.single-item {
+    display: flex;
     flex-direction: row;
 }
 
-.single-course {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid;
-}
-
-.course-data-item {
-    width: 100%;
+.week-data-item {
+    width: 13%;
     border: 1px solid red;
 }
 
-.add-course-wrapper {
+
+.add-week-wrapper {
     margin-top: 15px;
     margin-bottom: 15px;
 }
-

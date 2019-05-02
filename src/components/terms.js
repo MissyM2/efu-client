@@ -6,7 +6,7 @@ import {AddTermForm} from './add-term-form';
 
 import {fetchGetTerms, fetchAddTerm} from '../actions/protected-data';
 
-import './css/view-profile.css';
+import './css/terms.css';
 
 export class Terms extends React.Component {
     componentDidMount() {
@@ -19,7 +19,7 @@ export class Terms extends React.Component {
     
     render() {
         const terms = this.props.terms.map((singleterm, index) => 
-                <li key={index}>
+                <li class="li-wrapper" key={index}>
                     <SingleTerm index={index} {...singleterm} />
                 </li>
 
@@ -28,15 +28,18 @@ export class Terms extends React.Component {
         return (
                 <div className="data-wrapper">
                     <h2>{this.props.title}</h2>
-                    <ul className="data-list">
-                        {terms}
-                        <li className="add-course-wrapper">
+                    <div className="term-section">
+                        <ul className="term-list">
+                            {terms} 
+                        </ul>
+                        <div className="add-term-wrapper">
                             <AddTermForm
                                 type="term"
                                 onAdd={term => 
                                     this.fetchAddTerm(term)}  />
-                        </li>
-                    </ul>
+                        </div>
+                    </div>
+                    
                    
             </div>
         );
