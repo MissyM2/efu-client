@@ -1,5 +1,5 @@
 import {API_BASE_URL} from '../config';
-import {normalizeResponseErrors} from './utils';
+import {normalizeResponseErrors} from '../utils';
 
 /////////////////////////////////
 //
@@ -54,7 +54,7 @@ export const fetchAddCourseError = error => ({
 
 export const fetchAddCourse = newCourse => (dispatch, getState) => {
     const authToken = getState().auth.authToken;
-    console.log('inside fetch', newCourse);
+    //console.log('inside fetch', newCourse);
     return fetch(`${API_BASE_URL}/courses`, {
         method: 'POST',
         headers: {
@@ -86,7 +86,7 @@ export const fetchAddWeekError = error => ({
 });
 
 export const fetchAddWeek = newWeek => (dispatch, getState) => {
-    console.log('inside fetch', newWeek);
+    //console.log('inside fetch', newWeek);
     const authToken = getState().auth.authToken;
     return fetch(`${API_BASE_URL}/weeks`, {
         method: 'POST',
@@ -118,19 +118,26 @@ export const fetchAddGradeError = error => ({
     error
 });
 
-export const fetchAddGradeData = () => (dispatch, getState) => {
+export const fetchAddGrade = newGrade => (dispatch, getState) => {
+    console.log('inside addGrade fetch action', newGrade)
     const authToken = getState().auth.authToken;
-    return fetch(`${API_BASE_URL}/grade`, {
+    console.log("above fetch ", newGrade);
+    return fetch(`${API_BASE_URL}/grades`, {
         method: 'POST',
         headers: {
             // Provide our auth token as credentials
-            Authorization: `Bearer ${authToken}`
-        }
+            Authorization: `Bearer ${authToken}`,
+            "Content-Type": 'application/json'
+        },
+        body: JSON.stringify(newGrade)
     })
         .then(res => normalizeResponseErrors(res))
         .then(res => res.json())
-        .then(({grade}) => dispatch(fetchAddGradeSuccess(grade)))
+        .then((grade) => {
+            console.log("was grade successful..  found a grade", grade)
+            dispatch(fetchAddGradeSuccess(grade))})
         .catch(err => {
+            console.log('there was an error or grade not found');
             dispatch(fetchAddGradeError(err));
         });
 };
@@ -148,14 +155,16 @@ export const fetchAddDeliverableError = error => ({
     error
 });
 
-export const fetchAddDeliverableData = () => (dispatch, getState) => {
+export const fetchAddDeliverable = newDeliverable => (dispatch, getState) => {
     const authToken = getState().auth.authToken;
-    return fetch(`${API_BASE_URL}/deliverable`, {
+    return fetch(`${API_BASE_URL}/deliverables`, {
         method: 'POST',
         headers: {
             // Provide our auth token as credentials
-            Authorization: `Bearer ${authToken}`
-        }
+            Authorization: `Bearer ${authToken}`,
+            "Content-Type": 'application/json'
+        },
+        body: JSON.stringify(newDeliverable)
     })
         .then(res => normalizeResponseErrors(res))
         .then(res => res.json())
@@ -207,6 +216,86 @@ export const fetchGetTerms = () => (dispatch, getState) => {
         });
 };
 
+// fetch for getting grades
+export const FETCH_GETGRADES_SUCCESS = 'FETCH_GETGRADES_SUCCESS';
+export const fetchGetGradesSuccess = grades => {;
+    return {
+        type: FETCH_GETGRADES_SUCCESS,
+        payload: {grades}
+    }
+};
+
+export const FETCH_GETGRADES_ERROR = 'FETCH_GETGRADES_ERROR';
+export const fetchGetGradesError = error => ({
+    type: FETCH_GETGRADES_ERROR,
+    error
+});
+
+export const fetchGetGrades = (newWeek) => (dispatch, getState) => {
+    const authToken = getState().auth.authToken;
+    return fetch(`${API_BASE_URL}/grades`, {
+        method: 'GET',
+        headers: {
+            // Provide our auth token as credentials
+            Authorization: `Bearer ${authToken}`,
+            "Content-Type": 'application/json'
+        },
+        body: JSON.stringify(newWeek)
+        })
+        .then(res => normalizeResponseErrors(res))
+        .then(res => res.json())
+        .then(grades => dispatch(fetchGetGradesSuccess(grades)))
+        .catch(err => {
+            dispatch(fetchGetGradesError(err));
+        });
+};
+
+// fetch for searching for a given grade
+export const FETCH_FINDGIVENGRADE_SUCCESS = 'FETCH_FINDGIVENGRADE_SUCCESS';
+export const fetchFindGivenGradeSuccess = searchgrade => {;
+    return {
+        type: FETCH_FINDGIVENGRADE_SUCCESS,
+        payload: {searchgrade}
+    }
+};
+
+export const FETCH_FINDGIVENGRADE_ERROR = 'FETCH_FINDGIVENGRADE_ERROR';
+export const fetchFindGivenGradeError = error => ({
+    type: FETCH_FINDGIVENGRADE_ERROR,
+    error
+});
+
+export const fetchFindGivenGrade = (newGrade) => (dispatch, getState) => {
+    const authToken = getState().auth.authToken;
+    return fetch(`${API_BASE_URL}/grades/search`, {
+        method: 'POST',
+        headers: {
+            // Provide our auth token as credentials
+            Authorization: `Bearer ${authToken}`,
+            "Content-Type": 'application/json'
+        },
+        body: JSON.stringify(newGrade)
+        })
+        .then(res => normalizeResponseErrors(res))
+        .then(res => {
+            return res.json()
+        })
+        .then(response => {
+            if (response.exists){
+                console.log('sorry, the document already exists.  response is ', response.exists);
+
+            } else {
+                dispatch(fetchAddGrade(newGrade));
+                //dispatch(fetchFindGivenGradeSuccess(newGrade));
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            dispatch(fetchFindGivenGradeError(err));
+        });
+};
+
+
 // fetch for getting all weeks
 export const FETCH_GETWEEKS_SUCCESS = 'FETCH_GETWEEKS_SUCCESS';
 export const fetchGetWeeksSuccess = weeks => {
@@ -224,7 +313,7 @@ export const fetchGetWeeksError = error => ({
 
 export const fetchGetWeeks = () => (dispatch, getState) => {
     const authToken = getState().auth.authToken;
-    console.log('got to fetchGetWeeks');
+    //('got to fetchGetWeeks');
     return fetch(`${API_BASE_URL}/weeks`, {
         method: 'GET',
         headers: {
@@ -234,7 +323,7 @@ export const fetchGetWeeks = () => (dispatch, getState) => {
         .then(res => normalizeResponseErrors(res))
         .then(res => res.json())
         .then(weeks => {
-            console.log('weeks are ', weeks);
+            //console.log('weeks are ', weeks);
             dispatch(fetchGetWeeksSuccess(weeks))
         })
         .catch(err => {
@@ -335,7 +424,7 @@ export const fetchGetDeliverables = () => (dispatch, getState) => {
             return res.json();
         })
         .then(deliverables => {
-            console.log('deliverables are ', deliverables);
+            //('deliverables are ', deliverables);
             dispatch(fetchGetDeliverablesSuccess(deliverables))
         })
         .catch(err => {
@@ -343,6 +432,47 @@ export const fetchGetDeliverables = () => (dispatch, getState) => {
             dispatch(fetchGetDeliverablesError(err));
         });
 };
+
+// fetch for searching for a deliverables with the proper user, term, course and week
+export const FETCH_FINDGIVENDELIVERABLES_SUCCESS = 'FETCH_FINDGIVENDELIVERABLES_SUCCESS';
+export const fetchFindGivenDeliverablesSuccess = deliverables => {;
+    return {
+        type: FETCH_FINDGIVENDELIVERABLES_SUCCESS,
+        payload: {deliverables}
+    }
+};
+
+export const FETCH_FINDGIVENDELIVERABLES_ERROR = 'FETCH_FINDGIVENDELIVERABLES_ERROR';
+export const fetchFindGivenDeliverablesError = error => ({
+    type: FETCH_FINDGIVENDELIVERABLES_ERROR,
+    error
+});
+
+export const fetchFindGivenDeliverables = (searchCriteria) => (dispatch, getState) => {
+    const authToken = getState().auth.authToken;
+    return fetch(`${API_BASE_URL}/deliverables/search`, {
+        method: 'POST',
+        headers: {
+            // Provide our auth token as credentials
+            Authorization: `Bearer ${authToken}`,
+            "Content-Type": 'application/json'
+        },
+        body: JSON.stringify(searchCriteria)
+    })
+        .then(res => normalizeResponseErrors(res))
+        .then(res => {
+            return res.json();
+        })
+        .then(deliverables => {
+            console.log('made it to the deliverables', deliverables);
+            dispatch(fetchFindGivenDeliverablesSuccess(deliverables));
+        })
+        .catch(err => {
+            console.log(err);
+            dispatch(fetchFindGivenDeliverablesError(err));
+        });
+};
+
 
 // fetch for getting suggestions
 export const FETCH_GETSUGGESTIONS_SUCCESS = 'FETCH_GETSUGGESTIONS_SUCCESS';
@@ -398,7 +528,7 @@ export const fetchUpdateWeekError = error => ({
     error
 });
 
-export const fetchUpdateWeek = value => (dispatch, getState) => {
+export const fetchUpdateWeek = updatedWeek => (dispatch, getState) => {
     const authToken = getState().auth.authToken;
     return fetch(`${API_BASE_URL}/weeks`, {
         method: 'PUT',
@@ -407,7 +537,7 @@ export const fetchUpdateWeek = value => (dispatch, getState) => {
             Authorization: `Bearer ${authToken}`,
             "Content-Type": 'application/json'
         },
-        body: JSON.stringify({weekNum:value})
+        body: JSON.stringify(updatedWeek)
     })
         .then(res => normalizeResponseErrors(res))
         .then(res => res.json())

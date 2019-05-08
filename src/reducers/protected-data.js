@@ -17,8 +17,14 @@ import {
     FETCH_GETWEEKBYCURRENTWEEKNUM_ERROR,
     FETCH_GETCOURSES_SUCCESS,
     FETCH_GETCOURSES_ERROR,
+    FETCH_GETGRADES_SUCCESS,
+    FETCH_GETGRADES_ERROR,
+    FETCH_FINDGIVENGRADE_SUCCESS,
+    FETCH_FINDGIVENGRADE_ERROR,
     FETCH_GETDELIVERABLES_SUCCESS,
     FETCH_GETDELIVERABLES_ERROR,
+    FETCH_FINDGIVENDELIVERABLES_SUCCESS,
+    FETCH_FINDGIVENDELIVERABLES_ERROR,
     FETCH_GETSUGGESTIONS_SUCCESS,
     FETCH_GETSUGGESTIONS_ERROR,
     FETCH_UPDATEWEEK_SUCCESS,
@@ -45,8 +51,8 @@ const initialState = {
     }],
     grades: [{
         user: '',
-        week: '',
-        course: '',
+        weekNum: '',
+        courseDesc: '',
         gradeNum: 0
     }],
     deliverables:[{
@@ -134,7 +140,7 @@ export default function reducer(state=initialState, action) {
                 error: null
             };
         case FETCH_GETTERMS_ERROR:
-            console.log(action);
+           // console.log(action);
             return {
                 ...state,
                 loading: false,
@@ -142,7 +148,7 @@ export default function reducer(state=initialState, action) {
                 items: []
         };
         case FETCH_GETCOURSES_SUCCESS:
-            console.log('reducer: GETCOURSES_SUCCESS action.payload.courses is', action.payload.courses);
+            //console.log('reducer: GETCOURSES_SUCCESS action.payload.courses is', action.payload.courses);
             return {
                 ...state,
                 courses: action.payload.courses,
@@ -157,8 +163,40 @@ export default function reducer(state=initialState, action) {
                 error: action.error,
                 items:[]
             };
+        case FETCH_GETGRADES_SUCCESS:
+        //console.log('reducer: GETGRADES_SUCCESS action.payload.grades is', action.payload.grades);
+            return {
+                ...state,
+                grades: action.payload.grades,
+                loading: false,
+                error: null
+            };
+        case FETCH_GETGRADES_ERROR:
+            //(action)
+            return {
+                ...state,
+                loading: false,
+                error: action.error,
+                items:[]
+            };
+        case FETCH_FINDGIVENGRADE_SUCCESS:
+        console.log('reducer: FETCH_FINDGIVENGRADE_SUCCESS action.payload.grades is', action.payload.grades);
+            return {
+                ...state,
+                grades: action.payload.grades,
+                loading: false,
+                error: null
+            };
+        case FETCH_FINDGIVENGRADE_ERROR:
+            //(action)
+            return {
+                ...state,
+                loading: false,
+                error: action.error,
+                items:[]
+            };
         case FETCH_GETWEEKS_SUCCESS:
-            console.log(' the is the action.payload', action.payload.weeks);
+            //log(' the is the action.payload', action.payload.weeks);
             return {
                 ...state,
                 weeks: action.payload.weeks,
@@ -187,7 +225,7 @@ export default function reducer(state=initialState, action) {
                 items: []
             };
         case FETCH_GETDELIVERABLES_SUCCESS:
-        console.log('reducer: GETCOURSES_SUCCESS action.payload.courses is', action.payload.deliverables);
+        //console.log('reducer: GETCOURSES_SUCCESS action.payload.courses is', action.payload.deliverables);
 
             return {
                 ...state,
@@ -196,7 +234,24 @@ export default function reducer(state=initialState, action) {
                 error: null
             };
         case FETCH_GETDELIVERABLES_ERROR:
-        console.log('reducer: GETCOURSES_ERROR action.payload.courses is', action.error);
+        //console.log('reducer: GETCOURSES_ERROR action.payload.courses is', action.error);
+            return {
+                ...state,
+                loading: false,
+                error: action.error,
+                items: []
+            };
+        case FETCH_FINDGIVENDELIVERABLES_SUCCESS:
+        console.log('reducer: FETCH_FINDGIVENDELIVERABLES_SUCCESS action.payload.courses is', action.payload.deliverables);
+
+            return {
+                ...state,
+                deliverables: action.payload.deliverables,
+                loading: false,
+                error: null
+            };
+        case FETCH_FINDGIVENDELIVERABLES_ERROR:
+        console.log('reducer: FETCH_FINDGIVENDELIVERABLES_ERROR action.payload.courses is', action.error);
             return {
                 ...state,
                 loading: false,

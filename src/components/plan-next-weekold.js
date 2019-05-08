@@ -8,21 +8,58 @@ import {PlanNextWeekCourses} from './plan-next-week-courses';
 import {AddDeliverableForm} from './add-deliverable-form';
 
 import './css/plan-next-week.css';
+import singleCourse from './single-course';
 
 export class PlanNextWeek extends React.Component {
     componentDidMount() {
         this.props.dispatch(fetchGetCourses());
         this.props.dispatch(fetchGetDeliverables());
 }
+
+findCourseDeliverables(e, searchCriteria) {
+        e.preventDefault();
+
+        //let term = e.currentTarget.dataset.term;
+        //console.log(searchCriteria);
+        //console.log('amazingly, made it to findCourseDeliverables');
+        console.log('this.props inside findCourseDeliverables', this.props);
+        this.props.dispatch(fetchFindGivenDeliverables(searchCriteria));
+            
+        console.log('this message appears after the showdeliverables function is complete.');
+        
+
+    }
+
+fetchAddCourse(newDeliverable) {
+        this.props.dispatch(fetchAddDeliverable(newDeliverable));
+    }
         render() {
-                //console.log('mydeliverables in plan next week ', this.props.myDeliverables);
+                console.log('this.props inside plan next week', this.props);
+                //console.log('this props for my Courses ', this.props.myCourses);
+                //console.log('this props for my Deliverables', this.props.myDeliverables);
+                //const myDeliverables = this.props.myDeliverables.map((singledeliverable, index) => 
+               //         <li className="singledeliverable-wrapper" key={index}>
+               ////                 <SingleDeliverable index={index} {...singledeliverable} />
+                //        </li>
+                //        );
+
                 const myCourses = this.props.myCourses.map((singlecourse, index) =>
                         <li className="singlecourse-wrapper" key={index}>
                                 <div className="course-header">
-                                        <PlanNextWeekCourses index={index} {...singlecourse} dels={this.props.myDeliverables} />      
-                                </div> 
+                                        <PlanNextWeekCourses index={index} {...singlecourse}/>
+                                                
+                                </div>
+                                <div className="course-section">  
+                                        <div className="add-deliverable-wrapper">
+                                                <AddDeliverableForm
+                                                type="newDeliverable"
+                                                onAdd={newDeliverable => 
+                                                        this.fetchAddDeliverable(newDeliverable)}  />
+                                        </div>
+                                 </div>
                         </li>
-                );
+               );
+                
                 return (
                         <div>
                                 <div className="data-wrapper">
@@ -63,14 +100,3 @@ const mapStateToProps = state => {
 export default connect(mapStateToProps)(PlanNextWeek);
 
 //onGetCourseDeliverables={this.findCourseDeliverables.bind(this)}
-/*
-<div className="course-section">  
-                                        <div className="add-deliverable-wrapper">
-                                                <AddDeliverableForm
-                                                type="newDeliverable"
-                                                onAdd={newDeliverable => 
-                                                        this.fetchAddDeliverable(newDeliverable)}  />
-                                        </div>
-                                 </div>
-
-                                 */

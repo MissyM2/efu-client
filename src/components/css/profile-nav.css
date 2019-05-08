@@ -1,0 +1,14 @@
+.profile-nav {
+    display:flex;
+    flex-direction: row;
+    margin-top: 150px;
+    padding: 1% 0;
+    background-color: #aaa;
+   
+}
+
+.term-menu-list{
+    display:flex;
+    flex-direction: row;
+}
+

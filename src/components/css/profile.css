@@ -1,4 +1,48 @@
-.profile-wrapper {
-    margin-bottom: 100px;
+.profile-nav {
+    display:flex;
+    flex-direction: row;
+    margin-top: 150px;
+    padding: 1% 0;
+    background-color: #aaa;
+   
+}
+
+.term-menu-list{
+    display:flex;
+    flex-direction: row;
+}
+
+.courses-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border: 1px solid purple;
+}
+
+.course-section {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+.course-list {
+    display:flex;
+    flex-direction: row;
+}
+
+.single-course {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid;
+}
+
+.course-data-item {
+    width: 100%;
+    border: 1px solid red;
+}
+
+.add-course-wrapper {
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 

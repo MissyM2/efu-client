@@ -17,6 +17,8 @@ export class Courses extends React.Component {
     }
 
     render() {
+        //const courses = this.props.courses;
+        console.log(courses);
         const courses = this.props.courses.map((singlecourse,index) => 
             <li key={index}>
                 <SingleCourse index={index} {...singlecourse} />
@@ -25,6 +27,7 @@ export class Courses extends React.Component {
 
         return (
             <div className="data-wrapper">
+                this is courses
                     <h2>{this.props.title}</h2>
                     <div className="course-section">
                         <ul className="course-list">
@@ -37,15 +40,26 @@ export class Courses extends React.Component {
                             onAdd={newCourse => 
                                 this.fetchAddCourse(newCourse)}  />
                     </div>
-            </div>  
+            </div>
         );
 
     }
 }
 
-const mapStateToProps = state => {
-    //console.log(state);
+const mapStateToProps = (state, props) => {
+    console.log('current state is ', state);
+    console.log(' current props is ', props);
+    //const courseId = props.match.params.courseId;
+    //const term = "5cc77287e2575807eae72b64";
+    //sole.log('termId is ', courseId);
+    //console.log('term is ', term);
+    //const term = state[termId];
     return {
+   //     termId,
+   //     termName: term.termDesc,
+   //     courses: Object.keys(term.courses).map(
+    //        courseId => term.courses[courseId]
+    //   ),
         courses: state.protectedData.courses,
         title: "Your courses"
     };
