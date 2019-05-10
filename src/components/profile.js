@@ -12,15 +12,28 @@ import {
   Switch
 } from 'react-router-dom';
 
+import './css/index.css';
 import './css/profile.css';
 import { connect } from 'react-redux';
 
-export default class Profile extends React.Component {
+export class Profile extends React.Component {
 
     render() {
           return (
             <Router>
               <div className="terms">
+              <div className="profile-header">
+                <h2>{this.props.firstname}'s Profile</h2>
+                <p>add, update and delete information on the following:</p>
+                <div class="center">
+                    <ul className="list-vertical profile-list">
+                          <li>term</li>
+                          <li>courses you are taking</li>
+                          <li>the weeks of the term</li>
+                  </ul>
+                </div>
+                 
+            </div>
                 <MainNav />
                 <ProfileNav />
                 <main>
@@ -43,3 +56,13 @@ export default class Profile extends React.Component {
           );
     }
 }
+
+const mapStateToProps = state => {
+  const {currentUser} = state.auth;
+  return {
+      title: "Your Profile",
+      firstname: currentUser.firstName
+  };
+};
+
+export default connect(mapStateToProps)(Profile);

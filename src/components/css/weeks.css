@@ -1,32 +1,7 @@
-.weeks-wrapper {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    border: 1px solid purple;
-}
+
 
 .weeks-section {
     display: flex;
     flex-direction: column;
 }
 
-.weeks-list {
-    display:flex;
-    flex-direction: column;
-}
-
-.single-item {
-    display: flex;
-    flex-direction: row;
-}
-
-.week-data-item {
-    width: 13%;
-    border: 1px solid red;
-}
-
-
-.add-week-wrapper {
-    margin-top: 15px;
-    margin-bottom: 15px;
-}

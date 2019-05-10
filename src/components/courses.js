@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import {SingleCourse} from './single-course';
+import {EditBtns} from './edit-btns';
 import {AddCourseForm} from './add-course-form';
 import {fetchGetCourses, fetchAddCourse} from '../actions/protected-data';
 
@@ -21,20 +21,21 @@ export class Courses extends React.Component {
         console.log(courses);
         const courses = this.props.courses.map((singlecourse,index) => 
             <li key={index}>
-                <SingleCourse index={index} {...singlecourse} />
+                {singlecourse.courseName}  
+                <EditBtns type="course" />
             </li>
         );
 
         return (
-            <div className="data-wrapper">
+            <div className="wrapper">
                 this is courses
                     <h2>{this.props.title}</h2>
                     <div className="course-section">
-                        <ul className="course-list">
+                        <ul className="list-horizontal">
                             {courses}
                         </ul>
                     </div>
-                    <div className="add-course-wrapper">
+                    <div className="wrapper">
                         <AddCourseForm
                             type="newCourse"
                             onAdd={newCourse => 

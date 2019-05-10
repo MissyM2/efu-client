@@ -7,12 +7,6 @@ ul {
     display:column;
 }
 
-.myweek-details-wrapper {
-    display:flex;
-    flex-direction:column;
-    border: 1px solid
-}
-
 
 
 /*  Week Stuff */
@@ -26,11 +20,6 @@ ul {
 .student-section-labels {
     font-weight: bold;
     background-color:rgba(211, 211, 211, 0.349);
-}
-
-.myweek-wrapper {
-    width: 100%;
-    padding-top: 50px;
 }
 
 .myweek-label {
@@ -70,26 +59,6 @@ ul {
     margin-bottom: 12px;
 }
 
-/*  grades stuff */
-
-.myweek-grades-wrapper {
-    width: 100%;
-}
-
-.courses-grades-wrapper {
-    width: 100%;
-    border: 1px solid;
-    margin: 0 auto;
-}
-
-.course-grades-list {
-    display: flex;
-    flex-direction: row;
-    border: 1px solid red;
-    width: 100%;
-    margin: 0 auto;
-    list-style: none;
-}
 
 .li-courses {
     width: 20%;

@@ -3,22 +3,23 @@ import {connect} from 'react-redux';
 
 import {SingleDeliverable} from './single-deliverable';
 
+import './css/index.css';
 import './css/deliverables.css';
 
 export class TodayDeliverables extends React.Component {
         render() {
                 //console.log('this props for today dels ', this.props.todayDels);
                const todayDels = this.props.todayDels.map((singledeliverable, index) =>
-                        <li className="singledeliverable-wrapper" key={index}>
+                        <li key={index}>
                                 <SingleDeliverable index={index} {...singledeliverable} />
                         </li>
                );
                 
                 return (
-                        <div className="data-wrapper">
+                        <div className="wrapper">
                                 <h3>{this.props.title}, {this.props.todayDate}</h3>
                                 <div className="deliverable-section">
-                                        <ul className="items-list">
+                                        <ul className="list">
                                                 {todayDels}
                                         </ul>
                                 </div>  

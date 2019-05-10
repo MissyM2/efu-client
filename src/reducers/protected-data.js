@@ -32,6 +32,8 @@ import {
 } from '../actions/protected-data';
 
 const initialState = {
+    selectedTerm:'Spring, 2019',
+    selectedWeek: 2,
     terms: [{
         termDesc:''
     }],

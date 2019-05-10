@@ -8,7 +8,7 @@ import {
 
 import './css/app.css'
 
-import MainNav from './main-nav';
+//import MainNav from './main-nav';
 import LandingPage from './landing-page';
 import Dashboard from './dashboard';
 import RegistrationPage from './registration-page';
@@ -56,10 +56,9 @@ export class App extends React.Component {
             return(
                 <Router>
                     <div className="app">
-                            <h2>app</h2>
-                            <div>
+                           {/*} <div>
                                 <MainNav />
-                            </div>
+                            </div>*/}
                             <main role="main">
                                 <Route exact path="/" component={LandingPage} />
                                 <Route exact path="/dashboard" component={Dashboard} />

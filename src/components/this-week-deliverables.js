@@ -3,6 +3,7 @@ import {SingleDeliverable} from './single-deliverable';
 import {fetchGetDeliverables} from '../actions/protected-data';
 import {connect} from 'react-redux';
 
+import './css/index.css';
 import './css/deliverables.css';
 
 export class ThisWeekDeliverables extends React.Component{
@@ -22,19 +23,19 @@ export class ThisWeekDeliverables extends React.Component{
                         </li>
                         );
                 return (
-                        <div className="deliverables-wrapper">
+                        <div className="wrapper">
                                 <h3>{this.props.title} for {this.props.termDesc}, Week {this.props.weekNum}</h3>
                                 <div className="items-list-labels">
-                                        <div className="item-data courseName">CourseName</div>
-                                        <div className="item-data termDesc">TermDesc</div>
-                                        <div className="item-data weekNum">WeekNum</div>
-                                        <div className="item-data dueDate">DueDate</div>
-                                        <div className="item-data pressure">Pressure</div>
-                                        <div className="item-data prephrs">prephrs</div>
-                                        <div className="item-data deliverableName">deliverableName</div>
+                                        <div className="item courseName">CourseName</div>
+                                        <div className="item termDesc">TermDesc</div>
+                                        <div className="item weekNum">WeekNum</div>
+                                        <div className="item dueDate">DueDate</div>
+                                        <div className="item pressure">Pressure</div>
+                                        <div className="item prephrs">prephrs</div>
+                                        <div className="item deliverableName">deliverableName</div>
                                 </div>
                                 <div className="deliverable-section">
-                                        <ul className="items-list">
+                                        <ul className="list tems-list">
                                                 {thisweekDels}
                                         </ul>
                                 </div>

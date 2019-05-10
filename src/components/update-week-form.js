@@ -31,26 +31,26 @@ export class UpdateWeekForm extends React.Component {
         return (
             <div>
                 <div className="myweeksectionlabels">
-                    <div className="myweekupdatelabel likedLeast">Course You Liked Least</div>
-                    <div className="myweekupdatelabel likedMost">Course You Liked Most</div>
+                    <div className="item-label likedLeast">Course You Liked Least</div>
+                    <div className="item-label likedMost">Course You Liked Most</div>
                 </div>
                 <div className="myweeksection">
-                        <select className="myweekupdateitem likedLeast" type="text" ref={input => this.likedLeastInput = input} name="liked-least" validate={[required, nonEmpty, isTrimmed]} >
+                        <select className="item likedLeast" type="text" ref={input => this.likedLeastInput = input} name="liked-least" validate={[required, nonEmpty, isTrimmed]} >
                             {this.props.courseDropDown}
                         </select>
-                        <select className="myweekupdateitem likedMost" type="text" ref={input => this.likedMostInput = input} name="liked-most" validate={[required, nonEmpty, isTrimmed]}>
+                        <select className="item likedMost" type="text" ref={input => this.likedMostInput = input} name="liked-most" validate={[required, nonEmpty, isTrimmed]}>
                             {this.props.courseDropDown}
                         </select>
                 </div>
                 <div className="myweeksectionlabels">
-                    <div className="myweekupdatelabel mostDifficult">Your Most Difficult Course</div>
-                    <div className="myweekupdatelabel leastDifficult">Your Least Difficult Course</div>
+                    <div className="item-label mostDifficult">Your Most Difficult Course</div>
+                    <div className="item-label leastDifficult">Your Least Difficult Course</div>
                 </div>
                 <div className="myweeksection">
-                        <select className="myweekupdateitem mostDifficult" type="text" ref={input => this.mostDifficultInput = input} name="most-difficult" validate={[required]}>
+                        <select className="item mostDifficult" type="text" ref={input => this.mostDifficultInput = input} name="most-difficult" validate={[required]}>
                             {this.props.courseDropDown}
                         </select>
-                        <select className="myweekupdateitem leasttDifficult" type="text" ref={input => this.leastDifficultInput = input} name="least-difficult" validate={[required, nonEmpty, isTrimmed]}>
+                        <select className="item leasttDifficult" type="text" ref={input => this.leastDifficultInput = input} name="least-difficult" validate={[required, nonEmpty, isTrimmed]}>
                             {this.props.courseDropDown}
                     </select>
                 </div>

@@ -5,8 +5,10 @@ import {fetchGetCourses} from '../actions/protected-data';
 import {fetchGetDeliverables, fetchAddDeliverable, fetchFindGivenDeliverables} from '../actions/protected-data';
 import {PlanNextWeekCourses} from './plan-next-week-courses';
 
+import {MainNav} from './main-nav';
 import {AddDeliverableForm} from './add-deliverable-form';
 
+import './css/index.css'; 
 import './css/plan-next-week.css';
 
 export class PlanNextWeek extends React.Component {
@@ -17,7 +19,7 @@ export class PlanNextWeek extends React.Component {
         render() {
                 //console.log('mydeliverables in plan next week ', this.props.myDeliverables);
                 const myCourses = this.props.myCourses.map((singlecourse, index) =>
-                        <li className="singlecourse-wrapper" key={index}>
+                        <li className="wrapper" key={index}>
                                 <div className="course-header">
                                         <PlanNextWeekCourses index={index} {...singlecourse} dels={this.props.myDeliverables} />      
                                 </div> 
@@ -25,9 +27,12 @@ export class PlanNextWeek extends React.Component {
                 );
                 return (
                         <div>
-                                <div className="data-wrapper">
-                                        <h2>{this.props.title}</h2>
-                                        <ul className="items-list">
+                                 <div>
+                                        <MainNav />
+                                </div>
+                                <div className="wrapper">
+                                        <h2>{this.props.title}: Week Number {this.props.nextWeek}</h2>
+                                        <ul className="list-horizontal">
                                                 {myCourses}
                                         </ul>
                                 </div> 
@@ -42,17 +47,20 @@ export class PlanNextWeek extends React.Component {
 
 const mapStateToProps = state => {
         const {currentUser} = state.auth;
-        const weekNum = 2;
-        const termDesc = 'Spring, 2019';
+        const weekNum = state.protectedData.selectedWeek;
+        const nextWeek = weekNum + 1;
+        const termDesc = state.protectedData.selectedTerm;
+        
        // console.log('currentUser', currentUser);
         //console.log('state', state);
         return {
                 user: currentUser,
+                nextWeek: weekNum + 1,
                 myCourses: state.protectedData.courses.filter(course => {
                         return course.term === "Spring, 2019";
                 }),
                 myDeliverables: state.protectedData.deliverables.filter(deliverable =>{
-                        return(deliverable.termDesc === termDesc && deliverable.weekNum === weekNum);
+                        return(deliverable.termDesc === termDesc && deliverable.weekNum === nextWeek);
                 }),
                 myCourseDeliverables: state.protectedData.deliverables,
                 title: "Plan Next Week"

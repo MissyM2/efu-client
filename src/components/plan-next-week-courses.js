@@ -1,9 +1,10 @@
+
+import './css/index.css';
 import './css/plan-next-week.css';
 import React from 'react';
 import {connect} from 'react-redux';
 
 import {SingleDeliverable} from './single-deliverable';;
-
 
 
 export class PlanNextWeekCourses extends React.Component {
@@ -28,7 +29,7 @@ export class PlanNextWeekCourses extends React.Component {
         return (
             <div className="single-course">
                 <div 
-                    className="course-item courseName" 
+                    className="item courseName" 
                     data-term="Spring, 2019" 
                     data-week="2" 
                     data-coursename={this.props.courseName}>

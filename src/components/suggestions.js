@@ -3,7 +3,8 @@ import {connect} from 'react-redux';
 
 import {fetchGetSuggestions} from '../actions/protected-data';
 
-import './css/suggestions.css';
+import './css/index.css';
+import './css/dashboard.css';
 
 export class Suggestions extends React.Component {
     componentDidMount() {
@@ -13,11 +14,11 @@ export class Suggestions extends React.Component {
     render() {
 
         return (
-            <div className="suggestion-wrapper">
+            <div className="wrapper">
                 <ul className="suggestion-details">
-                    <li className="suggestion-data-item category">A Suggestion from the {this.props.currentSuggestion.category} category</li>
-                    <li className="suggestion-data-item desc">{this.props.currentSuggestion.desc}</li>
-                    <li className="suggestion-data-item credit">~ {this.props.currentSuggestion.credit}</li>
+                    <li className="item category">A Suggestion from the {this.props.currentSuggestion.category} category</li>
+                    <li className="item desc">{this.props.currentSuggestion.desc}</li>
+                    <li className="item credit">~ {this.props.currentSuggestion.credit}</li>
                 </ul>
             </div>
         );

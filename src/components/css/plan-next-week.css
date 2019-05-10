@@ -1,38 +1,3 @@
-.data-wrapper {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    border: 1px solid purple;
-}
-
-.singlecourse-wrapper {
-    border: 1px solid green;
-    width: 100%;
-    margin: 10px;
-}
-
-.single-item {
-    width: 100%;
-    list-style: none;
-}
-
-.items-list {
-    list-style-type: none;
-    margin:0;
-    padding: 0;
-}
-
-.item-details {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-}
-
-.item-data {
-    padding: 3px 10px;
-    border: 1px solid yellow;
-
-}
 
 .course-header {
     font-weight: bold;

@@ -7,10 +7,12 @@ import {getCurrentDate} from '../utils';
 import {fetchGetDeliverables} from '../actions/protected-data';
 
 import TodayDeliverables from './today-deliverables';
+import MainNav from './main-nav';
 import {SingleDeliverable} from './single-deliverable';
 import Suggestions from './suggestions';
 //import ReviewLastWeek from './review-last-week';
 
+import './css/index.css';
 import './css/dashboard.css';
 
 export class Dashboard extends React.Component {
@@ -21,34 +23,30 @@ export class Dashboard extends React.Component {
     render() {
         console.log(getCurrentDate());
         const thisWeeksDeliverables = this.props.myWeekDeliverables.map((singledeliverable, index) =>
-                        <li className="singlecourse-wrapper" key={index}>
-                                <div className="course-header">
-                                        <SingleDeliverable index={index} deliverable={singledeliverable} />      
-                                </div> 
+                        <li key={index}>
+                                    <SingleDeliverable index={index} deliverable={singledeliverable} />
                         </li>
                 );
         return (
                 <div className="dashboard">
-                    <h3>This is the Dashboard</h3>
-                    <div className="dashboard-username">
-                        Username: {this.props.username}
-                    </div>
-                    <div className="dashboard-name">Name:  {this.props.name}</div>
                     <div>
-                        <h3>Take charge of your academic life.</h3>
-                        <h3>Plan and track your academic progress with small, achievable goals and collaborating with a mentor.</h3>
+                            <MainNav />
                     </div>
+                    <h2>{this.props.firstname}'s Dashboard</h2>
+                    <h3> Your are working with {this.props.currentTerm} term and week number {this.props.currentWeek}</h3>
+                    
                     <div className="skills-suggestion">
-                        <h3>This Week's Deliverables, Week {this.props.weekNum}</h3>
                         <Suggestions />
                     </div>
                     <div >
-                        <h3>This Week's Deliverables, Week {this.props.weekNum}</h3>
+                        <h3>This Week's Deliverables, Week {this.props.currentWeek}</h3>
                         <TodayDeliverables />
                     </div>
                     <div> 
-                        <h3>This Week's Deliverables, Week {this.props.weekNum}</h3>
-                        {thisWeeksDeliverables}
+                        <h3>This Week's Deliverables, Week {this.props.currentWeek}</h3>
+                        <ul className="generic-list">
+                            {thisWeeksDeliverables}
+                        </ul>
                     </div>
                     <div className="review-and-plan">
                         <h3>Review Last Week and Plan for Next Week</h3>
@@ -63,11 +61,13 @@ export class Dashboard extends React.Component {
 
 const mapStateToProps = state => {
     const {currentUser} = state.auth;
-    const weekNum = 2;
-    const termDesc = 'Spring, 2019';
+    const weekNum = state.protectedData.selectedWeek;
+    const termDesc = state.protectedData.selectedTerm;
    // console.log('currentUser', currentUser);
-    //console.log('state', state);
+   console.log('state', state.protectedData);
     return {
+            currentWeek:weekNum,
+            currentTerm: termDesc,
             user: currentUser,
             myWeekDeliverables: state.protectedData.deliverables.filter(deliverable =>{
                     return(deliverable.termDesc === termDesc && deliverable.weekNum === weekNum);
@@ -75,8 +75,7 @@ const mapStateToProps = state => {
             myDayDeliverables: state.protectedData.deliverables.filter(deliverable => {
                 return (deliverable.dueDate === "05/08/2019");
             }),
-            name: `${currentUser.firstName} ${currentUser.lastName}`,
-            title: "Your Dashboard"
+            firstname: currentUser.firstName
     };
     
 };

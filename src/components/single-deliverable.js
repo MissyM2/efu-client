@@ -2,6 +2,7 @@ import React from 'react';
 
 import {EditBtns} from './edit-btns';
 
+import './css/index.css';
 import './css/deliverables.css';
 
 export function SingleDeliverable(props) {

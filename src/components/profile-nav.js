@@ -3,11 +3,20 @@ import { Link } from 'react-router-dom';
 import {connect} from 'react-redux';
 import {fetchGetTerms, fetchAddTerm} from '../actions/protected-data';
 import {AddTermForm} from './add-term-form';
-import {SingleTerm} from './single-term';
+//import {SingleTerm} from './single-term';
+import {EditBtns} from './edit-btns';
 
 import './css/profile.css';
 
 export class ProfileNav extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            profileSelectedTerm: 'Spring, 2019'
+        };
+
+    }
+
     componentDidMount() {
         this.props.dispatch(fetchGetTerms());
     };
@@ -28,19 +37,20 @@ export class ProfileNav extends React.Component {
   */ 
     render() {
         const terms = this.props.termList.map((term, index) => 
-        <li className="term-menu-list-item" key={index}>
+        <li className="item" key={index}>
             <Link to={`/${term.termDesc}`}>
             {/*<SingleTerm onClick={e => this.onClick(term)} index={index} {...singleterm} />*/}
-                <SingleTerm index={index} {...term} />
+                <div className="term-data-item termdesc" onClick={this.onClick}>{term.termDesc}</div>
+                <EditBtns type="term" />
             </Link> 
         </li>
         );
         return (
-            <div className="nav profile-nav">
-            <h2>{this.props.title}</h2>
+            <div>
                 <div className="term-section">
+                    <h3>{this.props.title}</h3>
                     <nav className="term-menu">
-                        <ul className="term-menu-list">
+                        <ul className="list-horizontal">
                             {terms}
                         </ul>
                     </nav> 
@@ -58,9 +68,11 @@ export class ProfileNav extends React.Component {
 
 const mapStateToProps = state => {
     const terms = state.protectedData.terms;
+    const {currentUser} = state.auth;
     return {
         title: "Your Terms",
-        termList: Object.keys(terms).map(termId => terms[termId])
+        termList: Object.keys(terms).map(termId => terms[termId]),
+        firstname: currentUser.firstName
     };
 };
 

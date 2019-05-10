@@ -3,9 +3,11 @@ import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
 
 import {SingleWeek} from './single-week';
+import {EditBtns} from './edit-btns';
 import {AddWeekForm} from './add-week-form';
 import {fetchGetWeeks, fetchAddWeek} from '../actions/protected-data';
 
+import './css/index.css';
 import './css/profile.css';
 
 export class WeekList extends React.Component {
@@ -20,10 +22,16 @@ export class WeekList extends React.Component {
 
         render() {
             const weeks = this.props.weekList.map((week,index) => 
-            <li className="week-list-course" key={index}>
-                    <Link to={`/${week.term}/${week.id}`}>
-                        <SingleWeek index={index} {...week} />
-                    </Link>
+            <li className="item" key={index}>
+                    <ul className="list-horizontal">
+                        <li className="item weeknum">{week.weekNum}</li>
+                        <li className="item termDesc">{week.termDesc}</li>
+                        <li className="item likedLeast">{week.likedLeast}</li>
+                        <li className="item likedMost">{week.likedMost}</li>
+                        <li className="item mostDifficult">{week.mostDifficult}</li>
+                        <li className="item leastDifficult">{week.leastDifficult}</li>
+                        <EditBtns type="week" />
+                    </ul>
             </li>
             );
 
@@ -31,20 +39,17 @@ export class WeekList extends React.Component {
                         <div className="week">
                                 <h2>{this.props.title}</h2>
                                 <div className="weeks-section">
-                                        <ul className="label-list">
-                                                <div className="single-item">
-                                                        <div className="week-data-item weeknum">Week Number</div>
-                                                        <div className="week-data-item termDesc">Term</div>
-                                                        <div className="week-data-item likedLeast">Liked Least</div>
-                                                        <div className="week-data-item likedMost">Liked Most</div>
-                                                        <div className="week-data-item mostDifficdivt">Most Difficult</div>
-                                                        <div className="week-data-item leastDifficult">Least Difficult</div>
-                                                </div>
-                                                
+                                        <ul className="list-horizontal">
+                                                        <li className="item weeknum">Week Number</li>
+                                                        <li className="item termDesc">Term</li>
+                                                        <li className="item likedLeast">Liked Least</li>
+                                                        <li className="item likedMost">Liked Most</li>
+                                                        <li className="item mostDifficlit">Most Difficult</li>
+                                                        <li className="item leastDifficult">Least Difficult</li>
                                         </ul>
                                 </div>
                                 <div className="weeks-section">
-                                    <ul className="weeks-list">
+                                    <ul className="list-vertical">
                                                 {weeks}
                                     </ul>
                                 </div>

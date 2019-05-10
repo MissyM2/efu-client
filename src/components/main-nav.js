@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import {clearAuth} from '../actions/auth';
 import {clearAuthToken} from '../local-storage';
 
+import './css/index.css';
 import './css/main-nav.css';
 
 export class MainNav extends React.Component {
@@ -24,7 +25,7 @@ export class MainNav extends React.Component {
         }
 
         return (
-            <div className="main-nav">
+            <div className="list-horizontal">
                 <h3 id="nav-logo"><Link to="/">ExecutiveFollowup</Link></h3>
                 <h3 id="view-past-weeks"><Link to="/weeks">Weeks</Link></h3>
                 <h3 id="update-profile"><Link to="/profile">Profile</Link></h3>

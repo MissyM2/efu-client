@@ -5,10 +5,12 @@ import {fetchGetWeeks, fetchUpdateWeek} from '../actions/protected-data';
 import {fetchGetCourses} from '../actions/protected-data';
 import {fetchFindGivenGrade, fetchAddGrade} from '../actions/protected-data';
 
+import {MainNav} from './main-nav';
 import {ReviewLastWeekDetails} from './review-last-week-details';
 import {ReviewLastWeekCourses} from './review-last-week-courses';
 import {UpdateWeekForm} from './update-week-form';
 
+import './css/index.css';
 import './css/review-last-week.css';
 
 export class ReviewLastWeek extends React.Component {
@@ -29,9 +31,9 @@ export class ReviewLastWeek extends React.Component {
         //let term = e.currentTarget.dataset.term;
         const newGrade = {
             user :"5cc05cab4f68a203112870e4",
-            termDesc: e.currentTarget.dataset.term,
+            termDesc: this.props.currentTerm,
+            weekNum: this.props.currentWeek,
             courseName:e.currentTarget.dataset.course,
-            weekNum: this.props.weekNum,
             gradeNum: var1.value,
         }
 
@@ -39,52 +41,51 @@ export class ReviewLastWeek extends React.Component {
             this.props.dispatch(fetchFindGivenGrade(newGrade));
             console.log('this message appears after the addGrade function is complete.');
         }
-        //how many courses are there?
-        //course 0 is what?
-
     }
 
 
     
     render() {
-           
-       
             const myWeek = this.props.Weeks.map((singleweek, index) =>
-                        <li className="week-detail" key={index}>
-                                <div className="week-field"><ReviewLastWeekDetails index={index} {...singleweek} /></div>
-                        </li>
+                    <li className="week-detail" key={index}>
+                        <div className="week-field"><ReviewLastWeekDetails index={index} {...singleweek} /></div>
+                    </li>
             );
         
             const myCourses = this.props.Courses.map((singlecourse, index) =>
-                     <li className="li-courses" key={index}>
-                             <ReviewLastWeekCourses index={index} {...singlecourse} />
-                             
-                     </li>
+                    <li className="li-courses" key={index}>
+                        <ReviewLastWeekCourses index={index} {...singlecourse} />  
+                    </li>
             );
             const myCourseGradeEditFields = this.props.Courses.map((singlecourse, index) =>
             {
                 const gradeNumber = "gradeNumber" + index;
                 return (
-                <li className="li-courses" key={index}>
-                    <input type="number" 
-                            id={gradeNumber}
-                            index={index}
-                            ref={input => this.courseGradeInput = input}
-                            name={singlecourse.course}
-                        />
-                        
-                </li>
+                        <li className="li-courses" key={index}>
+                           
+                                <input type="number" 
+                                        id={gradeNumber}
+                                        index={index}
+                                        ref={input => this.courseGradeInput = input}
+                                        name={singlecourse.course}
+                                    />
+                            
+                        </li>
                 )
             
             });
             const myCourseGradeEditbuttons = this.props.Courses.map((singlecourse, index) =>
             <li className="li-courses" key={index}>
-                  <button 
-                    className={`${singlecourse.courseName}btn`} 
-                    data-term={singlecourse.term} 
-                    data-week={singlecourse.week}
+                <div
+                     className={`${singlecourse.courseName}btn`}
+                     data-course={singlecourse.courseName}
+                     onClick={e => this.addGrade(e, "gradeNumber" + index)}>
+                        <i class="far fa-save"></i>
+                </div>
+                {/*  <button 
+                    className={`${singlecourse.courseName}btn`}
                     data-course={singlecourse.courseName}
-                    onClick={e => this.addGrade(e, "gradeNumber" + index)}>Commit Grade</button>
+                onClick={e => this.addGrade(e, "gradeNumber" + index)}>Commit Grade</button> */}
                     
             </li>
             );
@@ -94,10 +95,12 @@ export class ReviewLastWeek extends React.Component {
                 <option value={course.courseName} key={index}>{course.courseName}</option>
             );
 
-            //console.log(this.props.Grades);
 
         return (
             <div>
+                 <div>
+                    <MainNav />
+                </div>
                     <div>
                             <div className="myweek-details-wrapper" >
                                 <h2>{this.props.myWeekTitle}</h2>
@@ -116,16 +119,16 @@ export class ReviewLastWeek extends React.Component {
                     </div>
                     <hr />
                     <div>
-                            <div className="myweek-grades-wrapper">
+                            <div className="wrapper">
                                 <h2>{this.props.gradesSubtitle}</h2>
-                                <div className="courses-grades-wrapper">
-                                    <ul className="course-grades-list">
+                                <div className="wrapper">
+                                    <ul className="list-horizontal">
                                         {myCourses}
                                     </ul>
-                                    <ul className="course-grades-list">
+                                    <ul className="list-horizontal">
                                         {myCourseGradeEditFields}
                                     </ul>
-                                    <ul className="course-grades-list">
+                                    <ul className="list-horizontal">
                                         {myCourseGradeEditbuttons}
                                     </ul>
                                 </div>                         
@@ -140,7 +143,12 @@ export class ReviewLastWeek extends React.Component {
 
 const mapStateToProps = state => {
     const {currentUser} = state.auth;
+    const weekNum = state.protectedData.selectedWeek;
+    const termDesc = state.protectedData.selectedTerm;
+            
     return {
+            currentWeek:weekNum,
+            currentTerm: termDesc,
             Weeks: state.protectedData.weeks.filter(week => {
                 //console.log('inside mapStateToProps: week', week);
                 return week.termDesc === 'Spring, 2019' && week.weekNum === 2;
@@ -150,7 +158,6 @@ const mapStateToProps = state => {
                 return course.term === 'Spring, 2019';
             }),
             Grades: state.protectedData.grades,
-            weekNum: 2,
             myWeekTitle: "Review This Week",
             characteristicsSubtitle: "What did you think this last week?",
     };

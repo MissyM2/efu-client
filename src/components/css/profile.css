@@ -1,23 +1,19 @@
+.profile-header {
+    margin-top: 150px;
+}
+
 .profile-nav {
     display:flex;
     flex-direction: row;
-    margin-top: 150px;
     padding: 1% 0;
     background-color: #aaa;
    
 }
 
-.term-menu-list{
-    display:flex;
-    flex-direction: row;
+.term-menu {
+    margin: 0 auto;
 }
 
-.courses-wrapper {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    border: 1px solid purple;
-}
 
 .course-section {
     display: flex;
@@ -25,24 +21,19 @@
     margin: 0 auto;
 }
 
-.course-list {
-    display:flex;
-    flex-direction: row;
+.center {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 30%;
+    border: 1px solid pink;
 }
 
-.single-course {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid;
+.profile-list {
+    list-style-type: square;
 }
 
-.course-data-item {
-    width: 100%;
-    border: 1px solid red;
-}
 
-.add-course-wrapper {
-    margin-top: 15px;
-    margin-bottom: 15px;
-}
+
+
 

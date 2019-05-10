@@ -44,11 +44,6 @@
     flex-direction: row;
 }
 
-.class-item {
-    border: 1px solid gray;
-    padding:5px;
-}
-
 .class-body {
     width: 20%;
 }
@@ -194,76 +189,4 @@
         font-weight: bold;
     }
     
-}
-
-@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
-
-    .student-details {
-        width: 100%;
-    } 
-
-    .class-deliverables  {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .class-list {
-        border: 1px solid;
-    }
-
-    .class-item {
-        width: 100%;
-        text-align: center;
-        border:none;
-    }
-
-    .edit {
-        margin-top: 15px;
-    }
-
-    .class-info {
-        font-weight: bold;
-    }
-
-    .week-details,
-    .attitude-details,
-    .difficulty-details {
-        width: 100%;
-       
-    }
-
-    .liked,
-    .hardest,
-    .week-num {
-        padding-left:0;
-    }
-
-    .basic-detail {
-        width: 50%;
-        text-align: center;
-    }
-
-    .left {
-        text-align: left;
-    }
-
-    .stud-name-label,
-    .stud-school-label,
-    .stud-term-label {
-        padding-left: 30px;
-    }
-
-    .week-ending {
-        font-weight:bold;
-    }
-
-    .class-item {
-        padding:2px;
-    }
-
-    .class-weekly-note {
-        text-align: left;
-        padding:0 3px;
-    }
-
 }
