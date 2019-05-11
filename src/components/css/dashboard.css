@@ -1,40 +1,4 @@
 
-.dashboard {
-    margin-top: 100px;
-    text-align:middle;
-    padding: 5px;
-    border: 1px solid orange;
-    width: 100%;
-}
-
-.board {
-    width: 100%;
-    border: 1px solid blue;
-    margin: 0 auto;
-}
-
-.review-and-plan {
-    display: flex;
-    flex-direction: column;
-    padding-top:20px;
-    padding-bottom: 150px;
-}
-
-.generic-list {
-    list-style-type: none;
-}
-
-ul {
-    list-style-type: none;
-}
-
-.suggestion-wrapper {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    border: 1px solid purple;
-}
-
 .suggestion-details {
     width: 60%;
     margin: 0 auto;

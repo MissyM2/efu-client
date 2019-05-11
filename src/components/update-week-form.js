@@ -2,7 +2,7 @@ import React from 'react';
 
 import {required, nonEmpty, isTrimmed} from '../validators';
 
-import './css/review-last-week.css';
+import './css/review-current-week.css';
 
 export class UpdateWeekForm extends React.Component {
     submitFetch(e) {

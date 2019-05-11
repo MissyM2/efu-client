@@ -1,8 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {Link} from 'react-router-dom';
 
-import {SingleWeek} from './single-week';
 import {EditBtns} from './edit-btns';
 import {AddWeekForm} from './add-week-form';
 import {fetchGetWeeks, fetchAddWeek} from '../actions/protected-data';
@@ -30,7 +28,7 @@ export class WeekList extends React.Component {
                         <li className="item likedMost">{week.likedMost}</li>
                         <li className="item mostDifficult">{week.mostDifficult}</li>
                         <li className="item leastDifficult">{week.leastDifficult}</li>
-                        <EditBtns type="week" />
+                        <li className="item edit-btns"><EditBtns type="week" /></li>
                     </ul>
             </li>
             );
@@ -46,6 +44,7 @@ export class WeekList extends React.Component {
                                                         <li className="item likedMost">Liked Most</li>
                                                         <li className="item mostDifficlit">Most Difficult</li>
                                                         <li className="item leastDifficult">Least Difficult</li>
+                                                        <li className="item edit-btns-label">Edit Buttons</li>
                                         </ul>
                                 </div>
                                 <div className="weeks-section">

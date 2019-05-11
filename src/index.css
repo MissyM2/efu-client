@@ -36,6 +36,10 @@
     border: 1px solid;
   }
 
+  ul {
+    list-style-type: none;
+  }
+
   li {
     margin: 0 auto;
     border: 1px solid lightseagreen;
@@ -62,17 +66,32 @@
     border: 1px solid red;
   }
 
+  .center {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    border: 1px solid pink;
+  }
+  .instructions {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .highlight {
+    background-color: pink;
+  }
+
   main {
     border: 1px solid;
   }
 
 
-.edit-btns {
-  display:flex;
-  flex-direction: row;
-  margin: 0 auto;
-  border: 1px solid orange;
-}
+  .edit-btns {
+    display:flex;
+    flex-direction: row;
+    margin: 0 auto;
+    border: 1px solid orange;
+  }
 
 
   .html-files {

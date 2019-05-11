@@ -3,17 +3,18 @@ import {connect} from 'react-redux';
 
 import {fetchGetWeeks, fetchUpdateWeek} from '../actions/protected-data';
 import {fetchGetCourses} from '../actions/protected-data';
-import {fetchFindGivenGrade, fetchAddGrade} from '../actions/protected-data';
+//import {fetchFindGivenGrade, fetchAddGrade} from '../actions/protected-data';
+import {fetchFindGivenGrade} from '../actions/protected-data';
 
 import {MainNav} from './main-nav';
-import {ReviewLastWeekDetails} from './review-last-week-details';
-import {ReviewLastWeekCourses} from './review-last-week-courses';
+import {ReviewCurrentWeekDetails} from './review-current-week-details';
+import {ReviewCurrentWeekCourses} from './review-current-week-courses';
 import {UpdateWeekForm} from './update-week-form';
 
 import './css/index.css';
-import './css/review-last-week.css';
+import './css/review-current-week.css';
 
-export class ReviewLastWeek extends React.Component {
+export class ReviewCurrentWeek extends React.Component {
 
     componentDidMount() {
         //seed with data from db
@@ -48,13 +49,13 @@ export class ReviewLastWeek extends React.Component {
     render() {
             const myWeek = this.props.Weeks.map((singleweek, index) =>
                     <li className="week-detail" key={index}>
-                        <div className="week-field"><ReviewLastWeekDetails index={index} {...singleweek} /></div>
+                        <div className="week-field"><ReviewCurrentWeekDetails index={index} {...singleweek} /></div>
                     </li>
             );
         
             const myCourses = this.props.Courses.map((singlecourse, index) =>
                     <li className="li-courses" key={index}>
-                        <ReviewLastWeekCourses index={index} {...singlecourse} />  
+                        <ReviewCurrentWeekCourses index={index} {...singlecourse} />  
                     </li>
             );
             const myCourseGradeEditFields = this.props.Courses.map((singlecourse, index) =>
@@ -142,7 +143,7 @@ export class ReviewLastWeek extends React.Component {
 }
 
 const mapStateToProps = state => {
-    const {currentUser} = state.auth;
+    //const {currentUser} = state.auth;
     const weekNum = state.protectedData.selectedWeek;
     const termDesc = state.protectedData.selectedTerm;
             
@@ -164,4 +165,4 @@ const mapStateToProps = state => {
     
 };
 
-export default connect(mapStateToProps)(ReviewLastWeek);
+export default connect(mapStateToProps)(ReviewCurrentWeek);

@@ -1,8 +1,8 @@
 import React from 'react';
 
-import './css/review-last-week.css';
+import './css/review-current-week.css';
 
-export function ReviewLastWeekDetails(props) {
+export function ReviewCurrentWeekDetails(props) {
     return (
             <div>
                 <div className="myweek-label">Student Info</div>
@@ -21,4 +21,4 @@ export function ReviewLastWeekDetails(props) {
 
 }
 
-export default (ReviewLastWeekDetails);
+export default (ReviewCurrentWeekDetails);

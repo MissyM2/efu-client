@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {fetchGetTerms, fetchAddTerm} from '../actions/protected-data';
 import {fetchGetCourses, fetchAddCourse} from '../actions/protected-data';
 
-import {MainNav} from './navbar';
+import {MainNav} from './main-nav';
 import {AddTermForm} from './add-term-form';
 //import {CourseList} from './course-list';
 import {AddCourseForm} from './add-course-form';
@@ -15,10 +15,10 @@ export class Profile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            myTerm:'',
-            myCourses: []
+            myTerm:'missy',
+            myCourses:[]
         };
-        //this.setMyCourses = this.setMyCourses.bind(this);
+        //this.onClick = this.onClick.bind(this);
 
     }
 
@@ -31,42 +31,39 @@ export class Profile extends React.Component {
     fetchAddTerm(term) {
         this.props.dispatch(fetchAddTerm(term));
     }
-*/
-    setMyCourse = (e) => {
+
+    setMyCourses(e) {
+      e.preventDefault;
+      this.setState({myCourses: this.props.termCourses});
+    }
+
+    onClick(e) {
         e.preventDefault();
-        this.setState({myTerm: e.currentTarget.dataset.term});
-        //var newCourseArray = ['hair twist 101', 'bread making 101', 'building flying saucers 101', 'digging for bones 101'];
-        var newCourseArray = this.props.currentCourses;
-        this.setState({myCourses: [this.state.myCourses, ...newCourseArray]});
- 
-        
-        console.log('AFTER setStatES this props.currentCourses', this.props.currentCourses);
-        console.log('AFTER setStatES this.state.myTerm', this.state.myTerm);
-        console.log('AFTER setStatES this state.myCourses', this.state.myCourses);
-    };
-
-
-render() {
+       this.setState({myTerm: e.currentTarget.dataset.term});
+  
+    }
+*/
+    render() {
+      console.log('right after render ', this.state.myTerm);
      
       const termCourses = this.props.courseList.filter(course => {
         return course.term === this.state.myTerm;
       });
-
-      
-      const myCourses = this.props.currentCourses.map((course,index) => 
+      console.log('right after render myCourses ', this.state.myCourses);
+        const myCourses = this.state.myCourses.map((course,index) => 
             <li key={index}>
               <div className="item courseName">{course.courseName}</div>
           </li>
         );
-        console.log('myCourses with html tags ', myCourses);
+        console.log('inside render: myCourses', myCourses);
 
         const myTerms = this.props.termList.map((term, index) => 
         <li className="item" key={index}>
             <Link to={`/${term.termDesc}`}>
                 <div 
-                  className={this.state.myTerm === term.termDesc ? 'item termDesc highlight': 'item termDesc'} 
+                  className={this.state.profileSelectedTerm === term.termDesc ? 'item termDesc highlight': 'item termDesc'} 
                   data-term={term.termDesc} 
-                  onClick={this.setMyCourse}>{term.termDesc}</div>
+                  onClick={(e) => this.onClick(e)}>{term.termDesc}</div>
             </Link> 
         </li>
         );
@@ -84,7 +81,7 @@ render() {
                     <h3><button type="button" onClick={(e) => this.setMyCourses(e)}>see courses for this term</button></h3>
                     <div>
                           <ul className="list-horizontal">
-                          {this.state.myTerm} courses will go here
+                           {myCourses}
                           </ul>
                     </div>  
             </div>  
@@ -94,25 +91,31 @@ render() {
 
 
 const mapStateToProps = state => {
-    const weekNum = state.protectedData.selectedWeek;
-    const termDesc = state.protectedData.selectedTerm;
-    const terms = state.protectedData.terms;
-    const courses = state.protectedData.courses;
+  const weekNum = state.protectedData.selectedWeek;
+  const termDesc = state.protectedData.selectedTerm;
+  const terms = state.protectedData.terms;
+  const courses = state.protectedData.courses.filter(course => {
+    return course.term === state.protectedData.selectedTerm;
+  });
+
+  //const termCourses = this.props.courseList.filter(course => {
+ //   return course.term === this.state.profileSelectedTerm;
+  //  });
+  
+  //const termCourses = courses.filter(course => {
+  //      return course.term === 'Fall, 2019';
+ //       });
+   //console.log(this.state.profileSelectedTerm);   
     return {
         currentWeek:weekNum,
         currentTerm: termDesc,
-        currentCourses: courses
-                           .map(course => {
-                                return course.courseName
-                            }),
         termList: Object.keys(terms).map(termId => terms[termId]),
         courseList: Object.keys(courses).map(courseId => courses[courseId]),
-        //courseList: Object.keys(termCourses).map(courseId => termCourses[courseId])
+        //courseList: Object.keys(termCourses).map(courseId => termCourses[courseId]),
+        firstname: currentUser.firstName
     };
 };
 
 export default connect(mapStateToProps)(Profile);
 
-//.filter(course => {
-////    return course.term === state.protectedData.selectedTerm;
-//}) 
+   

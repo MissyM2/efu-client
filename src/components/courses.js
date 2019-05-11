@@ -17,14 +17,14 @@ export class Courses extends React.Component {
     }
 
     render() {
-        //const courses = this.props.courses;
-        console.log(courses);
+        
         const courses = this.props.courses.map((singlecourse,index) => 
             <li key={index}>
                 {singlecourse.courseName}  
                 <EditBtns type="course" />
             </li>
         );
+        console.log(courses);
 
         return (
             <div className="wrapper">

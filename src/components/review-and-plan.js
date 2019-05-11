@@ -9,8 +9,8 @@ export class ReviewAndPlan extends React.Component {
             <div>
                 <h2>review-and-plan</h2>
                 <h2>Review and Plan</h2>
-                <div id="review-last-week">
-                    <button id="review-last-week" type="submit">Review Last Week</button>
+                <div id="review-current-week">
+                    <button id="review-current-week" type="submit">Review Last Week</button>
                 </div>
                 <div id="record-current-grades">
                     <button id="record-current-grades" type="submit">Record Current Grades</button>

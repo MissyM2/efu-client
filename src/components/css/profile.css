@@ -21,13 +21,6 @@
     margin: 0 auto;
 }
 
-.center {
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    width: 30%;
-    border: 1px solid pink;
-}
 
 .profile-list {
     list-style-type: square;

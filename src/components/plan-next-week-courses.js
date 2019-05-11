@@ -44,9 +44,8 @@ export class PlanNextWeekCourses extends React.Component {
 }
 
 const mapStateToProps = state => {
-    const {currentUser} = state.auth;
-    const weekNum = 2;
-    const termDesc = 'Spring, 2019';
+    const weekNum = state.protectedData.selectedWeek;
+    const termDesc = state.protectedData.selectedTerm;
     return {
             //user: currentUser,
             myDeliverables: state.protectedData.deliverables.filter(deliverable =>{

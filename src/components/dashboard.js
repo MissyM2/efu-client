@@ -7,10 +7,10 @@ import {getCurrentDate} from '../utils';
 import {fetchGetDeliverables} from '../actions/protected-data';
 
 import TodayDeliverables from './today-deliverables';
-import MainNav from './main-nav';
+import MainNav from './navbar';
 import {SingleDeliverable} from './single-deliverable';
 import Suggestions from './suggestions';
-//import ReviewLastWeek from './review-last-week';
+//import ReviewCurrentWeek from './review-current-week';
 
 import './css/index.css';
 import './css/dashboard.css';
@@ -50,7 +50,7 @@ export class Dashboard extends React.Component {
                     </div>
                     <div className="review-and-plan">
                         <h3>Review Last Week and Plan for Next Week</h3>
-                        <Link to="/reviewlastweek">Review Last Week</Link>
+                        <Link to="/reviewcurrentweek">Review Last Week</Link>
                         <Link to="/plannextweek">Plan Next Week</Link>
                     </div>
 
@@ -63,7 +63,6 @@ const mapStateToProps = state => {
     const {currentUser} = state.auth;
     const weekNum = state.protectedData.selectedWeek;
     const termDesc = state.protectedData.selectedTerm;
-   // console.log('currentUser', currentUser);
    console.log('state', state.protectedData);
     return {
             currentWeek:weekNum,

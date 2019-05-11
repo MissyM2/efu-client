@@ -2,11 +2,13 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import {fetchGetCourses} from '../actions/protected-data';
-import {fetchGetDeliverables, fetchAddDeliverable, fetchFindGivenDeliverables} from '../actions/protected-data';
+import {fetchGetDeliverables} from '../actions/protected-data';
+//import {fetchGetDeliverables, fetchAddDeliverable, fetchFindGivenDeliverables} from '../actions/protected-data';
+
 import {PlanNextWeekCourses} from './plan-next-week-courses';
 
-import {MainNav} from './main-nav';
-import {AddDeliverableForm} from './add-deliverable-form';
+import {MainNav} from './navbar';
+//import {AddDeliverableForm} from './add-deliverable-form';
 
 import './css/index.css'; 
 import './css/plan-next-week.css';
