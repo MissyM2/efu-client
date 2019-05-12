@@ -1,168 +1,258 @@
-import React from 'react';
-import {connect} from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import NavBar from "./navbar"
+import { FetchCalls } from "../fetch-calls";
+import { AuthCalls } from "../auth-calls";
+import { Link } from "react-router-dom";
+import {getCurrentDate} from '../utils';
 
-import {fetchGetWeeks, fetchUpdateWeek} from '../actions/protected-data';
-import {fetchGetCourses} from '../actions/protected-data';
-//import {fetchFindGivenGrade, fetchAddGrade} from '../actions/protected-data';
-import {fetchFindGivenGrade} from '../actions/protected-data';
-
-import {MainNav} from './main-nav';
-import {ReviewCurrentWeekDetails} from './review-current-week-details';
-import {ReviewCurrentWeekCourses} from './review-current-week-courses';
-import {UpdateWeekForm} from './update-week-form';
-
-import './css/index.css';
-import './css/review-current-week.css';
-
-export class ReviewCurrentWeek extends React.Component {
-
-    componentDidMount() {
-        //seed with data from db
-        this.props.dispatch(fetchGetWeeks());
-        this.props.dispatch(fetchGetCourses()); 
-    }
-
-    fetchUpdateWeek(updatedWeek) {
-        this.props.dispatch(fetchUpdateWeek(updatedWeek));
-    }
-
-    addGrade(e, gradeNumber) {
-        e.preventDefault();
-        const var1 = document.getElementById(gradeNumber);
-        //let term = e.currentTarget.dataset.term;
-        const newGrade = {
-            user :"5cc05cab4f68a203112870e4",
-            termDesc: this.props.currentTerm,
-            weekNum: this.props.currentWeek,
-            courseName:e.currentTarget.dataset.course,
-            gradeNum: var1.value,
-        }
-
-        if(newGrade) {
-            this.props.dispatch(fetchFindGivenGrade(newGrade));
-            console.log('this message appears after the addGrade function is complete.');
-        }
-    }
-
-
+const ReviewLastWeek = props => {
+    const [currentterm, setcurrentterm] = useState("");
+    const [currentweek, setcurrentweek] = useState();
+    const [currentcourses, setcurrentcourses] = useState();
+    const [currentcoursedropdown, setcurrentcoursedropdown] = useState("");
+    const [currentday, setcurrentday] = useState("");
+    const [likedmost, setlikedmost] = useState("");
+    const [likedleast, setlikedleast] = useState("");
+    const [mostdifficult, setmostdifficult] = useState("");
+    const [leastdifficult, setleastdifficult] = useState("");
+    const [weeknum, setweeknum] = useState();
+    const [coursename, setcoursename] = useState("");
+    const [gradenum, setgradenum] = useState("");
     
-    render() {
-            const myWeek = this.props.Weeks.map((singleweek, index) =>
-                    <li className="week-detail" key={index}>
-                        <div className="week-field"><ReviewCurrentWeekDetails index={index} {...singleweek} /></div>
-                    </li>
-            );
+
+    useEffect(() => {
+        // set the currentTerm
+        setcurrentterm("Spring, 2019");
+
+        //set the currentWeek
+        setcurrentweek(2);
+
+        //set the currentDay
+        setcurrentday("05/12/2019");
+
+        // fetch the weeks and set the state with the weeks
+        FetchCalls.getWeeks.then(weeks => {
+            let myweeks = [];
+            weeks
+                .filter(week => {
+                    return week.termDesc = currentterm && week.weekNum = currentweek
+                })
+                .forEach(week => {
+                    return myweeks.push({
+                        weekNum = week.weekNum,
+                        termDesc = week.termDesc,
+                        likedLeast = week.likedLeast,
+                        likedMost = week.likedMost,
+                        mostDifficult = week.mostDifficult,
+                        leastDifficult = week.leastDifficult
+                    })
+                });
+            setcurrentweeks(myweeks);
         
-            const myCourses = this.props.Courses.map((singlecourse, index) =>
-                    <li className="li-courses" key={index}>
-                        <ReviewCurrentWeekCourses index={index} {...singlecourse} />  
-                    </li>
-            );
-            const myCourseGradeEditFields = this.props.Courses.map((singlecourse, index) =>
-            {
-                const gradeNumber = "gradeNumber" + index;
-                return (
-                        <li className="li-courses" key={index}>
-                           
-                                <input type="number" 
-                                        id={gradeNumber}
-                                        index={index}
-                                        ref={input => this.courseGradeInput = input}
-                                        name={singlecourse.course}
-                                    />
-                            
-                        </li>
-                )
-            
-            });
-            const myCourseGradeEditbuttons = this.props.Courses.map((singlecourse, index) =>
-            <li className="li-courses" key={index}>
-                <div
-                     className={`${singlecourse.courseName}btn`}
-                     data-course={singlecourse.courseName}
-                     onClick={e => this.addGrade(e, "gradeNumber" + index)}>
-                        <i class="far fa-save"></i>
-                </div>
-                {/*  <button 
-                    className={`${singlecourse.courseName}btn`}
-                    data-course={singlecourse.courseName}
-                onClick={e => this.addGrade(e, "gradeNumber" + index)}>Commit Grade</button> */}
-                    
-            </li>
-            );
+        });
 
-           
-            const myCourseDropDown = this.props.Courses.map((course, index) =>
-                <option value={course.courseName} key={index}>{course.courseName}</option>
-            );
+        // fetch the courses and set the state with the courses
+        FetchCalls.getCourses.then(courses => {
+            let mycourses = [];
+            courses
+                .filter(course => {
+                    return course.termDesc = currentterm && course.weekNum = currentweek
+                })
+                .forEach(course => {
+                    return mycourses.push({
+                        termDesc: course.termDesc
+                    })
+                });
+            setcurrentcourses(mycourses);
+        });
 
+        // fetch the grades and set the state with the grades
+        FetchCalls.getGrades.then(grades => {
+            let mygrades = [];
+            grades
+                .filter(grade => {
+                    return grade.termDesc = currentterm && grade.weekNum = currentweek
+                })
+                .forEach(grade => {
+                    return mygrades.push({
+                        termDesc: grade.termDesc
+                    })
+                });
+            setcurrentgrades(mygrades);
+        });
 
-        return (
-            <div>
-                 <div>
-                    <MainNav />
-                </div>
-                    <div>
-                            <div className="myweek-details-wrapper" >
-                                <h2>{this.props.myWeekTitle}</h2>
-                                    <ul className="week-details-list">
-                                        {myWeek}
-                                    </ul>
-                            </div> 
-                            <div className="course-section">  
-                                    <div className="add-course-wrapper">
-                                        <UpdateWeekForm
-                                            type="updateWeek" courseDropDown={myCourseDropDown}
-                                            onUpdate={updatedWeek => 
-                                                this.fetchUpdateWeek(updatedWeek)}  />
-                                    </div>
-            </div>    
-                    </div>
-                    <hr />
-                    <div>
-                            <div className="wrapper">
-                                <h2>{this.props.gradesSubtitle}</h2>
-                                <div className="wrapper">
-                                    <ul className="list-horizontal">
-                                        {myCourses}
-                                    </ul>
-                                    <ul className="list-horizontal">
-                                        {myCourseGradeEditFields}
-                                    </ul>
-                                    <ul className="list-horizontal">
-                                        {myCourseGradeEditbuttons}
-                                    </ul>
-                                </div>                         
-                            </div>
-                    </div>
-            </div>
-            
-
+        setcurrentcoursedropdown(
+            currentcourses.map((course, index) =>
+                <option value={course.courseName} key={index}>{course.courseName}</option>)
         );
+
+    }, [loading]);
+
+    // update the week after student enters details
+    async function updateWeek(updatedWeek){
+        try {
+            await FetchCalls.updateWeek({
+                termDesc = {currentterm},
+                weekNum = {currentweek},
+                likedLeast,
+                likedMost,
+                mostDifficult,
+                leastDifficult
+            });
+            setcurrentterm("");
+            setcurrentweek("");
+            setlikedmost("");
+            setlikedleast("");
+            setmostdifficult("");
+            setleastdifficult("");
+        } catch (error) {
+            alert(error.message);
+        }
     }
+
+    // update the grades for the week after student enters details
+    async function addGrade() {
+        try {
+            await FetchCalls.addGrade({
+                termDesc = {currentterm},
+                weekNum = {currentweek},
+                courseName = {coursename},
+                gradeNum = {gradenum}}
+            });
+            setcurrentterm("");
+            setcurrentweek("");
+            setcoursename("");
+            setgradenum("");
+        } catch (error) {
+            alert(error.message);
+        }
+    }
+
+    return (
+        <main>
+            <NavBar {...props} />
+            <div className="container">
+                <h2>Review Last Week, week number {currentweek}</h2>
+                <div className="week">
+                    <p>How did you feel about your week?</p>
+                    <ul>
+                        <form onSubmit={e => e.preventDefault() && false}>
+                            <div>
+                                <div className="myweek-label">Student Info</div>
+                                <div className="student-section-labels">
+                                    <div className="myweekitemlabel studentFullName">Student Name</div>
+                                    <div className="myweekitemlabel weeknum">Week Number</div>
+                                    <div className="myweekitemlabel termDesc">Term</div>
+                                </div>
+                                <div className="student-section">
+                                    <div className="myweekitem studentFullName">{studentFullName}</div>
+                                    <div className="myweekitem weeknum">{currentweek}</div>
+                                    <div className="myweekitem termDesc">{currentterm}</div>
+                                </div>
+                            </div>
+                            <div>
+                                <div className="myweeksectionlabels">
+                                    <div className="item-label likedLeast">Course You Liked Least</div>
+                                    <div className="item-label likedMost">Course You Liked Most</div>
+                                </div>
+                                <div className="myweeksection">
+                                        <select 
+                                            className="item likedLeast" 
+                                            type="text" 
+                                            value={likedleast}
+                                            aria-title="likedleast" 
+                                            onChange={e => setlikedleast(e.target.value)} >
+                                            {currentcoursedropdown}
+                                        </select>
+                                        <select 
+                                            className="item likedMost" 
+                                            type="text" 
+                                            value={likedmost}
+                                            aria-title="likedmost" 
+                                            onChange={e => setlikedmost(e.target.value)}>
+                                            {currentcoursedropdown}
+                                        </select>
+                                </div>
+                                <div className="myweeksectionlabels">
+                                    <div className="item-label mostDifficult">Your Most Difficult Course</div>
+                                    <div className="item-label leastDifficult">Your Least Difficult Course</div>
+                                </div>
+                                <div className="myweeksection">
+                                        <select 
+                                            className="item mostDifficult" 
+                                            type="text" 
+                                            value={mostdifficult} 
+                                            aria-title="mostdifficult" 
+                                            onChange={e => setmostdifficult(e.target.value)}>
+                                            {currentcoursedropdown}
+                                        </select>
+                                        <select 
+                                            className="item leastDifficult" 
+                                            type="text" 
+                                            value={leastdifficult} 
+                                            aria-title="leastdifficult" 
+                                            onChange={e => setleastdifficult(e.target.value)}>
+                                        {currentcoursedropdown}
+                                    </select>
+                                </div>
+                            </div>
+                            <div>
+                                <button 
+                                    type="submit"
+                                    className="button is-primary" 
+                                    onClick={updateWeek}
+                                >
+                                    Commit Week Details
+                                </button>
+                            </div>
+                        </form>              
+                    </ul>
+                </div>
+                
+                <div className="grades">
+                    <p>Add Your Grades as of Today</p>
+                    <ul>
+                        <form onSubmit={e => e.preventDefault() && false}>
+                            {currentcourses
+                                .map((course, index) => {
+                                    return (
+                                        <li key={index}>
+                                                <div 
+                                                    className="item course">
+                                                    {course.courseName}
+                                                </div>
+                                                <div>
+                                                    <input 
+                                                        type="number" 
+                                                        index={index}
+                                                        value={grade}
+                                                        aria-label={course.courseName}
+                                                        data-course = {course.courseName}
+                                                        onChange={e => {
+                                                                //setcoursename(QUESTION:  how do i get the coursename?);
+                                                                setgrade(e.target.value)}
+                                                        />
+                                                </div>
+                                                <div>
+                                                    <button
+                                                        type="submit"
+                                                        className="button is-primary"
+                                                        onClick={addGrade}>
+                                                        Commit Grade
+                                                    </button>
+                                                </div>
+                                        </li>
+                                    );
+                                })
+                            }
+                        </form>
+                    </ul>
+                </div>
+            </div>  
+        </main>    
+    );  
 }
 
-const mapStateToProps = state => {
-    //const {currentUser} = state.auth;
-    const weekNum = state.protectedData.selectedWeek;
-    const termDesc = state.protectedData.selectedTerm;
-            
-    return {
-            currentWeek:weekNum,
-            currentTerm: termDesc,
-            Weeks: state.protectedData.weeks.filter(week => {
-                //console.log('inside mapStateToProps: week', week);
-                return week.termDesc === 'Spring, 2019' && week.weekNum === 2;
-            }),
-            Courses: state.protectedData.courses.filter(course => {
-                //console.log('inside mapStateToProps: course', course);
-                return course.term === 'Spring, 2019';
-            }),
-            Grades: state.protectedData.grades,
-            myWeekTitle: "Review This Week",
-            characteristicsSubtitle: "What did you think this last week?",
-    };
-    
-};
 
-export default connect(mapStateToProps)(ReviewCurrentWeek);
+
+export default ReviewLastWeek;

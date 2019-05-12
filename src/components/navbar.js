@@ -1,12 +1,15 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { AuthCalls } from '../auth-calls';
 
-export default function NavBar(props) => {
+export default function NavBar(props) {
 
     function logOut(e) {
         try {
-            localStorage.removeItem('authToken');
-        } catch (e) {}
+            AuthCalls.logOut();
+        } catch (err) {
+            alert(error.message);
+        }
     }
 
     return (
@@ -30,10 +33,10 @@ export default function NavBar(props) => {
                 </> */}
             </div>
 
-            <div id="navbarBasicExample" className="nacbar-menu">
+            <div id="navbarBasicExample" className="navbar-menu">
                 <div className="navbar-end">
                     <div className="navbar-item">
-                        {!getCurrentUsername() ? {
+                        {!AuthCalls.getCurrentUsername() ? (
                             <div className="buttons">
                                 <Link className="button is-primary" to="/register">
                                     <strong>Sign up</strong>
@@ -47,7 +50,10 @@ export default function NavBar(props) => {
                                 <Link className="button is-primary" to="/dashboard">
                                     dashboard
                                 </Link>
-                                <a className="button is-light" href="/logout" onClick={logout}>
+                                <Link className="button is-primary" to="/profile">
+                                    profile
+                                </Link>
+                                <a className="button is-light" href="/logout" onClick={logOut}>
                                     Log out
                                 </a>
                             </div>

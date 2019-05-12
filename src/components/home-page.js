@@ -4,7 +4,7 @@ import NavBar from "./navbar";
 const HomePage = props => {
     return (
         <main>
-            <Navbar className="navigation" {...props} />
+            <NavBar className="navigation" {...props} />
             <div className="container">
                 <h2>Executive Followup HomePage</h2>
                 <p className="homepage">

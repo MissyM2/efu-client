@@ -21,11 +21,11 @@ import PlanNextWeek from './components/plan-next-week';
 
 function App() {
 
-    //const [firebaseInitialized, setFirebaseInitialized(is this the islogged in stuff?)] = useState(false);
+    const [firebaseInitialized, setFirebaseInitialized] = useState(false);
 
-    //useEffect(() => {
-        //see if the database?  is initialized?
-   // })
+    useEffect(() => {
+       setFirebaseInitialized = true;
+    }
 
     return firebaseInitialized !== false ? (
         <section className="app-wrapper">

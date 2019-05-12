@@ -1,39 +1,22 @@
 import React, { useState } from 'react';
 import {Navbar} from './navbar';
+
+import AuthCalls from '../auth-calls';
 //import {required, nonEmpty} from '../validators';
 
 export default function Login(props) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    function login() {
-        fetch(`${API_BASE_URL}/auth/login`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                username,
-                password
-            })
-        })
-            // Reject any requests which don't return a 200 status, creating
-            // errors which follow a consistent format
-            .then(res => normalizeResponseErrors(res))
-            .then(res => res.json())
-            .then(({authToken}) => {
-                storeAuthInfo(authToken, dispatch)
-                props.history.replace("/dashboard"))
-            .catch(err => {
-                const {code} = err;
-                const message =
-                    code === 401
-                        ? 'Incorrect username or password'
-                        : 'Unable to login, please try again';
-                );
-
-    };
-    
+    async function login() {
+        try {
+            await AuthCalls.login(email,password);
+            props.history.replace("/dashboard");
+        } catch (err) {
+            alert(error.message);
+        }
+    }
+   
     return (
         <main>
             <Navbar {...props} />

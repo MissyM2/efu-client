@@ -8,6 +8,14 @@ class FetchCalls {
 
     }
 
+    getCurrentTerm() {
+        return 'Spring, 2019';
+    };
+
+    getCurrentWeek() {
+        return 2;
+    };
+
 /////////////////////////////////
 //
 //  FETCHES FOR ADDING (POSTING)  
@@ -156,7 +164,7 @@ class FetchCalls {
     /////////////////////////////////
 
     // fetch for getting terms
-    fetchGetTerms() {
+    getTerms() {
 
         //QUESTION
         //// const authToken = getState().auth.authToken;
@@ -182,7 +190,7 @@ class FetchCalls {
     };
 
     // fetch for getting grades
-    fetchGetGrades () {
+    getGrades () {
         //QUESTION
         //// const authToken = getState().auth.authToken;
         fetch(`${API_BASE_URL}/grades`, {
@@ -209,7 +217,7 @@ class FetchCalls {
 
     // fetch for searching for a given grade
 
-    fetchFindGivenGrade(newGrade) {
+    findGivenGrade(newGrade) {
         // const authToken = getState().auth.authToken;
         fetch(`${API_BASE_URL}/grades/search`, {
                 method: 'POST',
@@ -231,7 +239,7 @@ class FetchCalls {
                 } else {
                     console.log('what am i supposed to do here?');
                     //dispatch(fetchAddGrade(newGrade));
-                    //dispatch(fetchFindGivenGradeSuccess(newGrade));
+                    //dispatch(findGivenGradeSuccess(newGrade));
                 }
             })
             .catch(err => {
@@ -244,9 +252,9 @@ class FetchCalls {
 
     // fetch for getting all weeks
 
-    fetchGetWeeks(){
+    getWeeks(){
         // const authToken = getState().auth.authToken;
-        //('got to fetchGetWeeks');
+        //('got to getWeeks');
         fetch(`${API_BASE_URL}/weeks`, {
             method: 'GET',
             headers: {
@@ -267,7 +275,7 @@ class FetchCalls {
 
     // fetch for getting week by current week num
 
-    fetchGetWeekByCurrentWeekNum() {
+    getWeekByCurrentWeekNum() {
         // const authToken = getState().auth.authToken;
         fetch(`${API_BASE_URL}/weeks`, {
                 method: 'GET',
@@ -290,7 +298,7 @@ class FetchCalls {
 
 
     // fetch for getting all courses
-    fetchGetCourses() {
+    getCourses() {
         // const authToken = getState().auth.authToken;
         fetch(`${API_BASE_URL}/courses`, {
             method: 'GET',
@@ -316,7 +324,7 @@ class FetchCalls {
 
 
     // fetch for getting deliverables 
-    fetchGetDeliverables() {
+    getDeliverables() {
         // const authToken = getState().auth.authToken;
         fetch(`${API_BASE_URL}/deliverables`, {
             method: 'GET',
@@ -340,7 +348,7 @@ class FetchCalls {
     };
 
     // fetch for searching for a deliverables with the proper user, term, course and week
-    fetchFindGivenDeliverables(searchCriteria) {
+    findGivenDeliverables(searchCriteria) {
         // const authToken = getState().auth.authToken;
         fetch(`${API_BASE_URL}/deliverables/search`, {
             method: 'POST',
@@ -367,7 +375,7 @@ class FetchCalls {
 
 
     // fetch for getting suggestions
-    fetchGetSuggestions() {
+    getSuggestions() {
         // const authToken = getState().auth.authToken;
         fetch(`${API_BASE_URL}/suggestions`, {
                 method: 'GET',
@@ -397,7 +405,7 @@ class FetchCalls {
 
     // fetch for updating week data
 
-    fetchUpdateWeek(updatedWeek) {
+    updateWeek(updatedWeek) {
         // const authToken = getState().auth.authToken;
             fetch(`${API_BASE_URL}/weeks`, {
                 method: 'PUT',

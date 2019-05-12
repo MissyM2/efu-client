@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import AuthCalls from "../auth-calls";
 
 import Navbar from './navbar';
 
@@ -7,28 +8,13 @@ const RegistrationPage = props => {
     const [email, setemail] = useState(null);
     const [password, setpassword] = useState(null);
 
-    function onRegister() {
-        fetch(`${API_BASE_URL}/users`, {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify(user)
-            })
-            .then(res => normalizeResponseErrors(res))
-            .then(res => res.json())
-            .catch(err => {
-                const {reason, message, location} = err;
-                if (reason === 'ValidationError') {
-                    // Convert ValidationErrors into SubmissionErrors for Redux Form
-                    return Promise.reject(
-                        new SubmissionError({
-                            [location]: message
-                        })
-                    );
-                }
-            });
-        };
+    async function onRegister() {
+        try {
+            await AuthCalls.register(name, email, password);
+            props.history.replace("/dashboard");
+        } catch (err) {
+            alert(error.message);
+        }
     }
    
     return (

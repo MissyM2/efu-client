@@ -6,15 +6,14 @@ class AuthCalls {
     constructor() {
 
     }
-
-    registerUser = user => dispatch => {
-        return fetch(`${API_BASE_URL}/users`, {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(user)
-        })
+    register(name, email, password) {
+            fetch(`${API_BASE_URL}/users`, {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(user)
+            })
             .then(res => normalizeResponseErrors(res))
             .then(res => res.json())
             .catch(err => {
@@ -29,6 +28,41 @@ class AuthCalls {
                 }
             });
     };
+
+    login(email, password) {
+        fetch(`${API_BASE_URL}/auth/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username,
+                password
+            })
+        })
+            // Reject any requests which don't return a 200 status, creating
+            // errors which follow a consistent format
+            .then(res => normalizeResponseErrors(res))
+            .then(res => {
+                return res.json()
+            })
+            .then(({authToken}) => {
+                AuthCalls.storeAuthInfo(authToken);
+                props.history.replace("/dashboard");
+            })
+            .catch(err => {
+                const {code} = err;
+                const message =
+                    code === 401
+                        ? 'Incorrect username or password'
+                        : 'Unable to login, please try again';
+            });
+
+    };
+
+    logOut() {
+            localStorage.removeItem('authToken');
+    }
 
     loadAuthToken() => {
         return localStorage.getItem('authToken');
