@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import NavBar from "./navbar";
 
 import { FetchCalls } from "../fetch-calls";
-import { AuthCalls } from "../auth-calls";
+//import { AuthCalls } from "../auth-calls";
 
 import { Link } from 'react-router-dom';
 
@@ -39,7 +39,7 @@ const Profile = props => {
             let mycourses = [];
             courses
                 .filter(course => {
-                    return course.termDesc = currentTerm
+                    return course.termDesc = currentterm
                 })
                 .forEach(course => {
                     return mycourses.push({
@@ -53,16 +53,16 @@ const Profile = props => {
             let myweeks = [];
             weeks
                 .filter(week => {
-                    return week.termDesc = currentTerm
+                    return week.termDesc = currentterm
                 })
                 .forEach(week => {
                     return myweeks.push({
-                        weekNum = week.weekNum,
-                        termDesc = week.termDesc,
-                        likedLeast = week.likedLeast,
-                        likedMost = week.likedMost,
-                        mostDifficult = week.mostDifficult,
-                        leastDifficult = week.leastDifficult
+                        weekNum:week.weekNum,
+                        termDesc:week.termDesc,
+                        likedLeast:week.likedLeast,
+                        likedMost:week.likedMost,
+                        mostDifficult:week.mostDifficult,
+                        leastDifficult:week.leastDifficult
                     })
                 });
             setcurrentweeks(myweeks);
@@ -73,8 +73,7 @@ const Profile = props => {
     async function addTerm() {
         try {
             await FetchCalls.addTerm({
-                user: ,
-                weekNum
+                currentweek
             });
             // set current term to include this term and show
         } catch (error) {
@@ -85,9 +84,8 @@ const Profile = props => {
     async function addCourse() {
         try {
             await FetchCalls.addCourse({
-                user: ,
                 term: {currentterm},
-                courseName
+                course
             });
             // reset current courses to include this course and show
 
@@ -99,9 +97,8 @@ const Profile = props => {
     async function addWeek() {
         try {
             await FetchCalls.addWeek({
-                user: ,
                 term: {currentterm},
-                weekNum
+                currentweek
             });
             // set current weeks to include this week and show
         } catch (error) {
@@ -113,7 +110,7 @@ const Profile = props => {
         <main>
             <NavBar {...props} />
             <div className="container">
-                    <h2>{AuthCalls.getCurrentUsername()}'s Profile</h2>
+                    <h2>My Profile</h2>
                     <div className="terms">
                         <p>Your Terms</p>
                         <ul className="term-list">
@@ -132,7 +129,7 @@ const Profile = props => {
                             }
                         </ul>
                         <hr />
-                        <form onSubmit={e => preventDefault() && false}>
+                        <form onSubmit={e => e.preventDefault() && false}>
                             <div>
                                 <input 
                                     placeholder="term"
@@ -169,7 +166,7 @@ const Profile = props => {
                             }
                         </ul>
                         <hr />
-                        <form onSubmit={e => preventDefault() && false}>
+                        <form onSubmit={e => e.preventDefault() && false}>
                             <div>
                                 <input 
                                     placeholder="course"
@@ -192,7 +189,7 @@ const Profile = props => {
                     <div class="weeks">
                         <p>Your Weeks for this Term</p>
                         <ul className="week-list-labels">
-                            <li key={index}>
+                            <li>
                                 <div className="item weekNum">{week.weekNum}</div>
                                 <div className="item weeknum">Week Number</div>
                                 <div className="item termDesc">Term</div>
@@ -222,7 +219,7 @@ const Profile = props => {
                             }
                         </ul>
                         <hr />
-                        <form onSubmit={e => preventDefault() && false}>
+                        <form onSubmit={e => e.preventDefault() && false}>
                             <div>
                                 <input 
                                     placeholder="week"

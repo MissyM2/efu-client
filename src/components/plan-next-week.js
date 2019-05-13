@@ -1,86 +1,112 @@
-import React from 'react';
-import {connect} from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import NavBar from "./navbar";
 
-import {fetchGetCourses} from '../actions/protected-data';
-import {fetchGetDeliverables} from '../actions/protected-data';
-//import {fetchGetDeliverables, fetchAddDeliverable, fetchFindGivenDeliverables} from '../actions/protected-data';
+import { FetchCalls } from "../fetch-calls";
+//import { AuthCalls } from "../auth-calls";
 
-import {PlanNextWeekCourses} from './plan-next-week-courses';
+const PlanNextWeek = props => {
+        const [currentterm, setcurrentterm] = useState("");
+        const [currentweek, setcurrentweek] = useState();
+        const [nextweek, setnextweek] = useState();
+        const [currentday, setcurrentday] = useState("");
+        const [course, setcourse] = useState("");
+        const [deliverable, setdeliverable] = useState("");
+        const [currentcourses, setcurrentcourses] = useState("");
+        const [currentdeliverables, setcurrentdeliverables] = useState("");
+        const [loading, setloading] = useState([]);
 
-import {MainNav} from './navbar';
-//import {AddDeliverableForm} from './add-deliverable-form';
+        useEffect(() => {
+                // set the currentTerm
+                setcurrentterm("Spring, 2019");
 
-import './css/index.css'; 
-import './css/plan-next-week.css';
+                //set the currentWeek
+                setcurrentweek(2);
 
-export class PlanNextWeek extends React.Component {
-    componentDidMount() {
-        this.props.dispatch(fetchGetCourses());
-        this.props.dispatch(fetchGetDeliverables());
-}
-        render() {
-                //console.log('mydeliverables in plan next week ', this.props.myDeliverables);
-                const myCourses = this.props.myCourses.map((singlecourse, index) =>
-                        <li className="wrapper" key={index}>
-                                <div className="course-header">
-                                        <PlanNextWeekCourses index={index} {...singlecourse} dels={this.props.myDeliverables} />      
-                                </div> 
-                        </li>
-                );
-                return (
-                        <div>
-                                 <div>
-                                        <MainNav />
-                                </div>
-                                <div className="wrapper">
-                                        <h2>{this.props.title}: Week Number {this.props.nextWeek}</h2>
+                //set the currentWeek
+                setnextweek({currentweek} + 1);
+        
+                //set the currentDay
+                setcurrentday("05/12/2019");
+
+                FetchCalls.getDeliverables.then(deliverables => {
+                        let mydeliverables = [];
+                        deliverables
+                                .filter(deliverables => {
+                                        return deliverables.termDesc = {currentterm}
+                                })
+                                .forEach(deliverable => {
+                                        return mydeliverables.push({
+                                                dueDate: deliverable.dueDate,
+                                                deliverableName: deliverable.deliverableName,
+                                                pressure: deliverable.pressure,
+                                                desc: deliverable.desc,
+                                                prephrs: deliverable.prephrs
+                                        })
+                                });
+                        setcurrentdeliverables(mydeliverables);
+                });
+       
+        });
+
+        async function addDeliverable() {
+                try {
+                    await FetchCalls.addDeliverable({
+                        term: {currentterm},
+                        currentweek
+                    });
+                    // set current weeks to include this week and show
+                } catch (error) {
+                    alert(error.message);
+                }
+            }
+
+                
+                //    {courseDels}
+        return (
+                <main>
+                        <NavBar {...props} />
+                        <div className="container">
+                                <h2>Plan for Next Week, Week Number {nextweek}</h2>
+                                <div className="courses-deliverables">
                                         <ul className="list-horizontal">
-                                                {myCourses}
+                                                { currentcourses
+                                                        .filter((course) => {
+                                                                return course.term === currentterm && course.week === {currentweek};
+                                                        })
+                                                        .map((course, index) => {
+                                                                return (
+                                                                        <li key={index}>
+                                                                                <div className="item courseName">{course.courseName}</div>
+                                                                        </li>
+                                                                );
+                                                        })
+                                                }
+                
                                         </ul>
-                                </div> 
-                                <div className="course-edit-field">
-                                        <button className="add-btn" type="button">add a deliverable</button>
                                 </div>
+                                <hr />
+                                <form onSubmit={e => e.preventDefault() && false}>
+                                        <div>
+                                                <input 
+                                                placeholder="deliverable"
+                                                type="text"
+                                                value={deliverable}
+                                                aria-label="deliverable"
+                                                onChange={e => setdeliverable(e.target.value)}
+                                                />
+                                        </div>
+                                        <button
+                                                type="submit"
+                                                className="button is-primary"
+                                                onClick={addDeliverable}
+                                        >
+                                                Add Deliverable
+                                        </button>
+                                </form>   
                         </div>
-                        
-                        );
-        }
+                </main>
+                
+        );
 }
 
-const mapStateToProps = state => {
-        const {currentUser} = state.auth;
-        const weekNum = state.protectedData.selectedWeek;
-        const nextWeek = weekNum + 1;
-        const termDesc = state.protectedData.selectedTerm;
-        
-       // console.log('currentUser', currentUser);
-        //console.log('state', state);
-        return {
-                user: currentUser,
-                nextWeek: weekNum + 1,
-                myCourses: state.protectedData.courses.filter(course => {
-                        return course.term === "Spring, 2019";
-                }),
-                myDeliverables: state.protectedData.deliverables.filter(deliverable =>{
-                        return(deliverable.termDesc === termDesc && deliverable.weekNum === nextWeek);
-                }),
-                myCourseDeliverables: state.protectedData.deliverables,
-                title: "Plan Next Week"
-        };
-        
-};
-
-export default connect(mapStateToProps)(PlanNextWeek);
-
-//onGetCourseDeliverables={this.findCourseDeliverables.bind(this)}
-/*
-<div className="course-section">  
-                                        <div className="add-deliverable-wrapper">
-                                                <AddDeliverableForm
-                                                type="newDeliverable"
-                                                onAdd={newDeliverable => 
-                                                        this.fetchAddDeliverable(newDeliverable)}  />
-                                        </div>
-                                 </div>
-
-                                 */
+export default PlanNextWeek;

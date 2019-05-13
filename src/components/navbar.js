@@ -7,7 +7,7 @@ export default function NavBar(props) {
     function logOut(e) {
         try {
             AuthCalls.logOut();
-        } catch (err) {
+        } catch (error) {
             alert(error.message);
         }
     }

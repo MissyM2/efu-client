@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import NavBar from "./navbar"
 import { FetchCalls } from "../fetch-calls";
-import { AuthCalls } from "../auth-calls";
+//import { AuthCalls } from "../auth-calls";
 import { Link } from "react-router-dom";
 import {getCurrentDate} from '../utils';
 
@@ -58,18 +58,18 @@ const Dashboard = props => {
             })
             setloading(false);
     },[loading]);
-
+/*
     if (!AuthCalls.getCurrentUsername()) {
         alert("Please login first");
-        history.replace("/login");
+        //history.replace("/login");
         return null;
     }
-
+*/
     return (
         <main>
             <NavBar {...props} />
             <div className="container">
-                <h2>{AuthCalls.getCurrentUsername()}'s Dashboard</h2>
+                <h2>My Dashboard</h2>
                 <h3> Your are working with {currentterm} term and week number {currentweek}</h3>
 
                 <div className="skills-suggestion">

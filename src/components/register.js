@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import AuthCalls from "../auth-calls";
+import { AuthCalls } from '../auth-calls';
 
 import Navbar from './navbar';
 
@@ -12,7 +12,7 @@ const RegistrationPage = props => {
         try {
             await AuthCalls.register(name, email, password);
             props.history.replace("/dashboard");
-        } catch (err) {
+        } catch (error) {
             alert(error.message);
         }
     }

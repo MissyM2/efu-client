@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import {Navbar} from './navbar';
-
 import AuthCalls from '../auth-calls';
-//import {required, nonEmpty} from '../validators';
+
+import NavBar from './navbar';
 
 export default function Login(props) {
     const [email, setEmail] = useState("");
@@ -12,14 +11,14 @@ export default function Login(props) {
         try {
             await AuthCalls.login(email,password);
             props.history.replace("/dashboard");
-        } catch (err) {
+        } catch (error) {
             alert(error.message);
         }
     }
    
     return (
         <main>
-            <Navbar {...props} />
+            <NavBar {...props} />
             <div className="container">
                 <h2>Login</h2>
                 <form onSubmit={e => e.preventDefault() && false}>
