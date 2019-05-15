@@ -1,49 +1,43 @@
-import React, { useState } from 'react';
-import AuthCalls from '../auth-calls';
+import React from 'react';
 
 import NavBar from './navbar';
 
 export default function Login(props) {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-
-    async function login() {
-        try {
-            await AuthCalls.login(email,password);
-            props.history.replace("/dashboard");
-        } catch (error) {
-            alert(error.message);
-        }
-    }
    
+    function submitLoginForm(e) {
+        e.preventDefault();
+
+        let email = e.currentTarget.email.value;
+        let password = e.currentTarget.password.value;
+        props.submitLogin(email, password);
+    }
+    
     return (
         <main>
-            <NavBar {...props} />
+           <NavBar />
             <div className="container">
                 <h2>Login</h2>
-                <form onSubmit={e => e.preventDefault() && false}>
+                <form onSubmit={submitLoginForm}>
                     <div className="input-field">
                         <input  
                             placeholder="email"
                             type="text"
-                            value={email}
+                            name="email"
                             className="validate"
                             aria-label="email"
-                            onChange={e => setEmail(e.target.value)}
                         />
                     </div>
                     <div className="input-field">
                         <input
                             placeholder="password"
                             type="password"
-                            value={password}
+                            name="password"
                             className="validate"
                             aria-label="password"
-                            onChange={e => setPassword(e.target.value)}
                         />
                     </div>
 
-                    <button type="submit" cloassName="button is-primary" onClick={login}>
+                    <button type="submit" className="button is-primary">
                         Sign In
                     </button>
                 </form>

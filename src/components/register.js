@@ -1,59 +1,66 @@
-import React, {useState} from 'react';
-import { AuthCalls } from '../auth-calls';
+import React from 'react';
 
 import Navbar from './navbar';
 
-const RegistrationPage = props => {
-    const [name, setname] = useState(null);
-    const [email, setemail] = useState(null);
-    const [password, setpassword] = useState(null);
+export default function RegistrationPage(props) {
 
-    async function onRegister() {
-        try {
-            await AuthCalls.register(name, email, password);
-            props.history.replace("/dashboard");
-        } catch (error) {
-            alert(error.message);
-        }
+    function submitRegistrationForm(e) {
+        e.preventDefault();
+        let user = {
+            firstName: e.currentTarget.firstname.value,
+            lastName: e.currentTarget.lastname.value,
+            username: e.currentTarget.username.value,
+            password: e.currentTarget.password.value
+        };
+        props.submitRegistration(user);
     }
+    
    
     return (
         <main>
             <Navbar {...props} />
             <div className="container">
                 <h2>ExecutiveFollowup Register</h2>
-                <form onSubmit={e => e.preventDefault() && false}>
+                <form onSubmit={submitRegistrationForm}>
                     <div className="input-field">
                         <input
-                            placeholder="username"
+                            placeholder="firstname"
                             type="text"
-                            value={name}
-                            aria-label="username"
-                            onChange = {e => setname(e.target.value)}
+                            name="firstname"
+                            className="validate"
+                            aria-label="firstname"
                         />
                     </div>
                     <div className="input-field">
                         <input
-                            placeholder="email"
-                            type="email"
-                            value={email}
-                            aria-label="email"
-                            onChange={e => setemail(e.target.value)}
+                            placeholder="lastname"
+                            type="text"
+                            name="lastname"
+                            className="validate"
+                            aria-label="lastname"
+                        />
+                    </div>
+                    <div className="input-field">
+                        <input
+                            placeholder="username"
+                            type="username"
+                            name="username"
+                            className="validate"
+                            aria-label="username"
                         />
                     </div>
                     <div className="input-field">
                         <input
                             placeholder="password"
                             type="password"
-                            value={password}
+                            name="password"
+                            className="validate"
                             aria-label="password"
-                            onChange={e => setpassword(e.target.value)}
                         />
                     </div>
                     <button
                         type="submit"
                         className="button is-primary"
-                        onClick={onRegister}
                     >
                         Register
                     </button>
@@ -62,7 +69,3 @@ const RegistrationPage = props => {
         </main>
     );
 }
-
-
-
-export default RegistrationPage;

@@ -1,79 +1,58 @@
-import React, { useEffect, useState } from 'react';
-import NavBar from "./navbar"
-
-import { FetchCalls } from "../fetch-calls";
-import { Link } from "react-router-dom";
-import {getCurrentDate} from '../utils';
-
-import {SingleWeek} from './single-week';
-import {AddWeekForm} from './add-week-form';
+import React from 'react';
+//import NavBar from "./navbar"
 
 
-const Weeks = props => {
-        const [currentterm, setcurrentterm] = useState("");
-        const [currentweeks, setcurrentweeks] = useState("");
-        const [currentweek, setcurrentweek] = useState("");
-        const [weeks, setweeks] = useState("");
-        const [loading, setloading] = useState([]);
+export default class Weeks extends React.Component {
+        constructor(props) {
+                super(props);
+                this.state = {
+                        myweeks: []
+                }
+        }
 
+        componentDidMount() {
+                const { receivedweeks } = this.props.location.state;
+                this.setState({
+                        myweeks: this.props.location.state.weeks
+                })
+        }
 
-        useEffect(() => {
+        render() {
+                console.log(' currentweeks inside of weeks.js ', this.props.location.state.currentweeks);
+                console.log('receivedweeks inside of weeks.js ', this.state.myweeks);
+                return (
+                        <main>
+                              
+                            {/*<NavBar />*/}
+                                <div className="container">
+                                        <p>Your Weeks for this Term</p>
+                                        <ul className="list-horizontal week-list-labels">
+                                                <li className="item weeknum">Week Number</li>
+                                                <li className="item termDesc">Term</li>
+                                                <li className="item likedLeast">Liked Least</li>
+                                                <li className="item likedMost">Liked Most</li>
+                                                <li className="item mostDifficlit">Most Difficult</li>
+                                                <li className="item leastDifficult">Least Difficult</li>
+                                        </ul>
+                                        <div className="list-vertical this-week-weeks">
+                                                {this.props.location.state.currentweeks.map((week, index) => (
+                                                <div key={index} className="list-horizontal week">
+                                                        <div className="item courseName">{week.weekNum}</div>
+                                                        <div className="item termDesc">{week.termDesc}</div>
+                                                        <div className="item weekNum">{week.likedLeast}</div>
+                                                        <div className="item dueDate">{week.likedMost}</div>
+                                                        <div className="item pressure">{week.mostDifficult}</div>
+                                                        <div className="item prephrs">{week.leastDifficult}</div>
+                                                </div>
+                                                ))}
+                                                </div> 
+                                        
+                                </div>
+                        </main>
+                );
 
-                //set the currentWeek
-                setcurrentweek(2);
-
-                // set current courses based on proper term
-                FetchCalls.getWeeks.then(weeks => {
-                let myweeks = [];
-                currentweeks
-                        .filter(week => {
-                        return week.termDesc = {currentterm}
-                        });
-                setweeks(myweeks);
-                });
-        });
-
-
-        return (
-                <main>
-                        <NavBar {...props} />
-                        <div className="container">
-                                <p>Your Weeks for this Term</p>
-                                <ul className="week-list-labels">
-                                        <li>
-                                                <div className="item weekNum">{currentweek}</div>
-                                                <div className="item weeknum">Week Number</div>
-                                                <div className="item termDesc">Term</div>
-                                                <div className="item likedLeast">Liked Least</div>
-                                                <div className="item likedMost">Liked Most</div>
-                                                <div className="item mostDifficdivt">Most Difficult</div>
-                                                <div className="item leastDifficult">Least Difficult</div>
-                                        </li>
-                                </ul>
-                                <ul className="week-list">
-                                        {currentweeks
-                                                .filter((week) => {
-                                                return week.term === currentterm;
-                                                })
-                                                .map((week, index) => {
-                                                return (
-                                                        <li key={index}>
-                                                        <div className="week-data-item weeknum">{week.weekNum}</div>
-                                                        <div className="week-data-item termDesc">{week.termDesc}</div>
-                                                        <div className="week-data-item likedLeast">{week.likedLeast}</div>
-                                                        <div className="week-data-item likedMost">{week.likedMost}</div>
-                                                        <div className="week-data-item mostDifficult">{week.mostDifficult}</div>
-                                                        <div className="week-data-item leastDifficult">{week.leastDifficult}</div>
-                                                        </li>
-                                                        );
-                                                })
-                                        }
-                                </ul>
-                                
-                        </div>
-                </main>
-        );
+        }
+       
+        
 }
 
-
-export default Weeks;

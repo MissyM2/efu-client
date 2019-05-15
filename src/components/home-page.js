@@ -1,10 +1,11 @@
 import React from "react";
 import NavBar from "./navbar";
+import Login from './login';
 
-const HomePage = props => {
+export default function HomePage(props) {
     return (
         <main>
-            <NavBar className="navigation" {...props} />
+           <NavBar className="navigation" {...props} />
             <div className="container">
                 <h2>Executive Followup HomePage</h2>
                 <p className="homepage">
@@ -15,5 +16,3 @@ const HomePage = props => {
         </main>
     );
 };
-
-export default HomePage;

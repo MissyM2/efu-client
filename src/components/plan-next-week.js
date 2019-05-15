@@ -1,112 +1,136 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import NavBar from "./navbar";
 
-import { FetchCalls } from "../fetch-calls";
-//import { AuthCalls } from "../auth-calls";
+import {API_BASE_URL} from '../config';
 
-const PlanNextWeek = props => {
-        const [currentterm, setcurrentterm] = useState("");
-        const [currentweek, setcurrentweek] = useState();
-        const [nextweek, setnextweek] = useState();
-        const [currentday, setcurrentday] = useState("");
-        const [course, setcourse] = useState("");
-        const [deliverable, setdeliverable] = useState("");
-        const [currentcourses, setcurrentcourses] = useState("");
-        const [currentdeliverables, setcurrentdeliverables] = useState("");
-        const [loading, setloading] = useState([]);
 
-        useEffect(() => {
-                // set the currentTerm
-                setcurrentterm("Spring, 2019");
+export default class PlanNextWeek extends React.Component {
+        constructor(props) {
+                super(props);
+                this.state = {
+                        course: "",
+                        deliverable: "",
 
-                //set the currentWeek
-                setcurrentweek(2);
-
-                //set the currentWeek
-                setnextweek({currentweek} + 1);
-        
-                //set the currentDay
-                setcurrentday("05/12/2019");
-
-                FetchCalls.getDeliverables.then(deliverables => {
-                        let mydeliverables = [];
-                        deliverables
-                                .filter(deliverables => {
-                                        return deliverables.termDesc = {currentterm}
-                                })
-                                .forEach(deliverable => {
-                                        return mydeliverables.push({
-                                                dueDate: deliverable.dueDate,
-                                                deliverableName: deliverable.deliverableName,
-                                                pressure: deliverable.pressure,
-                                                desc: deliverable.desc,
-                                                prephrs: deliverable.prephrs
-                                        })
-                                });
-                        setcurrentdeliverables(mydeliverables);
-                });
-       
-        });
-
-        async function addDeliverable() {
-                try {
-                    await FetchCalls.addDeliverable({
-                        term: {currentterm},
-                        currentweek
-                    });
-                    // set current weeks to include this week and show
-                } catch (error) {
-                    alert(error.message);
                 }
-            }
+                this.authToken=localStorage.getItem('authToken');
+        }
 
-                
-                //    {courseDels}
-        return (
-                <main>
-                        <NavBar {...props} />
-                        <div className="container">
-                                <h2>Plan for Next Week, Week Number {nextweek}</h2>
-                                <div className="courses-deliverables">
-                                        <ul className="list-horizontal">
-                                                { currentcourses
-                                                        .filter((course) => {
-                                                                return course.term === currentterm && course.week === {currentweek};
-                                                        })
-                                                        .map((course, index) => {
-                                                                return (
-                                                                        <li key={index}>
-                                                                                <div className="item courseName">{course.courseName}</div>
-                                                                        </li>
-                                                                );
-                                                        })
-                                                }
-                
-                                        </ul>
-                                </div>
-                                <hr />
-                                <form onSubmit={e => e.preventDefault() && false}>
-                                        <div>
-                                                <input 
-                                                placeholder="deliverable"
-                                                type="text"
-                                                value={deliverable}
-                                                aria-label="deliverable"
-                                                onChange={e => setdeliverable(e.target.value)}
-                                                />
+        componentDidMount() {
+                const { receivedData } = this.props.location.state;
+        }
+
+       
+
+        addDeliverable(e) {
+                e.preventDefault();
+                let newDeliverable = {
+                        dueDate: this.props.dueDate,
+                        deliverableName: this.props.deliverableName,
+                        pressure: this.props.pressure,
+                        desc: this.props.desc,
+                        prephrs: this.props.prephrs
+                };
+               
+                fetch(`${API_BASE_URL}/deliverables`, {
+                        method: 'POST',
+                        headers: {
+                                // Provide our auth token as credentials
+                                Authorization: `Bearer ${this.authToken}`,
+                                "Content-Type": 'application/json'
+                        },
+                        body: JSON.stringify(newDeliverable)
+                        })
+                .then(response => {
+                        if(response.ok) {
+                                return response.json()
+                        }
+                        throw new Error(response.text)
+                        })
+                .then(({deliverable}) => {
+                        console.log(deliverable)
+                        return deliverable;
+                })
+                .catch((err) => {
+                        console.log(err);
+                });
+
+                    
+        }
+
+         //    {courseDels}
+        render() {
+                console.log('inside plannextweek, currentcourses ', this.props.location.state.currentcourses);
+                return (
+                        <main>
+                            
+                    <NavBar />
+                                <div className="container">
+                                        <h2>Plan for Next Week, Week Number {this.props.nextweek}</h2>
+                                        <div className="courses-deliverables">
+                                                <ul className="list-horizontal">
+                                                        {this.props.currentcourses
+                                                                .filter((course) => {
+                                                                        return course.week === this.props.currentweek;
+                                                                })
+                                                                .map((course, index) => {
+                                                                        return (
+                                                                                <li key={index}>
+                                                                                        <div className="item courseName">{course.courseName}</div>
+                                                                                </li>
+                                                                        );
+                                                                })
+                                                        }
+                        
+                                                </ul>
                                         </div>
-                                        <button
-                                                type="submit"
-                                                className="button is-primary"
-                                                onClick={addDeliverable}
-                                        >
-                                                Add Deliverable
-                                        </button>
-                                </form>   
-                        </div>
-                </main>
-                
-        );
-}
+                                        <hr />
+                                        <form onSubmit={this.addDeliverable}>
+                                                <div>
+                                                        <input 
+                                                        placeholder="duedate"
+                                                        type="date"
+                                                        name="duedate"
+                                                        aria-label="duedate"
+                                                        />
+                                                         <input 
+                                                        placeholder="deliverable-name"
+                                                        type="text"
+                                                        name="deliverable-name"
+                                                        aria-label="deliverable-name"
+                                                        />
+                                                         <input 
+                                                        placeholder="pressure"
+                                                        type="text"
+                                                        name="pressure"
+                                                        aria-label="pressure"
+                                                        />
+                                                         <input 
+                                                        placeholder="deliverable-desc"
+                                                        type="text"
+                                                        name="deliverable-desc"
+                                                        aria-label="deliverable-desc"
+                                                        />
+                                                         <input 
+                                                        placeholder="prephrs"
+                                                        type="number"
+                                                        name="prephrs"
+                                                        aria-label="prephrs"
+                                                        />
+                                                </div>
+                                                <button
+                                                        type="submit"
+                                                        className="button is-primary"
+                                                >
+                                                        Add Deliverable
+                                                </button>
+                                        </form>   
+                                </div>
+                        </main>
+                        
+                );
 
-export default PlanNextWeek;
+
+        }       
+               
+        
+}
