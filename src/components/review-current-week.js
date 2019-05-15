@@ -97,12 +97,13 @@ export default class ReviewCurrentWeek extends React.Component {
     }
 
     render() {
+        console.log(this.props);
         console.log('inside reviewcurrentweek, currentweek ', this.props.location.state.currentweek);
-        const currentcoursedropdown = this.state.currentcourses.map(course =>  
-            <option key={course.objectID}>
-                <div>{course.courseName}</div>
-            </option>
-        );
+        //const currentcoursedropdown = this.props.location.state.currentcourses.map(course =>  
+       //     <option key={course.objectID}>
+       //         <div>{course.courseName}</div>
+       //     </option>
+       // );
         return (
             <main>
                 <NavBar />
@@ -114,52 +115,52 @@ export default class ReviewCurrentWeek extends React.Component {
                             <form onSubmit={this.updateWeek}>
                                 <div>
                                     <div className="myweek-label">Student Info</div>
-                                    <div className="student-section-labels">
-                                        <div className="myweekitemlabel studentFullName">Student Name</div>
-                                        <div className="myweekitemlabel weeknum">Week Number</div>
-                                        <div className="myweekitemlabel termDesc">Term</div>
+                                    <div className="list-horizontal student-section-labels">
+                                        <div className="item item-label studentFullName">Student Name</div>
+                                        <div className="item item-label weeknum">Week Number</div>
+                                        <div className="item item-label termDesc">Term</div>
                                     </div>
-                                    <div className="student-section">
-                                        <div className="myweekitem studentFullName">FIND STUDENT FULLNAME</div>
-                                        <div className="myweekitem weeknum">{this.props.currentweek}</div>
-                                        <div className="myweekitem termDesc">{this.props.currentterm}</div>
+                                    <div className="list-horizontal student-section">
+                                        <div className="item studentFullName">FIND STUDENT FULLNAME</div>
+                                        <div className="item weeknum">{this.props.location.state.currentweek.weekNum}</div>
+                                        <div className="item termDesc">{this.props.location.state.currentweek.currentterm}</div>
                                     </div>
                                 </div>
                                 <div>
-                                    <div className="myweeksectionlabels">
-                                        <div className="item-label likedLeast">Course You Liked Least</div>
-                                        <div className="item-label likedMost">Course You Liked Most</div>
+                                    <div className="list-horizontal myweeksectionlabels">
+                                        <div className="item item-label likedLeast">Course You Liked Least</div>
+                                        <div className="item item-label likedMost">Course You Liked Most</div>
                                     </div>
-                                    <div className="myweeksection">
+                                    <div className="list-horizontal myweeksection">
                                             <select 
                                                 className="item likedleast" 
                                                 type="text" 
                                                 name="likedleast" >
-                                                {currentcoursedropdown}
+                                               {/* {currentcoursedropdown} */}
                                             </select>
                                             <select 
                                                 className="item likedMost" 
                                                 type="text" 
                                                 name="likedmost">
-                                                {currentcoursedropdown}
+                                               {/*{currentcoursedropdown} */}
                                             </select>
                                     </div>
-                                    <div className="myweeksectionlabels">
-                                        <div className="item-label mostDifficult">Your Most Difficult Course</div>
-                                        <div className="item-label leastDifficult">Your Least Difficult Course</div>
+                                    <div className="list-horizontal myweeksectionlabels">
+                                        <div className="item item-label mostDifficult">Your Most Difficult Course</div>
+                                        <div className="item item-label leastDifficult">Your Least Difficult Course</div>
                                     </div>
-                                    <div className="myweeksection">
+                                    <div className="list-horizontal myweeksection">
                                             <select 
                                                 className="item mostDifficult" 
                                                 type="text" 
                                                 name="mostdifficult" >
-                                                {currentcoursedropdown}
+                                                {/*{currentcoursedropdown}*/}
                                             </select>
                                             <select 
                                                 className="item leastdifficult" 
                                                 type="text" 
                                                 name="leastdifficult"  >
-                                            {currentcoursedropdown}
+                                            {/*{currentcoursedropdown} */}
                                         </select>
                                     </div>
                                 </div>
@@ -180,7 +181,7 @@ export default class ReviewCurrentWeek extends React.Component {
                         <p>Add Your Grades as of Today</p>
                         <ul>
                             <form onSubmit={this.addGrade}>
-                                {this.state.currentcourses
+                              {/*}  {this.state.currentcourses
                                     .map((course, index) => {
                                         return (
                                             <li key={index}>
@@ -206,7 +207,7 @@ export default class ReviewCurrentWeek extends React.Component {
                                             </li>
                                         );
                                     })
-                                }
+                                } */}
                             </form>
                         </ul>
                     </div>

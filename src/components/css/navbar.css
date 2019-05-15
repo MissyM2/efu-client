@@ -1,0 +1,22 @@
+.navbar {
+    height: 60px;
+    background-color: lightblue;
+    text-align: center;
+    border: 1px solid darkblue;
+}
+
+.navbar-menu {
+    margin-top: 15px;
+}
+
+.navbar-item {
+    padding: 3px;
+}
+
+.dashboard {
+    text-align: left;
+}
+
+.logout {
+    text-align: right;
+}

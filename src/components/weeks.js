@@ -1,5 +1,5 @@
 import React from 'react';
-//import NavBar from "./navbar"
+import NavBar from "./navbar"
 
 
 export default class Weeks extends React.Component {
@@ -23,17 +23,17 @@ export default class Weeks extends React.Component {
                 return (
                         <main>
                               
-                            {/*<NavBar />*/}
+                            <NavBar />
                                 <div className="container">
-                                        <p>Your Weeks for this Term</p>
-                                        <ul className="list-horizontal week-list-labels">
-                                                <li className="item weeknum">Week Number</li>
-                                                <li className="item termDesc">Term</li>
-                                                <li className="item likedLeast">Liked Least</li>
-                                                <li className="item likedMost">Liked Most</li>
-                                                <li className="item mostDifficlit">Most Difficult</li>
-                                                <li className="item leastDifficult">Least Difficult</li>
-                                        </ul>
+                                        <h3>Your Weeks for this Term</h3>
+                                        <div className="list-horizontal week-list-labels">
+                                                <div className="item-label weeknum">Week Number</div>
+                                                <div className="item-label termDesc">Term</div>
+                                                <div className="item-label likedLeast">liked Least</div>
+                                                <div className="item-label likedMost">Liked Most</div>
+                                                <div className="item-label mostDifficult">Most Difficult</div>
+                                                <div className="item-label leastDifficult">Least Difficult</div>
+                                        </div>
                                         <div className="list-vertical this-week-weeks">
                                                 {this.props.location.state.currentweeks.map((week, index) => (
                                                 <div key={index} className="list-horizontal week">

@@ -10,9 +10,9 @@ export default class Profile extends React.Component {
     }
     
     componentDidMount() {
-        const { receivedData}  = this.props.location.state;
+        const { receivedTerms}  = this.props.location.state;
     }
-   
+ /*  
 
    submitAddTermForm(e) {
        e.preventDefault();
@@ -31,11 +31,10 @@ export default class Profile extends React.Component {
          let weekNum = e.currentTarget.newweek;
          this.props.submitAddCourse();
      }
+     */
 
     render() {
-        console.log('terms ', this.props.location.state.terms);
-        console.log('terms ', this.props.location.state.currentcourses);
-        console.log('terms ', this.props.location.state.currentweeks);
+        console.log(this.props.location);
         return (
         
             <main>
@@ -44,8 +43,8 @@ export default class Profile extends React.Component {
                         <h2>My Profile</h2>
                         <div className="terms">
                             <p>Your Terms</p>
-                            {/*<ul className="term-list">
-                                {this.receivedterms
+                            <ul className="list-horizontal term-list">
+                                {this.props.location.state.terms
                                     .map((term, index) => {
                                         return (
                                             <li key={index}>
@@ -60,7 +59,7 @@ export default class Profile extends React.Component {
                                         );
                                     })
                                 }
-                            </ul> */}
+                            </ul> 
                             <hr />
                             <form onSubmit={this.submitAddTermForm}>
                                 <div>
@@ -80,13 +79,10 @@ export default class Profile extends React.Component {
                             </form>
                         </div>
     
-                        <div class="courses">
+                        <div className="courses">
                             <p>Your Courses for this Term</p>
-                           {/*} <ul className="course-list">
-                                {this.props.currentcourses
-                                    .filter((course) => {
-                                        return course.term === this.props.currentterm;
-                                    })
+                                <ul className="list-horizontal course-list">
+                                {this.props.location.state.currentcourses
                                     .map((course, index) => {
                                         return (
                                             <li key={index}>
@@ -95,7 +91,7 @@ export default class Profile extends React.Component {
                                         );
                                     })
                                 }
-                            </ul> */}
+                            </ul> 
                             <hr />
                             <form onSubmit={this.addCourse}>
                                 <div>
@@ -113,10 +109,10 @@ export default class Profile extends React.Component {
                             </form>
                         </div>
     
-                        <div class="weeks">
+                        <div className="weeks">
                             <p>Your Weeks for this Term</p>
                             <ul className="week-list-labels">
-                                <li>
+                                <li className="list-horizontal">
                                     <div className="item weeknum">Week Number</div>
                                     <div className="item termDesc">Term</div>
                                     <div className="item likedLeast">Liked Least</div>
@@ -125,25 +121,22 @@ export default class Profile extends React.Component {
                                     <div className="item leastDifficult">Least Difficult</div>
                                 </li>
                             </ul>
-                         {/*}   <ul className="week-list">
-                                {this.props.currentweeks
-                                    .filter((week) => {
-                                        return week.term === this.props.currentterm;
-                                    })
+                            <ul className="list-vertical week-list">
+                                {this.props.location.state.currentweeks
                                     .map((week, index) => {
                                         return (
-                                            <li key={index}>
-                                                <div className="week-data-item weeknum">{week.weekNum}</div>
-                                                <div className="week-data-item termDesc">{week.termDesc}</div>
-                                                <div className="week-data-item likedLeast">{week.likedLeast}</div>
-                                                <div className="week-data-item likedMost">{week.likedMost}</div>
-                                                <div className="week-data-item mostDifficult">{week.mostDifficult}</div>
-                                                <div className="week-data-item leastDifficult">{week.leastDifficult}</div>
+                                            <li className="list-horizontal" key={index}>
+                                                <div className="item weeknum">{week.weekNum}</div>
+                                                <div className="item termDesc">{week.termDesc}</div>
+                                                <div className="item likedLeast">{week.likedLeast}</div>
+                                                <div className="item likedMost">{week.likedMost}</div>
+                                                <div className="item mostDifficult">{week.mostDifficult}</div>
+                                                <div className="item leastDifficult">{week.leastDifficult}</div>
                                             </li>
                                             );
                                     })
                                 }
-                            </ul> */}
+                            </ul>
                             <hr />
                             <form onSubmit={this.addWeek}>
                                 <div>

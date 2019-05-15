@@ -68,7 +68,7 @@ export default class PlanNextWeek extends React.Component {
                                         <h2>Plan for Next Week, Week Number {this.props.nextweek}</h2>
                                         <div className="courses-deliverables">
                                                 <ul className="list-horizontal">
-                                                        {this.props.currentcourses
+                                                        {this.props.location.state.currentcourses
                                                                 .filter((course) => {
                                                                         return course.week === this.props.currentweek;
                                                                 })

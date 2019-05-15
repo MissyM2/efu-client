@@ -1,4 +1,6 @@
 import React from 'react';
+
+import './css/navbar.css';
 import { Link } from 'react-router-dom';
 
 export default class NavBar extends React.Component {
@@ -20,11 +22,12 @@ export default class NavBar extends React.Component {
     logout(e) {
         localStorage.removeItem('token');
         localStorage.removeItem('username');
-        localStorage.removeItem('firstName');
+        localStorage.removeItem('authToken');
     }
 
 
     render(){
+        console.log('props from dashboard ', this.props);
         return (
             <nav className="navbar" role="navigation" aria-label="main navigation">
                 {/*<div className="navbar-brand">
@@ -46,23 +49,54 @@ export default class NavBar extends React.Component {
                     </> 
                 </div>*/}
     
-                <div id="navbarBasicExample" className="navbar-menu">
+                <div className="navbar-menu">
                     <div className="navbar-end">
                         <div className="navbar-item">
                             {!this.state.currentUser ? (
-                                <div className="buttons">
-                                    <Link className="button is-primary" to="/register">
+                                <div className="list-horizontal buttons">
+                                    <Link className="item button is-primary" to="/register">
                                         <strong>Sign up</strong>
                                     </Link>
-                                    <Link className="button is-light" to="/login">
+                                    <Link className="item button is-light" to="/login">
                                         Log in
                                     </Link>
                                 </div>
                             ) : (
-                                <div className="buttons">
-                                    <a className="button is-light" href="/logout" onClick={this.logout}>
+                                <div className="list-horizontal buttons">
+                                    <Link className="item button is-primary dashboard" to="/dashboard">
+                                            <strong>Dashboard</strong>
+                                    </Link>
+                                    <div className="list-horizontal">
+                                <Link className="item button is-primary" to={{
+                                pathname: "/weeks",
+                                state: {
+                                    currentweeks: this.state.currentweeks
+                                }}}>
+                                            weeks
+                                </Link>
+                                <Link 
+                                    className="item button is-primary" 
+                                    to={{
+                                        pathname: '/profile', 
+                                        state: { 
+                                            terms: this.state.terms,
+                                            currentcourses: this.state.currentcourses, 
+                                            currentweeks: this.state.currentweeks
+                                        }
+                                    }}
+                                    submitAddTerm={this.submitAddTerm}
+                                    submitAddCourse={this.submitAddCourse}
+                                    submitAddWeek={this.submitAddWeek}
+                                    >
+                                        profile
+                                </Link>
+                        </div>
+                                    <Link className="item button is-light" onClick={this.logout} to="/login">
                                         Log out
-                                    </a>
+                                    </Link>
+                                    {/*<a className="item button is-light logout" href="/logout" onClick={this.logout}>
+                                        Log out
+                            </a> */}
                                 </div>
                             )}
                         </div>

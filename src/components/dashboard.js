@@ -1,10 +1,14 @@
 import React from 'react';
 import './css/dashboard.css';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { API_BASE_URL } from '../config';
 
 import NavBar from "./navbar"
-
+import Weeks from './weeks';
+import Profile from './profile';
+import ReviewCurrentWeek from './review-current-week';
+import PlanNextWeek from './plan-next-week';
 
 
 
@@ -18,7 +22,7 @@ export default class Dashboard extends React.Component {
             currentweek: "",
             currentday:"05/04/2019",
             nextweek: "",
-            currentsuggestion:"",
+            currentsuggestion:[],
             terms: [],
             currentcourses: [],
             currentweeks: [],
@@ -43,7 +47,7 @@ export default class Dashboard extends React.Component {
         console.log('authToken is ', this.authToken);
 
 
-        //get suggestions
+        //get suggestion
         fetch(`${API_BASE_URL}/suggestions`, {
             method: 'GET',
             headers: {
@@ -59,6 +63,7 @@ export default class Dashboard extends React.Component {
         })
         .then(responseJSON => {
             const tempsuggestion = responseJSON[Math.floor(Math.random() * responseJSON.length)];
+            console.log('tempsuggestion is ', tempsuggestion);
             this.setState({
                 currentsuggestion: tempsuggestion
             });
@@ -173,16 +178,16 @@ export default class Dashboard extends React.Component {
             console.log('todaydeliverables is ', this.state.todaydeliverables);
             const tempweekdeliverables = responseJSON.filter(deliverable => {
                 return deliverable.termDesc === this.state.currentterm && deliverable.weekNum === this.state.currentweek;
-            });
-            this.setState({
-                weekdeliverables: tempweekdeliverables
-            });
-            console.log('weekdeliverables is ', this.state.weekdeliverables);
+        }); 
+        this.setState({
+            thisweekdeliverables: tempweekdeliverables
+        });
+        console.log('todaydeliverables is ', this.state.todaydeliverables);
         })
         .catch((err) => {
             console.log(err);
         });
-    }
+}
 
     
     getCurrentDate(separator=''){
@@ -291,101 +296,127 @@ export default class Dashboard extends React.Component {
         //if (loading) {
        //     return <p>Loading ...</p>
         //}
+        console.log('this.state ', this.state);
+        console.log('thisweekdeliverables ', this.state.thisweekdeliverables);
             return (
                 <div> 
-                    <NavBar />
+                    <NavBar {...this.state}/>
                      <div className="container">
                         <h2>My Dashboard</h2>
-                       <Link className="button is-primary" to={{
-                           pathname: "/weeks",
-                           state: {
-                               currentweeks: this.state.currentweeks
-                           }}}>
-                                    weeks
-                        </Link>
-                        <Link 
-                            className="button is-primary" 
-                            to={{
-                                pathname: '/profile', 
-                                state: { 
-                                    terms: this.state.terms,
-                                    currentcourses: this.state.currentcourses, 
-                                    currentweeks: this.state.currentweeks
-                                }
-                            }}
-                            //submitAddTerm={this.submitAddTerm}
-                            //submitAddCourse={this.submitAddCourse}
-                           // submitAddWeek={this.submitAddWeek}
-                            >
-                                profile
-                        </Link>
+                        <div className="list-horizontal">
+                              {/*  <Link className="item button is-primary" to="/weeks">
+                                            weeks
+                                </Link>*/}
+                                <Link 
+                                    className="item button is-primary" to='/profile'>
+                                        profile
+                                </Link> 
+                        </div>
+                       
                         <h3> Your are working with {this.state.currentterm} term and week number {this.state.currentweek}</h3>
 
-                     {/*}   <ul className="skills-suggestion">
-                            {this.state.currentsuggestion.map(currentsuggestion =>  
-                                <li key={currentsuggestion.objectID}>
-                                    <div>{currentsuggestion.category}</div>
-                                    <div>{currentsuggestion.desc}</div>
-                                    <div>~ {currentsuggestion.credit}</div>
+                      <ul className="skills-suggestion"> 
+                                <li >
+                                    <div>{this.state.currentsuggestion.category}</div>
+                                    <div>{this.state.currentsuggestion.desc}</div>
+                                    <div>~ {this.state.currentsuggestion.credit}</div>
                                 </li>
-                                )}
-                        
-                            </ul>
-                            */}
+                          </ul> 
                         <div className="today-deliverables">
-                            <p>Deliverables Due Today, {this.state.currentday}</p>
-                                {this.state.todaydeliverables.map((deliverable, index) => (
-                                    <div key={index} className="list-horizontal deliverable">
-                                            <div className="item courseName">{deliverable.courseName}</div>
-                                            <div className="item termDesc">{deliverable.termDesc}</div>
-                                            <div className="item weekNum">{deliverable.weekNum}</div>
-                                            <div className="item dueDate">{deliverable.dueDate}</div>
-                                            <div className="item pressure">{deliverable.pressure}</div>
-                                            <div className="item prephrs">{deliverable.prephrs}</div>
-                                            <div className="item deliverableName">{deliverable.deliverableName}</div>
-                                            <div className="item desc">{deliverable.desc}</div> 
-                                    </div>
-                                ))}
+                            <p className="subtitle">Deliverables Due Today, {this.state.currentday}</p>
+                            <div className="list-horizontal week-list-labels">
+                                    <div className="item-label weeknum">Week Number</div>
+                                    <div className="item-label dueDate">Due Date</div>
+                                    <div className="item-label pressure">Pressure</div>
+                                    <div className="item-label prehrs">Prep Hours</div>
+                                    <div className="item-label deliverableName">Item Name</div>
+                                    <div className="item-label desc">Notes</div>
+                            </div>
+                            <div>
+                                {this.state.todaydeliverables
+                                .map((deliverable, index) => {
+                                    return (
+                                        <div key={index} className="list-horizontal deliverable">
+                                                <div className="item courseName">{deliverable.courseName}</div>
+                                                <div className="item dueDate">{deliverable.dueDate}</div>
+                                                <div className="item pressure">{deliverable.pressure}</div>
+                                                <div className="item prephrs">{deliverable.prephrs}</div>
+                                                <div className="item deliverableName">{deliverable.deliverableName}</div>
+                                                <div className="item desc">{deliverable.desc}</div> 
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                                
                         </div>
                         <div className="this-week-deliverables">
-                            <p>Deliverables Due This Week, Week {this.state.currentweek}</p>
-                                {this.state.thisweekdeliverables.map((deliverable, index) => (
-                                    <div key={index} className="list-horizontal deliverable">
-                                            <div className="item courseName">{deliverable.courseName}</div>
-                                            <div className="item termDesc">{deliverable.termDesc}</div>
-                                            <div className="item weekNum">{deliverable.weekNum}</div>
-                                            <div className="item dueDate">{deliverable.dueDate}</div>
-                                            <div className="item pressure">{deliverable.pressure}</div>
-                                            <div className="item prephrs">{deliverable.prephrs}</div>
-                                            <div className="item deliverableName">{deliverable.deliverableName}</div>
-                                            <div className="item desc">{deliverable.desc}</div> 
-                                    </div>
-                                ))}
+                            <p className="subtitle">Deliverables Due This Week, Week {this.state.currentweek}</p>
+                            <div className="list-horizontal week-list-labels">
+                                                <div className="item-label weeknum">Week Number</div>
+                                                <div className="item-label dueDate">Due Date</div>
+                                                <div className="item-label pressure">Pressure</div>
+                                                <div className="item-label prehrs">Prep Hours</div>
+                                                <div className="item-label deliverableName">Item Name</div>
+                                                <div className="item-label desc">Notes</div>
+                                        </div>
+                                    <div>
+                            </div>
+                            <div>
+                                {this.state.thisweekdeliverables
+                                        .map((deliverable, index) => {
+                                            return (
+                                                <div key={index} className="list-horizontal deliverable">
+                                                        <div className="item courseName">{deliverable.courseName}</div>
+                                                        <div className="item dueDate">{deliverable.dueDate}</div>
+                                                        <div className="item pressure">{deliverable.pressure}</div>
+                                                        <div className="item prephrs">{deliverable.prephrs}</div>
+                                                        <div className="item deliverableName">{deliverable.deliverableName}</div>
+                                                        <div className="item desc">{deliverable.desc}</div> 
+                                                </div>
+                                            );
+                                    })}
+
+                            </div>  
                         </div>
                         <div className="review-and-plan">
-                            <h3>Review Last Week and Plan for Next Week</h3>
-                            <Link 
-                                className="button is-primary"
-                                to={{
-                                    pathname: "/reviewcurrentweek",
-                                    state: {
-                                        currentweek: this.state.currentweek
-                                    }
-                                }}>
-                                    Review Last Week
-                            </Link>
-                            <Link 
-                                className="button is-primary"
-                                to={{
-                                    pathname: "/plannextweek",
-                                    state: {
-                                        currentcourses: this.state.currentcourses
-                                    }
-                                }}>
-                                    Plan Next Week
-                                </Link>
+                            <p className="subtitle">Review Last Week and Plan for Next Week</p>
+                            <div className="list-horizontal">
+                                  {/*  <Link
+                                        className="item button is-primary"
+                                        to={{
+                                            pathname: "/reviewcurrentweek",
+                                            state: {
+                                                currentweek: this.state.currentweek
+                                            }
+                                        }}>
+                                            Review Last Week
+                                    </Link>
+                                    <Link 
+                                        className="item button is-primary"
+                                        to={{
+                                            pathname: "/plannextweek",
+                                            state: {
+                                                currentcourses: this.state.currentcourses
+                                            }
+                                        }}>
+                                            Plan Next Week
+                                    </Link> */}
+                            </div>
                         </div>
                     </div>
+                    <Router>
+                            <Switch>
+
+                                        <Route exact path="/profile" component={() => <Profile {...this.state} />} />
+                                       {/*} <Route exact path="/weeks" component={() => <Weeks {...this.state} />} />
+                                        <Route exact path="/reviewcurrentweek" component={() => <ReviewCurrentWeek {...this.state} />} />
+                                    <Route exact path="/plannextweek" component={() => <PlanNextWeek {...this.state} />} />*/}
+
+                            </Switch>    
+                </Router> 
+
+
+
                 </div> 
 
 

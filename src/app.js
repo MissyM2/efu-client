@@ -8,10 +8,7 @@ import Login from './components/login';
 import Dashboard from './components/dashboard';
 import Register from './components/register';
 
-import Weeks from './components/weeks';
-import Profile from './components/profile';
-import ReviewCurrentWeek from './components/review-current-week';
-import PlanNextWeek from './components/plan-next-week';
+
 
 
 export default class App extends React.Component {
@@ -67,6 +64,9 @@ export default class App extends React.Component {
     submitLogin = (email, password) => {
         console.log(email, password);
         console.log("Clicked submit login");
+        this.setState({
+            username: email
+        })
     
         fetch(`${API_BASE_URL}/auth/login`, {
             method: 'POST',
@@ -87,8 +87,8 @@ export default class App extends React.Component {
         .then(responseJSON => {
             console.log('responseJSON after login is ', responseJSON);
             localStorage.setItem('authToken', responseJSON.authToken);
-            localStorage.setItem('username', responseJSON.username);
-            localStorage.setItem('firstName', responseJSON.firstName);
+            localStorage.setItem('username', this.state.username);
+            localStorage.setItem('firstName', this.state.firstName);
             this.renderRedirect('/dashboard');
             // save on the local storage the toke.
             // Redirect to the landing page
@@ -108,11 +108,6 @@ export default class App extends React.Component {
                                                                             submitRegistration={this.submitRegistration}
                                                                                 />}  />
                                 <Route exact path="/dashboard" component={() => <Dashboard {...this.state} />} />
-
-                                <Route exact path="/profile" component={() => <Profile {...this.state} />} />
-                                <Route exact path="/weeks" component={Weeks} />
-                                <Route exact path="/reviewcurrentweek" component={() => <ReviewCurrentWeek {...this.state} />} />
-                                <Route exact path="/plannextweek" component={() => <PlanNextWeek {...this.state} />} />
 
                     </Switch>    
                 </Router> 

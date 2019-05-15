@@ -1,4 +1,5 @@
 import React from 'react';
+import './css/login.css';
 
 import NavBar from './navbar';
 
@@ -17,30 +18,36 @@ export default function Login(props) {
            <NavBar />
             <div className="container">
                 <h2>Login</h2>
-                <form onSubmit={submitLoginForm}>
-                    <div className="input-field">
-                        <input  
-                            placeholder="email"
-                            type="text"
-                            name="email"
-                            className="validate"
-                            aria-label="email"
-                        />
-                    </div>
-                    <div className="input-field">
-                        <input
-                            placeholder="password"
-                            type="password"
-                            name="password"
-                            className="validate"
-                            aria-label="password"
-                        />
-                    </div>
+                <div className="login-form">
+                    <form onSubmit={submitLoginForm}>
+                        <div className="input-field">
+                            <input  
+                                placeholder="email"
+                                type="text"
+                                name="email"
+                                value="sarah@gmail.com"
+                                className="validate"
+                                aria-label="email"
+                            />
+                        </div>
+                        <div className="input-field">
+                            <input
+                                placeholder="password"
+                                type="password"
+                                name="password"
+                                value="sarah9515"
+                                className="validate"
+                                aria-label="password"
+                            />
+                        </div>
 
-                    <button type="submit" className="button is-primary">
-                        Sign In
-                    </button>
-                </form>
+                        <button type="submit" className="button is-primary">
+                            Sign In
+                        </button>
+                    </form>
+                
+                </div>
+                
             </div>
         </main>
     );

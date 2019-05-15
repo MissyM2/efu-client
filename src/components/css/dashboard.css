@@ -1,25 +1,2 @@
 
-.suggestion-details {
-    width: 60%;
-    margin: 0 auto;
-}
-
-.single-term {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid;
-}
-
-.category {
-    font-style:italic;
-}
-
-.desc {
-    font-weight: bold;
-}
-
-.credit {
-    text-align: right;
-    font-style: italic;
-}
 

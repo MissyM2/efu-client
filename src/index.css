@@ -2,10 +2,10 @@
     box-sizing: border-box;
   }
 
-  .main-wrapper {
-    max-width: 1200;
+  .container {
+    margin: 0 auto;
   }
-  
+
   body {
     font-family: "Open Sans",
     sans-serif;
@@ -23,19 +23,6 @@
     background-color: #aaa;
   }
   
-  
-  header {
-    padding-top: 90px 
-  }
-  
-  section {
-   /* min-height: 50px;*/
-    padding: 10px 5px;
-    margin:8px 0;
-    background-color: #eee;
-    border: 1px solid;
-  }
-
   ul {
     list-style-type: none;
   }
@@ -62,6 +49,16 @@
   }
 
   .item {
+    padding-top: 4px;
+    padding-bottom: 4px;
+    width: 100%;
+    border: 1px solid red;
+  }
+
+  .item-label {
+    font-weight:bold;
+    padding-top: 10px;
+    padding-bottom: 10px;
     width: 100%;
     border: 1px solid red;
   }
@@ -83,6 +80,12 @@
 
   main {
     border: 1px solid;
+  }
+
+  .subtitle {
+    font-weight: bold;
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
 
 
@@ -142,10 +145,6 @@
   p + p {
     margin-top: 15px;
   }
-  
-  form {
-    text-align: left;
-  }
  
   label {
     display: block;
@@ -157,8 +156,11 @@
     margin-right: 5px;
   }
 
-  input {
+  input-field {
+    width: 80%;
+    margin: 5px;
     padding: 3px;
+    
   }
 
   .far {
