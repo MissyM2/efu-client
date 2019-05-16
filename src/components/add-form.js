@@ -4,39 +4,41 @@ export default class AddForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            editing: false
+            editing: false,
+            text: ''
         }
     }
 
 
  
     onSubmit(e) {
-       
         e.preventDefault();
-        console.log('am i making it to onsubmit?');
-        const text =this.textInput.value.trim();
+        const text =this.state.text;
         if(this.props.type === 'term') {
             let newTerm = {
                 termDesc:text
             }
-            this.props.submitAddTerm(newTerm);
+            this.props.submitaddterm(newTerm);
         } else if(this.props.type === 'course') {
-            console.log('inside onSubmit', this.props);
             let newCourse = {
                 termDesc: this.props.currentterm,
                 courseName:text
             }
-            this.props.submitAddCourse(newCourse);
+            this.props.submitaddcourse(newCourse);
         } else if(this.props.type === 'week') {
-        console.log('inside onSubmit', this.props);
         let newWeek = {
             termDesc: this.props.currentterm,
             weekNum:text
         }
-        this.props.submitAddWeek(newWeek);
+        this.props.submitaddweek(newWeek);
         }
-        //TODO:  add the term, course or week
-        this.textInput.value="";
+        
+    }
+
+    setText(text) {
+        this.setState({
+            text
+        });
     }
 
     setEditing(editing) {
@@ -46,6 +48,7 @@ export default class AddForm extends React.Component {
     }
 
     render() {
+        console.log('this props', this.props);
         if (!this.state.editing) {
             const text = `Add a ${this.props.type}`;
             return (
@@ -63,7 +66,8 @@ export default class AddForm extends React.Component {
             <form className="course add-form" onSubmit={(e) => this.onSubmit(e)} >
                 <input 
                     type="text"
-                    ref={input => this.textInput = input}
+                    value = {this.state.text}
+                    onChange = {e => this.setText(e.target.value)}
                     aria-label={label}
                 />
                 <button>Add </button>

@@ -10,7 +10,7 @@ export default function Login(props) {
 
         let email = e.currentTarget.email.value;
         let password = e.currentTarget.password.value;
-        props.submitLogin(email, password);
+        props.submitlogin(email, password);
     }
     
     return (

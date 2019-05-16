@@ -12,7 +12,7 @@ export default function RegistrationPage(props) {
             username: e.currentTarget.username.value,
             password: e.currentTarget.password.value
         };
-        props.submitRegistration(user);
+        props.submitregistration(user);
     }
     
    

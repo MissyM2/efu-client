@@ -1,6 +1,5 @@
 import React from "react";
 import NavBar from "./navbar";
-import Login from './login';
 
 export default function HomePage(props) {
     return (

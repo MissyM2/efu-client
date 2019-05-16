@@ -1,6 +1,5 @@
 import React from 'react';
 import './css/dashboard.css';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { API_BASE_URL } from '../config';
 
@@ -138,7 +137,7 @@ export default class Dashboard extends React.Component {
             })
             .then(responseJSON => {
                 const tempcourses = responseJSON.filter(course => {
-                        return course.term === this.state.currentterm;
+                        return course.termDesc === this.state.currentterm;
                 });
                 this.setState({
                     currentcourses: tempcourses
@@ -194,7 +193,7 @@ export default class Dashboard extends React.Component {
             .then(responseJSON => {
                 //console.log('deliverables responseJSON ', responseJSON);
                 const temptodaydeliverables = responseJSON.filter(deliverable => {
-                    console.log('today is ', this.state.currentdate);
+                    //console.log('today is ', this.state.currentdate);
                         return deliverable.termDesc === this.state.currentterm;
                 });
                 this.setState({
@@ -239,7 +238,14 @@ export default class Dashboard extends React.Component {
                      <div className="container">
                         <h2>My Dashboard</h2>
                         <div className="list-horizontal">
-                                <Link className="item button is-primary" to="/weeks">
+                                <Link className="item button is-primary" 
+                                    to={{
+                                        pathname: '/weeks', 
+                                        state: {
+                                            currentweeks: this.state.currentweeks,
+                                            currentterm: this.state.currentterm
+                                        },
+                                    }} >
                                             weeks
                                 </Link>
                                <Link 
@@ -252,7 +258,7 @@ export default class Dashboard extends React.Component {
                                             currentweeks: this.state.currentweeks,
                                             currentterm: this.state.currentterm
                                         },
-                                        getCurrentTerms:this.getCurrentTerms
+                                        getcurrentterms:this.getCurrentTerms
                                     }}
                                     > 
                                         profile
@@ -327,6 +333,7 @@ export default class Dashboard extends React.Component {
                         <div className="review-and-plan">
                             <p className="subtitle">Review Last Week and Plan for Next Week</p>
                             <div className="list-horizontal">
+                            
                                     <Link
                                         className="item button is-primary"
                                         to={{

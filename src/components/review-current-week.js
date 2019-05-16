@@ -98,7 +98,6 @@ export default class ReviewCurrentWeek extends React.Component {
 
     render() {
         console.log(this.props);
-        console.log('inside reviewcurrentweek, currentweek ', this.props.location.state.currentweek);
         //const currentcoursedropdown = this.props.location.state.currentcourses.map(course =>  
        //     <option key={course.objectID}>
        //         <div>{course.courseName}</div>

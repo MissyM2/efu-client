@@ -2,6 +2,7 @@ import React from 'react';
 import './css/edit-btns.css';
 
 export function EditForm(props) {
+    console.log('Editform props', this.props);
     return (
                 <div className="edit-btns">
                     <div className="edit-btn update-btn"><i className="far fa-edit"></i></div>

@@ -5,7 +5,6 @@ import {API_BASE_URL} from '../config';
 import NavBar from './navbar';
 
 import AddForm from './add-form';
-import EditForm from './edit-form';
 import Term from './term';
 import Course from './course';
 import Week from './week';
@@ -24,7 +23,7 @@ export default class Profile extends React.Component {
             loading: false
         }
         this.authToken=localStorage.getItem('authToken');
-        this.submitAddTerm = this.submitAddTerm.bind(this);
+        //this.submitAddTerm = this.submitAddTerm.bind(this);
     }
 
 
@@ -58,7 +57,7 @@ export default class Profile extends React.Component {
                 console.log(err);
             });
     }
- /*
+ 
     submitAddCourse = (newcourse) => {
         console.log('made it to exec submitAddCourse, here is the newCourse ', newcourse);
         fetch(`${API_BASE_URL}/courses`, {
@@ -80,7 +79,6 @@ export default class Profile extends React.Component {
             this.setState({
                 courses: [...this.state.courses, responseJSON]
             });
-            console.log('PROFILE, currentcouredes is ', this.state.currentcourses);
         })
         .catch((err) => {
             console.log(err);
@@ -111,20 +109,40 @@ export default class Profile extends React.Component {
         });
     }
 
-*/
-    onSubmit(e) {
-       
-        e.preventDefault();
-        console.log('am i making it to onsubmit?');
-        const text =this.textInput.value.trim();
-        let newTerm = {
-                termDesc:text
-        }
-        
-       this.submitAddTerm(newTerm);
-        //TODO:  add the term, course or week
-        this.textInput.value="";
+    deleteCourse = (selectedCourse) => {
+        console.log('made it to delete Course selectedCourse ', selectedCourse)
+        fetch(`${API_BASE_URL}/courses`, {
+                method: 'DELETE',
+                headers: {
+                    Authorization: `Bearer ${this.authToken}`,
+                    'Content-Type': 'application/json'},
+                body: JSON.stringify(selectedCourse)
+            })
+            .then(() => {
+                console.log('course has been removed');
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }
+
+    deleteWeek = (selectedWeek) => {
+        console.log('made it to delete Week selectedweek ', selectedWeek)
+        fetch(`${API_BASE_URL}/weeks`, {
+                method: 'DELETE',
+                headers: {
+                    Authorization: `Bearer ${this.authToken}`,
+                    'Content-Type': 'application/json'},
+                body: JSON.stringify(selectedWeek)
+            })
+            .then(() => {
+                console.log('week has been removed');
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+
 
    // setEditing(editing) {
      //   this.setState({
@@ -144,10 +162,6 @@ export default class Profile extends React.Component {
     
     */
     render() {
-       // console.log('PROFILE this.state just after render ', this.state);
-       // console.log('PROFILEthis.props.location.state just after render ', this.props.location.state);
-       //console.log('this.props.location on componentDidMount ', this.props.location);
-       // console.log('this.state in the profile ', this.state);
         const myterms = this.props.location.state.terms.map((term, index) => {
             return (
                 <li key={index}>
@@ -159,8 +173,7 @@ export default class Profile extends React.Component {
         const mycourses = this.props.location.state.currentcourses.map((course, index) => {
             return (
                 <li key={index}>
-                    <Course {...course} />
-                    <EditForm />
+                    <Course {...course} deletecourse={this.deleteCourse} />
                 </li>
             );
         });
@@ -168,8 +181,7 @@ export default class Profile extends React.Component {
         const myweeks = this.props.location.state.currentweeks.map((week, index) => {
             return (
                 <li className="list-horizontal" key={index}>
-                    <Week {...week} />
-                    <EditForm />
+                    <Week {...week}  deleteweek={this.deleteWeek} />
                 </li>
             );
         });
@@ -199,20 +211,9 @@ export default class Profile extends React.Component {
                                {myterms} 
                             </ul>
                             <div> missy
-                                
-                               <form className="course add-form" onSubmit={(e) => this.onSubmit(e)} >
-                                    <input 
-                                        type="text"
-                                        ref={input => this.textInput = input}
-                                        //aria-label={label} 
-                                    />
-                                    <button>Add </button>
-                                  {/*  <button type="button" onClick={() => this.setEditing(false)}>
-                                        Cancel
-        </button>      */} 
-
-                                </form>
-        
+                            <div>
+                                <AddForm type="term" submitaddterm={this.submitAddTerm}   />
+                            </div>
                             </div>
                         </div>
                         <hr />
@@ -222,7 +223,7 @@ export default class Profile extends React.Component {
                                {mycourses} 
                                </ul>
                                <div>
-                                <AddForm type="course" currentterm={this.props.location.state.currentterm} submitAddCourse={this.submitAddCourse} />
+                                <AddForm type="course" currentterm={this.props.location.state.currentterm} submitaddcourse={this.submitAddCourse}/>
                                </div>
                             
                         </div>
@@ -233,7 +234,7 @@ export default class Profile extends React.Component {
                                {myweeks} 
                             </ul>
                             <div>
-                                <AddForm type="week" currentterm={this.props.location.state.currentterm} submitAddWeek={this.submitAddWeek} />
+                                <AddForm type="week" currentterm={this.props.location.state.currentterm} submitaddweek={this.submitAddWeek} />
                             </div>
                             
                     </div>

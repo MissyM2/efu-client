@@ -1,7 +1,7 @@
 import React from 'react';
 import {API_BASE_URL} from './config';
 
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import HomePage from './components/home-page';
 import Login from './components/login';
@@ -105,17 +105,17 @@ export default class App extends React.Component {
                 <Router>
                                 <Route exact path="/" component={HomePage} />
                                 <Route exact path="/login" render={() => <Login {...this.state}
-                                                                        submitLogin={this.submitLogin}
+                                                                        submitlogin={this.submitLogin}
                                                                     />} />
                                 <Route exact path="/register" render={() => <Register {...this.state}
-                                                                            submitRegistration={this.submitRegistration}
+                                                                            submitregistration={this.submitRegistration}
                                                                                 />}  />
                                 <Route exact path="/dashboard" render={() => <Dashboard {...this.state} />} /> 
                                 
                                 <Route exact path="/profile" component={Profile} />
                                 <Route exact path="/weeks" component={Weeks} />
-                                <Route exact path="/reviewcurrentweek" component={() => <ReviewCurrentWeek {...this.state} />} />
-                                <Route exact path="/plannextweek" component={() => <PlanNextWeek {...this.state} />} />
+                                <Route exact path="/reviewcurrentweek" component={ReviewCurrentWeek} />
+                                <Route exact path="/plannextweek" component={PlanNextWeek} />
  
                 </Router> 
             </section> 

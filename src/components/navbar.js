@@ -27,7 +27,7 @@ export default class NavBar extends React.Component {
 
 
     render(){
-        console.log('props from dashboard ', this.props);
+        //console.log('props from dashboard ', this.props);
         return (
             <nav className="navbar" role="navigation" aria-label="main navigation">
                 {/*<div className="navbar-brand">
@@ -84,9 +84,9 @@ export default class NavBar extends React.Component {
                                             currentweeks: this.state.currentweeks
                                         }
                                     }}
-                                    submitAddTerm={this.submitAddTerm}
-                                    submitAddCourse={this.submitAddCourse}
-                                    submitAddWeek={this.submitAddWeek}
+                                    submitaddterm={this.submitAddTerm}
+                                    submitaddcourse={this.submitAddCourse}
+                                    submitaddweek={this.submitAddWeek}
                                     >
                                         profile
                                 </Link>
