@@ -1,9 +1,7 @@
 import React from 'react';
-
-import './css/index.css';
 import './css/edit-btns.css';
 
-export function EditBtns(props) {
+export function EditForm(props) {
     return (
                 <div className="edit-btns">
                     <div className="edit-btn update-btn"><i className="far fa-edit"></i></div>
@@ -16,4 +14,4 @@ export function EditBtns(props) {
 
 }
 
-export default (EditBtns);
+export default (EditForm);

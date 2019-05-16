@@ -5,10 +5,7 @@ import { Link } from 'react-router-dom';
 import { API_BASE_URL } from '../config';
 
 import NavBar from "./navbar"
-import Weeks from './weeks';
-import Profile from './profile';
-import ReviewCurrentWeek from './review-current-week';
-import PlanNextWeek from './plan-next-week';
+
 
 
 
@@ -20,7 +17,7 @@ export default class Dashboard extends React.Component {
         this.state = {
             currentterm:"",
             currentweek: "",
-            currentday:"05/04/2019",
+            currentdate:"",
             nextweek: "",
             currentsuggestion:[],
             terms: [],
@@ -33,251 +30,190 @@ export default class Dashboard extends React.Component {
 
         }
         this.authToken=localStorage.getItem('authToken');
+        this.getCurrentSuggestion = this.getCurrentSuggestion.bind(this);
+        this.getCurrentTerms = this.getCurrentTerms.bind(this);
+        this.getCurrentCourses = this.getCurrentCourses.bind(this);
+        this.getCurrentWeeks = this.getCurrentWeeks.bind(this);
+        this.getDeliverables = this.getDeliverables.bind(this);
        // this.getCurrentDate = this.getCurrentDate.bind(this)
     }
 
     componentDidMount() {
+        /*
+        const todayDate = () => {
+            let newDate = new Date();
+            console.log('newDate', newDate);
+            let newDay = newDate.getDate();
+            console.log('newDay', newDay);
+            let newMonth = newDate.getMonth() + 1;
+            console.log('newMonth', newMonth);
+            let newYear = newDate.getFullYear();
+            console.log('newYear', newYear);
+            //return `${year}${separator}${month<10?`0${month}`:`${month}`}${separator}${date}`;
+            return `${newYear} - ${newMonth<10?`0${newMonth}`:`${newMonth}`} - ${newDay}`;
+        }
+        console.log('todayDate is ', this.todayDate);
+*/
         this.setState({
             error: null,
             loading: true,
             currentterm: "Spring, 2019",
             currentweek: 2,
+            currentdate: this.todayDate,
             nextweek: this.state.currentweek + 1,
         });
-        console.log('authToken is ', this.authToken);
-
-
-        //get suggestion
-        fetch(`${API_BASE_URL}/suggestions`, {
-            method: 'GET',
-            headers: {
-                // Provide our auth token as credentials
-                Authorization: `Bearer ${this.authToken}`
-            }
-        })
-        .then(response => {
-            if(response.ok) {
-                    return response.json()
-            }
-            throw new Error(response.text)
-        })
-        .then(responseJSON => {
-            const tempsuggestion = responseJSON[Math.floor(Math.random() * responseJSON.length)];
-            console.log('tempsuggestion is ', tempsuggestion);
-            this.setState({
-                currentsuggestion: tempsuggestion
-            });
-            console.log('currentsuggestion is ', this.state.currentsuggestion);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-
-        //get terms
-        fetch(`${API_BASE_URL}/terms`, {
-            method: 'GET',
-            headers: {
-                // Provide our auth token as credentials
-                Authorization: `Bearer ${this.authToken}`
-                }
-        })
-        .then(response => {
-            if(response.ok) {
-                    return response.json()
-            }
-            throw new Error(response.text)
-        })
-        .then(responseJSON => {
-            this.setState({
-                terms: responseJSON
-            });
-            console.log('currentterms are ', this.state.terms);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-
-        //get courses
-
-        fetch(`${API_BASE_URL}/courses`, {
-            method: 'GET',
-            headers: {
-                // Provide our auth token as credentials
-                Authorization: `Bearer ${this.authToken}`
-                }
-        })
-        .then(response => {
-            if(response.ok) {
-                    return response.json()
-            }
-            throw new Error(response.text)
-        })
-        .then(responseJSON => {
-            const tempcourses = responseJSON.filter(course => {
-                    return course.term === this.state.currentterm;
-            });
-            this.setState({
-                currentcourses: tempcourses
-            });
-            console.log('currentcourses is ', this.state.currentcourses);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-
-        //get weeks
-
-        fetch(`${API_BASE_URL}/weeks`, {
-            method: 'GET',
-            headers: {
-                Authorization: `Bearer ${this.authToken}`
-                }
-        })
-        .then(response => {
-            if(response.ok) {
-                    return response.json()
-            }
-            throw new Error(response.text)
-        })
-        .then(responseJSON => {
-            const tempweeks = responseJSON.filter(week => {
-                return week.termDesc === this.state.currentterm;
-            });
-            this.setState({
-                currentweeks: tempweeks
-            });
-            console.log('currentweeks is ', this.state.currentweeks);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-
-        //get deliverables
-
-        fetch(`${API_BASE_URL}/deliverables`, {
-            method: 'GET',
-            headers: {
-                // Provide our auth token as credentials
-                Authorization: `Bearer ${this.authToken}`
-            }
-        })
-        .then(response => {
-            if(response.ok) {
-                    return response.json()
-            }
-            throw new Error(response.text)
-        })
-        .then(responseJSON => {
-            console.log('deliverables responseJSON ', responseJSON);
-            const temptodaydeliverables = responseJSON.filter(deliverable => {
-                    return deliverable.termDesc === this.state.currentterm;
-            });
-            this.setState({
-                todaydeliverables: temptodaydeliverables
-            });
-            console.log('todaydeliverables is ', this.state.todaydeliverables);
-            const tempweekdeliverables = responseJSON.filter(deliverable => {
-                return deliverable.termDesc === this.state.currentterm && deliverable.weekNum === this.state.currentweek;
-        }); 
-        this.setState({
-            thisweekdeliverables: tempweekdeliverables
-        });
-        console.log('todaydeliverables is ', this.state.todaydeliverables);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+        this.getCurrentSuggestion();
+        this.getCurrentTerms();
+        this.getCurrentCourses();
+        this.getCurrentWeeks();
+        this.getDeliverables(); 
 }
 
-    
-    getCurrentDate(separator=''){
-        let newDate = new Date();
-        let date = newDate.getDate();
-        let month = newDate.getMonth() + 1;
-        let year = newDate.getFullYear();
-        return `${year}${separator}${month<10?`0${month}`:`${month}`}${separator}${date}`;
-    }
-    
-    submitAddTerm = (newterm) => {
-            fetch(`${API_BASE_URL}/terms`, {
-                method: 'POST',
+        getCurrentSuggestion() {
+            fetch(`${API_BASE_URL}/suggestions`, {
+                method: 'GET',
                 headers: {
                     // Provide our auth token as credentials
-                    Authorization: `Bearer ${this.authToken}`,
-                    "Content-Type": 'application/json'
-                },
-                body: JSON.stringify(newterm)
-                })
-                .then(response => {
-                    if(response.ok){
-                        return response.json();
-                    }
-                    throw new Error(response.text)
-                })
-                .then(responseJSON => {
-                    this.setState({
-                        terms: [...this.state.terms, {responseJSON}]
-                    });
-                })   
-                .catch((err) => {
-                    console.log(err);
+                    Authorization: `Bearer ${this.authToken}`
+                }
+            })
+            .then(response => {
+                if(response.ok) {
+                        return response.json()
+                }
+                throw new Error(response.text)
+            })
+            .then(responseJSON => {
+                const tempsuggestion = responseJSON[Math.floor(Math.random() * responseJSON.length)];
+                this.setState({
+                    currentsuggestion: tempsuggestion
                 });
-    }
-
-    submitAddCourse =(newcourse) => {
-        fetch(`${API_BASE_URL}/courses`, {
-            method: 'POST',
-            headers: {
-                // Provide our auth token as credentials
-                Authorization: `Bearer ${this.authToken}`,
-                "Content-Type": 'application/json'
-            },
-            body: JSON.stringify(newcourse)
-        })
-        .then(response => {
-            if(response.ok){
-                return response.json();
-            }
-            throw new Error(response.text)
-        })
-        .then(responseJSON =>  {
-            this.setState({
-                currentcourses: [...this.props.currentcourses, {responseJSON}]
+            })
+            .catch((err) => {
+                console.log(err);
             });
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-    }
 
-    submitAddWeek = (newweek) => {
-        fetch(`${API_BASE_URL}/weeks`, {
-            method: 'POST',
-            headers: {
-                // Provide our auth token as credentials
-                Authorization: `Bearer ${this.authToken}`,
-                "Content-Type": 'application/json'
-            },
-            body: JSON.stringify(newweek)
-        })
-        .then(response => {
-            if(response.ok){
-                return response.json();
-            }
-            throw new Error(response.text)
-        })
-        .then((responseJSON) => {
-            //QUESTION:  WHAT DO I RETURN?
-            //this.setState({
-            //    currentweeks: [...this.state.currentweeks], {newweek}]
-            //});
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-    }
-    
+            
 
+
+        }
+        getCurrentTerms() {
+            fetch(`${API_BASE_URL}/terms`, {
+                method: 'GET',
+                headers: {
+                    // Provide our auth token as credentials
+                    Authorization: `Bearer ${this.authToken}`
+                    }
+            })
+            .then(response => {
+                if(response.ok) {
+                        return response.json()
+                }
+                throw new Error(response.text)
+            })
+            .then(responseJSON => {
+                this.setState({
+                    terms: responseJSON
+                });
+                //console.log('currentterms are ', this.state.terms);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        }
+
+        getCurrentCourses() {
+            fetch(`${API_BASE_URL}/courses`, {
+                method: 'GET',
+                headers: {
+                    // Provide our auth token as credentials
+                    Authorization: `Bearer ${this.authToken}`
+                    }
+            })
+            .then(response => {
+                if(response.ok) {
+                        return response.json()
+                }
+                throw new Error(response.text)
+            })
+            .then(responseJSON => {
+                const tempcourses = responseJSON.filter(course => {
+                        return course.term === this.state.currentterm;
+                });
+                this.setState({
+                    currentcourses: tempcourses
+                });
+                //console.log('currentcourses is ', this.state.currentcourses);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        }
+
+        getCurrentWeeks() {
+            fetch(`${API_BASE_URL}/weeks`, {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${this.authToken}`
+                    }
+            })
+            .then(response => {
+                if(response.ok) {
+                        return response.json()
+                }
+                throw new Error(response.text)
+            })
+            .then(responseJSON => {
+                const tempweeks = responseJSON.filter(week => {
+                    return week.termDesc === this.state.currentterm;
+                });
+                this.setState({
+                    currentweeks: tempweeks
+                });
+                //console.log('currentweeks is ', this.state.currentweeks);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        }
+
+         getDeliverables() {
+            fetch(`${API_BASE_URL}/deliverables`, {
+                method: 'GET',
+                headers: {
+                    // Provide our auth token as credentials
+                    Authorization: `Bearer ${this.authToken}`
+                }
+            })
+            .then(response => {
+                if(response.ok) {
+                        return response.json()
+                }
+                throw new Error(response.text)
+            })
+            .then(responseJSON => {
+                //console.log('deliverables responseJSON ', responseJSON);
+                const temptodaydeliverables = responseJSON.filter(deliverable => {
+                    console.log('today is ', this.state.currentdate);
+                        return deliverable.termDesc === this.state.currentterm;
+                });
+                this.setState({
+                    todaydeliverables: temptodaydeliverables
+                });
+                //console.log('todaydeliverables is ', this.state.todaydeliverables);
+                const tempweekdeliverables = responseJSON.filter(deliverable => {
+                    return deliverable.termDesc === this.state.currentterm && deliverable.weekNum === this.state.currentweek;
+            }); 
+            this.setState({
+                thisweekdeliverables: tempweekdeliverables
+            });
+            //console.log('todaydeliverables is ', this.state.todaydeliverables);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+
+         }
         
               /*
 
@@ -296,19 +232,29 @@ export default class Dashboard extends React.Component {
         //if (loading) {
        //     return <p>Loading ...</p>
         //}
-        console.log('this.state ', this.state);
-        console.log('thisweekdeliverables ', this.state.thisweekdeliverables);
+        //console.log('thisweekdeliverables ', this.state.thisweekdeliverables);
             return (
                 <div> 
                     <NavBar {...this.state}/>
                      <div className="container">
                         <h2>My Dashboard</h2>
                         <div className="list-horizontal">
-                              {/*  <Link className="item button is-primary" to="/weeks">
+                                <Link className="item button is-primary" to="/weeks">
                                             weeks
-                                </Link>*/}
-                                <Link 
-                                    className="item button is-primary" to='/profile'>
+                                </Link>
+                               <Link 
+                                    className="item button is-primary" 
+                                    to={{
+                                        pathname: '/profile', 
+                                        state: { 
+                                            terms: this.state.terms,
+                                            currentcourses: this.state.currentcourses, 
+                                            currentweeks: this.state.currentweeks,
+                                            currentterm: this.state.currentterm
+                                        },
+                                        getCurrentTerms:this.getCurrentTerms
+                                    }}
+                                    > 
                                         profile
                                 </Link> 
                         </div>
@@ -381,7 +327,7 @@ export default class Dashboard extends React.Component {
                         <div className="review-and-plan">
                             <p className="subtitle">Review Last Week and Plan for Next Week</p>
                             <div className="list-horizontal">
-                                  {/*  <Link
+                                    <Link
                                         className="item button is-primary"
                                         to={{
                                             pathname: "/reviewcurrentweek",
@@ -400,23 +346,10 @@ export default class Dashboard extends React.Component {
                                             }
                                         }}>
                                             Plan Next Week
-                                    </Link> */}
+                                        </Link>
                             </div>
                         </div>
                     </div>
-                    <Router>
-                            <Switch>
-
-                                        <Route exact path="/profile" component={() => <Profile {...this.state} />} />
-                                       {/*} <Route exact path="/weeks" component={() => <Weeks {...this.state} />} />
-                                        <Route exact path="/reviewcurrentweek" component={() => <ReviewCurrentWeek {...this.state} />} />
-                                    <Route exact path="/plannextweek" component={() => <PlanNextWeek {...this.state} />} />*/}
-
-                            </Switch>    
-                </Router> 
-
-
-
                 </div> 
 
 

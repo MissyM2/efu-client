@@ -24,13 +24,19 @@ export default class Profile extends React.Component {
             loading: false
         }
         this.authToken=localStorage.getItem('authToken');
-        this.submitAddTerm = this.submitAddTerm.bind(this);
     }
 
+ 
 
-
-   submitAddTerm = (newterm) => {
-    console.log('made it to  submitAddTerm', newterm);
+   
+    onSubmit(e) {
+       
+        e.preventDefault();
+        console.log('am i making it to onsubmit?');
+        const text =this.textInput.value.trim();
+        let newTerm = {
+                termDesc:text
+        }
         fetch(`${API_BASE_URL}/terms`, {
             method: 'POST',
             headers: {
@@ -38,7 +44,7 @@ export default class Profile extends React.Component {
                 Authorization: `Bearer ${this.authToken}`,
                 "Content-Type": 'application/json'
             },
-            body: JSON.stringify(newterm)
+            body: JSON.stringify(newTerm)
             })
             .then(response => {
                 if(response.ok){
@@ -48,80 +54,19 @@ export default class Profile extends React.Component {
             })
             .then(responseJSON => {
                 console.log('responseJSON looks like ', responseJSON);
-                this.setState((responseJSON) => ({
-                    terms: [...this.state.terms, responseJSON]
-                }));
-                console.log(this.state);
-               return responseJSON;
+                this.setState(responseJSON => {
+                    const terms = state.terms.concat(responseJSON.value);
+                    });
+                console.log('this.state.terms', this.state.terms);
             })   
             .catch((err) => {
                 console.log(err);
             });
-    }
- /*
-    submitAddCourse = (newcourse) => {
-        console.log('made it to exec submitAddCourse, here is the newCourse ', newcourse);
-        fetch(`${API_BASE_URL}/courses`, {
-            method: 'POST',
-            headers: {
-                // Provide our auth token as credentials
-                Authorization: `Bearer ${this.authToken}`,
-                "Content-Type": 'application/json'
-            },
-            body: JSON.stringify(newcourse)
-        })
-        .then(response => {
-            if(response.ok){
-                return response.json();
-            }
-            throw new Error(response.text)
-        })
-        .then(responseJSON =>  {
-            this.setState({
-                courses: [...this.state.courses, responseJSON]
-            });
-            console.log('PROFILE, currentcouredes is ', this.state.currentcourses);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-    }
-
-    submitAddWeek = (newweek) => {
-        fetch(`${API_BASE_URL}/weeks`, {
-            method: 'POST',
-            headers: {
-                // Provide our auth token as credentials
-                Authorization: `Bearer ${this.authToken}`,
-                "Content-Type": 'application/json'
-            },
-            body: JSON.stringify(newweek)
-        })
-        .then(response => {
-            if(response.ok){
-                return response.json();
-            }
-            throw new Error(response.text)
-        })
-        .then((responseJSON) => {
-           console.log('responseJSON looks like ', responseJSON);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-    }
-
-*/
-    onSubmit(e) {
-       
-        e.preventDefault();
-        console.log('am i making it to onsubmit?');
-        const text =this.textInput.value.trim();
-        let newTerm = {
-                termDesc:text
-        }
+       // this.setState({
+        //    terms: [...this.state.terms], newterm]
+       // });
+       // console.log('PROFILE, terms ', terms);
         
-       this.submitAddTerm(newTerm);
         //TODO:  add the term, course or week
         this.textInput.value="";
     }

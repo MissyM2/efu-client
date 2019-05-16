@@ -7,6 +7,10 @@ import HomePage from './components/home-page';
 import Login from './components/login';
 import Dashboard from './components/dashboard';
 import Register from './components/register';
+import Weeks from './components/weeks';
+import Profile from './components/profile';
+import ReviewCurrentWeek from './components/review-current-week';
+import PlanNextWeek from './components/plan-next-week';
 
 
 
@@ -99,17 +103,20 @@ export default class App extends React.Component {
         return (
             <section className="app-wrapper">
                 <Router>
-                    <Switch>
                                 <Route exact path="/" component={HomePage} />
-                                <Route exact path="/login" component={() => <Login {...this.state}
+                                <Route exact path="/login" render={() => <Login {...this.state}
                                                                         submitLogin={this.submitLogin}
                                                                     />} />
-                                <Route exact path="/register" component={() => <Register {...this.state}
+                                <Route exact path="/register" render={() => <Register {...this.state}
                                                                             submitRegistration={this.submitRegistration}
                                                                                 />}  />
-                                <Route exact path="/dashboard" component={() => <Dashboard {...this.state} />} />
-
-                    </Switch>    
+                                <Route exact path="/dashboard" render={() => <Dashboard {...this.state} />} /> 
+                                
+                                <Route exact path="/profile" component={Profile} />
+                                <Route exact path="/weeks" component={Weeks} />
+                                <Route exact path="/reviewcurrentweek" component={() => <ReviewCurrentWeek {...this.state} />} />
+                                <Route exact path="/plannextweek" component={() => <PlanNextWeek {...this.state} />} />
+ 
                 </Router> 
             </section> 
         );

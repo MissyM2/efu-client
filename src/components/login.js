@@ -15,7 +15,7 @@ export default function Login(props) {
     
     return (
         <main>
-           <NavBar />
+            <NavBar />
             <div className="container">
                 <h2>Login</h2>
                 <div className="login-form">
