@@ -34,31 +34,15 @@ export default class Dashboard extends React.Component {
         this.getCurrentCourses = this.getCurrentCourses.bind(this);
         this.getCurrentWeeks = this.getCurrentWeeks.bind(this);
         this.getDeliverables = this.getDeliverables.bind(this);
-       // this.getCurrentDate = this.getCurrentDate.bind(this)
+        this.getCurrentDate = this.getCurrentDate.bind(this)
     }
 
     componentDidMount() {
-        /*
-        const todayDate = () => {
-            let newDate = new Date();
-            console.log('newDate', newDate);
-            let newDay = newDate.getDate();
-            console.log('newDay', newDay);
-            let newMonth = newDate.getMonth() + 1;
-            console.log('newMonth', newMonth);
-            let newYear = newDate.getFullYear();
-            console.log('newYear', newYear);
-            //return `${year}${separator}${month<10?`0${month}`:`${month}`}${separator}${date}`;
-            return `${newYear} - ${newMonth<10?`0${newMonth}`:`${newMonth}`} - ${newDay}`;
-        }
-        console.log('todayDate is ', this.todayDate);
-*/
         this.setState({
             error: null,
             loading: true,
             currentterm: "Spring, 2019",
             currentweek: 2,
-            currentdate: this.todayDate,
             nextweek: this.state.currentweek + 1,
         });
         this.getCurrentSuggestion();
@@ -66,6 +50,7 @@ export default class Dashboard extends React.Component {
         this.getCurrentCourses();
         this.getCurrentWeeks();
         this.getDeliverables(); 
+        this.getCurrentDate(); 
 }
 
         getCurrentSuggestion() {
@@ -191,28 +176,44 @@ export default class Dashboard extends React.Component {
                 throw new Error(response.text)
             })
             .then(responseJSON => {
-                //console.log('deliverables responseJSON ', responseJSON);
+
+                console.log('deliverables responseJSON ', responseJSON);
                 const temptodaydeliverables = responseJSON.filter(deliverable => {
-                    //console.log('today is ', this.state.currentdate);
-                        return deliverable.termDesc === this.state.currentterm;
+                        return deliverable.termDesc === this.state.currentterm && deliverable.dueDate === this.state.currentdate;
                 });
                 this.setState({
                     todaydeliverables: temptodaydeliverables
                 });
-                //console.log('todaydeliverables is ', this.state.todaydeliverables);
                 const tempweekdeliverables = responseJSON.filter(deliverable => {
                     return deliverable.termDesc === this.state.currentterm && deliverable.weekNum === this.state.currentweek;
-            }); 
-            this.setState({
-                thisweekdeliverables: tempweekdeliverables
-            });
-            //console.log('todaydeliverables is ', this.state.todaydeliverables);
+                }); 
+                this.setState({
+                    thisweekdeliverables: tempweekdeliverables
+                });
             })
             .catch((err) => {
                 console.log(err);
             });
 
          }
+
+         getCurrentDate = () => {
+            let newDate = new Date();
+            console.log('newDate', newDate);
+            let newDay = newDate.getDate();
+            console.log('newDay', newDay);
+            let newMonth = newDate.getMonth() + 1;
+            console.log('newMonth', newMonth);
+            let newYear = newDate.getFullYear();
+            console.log('newYear', newYear);
+            let todayDate =`${newYear} - ${newMonth<10?`0${newMonth}`:`${newMonth}`} - ${newDay}`;
+            console.log('todayDate is ', todayDate);
+            this.setState({
+                currentdate: todayDate
+            });
+            
+        }
+        
         
               /*
 
@@ -223,6 +224,7 @@ export default class Dashboard extends React.Component {
                 return null;
             }*/ 
     render() {
+
         //const {suggestion, loading} = this.state;
         //if (error) {
         //    return <p>{error.message}</p>
@@ -275,7 +277,7 @@ export default class Dashboard extends React.Component {
                                 </li>
                           </ul> 
                         <div className="today-deliverables">
-                            <p className="subtitle">Deliverables Due Today, {this.state.currentday}</p>
+                            <p className="subtitle">Deliverables Due Today, {this.state.currentdate}</p>
                             <div className="list-horizontal week-list-labels">
                                     <div className="item-label weeknum">Week Number</div>
                                     <div className="item-label dueDate">Due Date</div>

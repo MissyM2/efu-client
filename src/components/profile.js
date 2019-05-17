@@ -15,15 +15,17 @@ export default class Profile extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            currenterm:this.props.location.state.currentterm,
-            terms: this.props.location.state.terms,
-            courses: this.props.location.state.currentcourses,
-            weeks: this.props.location.state.weeks,
+            currentterm:'',
+            currenterm:props.location.state.currentterm,
+            terms: props.location.state.terms,
+            courses: props.location.state.currentcourses,
+            weeks: props.location.state.currentweeks,
             error: null,
             loading: false
         }
         this.authToken=localStorage.getItem('authToken');
         //this.submitAddTerm = this.submitAddTerm.bind(this);
+        this.getSelectedTerm = this.getSelectedTerm.bind(this);
     }
 
 
@@ -101,8 +103,10 @@ export default class Profile extends React.Component {
             }
             throw new Error(response.text)
         })
-        .then((responseJSON) => {
-           console.log('responseJSON looks like ', responseJSON);
+        .then(responseJSON =>  {
+            this.setState({
+                weeks: [...this.state.weeks, responseJSON]
+            });
         })
         .catch((err) => {
             console.log(err);
@@ -110,7 +114,6 @@ export default class Profile extends React.Component {
     }
 
     deleteCourse = (selectedCourse) => {
-        console.log('made it to delete Course selectedCourse ', selectedCourse)
         fetch(`${API_BASE_URL}/courses`, {
                 method: 'DELETE',
                 headers: {
@@ -118,8 +121,20 @@ export default class Profile extends React.Component {
                     'Content-Type': 'application/json'},
                 body: JSON.stringify(selectedCourse)
             })
-            .then(() => {
-                console.log('course has been removed');
+            .then(response => {
+                if(response.ok) {
+                        return response.json()
+                }
+                throw new Error(response.text)
+            })
+            .then(responseJSON => {
+                const tempcourses = responseJSON.filter(course => {
+                        return course.termDesc === this.state.currentterm;
+                });
+                console.log('this.state within deleteCourse on return from fetch', this.state);
+                this.setState({
+                    courses: tempcourses
+                });
             })
             .catch((err) => {
                 console.log(err);
@@ -135,12 +150,43 @@ export default class Profile extends React.Component {
                     'Content-Type': 'application/json'},
                 body: JSON.stringify(selectedWeek)
             })
-            .then(() => {
-                console.log('week has been removed');
+            .then(response => {
+                console.log('response', response);
+                if(response.ok) {
+                        return response.json()
+                }
+                throw new Error(response.text)
+            })
+            .then(responseJSON => {
+                console.log('responseJSON after deletion and before filter', responseJSON);
+
+                const tempweeks = responseJSON.filter(week => {
+                    console.log('inside map, week.termDesc', week.termDesc);
+                    console.log('inside map, this.state.currentterm', this.state.currentterm);
+                        return week.termDesc === this.state.currentterm;
+                });
+                console.log('tempweeks AFTER filter ', tempweeks);
+                this.setState({
+                    weeks: tempweeks
+                });
+                console.log('this.state.weeks', this.state.weeks);
             })
             .catch((err) => {
                 console.log(err);
             });
+    }
+
+    getSelectedTerm(selTerm){
+        console.log('this.state returning from term.js', this.state)
+        console.log('made it to getSelectedTerm');
+        console.log('selTerm is', selTerm);
+      
+        console.log('this.props', this.props)
+        this.setState({
+            currentterm: selTerm
+        });
+        console.log('this.state.selectedterm', this.state.currentterm)
+       document.getElementById(selTerm).setAttribute("class", "highlight");
     }
 
 
@@ -162,15 +208,16 @@ export default class Profile extends React.Component {
     
     */
     render() {
-        const myterms = this.props.location.state.terms.map((term, index) => {
+        console.log('inside profile ', this.state.currentcourses)
+        const myterms = this.state.terms.map((term, index) => {
             return (
-                <li key={index}>
-                    <Term {...term} />
+                <li key={index} >
+                    <Term {...term} getselectedterm={this.getSelectedTerm} />
                 </li>
             );
         });
         //console.log(myterms);
-        const mycourses = this.props.location.state.currentcourses.map((course, index) => {
+        const mycourses = this.state.courses.map((course, index) => {
             return (
                 <li key={index}>
                     <Course {...course} deletecourse={this.deleteCourse} />
@@ -178,7 +225,7 @@ export default class Profile extends React.Component {
             );
         });
 
-        const myweeks = this.props.location.state.currentweeks.map((week, index) => {
+        const myweeks = this.state.weeks.map((week, index) => {
             return (
                 <li className="list-horizontal" key={index}>
                     <Week {...week}  deleteweek={this.deleteWeek} />
@@ -243,5 +290,6 @@ export default class Profile extends React.Component {
         );
 
     }
-    
 }
+
+    

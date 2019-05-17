@@ -48,7 +48,7 @@ export default class AddForm extends React.Component {
     }
 
     render() {
-        console.log('this props', this.props);
+       
         if (!this.state.editing) {
             const text = `Add a ${this.props.type}`;
             return (

@@ -1,11 +1,26 @@
 import React from 'react';
 
-export default function Term(props) {
-    //console.log('this.props', props);
+export default class Term extends React.Component {
+   
 
-    return ( 
-    <div>
-       <p>{props.termDesc}</p>
-    </div>
-    );
+    setSelectedTerm(e) {
+        e.preventDefault();
+        const selterm = e.currentTarget.getAttribute("id");
+        console.log('made it to setSelectedTerm', selterm);
+        this.props.getselectedterm(selterm); 
+    }
+    render() {
+        return ( 
+            <div>
+                <div 
+                    id={this.props.termDesc}
+                    onClick={(e) =>{
+                    this.setSelectedTerm(e)}}>
+                    {this.props.termDesc}
+                </div>
+            </div>
+        );
+
+    }
+    
 }
