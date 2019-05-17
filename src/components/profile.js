@@ -15,10 +15,10 @@ export default class Profile extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            currentterm:'',
-            currenterm:props.location.state.currentterm,
+            currentterm:props.location.state.currentterm,
             terms: props.location.state.terms,
             courses: props.location.state.currentcourses,
+            currentcoursedropdown:props.location.state.currentcourses,
             weeks: props.location.state.currentweeks,
             error: null,
             loading: false
@@ -113,7 +113,7 @@ export default class Profile extends React.Component {
         });
     }
 
-    deleteCourse = (selectedCourse) => {
+    submitDeleteCourse = (selectedCourse) => {
         fetch(`${API_BASE_URL}/courses`, {
                 method: 'DELETE',
                 headers: {
@@ -131,7 +131,6 @@ export default class Profile extends React.Component {
                 const tempcourses = responseJSON.filter(course => {
                         return course.termDesc === this.state.currentterm;
                 });
-                console.log('this.state within deleteCourse on return from fetch', this.state);
                 this.setState({
                     courses: tempcourses
                 });
@@ -141,7 +140,7 @@ export default class Profile extends React.Component {
             });
     }
 
-    deleteWeek = (selectedWeek) => {
+    submitDeleteWeek = (selectedWeek) => {
         console.log('made it to delete Week selectedweek ', selectedWeek)
         fetch(`${API_BASE_URL}/weeks`, {
                 method: 'DELETE',
@@ -158,34 +157,81 @@ export default class Profile extends React.Component {
                 throw new Error(response.text)
             })
             .then(responseJSON => {
-                console.log('responseJSON after deletion and before filter', responseJSON);
-
                 const tempweeks = responseJSON.filter(week => {
-                    console.log('inside map, week.termDesc', week.termDesc);
-                    console.log('inside map, this.state.currentterm', this.state.currentterm);
                         return week.termDesc === this.state.currentterm;
                 });
-                console.log('tempweeks AFTER filter ', tempweeks);
                 this.setState({
                     weeks: tempweeks
                 });
-                console.log('this.state.weeks', this.state.weeks);
             })
             .catch((err) => {
                 console.log(err);
             });
     }
 
+    submitUpdateCourse = (updatedcourse) => {
+        fetch(`${API_BASE_URL}/courses`, {
+            method: 'PUT',
+            headers: {
+                // Provide our auth token as credentials
+                Authorization: `Bearer ${this.authToken}`,
+                "Content-Type": 'application/json'
+            },
+            body: JSON.stringify(updatedcourse)
+        })
+        .then(response => {
+            if(response.ok){
+                return response.json();
+            }
+            throw new Error(response.text)
+        })
+        .then(responseJSON =>  {
+                const tempcourses = responseJSON.filter(course => {
+                    return course.termDesc === this.state.currentterm;
+                });
+                this.setState({
+                    courses: tempcourses
+                });
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    }
+
+    submitUpdateWeek = (updatedweek) => {
+        fetch(`${API_BASE_URL}/weeks`, {
+            method: 'PUT',
+            headers: {
+                // Provide our auth token as credentials
+                Authorization: `Bearer ${this.authToken}`,
+                "Content-Type": 'application/json'
+            },
+            body: JSON.stringify(updatedweek)
+        })
+        .then(response => {
+            if(response.ok){
+                return response.json();
+            }
+            throw new Error(response.text)
+        })
+        .then(responseJSON =>  {
+            const tempweeks = responseJSON.filter(week => {
+                return week.termDesc === this.state.currentterm && week.weekNum === this.state.currentweek;
+            });
+            this.setState({
+                weeks: tempweeks
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    }
+
     getSelectedTerm(selTerm){
-        console.log('this.state returning from term.js', this.state)
-        console.log('made it to getSelectedTerm');
-        console.log('selTerm is', selTerm);
-      
         console.log('this.props', this.props)
         this.setState({
             currentterm: selTerm
         });
-        console.log('this.state.selectedterm', this.state.currentterm)
        document.getElementById(selTerm).setAttribute("class", "highlight");
     }
 
@@ -220,7 +266,7 @@ export default class Profile extends React.Component {
         const mycourses = this.state.courses.map((course, index) => {
             return (
                 <li key={index}>
-                    <Course {...course} deletecourse={this.deleteCourse} />
+                    <Course {...course} updatecourse={this.submitUpdateCourse} deletecourse={this.submitDeleteCourse} />
                 </li>
             );
         });
@@ -228,7 +274,7 @@ export default class Profile extends React.Component {
         const myweeks = this.state.weeks.map((week, index) => {
             return (
                 <li className="list-horizontal" key={index}>
-                    <Week {...week}  deleteweek={this.deleteWeek} />
+                    <Week {...week} {...this.state} updateweek={this.submitUpdateWeek} deleteweek={this.submitDeleteWeek} />
                 </li>
             );
         });
@@ -251,7 +297,7 @@ export default class Profile extends React.Component {
             <main>
                 <NavBar />
                 <div className="container">
-                        <h2>My Profile</h2>
+                        <h2>My Profile for {this.state.currentterm}</h2>
                         <div className="terms">
                             <p>Your Terms</p>
                             <ul className="list-horizontal term-list">
@@ -277,6 +323,9 @@ export default class Profile extends React.Component {
                         <hr />
                         <div className="weeks">
                             <p>Your Weeks</p>
+                            <div className="item weekNum">
+                                <div className="item">Week Number</div>  
+                            </div>
                             <ul className="list-vertical week-list">
                                {myweeks} 
                             </ul>

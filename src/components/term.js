@@ -6,7 +6,6 @@ export default class Term extends React.Component {
     setSelectedTerm(e) {
         e.preventDefault();
         const selterm = e.currentTarget.getAttribute("id");
-        console.log('made it to setSelectedTerm', selterm);
         this.props.getselectedterm(selterm); 
     }
     render() {

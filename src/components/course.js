@@ -1,10 +1,17 @@
 import React from 'react';
 
 export default class Course extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            oldCourseName: this.props.courseName,
+            newCourseName: ""
+        }
+        this.handleUpdate = this.handleUpdate.bind(this);
+    }
 
     setDelete(e) {
         e.preventDefault();
-    
         let selectedCourse = {
             termDesc: this.props.termDesc,
             courseName:this.props.courseName
@@ -12,16 +19,48 @@ export default class Course extends React.Component {
         this.props.deletecourse(selectedCourse); 
     }
 
+    handleChange(e, field) {
+        this.setState({
+            [field]: e.target.value
+          });
+    }
+
+    handleUpdate(e) {
+        e.preventDefault();
+    
+        let updateCourse = {
+            termDesc: this.props.termDesc,
+            oldCourseName: this.state.oldCourseName,
+            newCourseName:this.state.newCourseName
+        };
+        this.props.updatecourse(updateCourse); 
+    }
+
     render () {
-       // console.log('course props', this.props);
-        return ( 
+        return (
             <div>
-               <p>{this.props.courseName}</p>
-               <div>
-                    <div className="edit-btn update-btn"><i className="far fa-edit"></i></div>
-                    <div className="edit-btn delete-btn" onClick={(e) => this.setDelete(e)}><i className="far fa-trash-alt"></i></div>
-                </div>
+                <form onSubmit={this.handleUpdate}>
+                    <div>
+                        <input
+                            type="text"
+                            defaultValue={this.props.courseName}
+                            onChange={e => this.handleChange(e,"newCourseName")}>
+                        </input>
+                    </div>
+                    <div className="list-horizontal">
+                        <input className="button" type="button" value="Update Course" />
+                        <button className="button delete-btn" onClick={(e) => this.setDelete(e)}>Delete Course</button>
+                    </div>
+                    
+                    
+                
+                
+                </form>
+                
             </div>
+            
+                
+            
             );
     }
     

@@ -1,0 +1,23 @@
+.list-horizontal-week-header {
+    display:flex;
+    flex-direction: row;
+    list-style-type: none;
+    border: 1px solid yellow;
+    margin:0 auto;
+    width: 20%;
+
+  }
+
+.list-vertical-week-options {
+    display:flex;
+    flex-direction: column;
+    list-style-type: none;
+    border: 1px solid yellow;
+    margin:0 auto;
+    width: 75%;
+
+  }
+
+.weekNum {
+    text-align: left;
+}
