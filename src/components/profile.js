@@ -282,7 +282,7 @@ export default class Profile extends React.Component {
         if (!this.state.editing) {
             const text = `Add a term`;
             return (
-                <div className="add-button"
+                <div className="btn add-button"
                         onClick={(e) => {
                             e.preventDefault();
                             this.setEditing(true)
@@ -297,21 +297,19 @@ export default class Profile extends React.Component {
             <main>
                 <NavBar />
                 <div className="container">
-                        <h2>My Profile for {this.state.currentterm}</h2>
+                        <h3>My Profile for {this.state.currentterm}</h3>
                         <div className="terms">
-                            <p>Your Terms</p>
+                            <div className="section-label">Your Terms</div>
                             <ul className="list-horizontal term-list">
                                {myterms} 
                             </ul>
-                            <div> missy
                             <div>
                                 <AddForm type="term" submitaddterm={this.submitAddTerm}   />
-                            </div>
                             </div>
                         </div>
                         <hr />
                        <div className="courses">
-                            <p>Your Courses</p>
+                            <div className="section-label">Your Courses</div>
                             <ul className="list-horizontal course-list">
                                {mycourses} 
                                </ul>
@@ -322,7 +320,7 @@ export default class Profile extends React.Component {
                         </div>
                         <hr />
                         <div className="weeks">
-                            <p>Your Weeks</p>
+                            <div className="section-label">Your Weeks</div>
                             <div className="item weekNum">
                                 <div className="item">Week Number</div>  
                             </div>

@@ -240,7 +240,7 @@ export default class Dashboard extends React.Component {
                      <div className="container">
                         <h2>My Dashboard</h2>
                         <div className="list-horizontal">
-                                <Link className="item button is-primary" 
+                                <Link className="item btn is-primary" 
                                     to={{
                                         pathname: '/weeks', 
                                         state: {
@@ -251,7 +251,7 @@ export default class Dashboard extends React.Component {
                                             weeks
                                 </Link>
                                <Link 
-                                    className="item button is-primary" 
+                                    className="item btn is-primary" 
                                     to={{
                                         pathname: '/profile', 
                                         state: { 
@@ -269,7 +269,7 @@ export default class Dashboard extends React.Component {
                        
                         <h3> Your are working with {this.state.currentterm} term and week number {this.state.currentweek}</h3>
 
-                      <ul className="skills-suggestion"> 
+                      <ul className="accent skills-suggestion"> 
                                 <li >
                                     <div>{this.state.currentsuggestion.category}</div>
                                     <div>{this.state.currentsuggestion.desc}</div>
@@ -277,7 +277,7 @@ export default class Dashboard extends React.Component {
                                 </li>
                           </ul> 
                         <div className="today-deliverables">
-                            <p className="subtitle">Deliverables Due Today, {this.state.currentdate}</p>
+                            <div className="section-label">Deliverables Due Today, {this.state.currentdate}</div>
                             <div className="list-horizontal week-list-labels">
                                     <div className="item-label weeknum">Week Number</div>
                                     <div className="item-label dueDate">Due Date</div>
@@ -304,7 +304,7 @@ export default class Dashboard extends React.Component {
                                 
                         </div>
                         <div className="this-week-deliverables">
-                            <p className="subtitle">Deliverables Due This Week, Week {this.state.currentweek}</p>
+                            <div className="section-label">Deliverables Due This Week, Week {this.state.currentweek}</div>
                             <div className="list-horizontal week-list-labels">
                                                 <div className="item-label weeknum">Week Number</div>
                                                 <div className="item-label dueDate">Due Date</div>
@@ -333,11 +333,11 @@ export default class Dashboard extends React.Component {
                             </div>  
                         </div>
                         <div className="review-and-plan">
-                            <p className="subtitle">Review Last Week and Plan for Next Week</p>
+                            <div className="section-label">Review Last Week and Plan for Next Week</div>
                             <div className="list-horizontal">
                             
                                     <Link
-                                        className="item button is-primary"
+                                        className="item btn is-primary"
                                         to={{
                                             pathname: "/reviewcurrentweek",
                                             state: {
@@ -347,7 +347,7 @@ export default class Dashboard extends React.Component {
                                             Review Last Week
                                     </Link>
                                     <Link 
-                                        className="item button is-primary"
+                                        className="item btn is-primary"
                                         to={{
                                             pathname: "/plannextweek",
                                             state: {

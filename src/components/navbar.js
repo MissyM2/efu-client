@@ -54,20 +54,20 @@ export default class NavBar extends React.Component {
                         <div className="navbar-item">
                             {!this.state.currentUser ? (
                                 <div className="list-horizontal buttons">
-                                    <Link className="item button is-primary" to="/register">
+                                    <Link className="item btn is-primary" to="/register">
                                         <strong>Sign up</strong>
                                     </Link>
-                                    <Link className="item button is-light" to="/login">
+                                    <Link className="item btn is-light" to="/login">
                                         Log in
                                     </Link>
                                 </div>
                             ) : (
                                 <div className="list-horizontal buttons">
-                                    <Link className="item button is-primary dashboard" to="/dashboard">
+                                    <Link className="item btn is-primary dashboard" to="/dashboard">
                                             <strong>Dashboard</strong>
                                     </Link>
                                     <div className="list-horizontal">
-                                <Link className="item button is-primary" to={{
+                                <Link className="item btn is-primary" to={{
                                 pathname: "/weeks",
                                 state: {
                                     currentweeks: this.state.currentweeks
@@ -75,7 +75,7 @@ export default class NavBar extends React.Component {
                                             weeks
                                 </Link>
                                 <Link 
-                                    className="item button is-primary" 
+                                    className="item btn is-primary" 
                                     to={{
                                         pathname: '/profile', 
                                         state: { 
@@ -91,10 +91,10 @@ export default class NavBar extends React.Component {
                                         profile
                                 </Link>
                         </div>
-                                    <Link className="item button is-light" onClick={this.logout} to="/login">
+                                    <Link className="item btn is-light" onClick={this.logout} to="/login">
                                         Log out
                                     </Link>
-                                    {/*<a className="item button is-light logout" href="/logout" onClick={this.logout}>
+                                    {/*<a className="item btn is-light logout" href="/logout" onClick={this.logout}>
                                         Log out
                             </a> */}
                                 </div>

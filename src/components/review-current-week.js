@@ -166,7 +166,7 @@ export default class ReviewCurrentWeek extends React.Component {
                                 <div>
                                     <button 
                                         type="submit"
-                                        className="button is-primary" 
+                                        className="btn is-primary" 
                                         onClick={this.updateWeek}
                                     >
                                         Commit Week Details
@@ -199,7 +199,7 @@ export default class ReviewCurrentWeek extends React.Component {
                                                     <div>
                                                         <button
                                                             type="submit"
-                                                            className="button is-primary">
+                                                            className="btn is-primary">
                                                             Commit Grade
                                                         </button>
                                                     </div>

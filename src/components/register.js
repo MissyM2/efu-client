@@ -60,7 +60,7 @@ export default function RegistrationPage(props) {
                     </div>
                     <button
                         type="submit"
-                        className="button is-primary"
+                        className="btn is-primary"
                     >
                         Register
                     </button>

@@ -52,7 +52,7 @@ export default class AddForm extends React.Component {
         if (!this.state.editing) {
             const text = `Add a ${this.props.type}`;
             return (
-                <div className="add-button"
+                <div className="btn add-form"
                         onClick={(e) => {
                             e.preventDefault();
                             this.setEditing(true)
@@ -70,8 +70,8 @@ export default class AddForm extends React.Component {
                     onChange = {e => this.setText(e.target.value)}
                     aria-label={label}
                 />
-                <button>Add </button>
-                <button type="button" onClick={() => this.setEditing(false)}>
+                <button className="btn">Add </button>
+                <button className="btn" type="button" onClick={() => this.setEditing(false)}>
                     Cancel
                 </button>      
 

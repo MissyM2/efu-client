@@ -42,7 +42,7 @@ export class AddDeliverableForm extends React.Component {
     render() {
         if (!this.state.editing) {
             return (
-                <div className="add-button"
+                <div className="btn add-button"
                     onClick={() => this.setEditing(true)}>
                     <Link to='#'> Add a {this.props.type}...</Link>
                 </div>
@@ -83,8 +83,8 @@ export class AddDeliverableForm extends React.Component {
                             name="prephrs"
                             validate={[required, nonEmpty, isTrimmed]} 
                         />
-                        <button type="submit">Add Deliverable</button>
-                        <button type="button" onClick={() => this.setEditing(false)}>
+                        <button className="btn" type="submit">Add Deliverable</button>
+                        <button className="btn" type="button" onClick={() => this.setEditing(false)}>
                             Cancel
                         </button> 
             </form>

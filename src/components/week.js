@@ -67,10 +67,10 @@ export default class Week extends React.Component {
                 </div>
                 <div className="list-vertical-week-options">
                         <div className="list-horizontal">
-                                <div className="item">Liked Least</div>
-                                <div className="item">Liked Most</div>
-                                <div className="item">Most Difficult</div>
-                                <div className="item">Least Difficult</div>
+                                <div className="item-label item">Liked Least</div>
+                                <div className="item-label item">Liked Most</div>
+                                <div className="item-label item">Most Difficult</div>
+                                <div className="item-label item">Least Difficult</div>
                         </div>
                         <form onSubmit={this.handleUpdate}>
                             <div className="list-horizontal">
@@ -112,12 +112,12 @@ export default class Week extends React.Component {
                                         </div>
                             </div>
                             <div className="item">
-                                    <input className="button update-btn" type="button" value="Submit Update" />
+                                    <input className="btn update-btn" type="button" value="Submit Update" />
                             </div> 
                         </form>   
                 </div>
                 <div>
-                        <button className="button delete-btn" onClick={(e) => this.setDelete(e)}>Delete Week</button>
+                        <button className="btn delete-btn" onClick={(e) => this.setDelete(e)}>Delete Week</button>
                 </div>
             </div>
             );

@@ -119,7 +119,7 @@ export default class PlanNextWeek extends React.Component {
                                                 </div>
                                                 <button
                                                         type="submit"
-                                                        className="button is-primary"
+                                                        className="btn is-primary"
                                                 >
                                                         Add Deliverable
                                                 </button>

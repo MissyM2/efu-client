@@ -41,7 +41,7 @@ export default function Login(props) {
                             />
                         </div>
 
-                        <button type="submit" className="button is-primary">
+                        <button type="submit" className="btn is-primary">
                             Sign In
                         </button>
                     </form>

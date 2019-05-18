@@ -1,68 +1,284 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# ExecutiveFollowUp
+*  Live App:  https://serene-dawn-65763.herokuapp.com/
 
-## Available Scripts
+     +  demo user: tester@gmail.com/tester1
 
-In the project directory, you can run:
 
-### `npm start`
+#### Table of Contents
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+ -  [Summary](#Summary)
+ -  [Screenshots](#screenshots)
+ -  [Functions and Features](#functions-and-features)
+ -  [Future Functions and Features](#functions-and-features)
+ -  [Technologies Used](#technologies-used)
+       -  [Tech Stack Overview](#tech-stack-overview)
+       -  [Tech Stack Details](#tech-stack-details)
+       -  [Code Base Overview](#code-base-overview)
+       -  [Code Base Details](#code-base-details)
+       
+ 
+ 
+ 
+ 
+## Summary
+ -  [Home](#ExecutiveFollowUp)
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+This app enables a student to get control over his or her academic responsibilities by keeping track on a weekly basis of grades and deliverables.  The student sets up his/her profile which includes the current TERM, the student's courses and the weeks of the term.  Each week the student records a brief reflection on their courses as well as their grades.  He/She, then proceeds to record the deliverables for the next week and includes such details as the due date, how much of his/her time will be required and how important the assignment is to the final grade.  At a glance, the student can see deliverables due for the day and the week when he/she logs in.  The student can add, update and delete terms, weeks, courses, gradesiThis app is a allows a user to log the items in their personal closet, compare it to an ideal closet as specified by Real Simple and make changes based on the analysis.  All persistent data are stored in MongoDB.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Functions and Features
+ -  [Home](#ExecutiveFollowUp)
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+1.  Student may add, update and delete profile items school term, personal courses and weeks of the term.
+2.  At the end of a week, a student (user) may add or update details of the current week such as the difficulty of a course or if the student likes/dislikes it.
+3.  Student may also add or update grades for each course at the end of the current week.
+4.  Student plans the next week by adding, updating or deleting deliverables for a course as well as details about the deliverable.
+5.  Student can view deliverables due TODAY a well as for a given week.  This includes number of hours of preparation required that day or week.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+## Future Functions and Features
+ -  [Home](#ExecutiveFollowUp)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1.  Ability for the student to create a plan of action to complete the deliverables for the next week.  This would be created using some of the data in the db as reference, including number of prep hours required and the impact of the assignment on the final grade.
+2.  Print Plan of Action and Deliverables for day and week.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
 
-### Analyzing the Bundle Size
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+## Screenshots
+ -  [Home](#ExecutiveFollowUp)
 
-### Making a Progressive Web App
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+     Mobile-Home page
+     
+![Mobile - Login/Home Page](/docimages/m1.png "Mobile-Login/Home Page")
 
-### Advanced Configuration
+     Mobile-Registration Page
+    
+![Mobile - Registration Page](/docimages/reg.png "Mobile-Registration Page")
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+    Mobile-Main Options Page
+    
+![Mobile - Main Options Page](/docimages/m2.png "Mobile-Main Options Page")
 
-### Deployment
+    Mobile-Ideal Closet
+    
+![Mobile - Ideal Closet](/docimages/m3.png "Mobile-Ideal Closet")
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+    Mobile-Ideal Closet - look at details
+    
+![Mobile - Ideal Closet: look at details](/docimages/m4.png "Mobile-Ideal Closet: look at details")
 
-### `npm run build` fails to minify
+    Mobile-My Closet
+    
+![Mobile - My Closet](/docimages/m5.png "Mobile-My Closet")
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+    Mobile-My closet: Add New Item
+    
+![Mobile - My Closet:  Add Item](/docimages/m6.png "Mobile-My Closet:  Add Item")
+
+    Mobile-My closet: Edit/Update Item
+     
+![Mobile - Edit/Update Item](/docimages/mEdit.png "Mobile-Edit/Update Item")
+
+    Mobile-Donation Closet
+    
+![Mobile - Donation Closet](/docimages/m8.png "Mobile-Donation Closet")
+
+     Mobile-Share Closet
+    
+![Mobile - Share Closet](/docimages/mShare.png "Mobile-Share Closet")
+
+    Mobile-Analyze It!
+    
+![Mobile - Analyze It](/docimages/m7.png "Mobile-Analyze It")
+
+    Logout
+    
+![Mobile - Logout](/docimages/m10.png "Mobile-Logout")
+
+     Desktop-My Closet  
+    
+![Desktop - My Closet](/docimages/dMy.png "Desktop-My Closet")
+
+     Desktop-Ideal Closet  
+    
+![Desktop - Ideal Closet](/docimages/dIdeal.png "Desktop-Ideal Closet")
+
+     Desktop-Share Closet  
+    
+![Desktop - Share Closet](/docimages/dShare.png "Desktop-Share Closet")
+
+     Desktop-Donation Closet  
+    
+![Desktop - Donation Closet](/docimages/dDonation.png "Desktop-Donation Closet")
+
+     Desktop-Analyze It!  
+    
+![Desktop - Analyze It!](/docimages/dAnalyze.png "Desktop-Analyze It!")
+
+
+
+
+
+
+
+
+
+
+
+
+## Technologies Used
+ -  [Home](#ExecutiveFollowUp)
+ 
+
+
+
+
+  ###  Tech Stack Overview
+  -  [Home](#ExecutiveFollowUp)
+  
+The backend for this app uses NodeJS with express. Authentication is handled using JWTs with passport. BcryptJS is used to hash passwords. The database is a mongo database. It's hosted on mLab. The client uses HTML, CSS, Javascript and JQuery. The server and client are both hosted on Heroku.
+
+
+  
+ ###  Tech Stack: Details
+ -  [Home](#ExecutiveFollowUp)
+ 
+ 
+ 
+#####  Front-End Technologies
+-  [Home](#ExecutiveFollowUp)
+
+
+
+   1.  HTML: a standard markup language for the creation of web pages
+   2.  CSS: used to describe the presentation of HTML pages
+   3.  JavaScript: an interpreted language that can create and dynamically change web pages
+   
+       +  jQuery: a JS library developed simplify HTML DOM tree traversal and manipulation, event handling, CSS animation, and Ajax
+  
+  
+  
+#####  Server Technologies
+-  [Home](#ExecutiveFollowUp)
+
+
+
+   1.  Node.js:  enables use of Javascript on the server side
+   
+      *  bcryptjs: 2.4.3:  a password hashing function
+      
+      *  dotenv: 6.2.0: loads environment variable form an .env file
+      
+      *  jsonwebtoken: 8.4.0:  securely transmis information between server and front-end in json format
+      
+      *  morgan: 1.9.1:  a request logger middleware
+      
+      *  passport: 0.4.0:  an authentication middleware
+      
+          +  passport-http: 0.3.0:  allows the authentication of HTTP requests
+          +  passport-jwt: 4.0.0:  allows authentication of endpoints using a JSON web token.  Intended to be used to secure RESTful endpoints without sessions.
+          +  passport-local: 1.0.0:  allows authentication using a username and password
+   2.  Express:  the webserver - a framework that allows development of node-based web apps
+   3.  MongoDB:  the database
+   
+   
+       +  mongoose: 5.4.1:  manages the relationships between data, provides schema validation and translation between objects in code and representation of those objects in MongoDB.
+       
+   
+   
+   
+   
+#####  Testing Technologies
+-  [Home](#ExecutiveFollowUp)
+
+
+   1. mocha: 5.2.0:  javascript testing framework that runs on Node.js and in the browser.
+   2. chai: 4.2.0:  an assertion library for node.js and can be used with a variety of javascript testing frameworks
+   3. chai-http: 4.2.1: provides an interface for live integration testing.
+   4. faker: 4.1.0: generates fake data in a variety of formats for use with testing
+  
+   
+   
+   
+#####  Development/Deployment
+
+-  [Home](#ExecutiveFollowUp)
+
+   1.  Git & GitHub:  a development platform that allows storage and revision management
+   2.  Heroku:  a cloud platform for deploying apps  
+   3.  Travis CI: a host for continuous testing
+   
+
+
+
+
+
+
+
+###  Code Base Overview
+  -  [Home](#ExecutiveFollowUp)
+  
+  
+  
+ExecutiveFollowUp app is a single page application (SPA) which includes as its primary static html file, index.html.  The file is dynamically changed throughout the user session by a number of .js files located under the /public folder as describe below.  The index.page.js is responsible for initiating the app and calls to other .js files as described below.   The primary CRUD operations occur on four different 'closets' as well as 'users' through a series of routers and data models under the /app folder.  Authentication and of users takes place through the use of JSON Web Tokens (JWT), obtained on login as well as a requirement to refresh.  Security of the password is maintained through the use of a hashing algorithm and encryption with bcrypt.
+
+
+
+
+
+###  Code Base Details
+ -  [Home](#ExecutiveFollowUp)
+
+
+
+
+#####  Front End 
+-  [Home](#ExecutiveFollowUp)
+
+
+
+1.  All front-end files are located in the /public folder.
+2.  The front end is controlled by the index.page.js.  The function that initiates the application is located here as well as all the event listeners for the app.  
+3.  All other functions are located under the /public/utilities folder and are divided among the following files:
+
+    a.  cache.module.js:  all functions dealing with authentication of the user reside here.
+    
+    b.  http.module.js:  all functions related to accessing the database are located here.
+    
+    c.  render.module.js:  all functions related to bringing the UI to screen are located here.
+    
+    d.  etc.module.js:  Several functions are located here that are integral to the program but do not fall under the other major categories are located here.
+    
+    e.  store.module.js:  A STORE object is located here that maintains a variety of information that is passed to different functions resides here.
+    
+    f.  The primary .html file is index.html
+    
+4.  There are 3 CSS files, all located in the /public/css folder.
+  
+  
+  
+  
+#####  Back End
+-  [Home](#ExecutiveFollowUp)
+
+
+ 
+ 1.  All front-end files are located in the /app folder
+ 2.  The model and router files for each closet item and user are located in their own folder /app/donationitem, /app/giveawayitem, /app/myitem, /app/idealitem and /app/user.
+ 3.  The model and strategies file for local authentication and obtaining a JWT are located in the /app/auth folder.
+ 4.  The model and router files 
+    
+
+
+
+

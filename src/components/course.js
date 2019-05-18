@@ -42,14 +42,15 @@ export default class Course extends React.Component {
                 <form onSubmit={this.handleUpdate}>
                     <div>
                         <input
+                             className="item"
                             type="text"
                             defaultValue={this.props.courseName}
                             onChange={e => this.handleChange(e,"newCourseName")}>
                         </input>
                     </div>
                     <div className="list-horizontal">
-                        <input className="button" type="button" value="Update Course" />
-                        <button className="button delete-btn" onClick={(e) => this.setDelete(e)}>Delete Course</button>
+                        <input className="btn" type="button" value="Update" />
+                        <button className="btn delete-btn" onClick={(e) => this.setDelete(e)}>Delete</button>
                     </div>
                     
                     
