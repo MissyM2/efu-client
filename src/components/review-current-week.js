@@ -2,41 +2,37 @@ import React from 'react';
 import NavBar from "./navbar"
 import {API_BASE_URL} from '../config';
 
+import Week from './week';
+
 export default class ReviewCurrentWeek extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            currentcoursedropdown: props.location.state.currentcourses,
+            currentterm: props.location.state.currentterm,
+            currentweek: props.location.state.currentweek,
+            currentweekdetails: props.location.state.currentweekdetails,
+            currentcourses: props.location.state.currentcourses,
             week:{
                 likedmost: "",
                 likedleast: "",
                 mostdifficult: "",
                 leastdifficult: ""
             },
-            course: {
-                coursename: ""
-            },
-            grade: {
-                gradenum: 0
-            }
+            courseName: "",
+            gradeNum: 0,
         }
         this.authToken=localStorage.getItem('authToken');
+        this.addGrade=this.addGrade.bind(this);
         }
 
     componentDidMount() {
         const { receivedData } = this.props.location.state;
+        //this.getCurrentGrades();
     }
     
     // update the week after student enters details
-    updateWeek(e) {
-        e.preventDefault();
-        let updatedWeek= {
-            termDesc: this.props.currentterm,
-            weekNum: this.props.currentweek,
-            likedLeast: e.currentTarget.likedleast.value,
-            likedMost: e.currentTarget.likedmost.value,
-            mostDifficult: e.currentTarget.mostdifficult.value,
-            leastDifficult: e.currentTarget.leastdifficult.value,
-        }
+    submitUpdateWeek = (updatedweek) => {
         fetch(`${API_BASE_URL}/weeks`, {
             method: 'PUT',
             headers: {
@@ -44,7 +40,7 @@ export default class ReviewCurrentWeek extends React.Component {
                 Authorization: `Bearer ${this.authToken}`,
                 "Content-Type": 'application/json'
             },
-            body: JSON.stringify(updatedWeek)
+            body: JSON.stringify(updatedweek)
         })
         .then(response => {
             if(response.ok){
@@ -52,26 +48,39 @@ export default class ReviewCurrentWeek extends React.Component {
             }
             throw new Error(response.text)
         })
-        .then(updatedWeek =>  {
-            //QUESTION:  WHAT AM I SUPPPOSED TO DO WITH THIS UPDATED WEEK?
+        .then(responseJSON =>  {
+            const tempweeks = responseJSON.filter(week => {
+                return week.termDesc === this.state.currentterm && week.weekNum === this.state.currentweek;
+            });
+            this.setState({
+                weeks: tempweeks
+            });
         })
         .catch((err) => {
             console.log(err);
         });
+    }
+   
+
+    // handle changes in grade
+    handleGradeChange(e, field) {
+        this.setState({
+            [field]: e.target.value,
+            courseName: e.target.id
+        });
+        console.log('this field should be changing', this.state);
     }
 
     // update the grades for the week after student enters details
     addGrade(e) {
             e.preventDefault();
             let newGrade= {
-                termDesc: this.props.currentterm,
-                weekNum: this.props.currentweek,
-                // QUESTION:  Need to figure out how to get the coursename
-                courseName: 'Need to figure out how to get the coursename',
-                gradeNum:   this.props.newgrade
+                termDesc: this.props.location.state.currentterm,
+                weekNum: this.props.location.state.currentweek,
+                courseName: this.state.courseName,
+                gradeNum:   this.state.gradeNum
             }
-
-            //console.log("above fetch ", newGrade);
+            console.log('newgrade', newGrade);
             fetch(`${API_BASE_URL}/grades`, {
                     method: 'POST',
                     headers: {
@@ -93,120 +102,73 @@ export default class ReviewCurrentWeek extends React.Component {
                 })
                 .catch((err) => {
                     console.log(err);
-                });
+                }); 
     }
 
     render() {
-        console.log(this.props);
-        //const currentcoursedropdown = this.props.location.state.currentcourses.map(course =>  
-       //     <option key={course.objectID}>
-       //         <div>{course.courseName}</div>
-       //     </option>
-       // );
+        // set up week section
+        let myweek = this.props.location.state.currentweekdetails;
+        myweek = myweek.map((week, index) => {
+            return (
+                <li className="list-horizontal" key={index}>
+                    <Week {...week} {...this.state} weekstatus="one" updateweek={this.submitUpdateWeek} />
+                </li>
+            );
+        });
+        
+        // set up courses and grades section
+        let mycoursesgrades = this.state.currentcourses.map((course, index) => {
+                                        return (
+                                            <li className="list-horizontal" key={index}>
+                                                <div 
+                                                    className="item-label course">
+                                                    {course.courseName}
+                                                </div>
+                                                <div className="item">
+                                                    <input 
+                                                        type="number" 
+                                                        id={course.courseName}
+                                                        index={index}
+                                                        onChange={e =>this.handleGradeChange(e, "gradeNum")}
+                                                        />
+                                                </div>
+                                                <div className="item">
+                                                    <button
+                                                        type="submit"
+                                                        data-mycourse={course.courseName}
+                                                        className="btn is-primary">
+                                                        Commit Grade
+                                                    </button>
+                                                </div>
+                                            </li>
+                                        );
+                                    });
+
         return (
             <main>
                 <NavBar />
                 <div className="container">
                     <h2>Review Last Week, week number {this.state.currentweek}</h2>
                     <div className="week">
-                        <p>How did you feel about your week?</p>
-                        <ul>
-                            <form onSubmit={this.updateWeek}>
-                                <div>
-                                    <div className="myweek-label">Student Info</div>
-                                    <div className="list-horizontal student-section-labels">
-                                        <div className="item item-label studentFullName">Student Name</div>
-                                        <div className="item item-label weeknum">Week Number</div>
-                                        <div className="item item-label termDesc">Term</div>
-                                    </div>
-                                    <div className="list-horizontal student-section">
-                                        <div className="item studentFullName">FIND STUDENT FULLNAME</div>
-                                        <div className="item weeknum">{this.props.location.state.currentweek.weekNum}</div>
-                                        <div className="item termDesc">{this.props.location.state.currentweek.currentterm}</div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div className="list-horizontal myweeksectionlabels">
-                                        <div className="item item-label likedLeast">Course You Liked Least</div>
-                                        <div className="item item-label likedMost">Course You Liked Most</div>
-                                    </div>
-                                    <div className="list-horizontal myweeksection">
-                                            <select 
-                                                className="item likedleast" 
-                                                type="text" 
-                                                name="likedleast" >
-                                               {/* {currentcoursedropdown} */}
-                                            </select>
-                                            <select 
-                                                className="item likedMost" 
-                                                type="text" 
-                                                name="likedmost">
-                                               {/*{currentcoursedropdown} */}
-                                            </select>
-                                    </div>
-                                    <div className="list-horizontal myweeksectionlabels">
-                                        <div className="item item-label mostDifficult">Your Most Difficult Course</div>
-                                        <div className="item item-label leastDifficult">Your Least Difficult Course</div>
-                                    </div>
-                                    <div className="list-horizontal myweeksection">
-                                            <select 
-                                                className="item mostDifficult" 
-                                                type="text" 
-                                                name="mostdifficult" >
-                                                {/*{currentcoursedropdown}*/}
-                                            </select>
-                                            <select 
-                                                className="item leastdifficult" 
-                                                type="text" 
-                                                name="leastdifficult"  >
-                                            {/*{currentcoursedropdown} */}
-                                        </select>
-                                    </div>
-                                </div>
-                                <div>
-                                    <button 
-                                        type="submit"
-                                        className="btn is-primary" 
-                                        onClick={this.updateWeek}
-                                    >
-                                        Commit Week Details
-                                    </button>
-                                </div>
-                            </form>              
-                        </ul>
+                        <div className="section-label">How did you feel about your week?</div>
+                        <div className="weeks">
+                            <div className="section-label">Your Weeks</div>
+                            <div className="item weekNum">
+                                <div className="item">Week Number</div>  
+                            </div>
+                            <ul className="list-vertical week-list">
+                                week goes here
+                               {myweek}
+
+                            </ul>
+                    </div>
                     </div>
                     
                     <div className="grades">
                         <p>Add Your Grades as of Today</p>
                         <ul>
                             <form onSubmit={this.addGrade}>
-                              {/*}  {this.state.currentcourses
-                                    .map((course, index) => {
-                                        return (
-                                            <li key={index}>
-                                                    <div 
-                                                        className="item course">
-                                                        {course.courseName}
-                                                    </div>
-                                                    <div>
-                                                        <input 
-                                                            type="number" 
-                                                            index={index}
-                                                            name="newgrade"
-                                                            // QUESTION:  I NEED THE TO GET THE COURSE FROM HERE ALSO, course.courseName
-                                                            />
-                                                    </div>
-                                                    <div>
-                                                        <button
-                                                            type="submit"
-                                                            className="btn is-primary">
-                                                            Commit Grade
-                                                        </button>
-                                                    </div>
-                                            </li>
-                                        );
-                                    })
-                                } */}
+                                {mycoursesgrades}
                             </form>
                         </ul>
                     </div>

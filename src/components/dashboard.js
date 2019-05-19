@@ -16,11 +16,13 @@ export default class Dashboard extends React.Component {
         this.state = {
             currentterm:"",
             currentweek: "",
+            currentweekdetails:[],
             currentdate:"",
             nextweek: "",
             currentsuggestion:[],
             terms: [],
             currentcourses: [],
+            currentgrades:[],
             currentweeks: [],
             todaydeliverables:[],
             thisweekdeliverables:[],
@@ -34,7 +36,9 @@ export default class Dashboard extends React.Component {
         this.getCurrentCourses = this.getCurrentCourses.bind(this);
         this.getCurrentWeeks = this.getCurrentWeeks.bind(this);
         this.getDeliverables = this.getDeliverables.bind(this);
-        this.getCurrentDate = this.getCurrentDate.bind(this)
+        this.getCurrentGrades = this.getCurrentGrades.bind(this)
+        this.getCurrentDate = this.getCurrentDate.bind(this);
+        
     }
 
     componentDidMount() {
@@ -49,6 +53,7 @@ export default class Dashboard extends React.Component {
         this.getCurrentTerms();
         this.getCurrentCourses();
         this.getCurrentWeeks();
+        this.getCurrentGrades();
         this.getDeliverables(); 
         this.getCurrentDate(); 
 }
@@ -134,6 +139,38 @@ export default class Dashboard extends React.Component {
             });
         }
 
+        getCurrentGrades() {
+            fetch(`${API_BASE_URL}/grades`, {
+                method: 'GET',
+                headers: {
+                    // Provide our auth token as credentials
+                    Authorization: `Bearer ${this.authToken}`
+                    }
+            })
+            .then(response => {
+                console.log('response is', response);
+                if(response.ok) {
+                        return response.json()
+                }
+                throw new Error(response.text)
+            })
+            .then(responseJSON => {
+                console.log('responseJSON', responseJSON);
+                const tempgrades = responseJSON.filter(grade => {
+                        console.log('termdesc', grade.termDesc);
+                        console.log('week', grade.week);
+                        return grade.term === this.state.currentterm && grade.week === this.state.currentweek;
+                });
+                console.log('tempgrades', tempgrades);
+                this.setState({
+                    currentgrades: tempgrades
+                });
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        }
+
         getCurrentWeeks() {
             fetch(`${API_BASE_URL}/weeks`, {
                 method: 'GET',
@@ -151,8 +188,12 @@ export default class Dashboard extends React.Component {
                 const tempweeks = responseJSON.filter(week => {
                     return week.termDesc === this.state.currentterm;
                 });
+                const thisweek = responseJSON.filter(week => {
+                    return week.termDesc === this.state.currentterm && week.weekNum ===this.state.currentweek;
+                });
                 this.setState({
-                    currentweeks: tempweeks
+                    currentweeks: tempweeks,
+                    currentweekdetails: thisweek
                 });
                 //console.log('currentweeks is ', this.state.currentweeks);
             })
@@ -176,8 +217,6 @@ export default class Dashboard extends React.Component {
                 throw new Error(response.text)
             })
             .then(responseJSON => {
-
-                console.log('deliverables responseJSON ', responseJSON);
                 const temptodaydeliverables = responseJSON.filter(deliverable => {
                         return deliverable.termDesc === this.state.currentterm && deliverable.dueDate === this.state.currentdate;
                 });
@@ -199,15 +238,10 @@ export default class Dashboard extends React.Component {
 
          getCurrentDate = () => {
             let newDate = new Date();
-            console.log('newDate', newDate);
             let newDay = newDate.getDate();
-            console.log('newDay', newDay);
             let newMonth = newDate.getMonth() + 1;
-            console.log('newMonth', newMonth);
             let newYear = newDate.getFullYear();
-            console.log('newYear', newYear);
             let todayDate =`${newYear} - ${newMonth<10?`0${newMonth}`:`${newMonth}`} - ${newDay}`;
-            console.log('todayDate is ', todayDate);
             this.setState({
                 currentdate: todayDate
             });
@@ -224,6 +258,7 @@ export default class Dashboard extends React.Component {
                 return null;
             }*/ 
     render() {
+        console.log('this.state', this.state);
 
         //const {suggestion, loading} = this.state;
         //if (error) {
@@ -244,8 +279,10 @@ export default class Dashboard extends React.Component {
                                     to={{
                                         pathname: '/weeks', 
                                         state: {
+                                            currentterm: this.state.currentterm,
                                             currentweeks: this.state.currentweeks,
-                                            currentterm: this.state.currentterm
+                                            currentcourses: this.state.currentcourses,
+                                            currentgrades: this.state.currentgrades,
                                         },
                                     }} >
                                             weeks
@@ -334,14 +371,17 @@ export default class Dashboard extends React.Component {
                         </div>
                         <div className="review-and-plan">
                             <div className="section-label">Review Last Week and Plan for Next Week</div>
-                            <div className="list-horizontal">
+                            <div className="list-horizontal section-body">
                             
                                     <Link
                                         className="item btn is-primary"
                                         to={{
                                             pathname: "/reviewcurrentweek",
                                             state: {
-                                                currentweek: this.state.currentweek
+                                                currentterm: this.state.currentterm,
+                                                currentweek: this.state.currentweek,
+                                                currentweekdetails: this.state.currentweekdetails,
+                                                currentcourses: this.state.currentcourses
                                             }
                                         }}>
                                             Review Last Week

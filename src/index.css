@@ -82,6 +82,11 @@
 
   }
 
+  .section-body{
+    padding-top: 15px;
+    padding-bottom: 40px;
+  }
+
   .accent {
     color: var( --pale-green-accent-color);
     background-color: var(--med-blue-color);

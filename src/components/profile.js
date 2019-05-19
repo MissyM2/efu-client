@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {API_BASE_URL} from '../config';
-
 import NavBar from './navbar';
 
 import AddForm from './add-form';
@@ -17,7 +16,7 @@ export default class Profile extends React.Component {
         this.state = {
             currentterm:props.location.state.currentterm,
             terms: props.location.state.terms,
-            courses: props.location.state.currentcourses,
+            currentcourses: props.location.state.currentcourses,
             currentcoursedropdown:props.location.state.currentcourses,
             weeks: props.location.state.currentweeks,
             error: null,
@@ -79,7 +78,7 @@ export default class Profile extends React.Component {
         })
         .then(responseJSON =>  {
             this.setState({
-                courses: [...this.state.courses, responseJSON]
+                currentcourses: [...this.state.currentcourses, responseJSON]
             });
         })
         .catch((err) => {
@@ -132,7 +131,7 @@ export default class Profile extends React.Component {
                         return course.termDesc === this.state.currentterm;
                 });
                 this.setState({
-                    courses: tempcourses
+                    currentcourses: tempcourses
                 });
             })
             .catch((err) => {
@@ -190,7 +189,7 @@ export default class Profile extends React.Component {
                     return course.termDesc === this.state.currentterm;
                 });
                 this.setState({
-                    courses: tempcourses
+                    currentcourses: tempcourses
                 });
         })
         .catch((err) => {
@@ -263,7 +262,7 @@ export default class Profile extends React.Component {
             );
         });
         //console.log(myterms);
-        const mycourses = this.state.courses.map((course, index) => {
+        const mycourses = this.state.currentcourses.map((course, index) => {
             return (
                 <li key={index}>
                     <Course {...course} updatecourse={this.submitUpdateCourse} deletecourse={this.submitDeleteCourse} />
@@ -274,7 +273,7 @@ export default class Profile extends React.Component {
         const myweeks = this.state.weeks.map((week, index) => {
             return (
                 <li className="list-horizontal" key={index}>
-                    <Week {...week} {...this.state} updateweek={this.submitUpdateWeek} deleteweek={this.submitDeleteWeek} />
+                    <Week {...week} {...this.state} weekstatus="all" updateweek={this.submitUpdateWeek} deleteweek={this.submitDeleteWeek} />
                 </li>
             );
         });

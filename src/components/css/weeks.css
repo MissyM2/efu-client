@@ -1,4 +1,8 @@
-
+.week-summary {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 2px solid green;
+}
 
 .weeks-section {
     display: flex;

@@ -9,7 +9,8 @@ export default class Week extends React.Component {
             likedLeast: this.props.likedLeast,
             likedMost: this.props.likedMost,
             mostDifficult: this.props.mostDifficult,
-            mostDifficult: this.props.leastDifficult
+            leastDifficult: this.props.leastDifficult
+            
         }
         this.handleUpdate = this.handleUpdate.bind(this);
     }
@@ -39,21 +40,26 @@ export default class Week extends React.Component {
     
         let updateWeek = {
             termDesc: this.props.termDesc,
-            termDesc: this.props.weekNum,
+            weekNum: this.props.weekNum,
             likedLeast: this.state.likedLeast,
             likedMost: this.state.likedMost,
             mostDifficult: this.state.mostDifficult,
-            mostDifficult: this.state.leastDifficult,
+            leastDifficult: this.state.leastDifficult,
         };
         console.log('updateCourse',updateWeek);
         this.props.updateweek(updateWeek); 
     }
 
     render() {
-        console.log('this state currcoursedrop', this.state.currentcoursedropdown);
-        console.log('this props currcoursedrop', this.props.currentcoursedropdown)
-
-        const mycoursedropdown = this.props.courses.map((course, index) => {
+        console.log('this state weekstatus', this.state.weekstatus);
+      /*  let mycourselist = [];
+        if (this.state.weekstatus === "one") {
+            mycourselist = this.state.location.props.currentcoursedropdown;
+        } else  {
+            mycourselist = this.props.currentcoursedropdown;
+        }
+*/
+        const mycoursedropdown = this.props.currentcoursedropdown.map((course, index) => {
             return (
                 <option key={index} >
                     {course.courseName}
@@ -76,10 +82,10 @@ export default class Week extends React.Component {
                             <div className="list-horizontal">
                                         <div className="item">{this.state.likedLeast}
                                            <select
+                                                className="item"
                                                 type="text"
                                                 defaultValue= {this.state.likedLeast}
-                                                onChange={e => this.handleChange(e, "likedLeast")}
-                                                className="item">
+                                                onChange={e => this.handleChange(e, "likedLeast")}>
                                                     {mycoursedropdown}
                                             </select>
                                         </div>
@@ -112,7 +118,7 @@ export default class Week extends React.Component {
                                         </div>
                             </div>
                             <div className="item">
-                                    <input className="btn update-btn" type="button" value="Submit Update" />
+                                    <input className="btn update-btn" type="submit" value="Submit" />
                             </div> 
                         </form>   
                 </div>

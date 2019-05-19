@@ -1,50 +1,88 @@
 import React from 'react';
 import NavBar from "./navbar"
 
+import './css/weeks.css';
+
 
 export default class Weeks extends React.Component {
         constructor(props) {
                 super(props);
                 this.state = {
-                        myweeks: []
+                        myweeks: [],
+                        mygrades: []
                 }
-        }
-
-        componentDidMount() {
-                const { receivedweeks } = this.props.location.state;
-                this.setState({
-                        myweeks: this.props.location.state.weeks
-                })
         }
 
         render() {
                 console.log(' currentweeks inside of weeks.js ', this.props.location.state.currentweeks);
-                console.log('receivedweeks inside of weeks.js ', this.state.myweeks);
+                console.log('currentcourses inside of weeks.js ', this.props.location.state.currentcourses);
+                console.log('currentgrades inside of weeks.js ', this.props.location.state.currentgrades);
+               
+                let weeks = this.props.location.state.currentweeks.map((week, index) => {
+                        return (
+                                <div className="week-summary">
+                                        <div key={index} className="list-horizontal week">
+                                                <div className="item weeknum">
+                                                        <div className="item-label weeknum">Week Number</div>
+                                                        {week.weekNum}
+                                                </div>
+                                                <div className="item termDesc">
+                                                        <div className="item-label termDesc">Term</div>
+                                                        {week.termDesc}
+                                                </div>
+                                                <div className="item likedLeast">
+                                                        <div className="item-label likedLeast">liked Least</div>
+                                                        {week.likedLeast}
+                                                </div>
+                                                <div className="item likedMost">
+                                                        <div className="item-label likedMost">Liked Most</div>
+                                                        {week.likedMost}
+                                                </div>
+                                                <div className="item mostDifficult">
+                                                        <div className="item-label mostDifficult">Most Difficult</div>
+                                                        {week.mostDifficult}
+                                                </div>
+                                                <div className="item leastDifficult">
+                                                        <div className="item-label leastDifficult">Least Difficult</div>
+                                                        {week.leastDifficult}
+                                                </div>
+                                        </div>
+                                        <div className="list-horizontal">
+                                                {this.props.location.state.currentcourses.map(course=> {
+                                                                return (
+                                                                        <div className="item">
+                                                                                {course.courseName}
+                                                                                {this.props.location.state.currentgrades.filter(grade => {
+                                                                                        return (
+                                                                                                grade.term === course.termDesc &&
+                                                                                                grade.week === week.weekNum &&
+                                                                                                grade.course === course.courseName
+                                                                                        );
+                                                                                }).map(grade => {
+                                                                                        return (
+                                                                                                <div>{grade.gradeNum}</div>
+                                                                                        );
+                                                                                })
+                                                                                }
+                                                                        </div>
+                                                                );
+
+                                                        })
+                                                }
+                                        </div>
+                                </div>
+                        
+                        );
+
+                });
                 return (
                         <main>
                               
                             <NavBar />
                                 <div className="container">
                                         <h3>Your Weeks for this Term</h3>
-                                        <div className="list-horizontal week-list-labels">
-                                                <div className="item-label weeknum">Week Number</div>
-                                                <div className="item-label termDesc">Term</div>
-                                                <div className="item-label likedLeast">liked Least</div>
-                                                <div className="item-label likedMost">Liked Most</div>
-                                                <div className="item-label mostDifficult">Most Difficult</div>
-                                                <div className="item-label leastDifficult">Least Difficult</div>
-                                        </div>
                                         <div className="list-vertical this-week-weeks">
-                                                {this.props.location.state.currentweeks.map((week, index) => (
-                                                <div key={index} className="list-horizontal week">
-                                                        <div className="item courseName">{week.weekNum}</div>
-                                                        <div className="item termDesc">{week.termDesc}</div>
-                                                        <div className="item weekNum">{week.likedLeast}</div>
-                                                        <div className="item dueDate">{week.likedMost}</div>
-                                                        <div className="item pressure">{week.mostDifficult}</div>
-                                                        <div className="item prephrs">{week.leastDifficult}</div>
-                                                </div>
-                                                ))}
+                                               {weeks}
                                                 </div> 
                                         
                                 </div>
@@ -56,3 +94,24 @@ export default class Weeks extends React.Component {
         
 }
 
+{/*
+<div>
+                                                {this.props.location.state.currentweeks.filter(grade => {
+                                                        return grade.course === week.course;
+                                                }).map(grade => {
+                                                        return (
+                                                                <div>{grade.}
+                                                        )
+                                                })
+                                                        map((grade, index) => {
+
+
+
+
+                                                $scope.appIds = $scope.applicationsHere.filter(function(obj) {
+                                                        return obj.selected;
+                                                }).map(function(obj) { return obj.id; });
+                                                })}
+                                        </div>>
+</div> 
+                                        */}
