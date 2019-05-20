@@ -1,9 +1,9 @@
 import React from 'react';
 import {API_BASE_URL} from './config';
 
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
 
-import HomePage from './components/home-page';
+import NavBar from './components/navbar';
 import Login from './components/login';
 import Dashboard from './components/dashboard';
 import Register from './components/register';
@@ -16,7 +16,8 @@ import PlanNextWeek from './components/plan-next-week';
 
 
 export default class App extends React.Component {
-    constructor(props){
+
+   constructor(props){
         super(props);
         this.state = {
             user: {
@@ -29,14 +30,25 @@ export default class App extends React.Component {
                 email : '',
                 password : ''
             },
-            name : "Missy"
+            isAuthenticated: false,
+            isLoading: true
         }
+        this.submitLogin = this.submitLogin.bind(this);
+    } 
+
+    componentDidMount() {
+        AuthCall().then(() => {
+            this.setState({isAuthenticated: true, isLoading: false});
+        }).catch(() => {
+            this.setState({isLoading: false});
+        });
     }
     
-
+/*
     renderRedirect = (newPath) => {
         window.location.href = newPath;
     }
+    */
 
     submitRegistration = (user) => {
        console.log(user);
@@ -66,8 +78,7 @@ export default class App extends React.Component {
     }
 
     submitLogin = (email, password) => {
-        console.log(email, password);
-        console.log("Clicked submit login");
+        console.log('made it to submitlogin');
         this.setState({
             username: email
         })
@@ -89,28 +100,52 @@ export default class App extends React.Component {
             }
         })
         .then(responseJSON => {
-            console.log('responseJSON after login is ', responseJSON);
             localStorage.setItem('authToken', responseJSON.authToken);
             localStorage.setItem('username', this.state.username);
             localStorage.setItem('firstName', this.state.firstName);
-            this.renderRedirect('/dashboard');
+            this.setState({
+                isLoggedIn: true
+            });
+            console.log('within app.js this.state.isLoggedIn ', this.state.isLoggedIn);
+
+            this.props.history.push('/navbar');
+            
+            //this.renderRedirect('/dashboard');
             // save on the local storage the toke.
             // Redirect to the landing page
         })
     }
 
+    
+
     render() {
+        console.log('isAuthenticated', isAuthenticated);
+        if(isLoading) {
+            console.log('isLoading', isLoading);
+            return <div>Loading...</div>
+        } else if(!isAuthenticated) {
+            console.log('not authenticated, should go to login', isAuthenticated)
+            return <Redirect to="/login" />
+        } else {
+            return  <NavBar {...this.props} />
+        }
+       
+    
         return (
-            <section className="app-wrapper">
+            
+            <main>
                 <Router>
-                                <Route exact path="/" component={HomePage} />
+                              
+                                <Route exact path="/" render={() => <HomePage {...this.state}
+                                                                    />} />
                                 <Route exact path="/login" render={() => <Login {...this.state}
                                                                         submitlogin={this.submitLogin}
                                                                     />} />
                                 <Route exact path="/register" render={() => <Register {...this.state}
                                                                             submitregistration={this.submitRegistration}
                                                                                 />}  />
-                                <Route exact path="/dashboard" render={() => <Dashboard {...this.state} />} /> 
+                                <Route exact path="/dashboard" render={() => <Dashboard {...this.state}
+                                                                                 />} /> 
                                 
                                 <Route exact path="/profile" component={Profile} />
                                 <Route exact path="/weeks" component={Weeks} />
@@ -118,7 +153,7 @@ export default class App extends React.Component {
                                 <Route exact path="/plannextweek" component={PlanNextWeek} />
  
                 </Router> 
-            </section> 
+            </main> 
         );
     } 
 }

@@ -11,14 +11,14 @@ import NavBar from "./navbar"
 //import ReviewCurrentWeek from './review-current-week';
 
 export default class Dashboard extends React.Component {
-    /*
     constructor(props) {
         super(props);
         this.state = {
+            currentusername:'',
+            currentdate:"",
             currentterm:"",
             currentweek: "",
             currentweekdetails:[],
-            currentdate:"",
             nextweek: "",
             currentsuggestion:[],
             terms: [],
@@ -246,6 +246,13 @@ export default class Dashboard extends React.Component {
             });
             
         }
+
+        getCurrentUsername() {
+            return this.auth.currentUser && this.auth.currentUser.displayName;
+        };
+    
+            
+        }
         
         
               /*
@@ -258,8 +265,6 @@ export default class Dashboard extends React.Component {
             }*/ 
     render() {
         console.log('this.state in dashboard', this.state);
-        console.log('this.props in dashboard', this.props);
-        //console.log('this.props.location.state.', this.props.location.state);
 
         //const {suggestion, loading} = this.state;
         //if (error) {
@@ -272,21 +277,21 @@ export default class Dashboard extends React.Component {
         //console.log('thisweekdeliverables ', this.state.thisweekdeliverables);
             return (
                 <div> 
-                    <NavBar />
+                    <NavBar {...this.state}/>
                      <div className="container">
                         <h2>My Dashboard</h2>
                        
-                        <h3> Your are working with {this.props.location.state.currentterm} term and week number {this.props.location.state.currentweek}</h3>
+                        <h3> Your are working with {this.state.currentterm} term and week number {this.state.currentweek}</h3>
 
                       <ul className="accent skills-suggestion"> 
                                 <li >
-                                    <div>{this.props.location.state.currentsuggestion.category}</div>
-                                    <div>{this.props.location.state.currentsuggestion.desc}</div>
-                                    <div>~ {this.props.location.state.currentsuggestion.credit}</div>
+                                    <div>{this.state.currentsuggestion.category}</div>
+                                    <div>{this.state.currentsuggestion.desc}</div>
+                                    <div>~ {this.state.currentsuggestion.credit}</div>
                                 </li>
                           </ul> 
                         <div className="today-deliverables">
-                            <div className="section-label">Deliverables Due Today, {this.props.location.state.currentdate}</div>
+                            <div className="section-label">Deliverables Due Today, {this.state.currentdate}</div>
                             <div className="list-horizontal week-list-labels">
                                     <div className="item-label weeknum">Week Number</div>
                                     <div className="item-label dueDate">Due Date</div>
@@ -313,7 +318,7 @@ export default class Dashboard extends React.Component {
                                 
                         </div>
                         <div className="this-week-deliverables">
-                            <div className="section-label">Deliverables Due This Week, Week {this.props.location.state.currentweek}</div>
+                            <div className="section-label">Deliverables Due This Week, Week {this.state.currentweek}</div>
                             <div className="list-horizontal week-list-labels">
                                                 <div className="item-label weeknum">Week Number</div>
                                                 <div className="item-label dueDate">Due Date</div>
@@ -325,7 +330,7 @@ export default class Dashboard extends React.Component {
                                     <div>
                             </div>
                             <div>
-                                {this.props.location.state.thisweekdeliverables
+                                {this.state.thisweekdeliverables
                                         .map((deliverable, index) => {
                                             return (
                                                 <div key={index} className="list-horizontal deliverable">
@@ -350,10 +355,10 @@ export default class Dashboard extends React.Component {
                                         to={{
                                             pathname: "/reviewcurrentweek",
                                             state: {
-                                                currentterm: this.props.location.state.currentterm,
-                                                currentweek: this.props.location.state.currentweek,
-                                                currentweekdetails: this.props.location.state.currentweekdetails,
-                                                currentcourses: this.props.location.state.currentcourses
+                                                currentterm: this.state.currentterm,
+                                                currentweek: this.state.currentweek,
+                                                currentweekdetails: this.state.currentweekdetails,
+                                                currentcourses: this.state.currentcourses
                                             }
                                         }}>
                                             Review Last Week
@@ -363,7 +368,7 @@ export default class Dashboard extends React.Component {
                                         to={{
                                             pathname: "/plannextweek",
                                             state: {
-                                                currentcourses: this.props.location.state.currentcourses
+                                                currentcourses: this.state.currentcourses
                                             }
                                         }}>
                                             Plan Next Week

@@ -1,0 +1,326 @@
+ 
+Log In Sign Up
+By using our site, you acknowledge that you have read and understand our Cookie Policy, Privacy Policy, and our Terms of Service.
+
+
+
+22
+I am using the last version react-router module, named react-router-dom, that has become the default when developing web applications with React. I want to know how to make a redirection after a POST request. I have been making this code, but after the request, nothing happens. I review on the web, but all the data is about previous versions of the react router, and no with the last update.
+
+Code:
+
+import React, { PropTypes } from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
+import { Redirect } from 'react-router'
+
+import SignUpForm from '../../register/components/SignUpForm';
+import styles from './PagesStyles.css';
+import axios from 'axios';
+import Footer from '../../shared/components/Footer';
+
+class SignUpPage extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      errors: {},
+      client: {
+        userclient: '',
+        clientname: '',
+        clientbusinessname: '',
+        password: '',
+        confirmPassword: ''
+      }
+    };
+
+    this.processForm = this.processForm.bind(this);
+    this.changeClient = this.changeClient.bind(this);
+  }
+
+  changeClient(event) {
+    const field = event.target.name;
+    const client = this.state.client;
+    client[field] = event.target.value;
+
+    this.setState({
+      client
+    });
+  }
+
+  async processForm(event) {
+    event.preventDefault();
+
+    const userclient = this.state.client.userclient;
+    const clientname = this.state.client.clientname;
+    const clientbusinessname = this.state.client.clientbusinessname;
+    const password = this.state.client.password;
+    const confirmPassword = this.state.client.confirmPassword;
+    const formData = { userclient, clientname, clientbusinessname, password, confirmPassword };
+
+    axios.post('/signup', formData, { headers: {'Accept': 'application/json'} })
+      .then((response) => {
+        this.setState({
+          errors: {}
+        });
+
+        <Redirect to="/"/> // Here, nothings happens
+      }).catch((error) => {
+        const errors = error.response.data.errors ? error.response.data.errors : {};
+        errors.summary = error.response.data.message;
+
+        this.setState({
+          errors
+        });
+      });
+  }
+
+  render() {
+    return (
+      <div className={styles.section}>
+        <div className={styles.container}>
+          <img src={require('./images/lisa_principal_bg.png')} className={styles.fullImageBackground} />
+          <SignUpForm 
+            onSubmit={this.processForm}
+            onChange={this.changeClient}
+            errors={this.state.errors}
+            client={this.state.client}
+          />
+          <Footer />
+        </div>
+      </div>
+    );
+  }
+}
+
+export default SignUpPage;
+javascript reactjs react-router
+shareimprove this question
+edited Dec 9 '18 at 9:11
+
+jupiar
+629525
+asked Apr 5 '17 at 11:42
+
+maoooricio
+5541816
+Your Redirect looks like JSX, not JS. – elmeister Apr 5 '17 at 11:50
+can you provide you entire component code – KornholioBeavis Apr 5 '17 at 11:54
+Yes, I am using JSX. Well, maybe i need to clarify. The POST request is inside a REACT component that makes the request. – maoooricio Apr 5 '17 at 11:55
+@KornholioBeavis, sure, now you can see complete. I make the server with expressjs, I don't know if you need this data – maoooricio Apr 5 '17 at 12:00
+Can you validate that you are getting a callback response from axios.post? Also why are you using async function without await anywhere? – KornholioBeavis Apr 5 '17 at 12:07
+show 1 more comment
+8 Answers
+active oldest votes
+
+129
+
+You have to use setState to set a property that will render the <Redirect> inside your render() method.
+
+E.g.
+
+class MyComponent extends React.Component {
+  state = {
+    redirect: false
+  }
+
+  handleSubmit () {
+    axios.post(/**/)
+      .then(() => this.setState({ redirect: true }));
+  }
+
+  render () {
+    const { redirect } = this.state;
+
+     if (redirect) {
+       return <Redirect to='/somewhere'/>;
+     }
+
+     return <RenderYourForm/>;
+}
+You can also see an example in the official documentation: https://reacttraining.com/react-router/web/example/auth-workflow
+
+That said, I would suggest you to put the API call inside a service or something. Then you could just use the history object to route programatically. This is how the integration with redux works.
+
+But I guess you have your reasons to do it this way.
+
+shareimprove this answer
+edited Jan 14 at 7:19
+answered Apr 5 '17 at 12:11
+
+Sebastian Sebald
+7,71834053
+2
+You are a MASTER. Thanks! I am going to review what you suggest. I am a rookie with React. :) – maoooricio Apr 5 '17 at 12:36
+@sebastian sebald what do you mean by: put the API call inside a service or something ? – andrea-f Apr 5 '17 at 16:40
+Having such an (async) API call inside your component will make it harder to test and reuse. It is usually better to create a service and then use it (for example) in componentDidMount. Or even better, create a HOC that "wraps" your API. – Sebastian Sebald Apr 5 '17 at 17:57
+3
+Pay attention that you must include Redirect to use it in begin of file: import { Redirect } from 'react-router-dom' – Alex Sep 19 '17 at 11:39
+3
+Yes, under the hood Redirect is calling history.replace. If you want access to the history obect, use withRoutet/Route. – Sebastian Sebald Mar 25 '18 at 12:19
+show 1 more comment
+
+ 
+18
+
+Here a small example as response to the title as all mentioned examples are complicated in my opinion as well as the official one.
+
+You should know how to transpile es2015 as well as make your server able to handle the redirect. Here is a snippet for express. More info related to this can be found here.
+
+Make sure to put this below all other routes.
+
+const app = express();
+app.use(express.static('distApp'));
+
+/**
+ * Enable routing with React.
+ */
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve('distApp', 'index.html'));
+});
+This is the .jsx file. Notice how the longest path comes first and get's more general. For the most general routes use the exact attribute.
+
+// Relative imports
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+
+// Absolute imports
+import YourReactComp from './YourReactComp.jsx';
+
+const root = document.getElementById('root');
+
+const MainPage= () => (
+  <div>Main Page</div>
+);
+
+const EditPage= () => (
+  <div>Edit Page</div>
+);
+
+const NoMatch = () => (
+  <p>No Match</p>
+);
+
+const RoutedApp = () => (
+  <BrowserRouter >
+    <Switch>
+      <Route path="/items/:id" component={EditPage} />
+      <Route exact path="/items" component={MainPage} />          
+      <Route path="/yourReactComp" component={YourReactComp} />
+      <Route exact path="/" render={() => (<Redirect to="/items" />)} />          
+      <Route path="*" component={NoMatch} />          
+    </Switch>
+  </BrowserRouter>
+);
+
+ReactDOM.render(<RoutedApp />, root); 
+shareimprove this answer
+edited Mar 25 at 15:25
+answered Jul 20 '17 at 8:27
+
+Matthis Kohli
+713818
+1
+this doesn't work all the time. if you have a redirect from home/hello > home/hello/1 but then go to home/hello and hit enter it wont redirect the first time. any ideas why?? – The Walrus Jan 5 '18 at 14:10
+I advise you to use "create-react-app" if possible and follow the documentation from react-router. With "create-react-app" everything works fine for me. I was not able to adapt my own react application to new react-router. – Matthis Kohli Jan 7 '18 at 20:27
+I got it working, but cheers – The Walrus Jan 8 '18 at 11:46
+1
+Nice sample ... with no class definition – Juan Salvador Feb 27 at 23:41
+add a comment
+
+4
+
+Try something like this.
+
+import React, { PropTypes } from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
+import { Redirect } from 'react-router'
+
+import SignUpForm from '../../register/components/SignUpForm';
+import styles from './PagesStyles.css';
+import axios from 'axios';
+import Footer from '../../shared/components/Footer';
+
+class SignUpPage extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      errors: {},
+      callbackResponse: null,
+      client: {
+        userclient: '',
+        clientname: '',
+        clientbusinessname: '',
+        password: '',
+        confirmPassword: ''
+      }
+    };
+
+    this.processForm = this.processForm.bind(this);
+    this.changeClient = this.changeClient.bind(this);
+  }
+
+  changeClient(event) {
+    const field = event.target.name;
+    const client = this.state.client;
+    client[field] = event.target.value;
+
+    this.setState({
+      client
+    });
+  }
+
+  processForm(event) {
+    event.preventDefault();
+
+    const userclient = this.state.client.userclient;
+    const clientname = this.state.client.clientname;
+    const clientbusinessname = this.state.client.clientbusinessname;
+    const password = this.state.client.password;
+    const confirmPassword = this.state.client.confirmPassword;
+    const formData = { userclient, clientname, clientbusinessname, password, confirmPassword };
+
+    axios.post('/signup', formData, { headers: {'Accept': 'application/json'} })
+      .then((response) => {
+        this.setState({
+          callbackResponse: {response.data},
+        });
+      }).catch((error) => {
+        const errors = error.response.data.errors ? error.response.data.errors : {};
+        errors.summary = error.response.data.message;
+
+        this.setState({
+          errors
+        });
+      });
+  }
+
+const renderMe = ()=>{
+return(
+this.state.callbackResponse
+?  <SignUpForm 
+            onSubmit={this.processForm}
+            onChange={this.changeClient}
+            errors={this.state.errors}
+            client={this.state.client}
+          />
+: <Redirect to="/"/>
+)}
+
+  render() {
+    return (
+      <div className={styles.section}>
+        <div className={styles.container}>
+          <img src={require('./images/lisa_principal_bg.png')} className={styles.fullImageBackground} />
+         {renderMe()}
+          <Footer />
+        </div>
+      </div>
+    );
+  }
+}
+
+export default SignUpPage;

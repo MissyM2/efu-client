@@ -48,9 +48,9 @@ export default class Weeks extends React.Component {
                                                 </div>
                                         </div>
                                         <div className="list-horizontal">
-                                                {this.props.location.state.currentcourses.map(course=> {
+                                                {this.props.location.state.currentcourses.map((course, index) => {
                                                                 return (
-                                                                        <div className="item">
+                                                                        <div key={index} className="item">
                                                                                 {course.courseName}
                                                                                 {this.props.location.state.currentgrades.filter(grade => {
                                                                                         return (
@@ -60,7 +60,7 @@ export default class Weeks extends React.Component {
                                                                                         );
                                                                                 }).map(grade => {
                                                                                         return (
-                                                                                                <div>{grade.gradeNum}</div>
+                                                                                                <div key={index}>{grade.gradeNum}</div>
                                                                                         );
                                                                                 })
                                                                                 }
@@ -80,7 +80,7 @@ export default class Weeks extends React.Component {
                               
                             <NavBar />
                                 <div className="container">
-                                        <h3>Your Weeks for this Term</h3>
+                                        <h3>Your Weeks for {this.props.location.state.currentterm}</h3>
                                         <div className="list-vertical this-week-weeks">
                                                {weeks}
                                                 </div> 
