@@ -33,7 +33,7 @@ export default class Course extends React.Component {
             oldCourseName: this.state.oldCourseName,
             newCourseName:this.state.newCourseName
         };
-        this.props.updatecourse(updateCourse); 
+        this.props.updateCourse(updateCourse); 
     }
 
     render () {

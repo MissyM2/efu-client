@@ -20,6 +20,7 @@ export default class AddForm extends React.Component {
             }
             this.props.submitaddterm(newTerm);
         } else if(this.props.type === 'course') {
+            console.log('add-form: onSubmit, this. props', this.props);
             let newCourse = {
                 termDesc: this.props.currentterm,
                 courseName:text
@@ -29,8 +30,8 @@ export default class AddForm extends React.Component {
         let newWeek = {
             termDesc: this.props.currentterm,
             weekNum:text
-        }
-        this.props.submitaddweek(newWeek);
+            }
+            this.props.submitaddweek(newWeek);
         }
         
     }
@@ -48,6 +49,7 @@ export default class AddForm extends React.Component {
     }
 
     render() {
+        console.log('add-form: this props', this.props);
        
         if (!this.state.editing) {
             const text = `Add a ${this.props.type}`;

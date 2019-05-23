@@ -5,8 +5,7 @@ const LoginForm = ({ onSubmit, onChange, errors, user}) =>  (
  
         <main>
             <div className="container">
-                <h2>ExecutiveFollowup Login</h2>
-                <form action="/" onSubmit={onSubmit}>
+                <form action="/" onSubmit = {e => {e.preventDefault(); onSubmit()}} >
                     <h3 className="heading">Login</h3>
 
                     {errors.summary && <p className="error-message">{errors.summary}</p>}

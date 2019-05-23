@@ -51,7 +51,7 @@ export default class Week extends React.Component {
     }
 
     render() {
-        console.log('this state weekstatus', this.state.weekstatus);
+        console.log('week: this.props', this.props);
       /*  let mycourselist = [];
         if (this.state.weekstatus === "one") {
             mycourselist = this.state.location.props.currentcoursedropdown;
@@ -59,7 +59,7 @@ export default class Week extends React.Component {
             mycourselist = this.props.currentcoursedropdown;
         }
 */
-        const mycoursedropdown = this.props.currentcoursedropdown.map((course, index) => {
+        const mycoursedropdown = this.props.currentcourses.map((course, index) => {
             return (
                 <option key={index} >
                     {course.courseName}
