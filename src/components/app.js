@@ -6,7 +6,6 @@ import HomePage from './home-page';
 import NavBar from './navbar';
 import Dashboard from './dashboard';
 import Profile from './profile';
-import LoginPage from './login-page';
 import RegistrationPage from './registration-page';
 
 import './css/app.css'
@@ -124,16 +123,18 @@ class App extends React.Component {
             method: 'GET',
             headers: {
                 // Provide our auth token as credentials
-                Authorization: `Bearer ${this.props.authToken}`
+                Authorization: `Bearer ${this.state.authToken}`
                 }
         })
         .then(response => {
+            console.log('inside getCurrentTerms, response', response);
             if(response.ok) {
                     return response.json()
             }
             throw new Error(response.text)
         })
         .then(responseJSON => {
+            console.log('inside getCurrentTerms, responseJSON', responseJSON);
             this.setState({
                 terms: responseJSON
             });
@@ -478,6 +479,7 @@ class App extends React.Component {
     }
         
     submitUpdateWeek = (updatedweek) => {
+        console.log('app: updated week', updatedweek);
         fetch(`${API_BASE_URL}/weeks`, {
             method: 'PUT',
             headers: {
@@ -542,9 +544,9 @@ class App extends React.Component {
                                                         submitAddCourse={(newcourse) => this.submitAddCourse(newcourse)}
                                                         submitAddWeek={(newweek) => this.submitAddWeek(newweek)}
                                                         submitDeleteCourse={(selectedcourse) => this.submitDeleteCourse(selectedcourse)}
-                                                        submitDeleteWeek={(selectedweek) => this.submitDeleteCourse(selectedweek)}
-                                                        submitUpdateCourse={(updatedcourse) => this. submitUpdateCourse(updatedcourse)}
-                                                        submitUpdateWeek={(updatedweek) => this. submitUpdateCourse(updatedweek)}
+                                                        submitDeleteWeek={(selectedweek) => this.submitDeleteWeek(selectedweek)}
+                                                        submitUpdateCourse={(updatedcourse) => this.submitUpdateCourse(updatedcourse)}
+                                                        submitUpdateWeek={(updatedweek) => this.submitUpdateWeek(updatedweek)}
                                                         />} /> 
                       
                         <Route exact path="/registration" component={RegistrationPage} />

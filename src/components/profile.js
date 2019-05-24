@@ -10,21 +10,17 @@ import Week from './week';
 
 
 export default class Profile extends React.Component {
-    constructor(props){
-        super(props);
-        
-        }
 
-        componentDidMount() {
-            console.log('profile: this.state', this.state);
-            console.log('profile: this.props', this.props);
-            this.props.getCurrentTerms();
-            this.props.getCurrentCourses();
-            this.props.getCurrentWeeks();
-           
-           
-            
-        }
+    componentDidMount() {
+        console.log('profile: this.state', this.state);
+        console.log('profile: this.props', this.props);
+        this.props.getCurrentTerms();
+        this.props.getCurrentCourses();
+        this.props.getCurrentWeeks();
+        
+        
+        
+    }
 
 
    // setEditing(editing) {
@@ -48,7 +44,7 @@ export default class Profile extends React.Component {
         const mycourses = this.props.currentcourses.map((course, index) => {
             return (
                 <li key={index}>
-                    <Course {...course} updatecourse={this.props.submitUpdateCourse} deletecourse={this.props.submitDeleteCourse} />
+                    <Course {...course} {...this.props} submitupdatecourse={this.props.submitUpdateCourse} submitdeletecourse={this.props.submitDeleteCourse} />
                 </li>
             );
         });
@@ -56,7 +52,7 @@ export default class Profile extends React.Component {
         const myweeks = this.props.currentweeks.map((week, index) => {
             return (
                 <li className="list-horizontal" key={index}>
-                    <Week {...week} {...this.props} weekstatus="all" updateweek={this.props.submitUpdateWeek} deleteweek={this.props.submitDeleteWeek} />
+                    <Week {...week} {...this.props} weekstatus="all" submitupdateweek={this.props.submitUpdateWeek} submitdeleteweek={this.props.submitDeleteWeek} />
                 </li>
             );
         });
@@ -77,7 +73,7 @@ export default class Profile extends React.Component {
     */
         return (
             <main>
-                <NavBar />
+                <NavBar {...this.props}/>
                 <div className="container">
                         <h3>My Profile for {this.props.currentterm}</h3>
                         <div className="terms">
@@ -86,7 +82,7 @@ export default class Profile extends React.Component {
                                {myterms} 
                             </ul>
                             <div>
-                                <AddForm type="term" submitaddterm={this.props.submitAddTerm}   />
+                                <AddForm type="term" {...this.props} submitaddterm={this.props.submitAddTerm}   />
                             </div>
                         </div>
                         <hr />
@@ -96,7 +92,7 @@ export default class Profile extends React.Component {
                                {mycourses} 
                                </ul>
                                <div>
-                                <AddForm type="course" currentterm={this.props.currentterm} submitaddcourse={this.props.submitAddCourse} />
+                                <AddForm type="course" {...this.props} submitaddcourse={this.props.submitAddCourse} />
                                </div>
                             
                         </div>
@@ -110,7 +106,7 @@ export default class Profile extends React.Component {
                                {myweeks} 
                             </ul>
                             <div>
-                                <AddForm type="week" currentterm={this.props.currentterm} submitaddweek={this.props.submitAddWeek} />
+                                <AddForm type="week" {...this.props} submitaddweek={this.props.submitAddWeek} />
                             </div>
                             
                     </div>

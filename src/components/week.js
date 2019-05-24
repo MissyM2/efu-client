@@ -17,12 +17,12 @@ export default class Week extends React.Component {
 
     setDelete(e) {
         e.preventDefault();
-    
+        console.log('week: setDelete');
         let selectedWeek = {
             termDesc: this.props.termDesc,
             weekNum:this.props.weekNum
         };
-        this.props.deleteweek(selectedWeek); 
+        this.props.submitDeleteWeek(selectedWeek); 
     }
 
     handleChange(e, field) {
@@ -34,9 +34,6 @@ export default class Week extends React.Component {
 
     handleUpdate(e) {
         e.preventDefault();
-        console.log('entered setUpdate');
-        console.log('updatedcourse', this.props);
-        console.log('updatedcourse', this.state);
     
         let updateWeek = {
             termDesc: this.props.termDesc,
@@ -46,8 +43,7 @@ export default class Week extends React.Component {
             mostDifficult: this.state.mostDifficult,
             leastDifficult: this.state.leastDifficult,
         };
-        console.log('updateCourse',updateWeek);
-        this.props.updateweek(updateWeek); 
+        this.props.submitUpdateWeek(updateWeek); 
     }
 
     render() {

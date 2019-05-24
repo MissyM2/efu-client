@@ -16,7 +16,7 @@ export default class Course extends React.Component {
             termDesc: this.props.termDesc,
             courseName:this.props.courseName
         };
-        this.props.deletecourse(selectedCourse); 
+        this.props.submitDeleteCourse(selectedCourse); 
     }
 
     handleChange(e, field) {
@@ -33,10 +33,12 @@ export default class Course extends React.Component {
             oldCourseName: this.state.oldCourseName,
             newCourseName:this.state.newCourseName
         };
+        console.log('course: handleUpdate ', updateCourse);
         this.props.updateCourse(updateCourse); 
     }
 
     render () {
+        console.log('course: this.props', this.props);
         return (
             <div>
                 <form onSubmit={this.handleUpdate}>
@@ -52,10 +54,6 @@ export default class Course extends React.Component {
                         <input className="btn" type="button" value="Update" />
                         <button className="btn delete-btn" onClick={(e) => this.setDelete(e)}>Delete</button>
                     </div>
-                    
-                    
-                
-                
                 </form>
                 
             </div>
