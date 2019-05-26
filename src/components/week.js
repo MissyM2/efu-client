@@ -22,7 +22,7 @@ export default class Week extends React.Component {
             termDesc: this.props.termDesc,
             weekNum:this.props.weekNum
         };
-        this.props.submitDeleteWeek(selectedWeek); 
+        this.props.submitdeleteweek(selectedWeek); 
     }
 
     handleChange(e, field) {
@@ -62,6 +62,12 @@ export default class Week extends React.Component {
                 </option>
             );
         });
+        let deleteButton;
+        console.log('week: weekstatus');
+        if(this.props.weekstatus === 'all') {
+            deleteButton = <button className="btn delete-btn" onClick={(e) => this.setDelete(e)}>Delete Week</button>;
+        };
+          
         return ( 
             <div className="list-horizontal">
                 <div className="list-horizontal-week-header">
@@ -119,10 +125,12 @@ export default class Week extends React.Component {
                         </form>   
                 </div>
                 <div>
-                        <button className="btn delete-btn" onClick={(e) => this.setDelete(e)}>Delete Week</button>
+                   {deleteButton}     
                 </div>
             </div>
             );
     }
     
 }
+
+

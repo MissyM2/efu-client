@@ -1,11 +1,5 @@
 import React from 'react';
 import LoginForm from './login-form';
-import NavBar from './navbar';
-import { Redirect } from 'react-router';
-import {API_BASE_URL} from '../config';
-
-import Dashboard from './dashboard';
-
 
 class LoginPage extends React.Component {
     constructor(props) {
@@ -27,7 +21,6 @@ class LoginPage extends React.Component {
         const field = e.target.name;
         const user = this.state.user;
         user[field] = e.target.value;
-
         this.setState({
             user
         });

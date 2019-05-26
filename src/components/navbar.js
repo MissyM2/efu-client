@@ -1,22 +1,9 @@
 import React from 'react';
 
-import { API_BASE_URL } from '../config';
-
 import './css/navbar.css';
 import { Link } from 'react-router-dom';
 
 export default class NavBar extends React.Component {
-    constructor(props) {
-        super(props); 
-    }
-/*
-    componentDidMount() {
-        console.log('navbar: componentDidMount,this.props, ', this.props);
-    }
-
-  */  
-
-   
 
     logout(e) {
         localStorage.removeItem('token');
@@ -46,21 +33,43 @@ export default class NavBar extends React.Component {
                                         <Link className="item btn is-primary dashboard" to="/dashboard">
                                                 <strong>Dashboard</strong>
                                         </Link>
-                                        <div className="list-horizontal" to="/weeks">
-                                            <Link className="item btn is-primary" >
-                                                        weeks
-                                            </Link>
-                                            <Link 
-                                                    className="item btn is-primary" 
-                                                    to={{
-                                                        pathname: '/profile', 
-                                                        state: {
-                                                            terms: this.props.terms,
-                                                    }}}
-                                                    >
+                                        <Link 
+                                            className="item btn is-primary" 
+                                            to={{
+                                                pathname: '/review-current-week',
+                                                state: {
+                                                    weekstatus: 'one'
+                                            }}}
+                                            >
+                                            review
+                                        </Link>
+                                        <Link 
+                                            className="item btn is-primary" 
+                                            to={{
+                                                pathname: '/plan-next-week'
+                                            }}
+                                            >
+                                            plan
+                                        </Link>
+                                        <Link 
+                                            className="item btn is-primary" 
+                                            to={{
+                                                pathname: '/weeks'
+                                                }
+                                            }
+                                            >
+                                            weeks
+                                        </Link>
+                                        <Link 
+                                            className="item btn is-primary" 
+                                            to={{
+                                                pathname: '/profile',
+                                                state: {
+                                                    weekstatus: 'all'
+                                            }}}
+                                            >
                                             profile
-                                    </Link>
-                                        </div>
+                                        </Link>
                                         <Link className="item btn is-light" onClick={this.logout} to="/">
                                             Log out
                                         </Link>

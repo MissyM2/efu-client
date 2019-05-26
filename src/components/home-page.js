@@ -1,30 +1,10 @@
 import React from "react";
 
-import {API_BASE_URL} from '../config';
-
 import LoginPage from './login-page';
 
-
-
 class HomePage extends React.Component {
-    constructor(props) {
-        super(props);
-        //this.state={
-         //   username:'',
-         //   password: '',
-         //   loggedIn: false,
-         //   error: null,
-          //  loading: false,
-          //  currentterm: "",
-          //  currentweek: 0,
-          //  nextweek: this.currentweek + 1,
-        }
-
-
-    
 
     render() {
-        console.log('homepage: this.props', this.props);
         return (
             <main>
               <div className="container">
@@ -40,7 +20,5 @@ class HomePage extends React.Component {
         );
     }
 }
-           
-
-    
+      
 export default HomePage;

@@ -10,41 +10,19 @@ import Week from './week';
 
 
 export default class Profile extends React.Component {
-
-    componentDidMount() {
-        console.log('profile: this.state', this.state);
-        console.log('profile: this.props', this.props);
-        this.props.getCurrentTerms();
-        this.props.getCurrentCourses();
-        this.props.getCurrentWeeks();
-        
-        
-        
-    }
-
-
-   // setEditing(editing) {
-     //   this.setState({
-    //        editing
-    //    });
-   // }
-   //
  
     render() {
-
-        console.log('inside profile ', this.props)
         const myterms = this.props.terms.map((term, index) => {
             return (
                 <li key={index} >
-                    <Term {...term} getselectedterm={this.props.getSelectedTerm} />
+                    <Term {...term} getselectedterm={this.props.getselectedterm} />
                 </li>
             );
         });
-        //console.log(myterms);
         const mycourses = this.props.currentcourses.map((course, index) => {
             return (
                 <li key={index}>
-                    <Course {...course} {...this.props} submitupdatecourse={this.props.submitUpdateCourse} submitdeletecourse={this.props.submitDeleteCourse} />
+                    <Course {...course} {...this.props} submitupdatecourse={this.props.submitupdatecourse} submitdeletecourse={this.props.submitdeletecourse} />
                 </li>
             );
         });
@@ -52,25 +30,11 @@ export default class Profile extends React.Component {
         const myweeks = this.props.currentweeks.map((week, index) => {
             return (
                 <li className="list-horizontal" key={index}>
-                    <Week {...week} {...this.props} weekstatus="all" submitupdateweek={this.props.submitUpdateWeek} submitdeleteweek={this.props.submitDeleteWeek} />
+                    <Week {...week} {...this.props} weekstatus="all" submitupdateweek={this.props.submitupdateweek} submitdeleteweek={this.props.submitdeleteweek} />
                 </li>
             );
         });
-/*
-        if (!this.state.editing) {
-            const text = `Add a term`;
-            return (
-                <div className="btn add-button"
-                        onClick={(e) => {
-                            e.preventDefault();
-                            this.setEditing(true)
-                        }}>
-                        <a href="#">{text}...</a>
-                </div>
-            );
-        }
-        const label = `Enter a term`;
-    */
+
         return (
             <main>
                 <NavBar {...this.props}/>
@@ -82,7 +46,7 @@ export default class Profile extends React.Component {
                                {myterms} 
                             </ul>
                             <div>
-                                <AddForm type="term" {...this.props} submitaddterm={this.props.submitAddTerm}   />
+                                <AddForm type="term" {...this.props} submitaddterm={this.props.submitaddterm}   />
                             </div>
                         </div>
                         <hr />
@@ -92,23 +56,19 @@ export default class Profile extends React.Component {
                                {mycourses} 
                                </ul>
                                <div>
-                                <AddForm type="course" {...this.props} submitaddcourse={this.props.submitAddCourse} />
+                                <AddForm type="course" {...this.props} submitaddcourse={this.props.submitaddcourse} />
                                </div>
                             
                         </div>
                         <hr />
                         <div className="weeks">
                             <div className="section-label">Your Weeks</div>
-                            <div className="item weekNum">
-                                <div className="item">Week Number</div>  
-                            </div>
-                            <ul className="list-vertical week-list">
-                               {myweeks} 
-                            </ul>
+                                <ul className="list-vertical week-list">
+                                {myweeks} 
+                                </ul>
                             <div>
-                                <AddForm type="week" {...this.props} submitaddweek={this.props.submitAddWeek} />
+                                <AddForm type="week" {...this.props} submitaddweek={this.props.submitaddweek} />
                             </div>
-                            
                     </div>
                 </div>
             </main>

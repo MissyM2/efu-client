@@ -16,7 +16,7 @@ export default class Course extends React.Component {
             termDesc: this.props.termDesc,
             courseName:this.props.courseName
         };
-        this.props.submitDeleteCourse(selectedCourse); 
+        this.props.submitdeletecourse(selectedCourse); 
     }
 
     handleChange(e, field) {
@@ -33,12 +33,10 @@ export default class Course extends React.Component {
             oldCourseName: this.state.oldCourseName,
             newCourseName:this.state.newCourseName
         };
-        console.log('course: handleUpdate ', updateCourse);
-        this.props.updateCourse(updateCourse); 
+        this.props.submitupdatecourse(updateCourse); 
     }
 
     render () {
-        console.log('course: this.props', this.props);
         return (
             <div>
                 <form onSubmit={this.handleUpdate}>

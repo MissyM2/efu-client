@@ -12,27 +12,37 @@ export default class AddForm extends React.Component {
 
  
     onSubmit(e) {
+        console.log('right after onSumbit', this.props);
         e.preventDefault();
-        const text =this.state.text;
+        const text = this.state.text;
         if(this.props.type === 'term') {
-            let newTerm = {
+            let newterm = {
                 termDesc:text
             }
-            this.props.submitaddterm(newTerm);
+            this.props.submitaddterm(newterm);
+
         } else if(this.props.type === 'course') {
-            console.log('add-form: onSubmit, this. props', this.props);
-            let newCourse = {
+            let newcourse = {
                 termDesc: this.props.currentterm,
                 courseName:text
             }
-            this.props.submitaddcourse(newCourse);
+            this.props.submitaddcourse(newcourse);
+
         } else if(this.props.type === 'week') {
-        let newWeek = {
+        let newweek = {
             termDesc: this.props.currentterm,
             weekNum:text
-            }
-            this.props.submitaddweek(newWeek);
         }
+        console.log('newweek', newweek);
+        console.log('this.props', this.props);
+        debugger;
+
+        this.props.submitaddweek(newweek);
+        }
+        this.setState({
+            text: ""
+        })
+        this.setEditing(false);
         
     }
 
@@ -49,8 +59,7 @@ export default class AddForm extends React.Component {
     }
 
     render() {
-        console.log('add-form: this props', this.props);
-       
+        console.log('add-form, lthis.props', this.props);
         if (!this.state.editing) {
             const text = `Add a ${this.props.type}`;
             return (

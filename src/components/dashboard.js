@@ -1,7 +1,6 @@
 import React from 'react';
 import './css/dashboard.css';
 import { Link } from 'react-router-dom';
-import { API_BASE_URL } from '../config';
 
 import NavBar from "./navbar"
 
@@ -11,22 +10,15 @@ import NavBar from "./navbar"
 //import ReviewCurrentWeek from './review-current-week';
 
 export default class Dashboard extends React.Component {
-    
-    constructor(props) {
-        super(props);
-        this.state = {
-            
-        }
-       
-       
-        
-    }
 
     componentDidMount() {
-        console.log('dashboard: this.state', this.state);
         console.log('dashboard: this.props', this.props);
-        this.props.getCurrentSuggestion();
-        this.props.getDeliverables(); 
+        this.props.getcurrentsuggestion();
+        this.props.getcurrentdeliverables(); 
+        this.props.getcurrentterms();
+        this.props.getcurrentcourses();
+        this.props.getcurrentweeks();
+        this.props.getcurrentgrades();
        
        
         
@@ -116,35 +108,6 @@ export default class Dashboard extends React.Component {
                                     })}
 
                             </div>  
-                        </div>
-                        <div className="review-and-plan">
-                            <div className="section-label">Review Last Week and Plan for Next Week</div>
-                            <div className="list-horizontal section-body">
-                            
-                                    <Link
-                                        className="item btn is-primary"
-                                        to={{
-                                            pathname: "/reviewcurrentweek",
-                                            state: {
-                                                currentterm: this.state.currentterm,
-                                                currentweek: this.state.currentweek,
-                                                currentweekdetails: this.state.currentweekdetails,
-                                                currentcourses: this.state.currentcourses
-                                            }
-                                        }}>
-                                            Review Last Week
-                                    </Link>
-                                    <Link 
-                                        className="item btn is-primary"
-                                        to={{
-                                            pathname: "/plannextweek",
-                                            state: {
-                                                currentcourses: this.state.currentcourses
-                                            }
-                                        }}>
-                                            Plan Next Week
-                                        </Link>
-                            </div>
                         </div>
                     </div> 
                 </div> 

@@ -12,14 +12,7 @@ export default class PlanNextWeek extends React.Component {
                         deliverable: "",
 
                 }
-                this.authToken=localStorage.getItem('authToken');
         }
-
-        componentDidMount() {
-                const { receivedData } = this.props.location.state;
-        }
-
-       
 
         addDeliverable(e) {
                 e.preventDefault();
@@ -35,7 +28,7 @@ export default class PlanNextWeek extends React.Component {
                         method: 'POST',
                         headers: {
                                 // Provide our auth token as credentials
-                                Authorization: `Bearer ${this.authToken}`,
+                                Authorization: `Bearer ${this.state.authToken}`,
                                 "Content-Type": 'application/json'
                         },
                         body: JSON.stringify(newDeliverable)
@@ -59,16 +52,14 @@ export default class PlanNextWeek extends React.Component {
 
          //    {courseDels}
         render() {
-                console.log('inside plannextweek, currentcourses ', this.props.location.state.currentcourses);
                 return (
                         <main>
-                            
-                    <NavBar />
+                                <NavBar {...this.props} />
                                 <div className="container">
                                         <h2>Plan for Next Week, Week Number {this.props.nextweek}</h2>
                                         <div className="courses-deliverables">
                                                 <ul className="list-horizontal">
-                                                        {this.props.location.state.currentcourses
+                                                        {this.props.currentcourses
                                                                 .filter((course) => {
                                                                         return course.week === this.props.currentweek;
                                                                 })
@@ -84,7 +75,7 @@ export default class PlanNextWeek extends React.Component {
                                                 </ul>
                                         </div>
                                         <hr />
-                                        <form onSubmit={this.addDeliverable}>
+                                        <form onSubmit={this.props.submitadddeliverable}>
                                                 <div>
                                                         <input 
                                                         placeholder="duedate"
