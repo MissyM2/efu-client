@@ -4,8 +4,19 @@
     border: 1px solid red;
 }
 
-button {
-    margin: 5px 20px;
+.form-row {
+    display:flex;
 }
+
+.form-row label {
+    flex: 1;
+}
+
+.form-row input {
+    flex: 3;
+}
+
+
+
 
 

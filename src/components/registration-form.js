@@ -1,21 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const RegistrationForm = ({
-    onSubmit,
-    onChange,
-    errors,
-    user,
-}) => (
+const RegistrationForm = ({ onSubmit, onChange, errors, user }) => (
         <main>
             <div className="container">
-                <h2>ExecutiveFollowup Register</h2>
-                <form action="/" onSubmit={onSubmit}>
-                    <h3 className="heading">Sign Up</h3>
+                <form action="/" onSubmit={e => {e.preventDefault(); onSubmit()}}>
+                    <h3 className="heading">Register</h3>
 
                     {errors.summary && <p className="error-message">{errors.summary}</p>}
 
-                    <div className="field-line input-field">
+                    <div className="form-row">
+                        <label>First Name:</label>
                         <input
                             placeholder="firstname"
                             type="text"
@@ -26,7 +21,8 @@ const RegistrationForm = ({
                             aria-label="firstname"
                         />
                     </div>
-                    <div className="field-line input-field">
+                    <div className="form-row">
+                        <label>Last Name:</label>
                         <input
                             placeholder="lastname"
                             type="text"
@@ -37,7 +33,8 @@ const RegistrationForm = ({
                             aria-label="lastname"
                         />
                     </div>
-                    <div className="field-line input-field">
+                    <div className="form-row">
+                        <label>Username:</label>
                         <input
                             placeholder="username"
                             type="username"
@@ -48,7 +45,8 @@ const RegistrationForm = ({
                             aria-label="username"
                         />
                     </div>
-                    <div className="field-line input-field">
+                    <div className="form-row">
+                        <label>Password:</label>
                         <input
                             placeholder="password"
                             type="password"
@@ -59,12 +57,10 @@ const RegistrationForm = ({
                             aria-label="password"
                         />
                     </div>
-                    <div className="button-line">
+                    <div className="button-row">
                         <button type="submit" className="btn is-primary" >Create New Account</button>
                     </div>
-
-                    <div>Already have an account? <Link to={'/login'}>Log in</Link></div>
-                </form>
+                    </form>
             </div>
         </main>
     );

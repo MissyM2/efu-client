@@ -40,7 +40,7 @@ export default class Course extends React.Component {
         return (
             <div>
                 <form onSubmit={this.handleUpdate}>
-                    <div>
+                    <div className="column">
                         <input
                              className="item"
                             type="text"
@@ -48,9 +48,9 @@ export default class Course extends React.Component {
                             onChange={e => this.handleChange(e,"newCourseName")}>
                         </input>
                     </div>
-                    <div className="list-horizontal">
+                    <div className="row">
                         <input className="btn" type="button" value="Update" />
-                        <button className="btn delete-btn" onClick={(e) => this.setDelete(e)}>Delete</button>
+                        <button className="btn delete-btn center-btn" onClick={(e) => this.setDelete(e)}>Delete</button>
                     </div>
                 </form>
                 

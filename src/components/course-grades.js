@@ -66,7 +66,7 @@ export default class CourseGrades extends React.Component {
             console.log('course-grades: inside let mycoursegrades, isThereGradeForThisCourse', isThereGradeForThisCourse);
             if (!isThereGradeForThisCourse) {
                 return (
-                    <li className="list-horizontal" key={index}>
+                    <li className="row" key={index}>
                         <div 
                             className="item-label course">
                             {course.courseName}
@@ -89,7 +89,7 @@ export default class CourseGrades extends React.Component {
                 );
             } else {
                 return (
-                    <li className="list-horizontal" key={index}>
+                    <li className="row" key={index}>
                         <div 
                             className="item-label course">
                             {course.courseName}

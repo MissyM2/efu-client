@@ -4,15 +4,12 @@ import LoginForm from './login-form';
 class LoginPage extends React.Component {
     constructor(props) {
         super(props);
-
-        //set initial component state
         this.state = {
             errors: {},
             user: {
                 username: '',
                 password: ''
             }
-           // loggedIn: false
         };
         this.changeUser = this.changeUser.bind(this);
     }
@@ -28,15 +25,20 @@ class LoginPage extends React.Component {
 
 
     render() {
+        console.log('login-page: this.props.islogin', this.props.islogin);
             return (
                 <div>
-                    <LoginForm
-                        onSubmit={(username, password) => this.props.submitLogin(this.state.user.username, this.state.user.password)}
+                    <LoginForm 
+                        onSubmit={(username, password) => this.props.submitlogin(this.state.user.username, this.state.user.password)}
                         onChange={(field) => this.changeUser(field)}
                         errors={this.state.errors}
                         user={this.state.user}
                     />
-
+                    <div>Do not have an account? 
+                        <button className="btn button-row" type="button" onClick={e => this.props.setlogin(e)}>
+                            Create One
+                        </button>      
+                    </div>
                 </div>
                 
             ); 

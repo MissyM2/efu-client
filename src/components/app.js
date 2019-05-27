@@ -19,6 +19,7 @@ class App extends React.Component {
         this.state={
             authToken:'',
             loggedIn: false,
+            islogin: true,
             currentusername:'',
             password: '',
             currentweek: "",
@@ -38,7 +39,9 @@ class App extends React.Component {
             error: null,
             loading:false
         }
-        this.submitLogin = this.submitLogin.bind(this);
+        this.submitregistration = this.submitregistration.bind(this);
+        this.submitlogin = this.submitlogin.bind(this);
+        this.setlogin = this.setlogin.bind(this);
         this.getcurrentterms=this.getcurrentterms.bind(this);
         this.getcurrentsuggestion=this.getcurrentsuggestion.bind(this);
         this.getcurrentcourses=this.getcurrentcourses.bind(this);
@@ -63,14 +66,57 @@ class App extends React.Component {
    //     window.location.href = newPath;
     //}
 
-    getCurrentTerm = () => {
+    getcurrentterm = () => {
         
         this.setState({
             currentterm: 'Spring, 2019'
         });
     }
 
-    submitLogin(username, password) {
+   submitregistration(firstName, lastName, username, password) {
+
+        const newuser = {
+            firstName: firstName,
+            lastName: lastName,
+            username: username,
+            password: password
+        }
+        console.log(newuser);
+        console.log("Clicked submit registration");
+        fetch(`${API_BASE_URL}/users`, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(newuser)
+        })
+        .then(response => {
+            if(response.ok){
+                this.setState({
+                    errors:{}
+                });
+                console.log('tje form is valid');
+                return response.json();
+            }
+            //this.setState({
+           //     errors
+           // });
+            throw new Error(response.text)
+        })
+        .then(responseJSON => {
+            console.log(responseJSON);
+            //return registered user name and show login form
+            //this.renderRedirect('/login');
+            this.props.history.push('/login');
+        })
+        .catch(err => {
+            //const {reason, message, location} = err;
+            console.log('Error:' + err.reason + ' at ' + err.location);
+        });
+    }
+
+    submitlogin(username, password) {
+        console.log('app:submitlogin');
         const registereduser = {
             username: username,
             password: password
@@ -84,8 +130,19 @@ class App extends React.Component {
             body: JSON.stringify(registereduser)
         })
         .then(response => {
+            console.log('app: submitlogin: response', response);
             if(response.ok){
+                this.setState({
+                    errors:{}
+                });
+                console.log('tje form is valid');
                 return response.json();
+            } else {
+                //this.setState({
+           //     errors
+           // });
+                console.log('login name or password is wrong. try again');
+                throw new Error(response.status);
             }
         })
         .then(responseJSON => {
@@ -99,10 +156,12 @@ class App extends React.Component {
                 currentweek: 2,
                 nextweek: this.currentweek + 1,
                 authToken: responseJSON.authToken
-            })
-
+            });
             this.props.history.push('/dashboard');
         }) 
+        .catch((err) => {
+            console.log('Error:' + err.reason + ' at ' + err.location);
+        })
         
     }
 
@@ -526,6 +585,12 @@ class App extends React.Component {
         });
         document.getElementById(selTerm).setAttribute("class", "highlight");
     }
+
+    setlogin(e) {
+        e.preventDefault();
+        const currentState = this.state.islogin;
+        this.setState({ islogin: !currentState }); 
+    }
         
 
 
@@ -536,8 +601,11 @@ class App extends React.Component {
                     <main>
                         <Route exact path="/" render={() => <HomePage {...this.state}
                                                         renderRedirect={(newPath) => this.renderRedirect(newPath)}
-                                                        submitLogin={(username, password) => this.submitLogin(username, password)}
+                                                        setlogin={(e) => this.setlogin(e)}
+                                                        submitregistration={(firstName, lastName, username, password) => this.submitregistration(firstName, lastName, username, password)}
+                                                        submitlogin={(username, password) => this.submitlogin(username, password)}
                                                         />} /> 
+
                         <Route exact path="/navbar" render={() => <NavBar {...this.state} 
                                                         renderRedirect={(newPath) => this.renderRedirect(newPath)}
                                                         />} /> 
@@ -573,7 +641,7 @@ class App extends React.Component {
                         <Route exact path="/plan-next-week" render={() => <PlanNextWeek {...this.state}
                                                         renderRedirect={(newPath) => this.renderRedirect(newPath)}
                                                         />} /> 
-                        <Route exact path="/registration" component={RegistrationPage} />
+                       
                     </main>
                 </div>
             

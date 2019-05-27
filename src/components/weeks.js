@@ -19,7 +19,7 @@ export default class Weeks extends React.Component {
                 let weeks = this.props.currentweeks.map((week, index) => {
                         return (
                                 <div className="week-summary">
-                                                <div key={index} className="list-horizontal week">
+                                                <div key={index} className="row week">
                                                         <div className="item weeknum">
                                                                 <div className="item-label weeknum">Week Number</div>
                                                                 {week.weekNum}
@@ -45,7 +45,7 @@ export default class Weeks extends React.Component {
                                                                 {week.leastDifficult}
                                                         </div>
                                                 </div>
-                                                <div className="list-horizontal">
+                                                <div className="row">
                                                         {this.props.currentcourses.map((course, index) => {
                                                                         return (
                                                                                 <div key={index} className="item">

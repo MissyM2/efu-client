@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import './css/login-form.css';
 
 const LoginForm = ({ onSubmit, onChange, errors, user}) =>  (
  
@@ -11,10 +11,11 @@ const LoginForm = ({ onSubmit, onChange, errors, user}) =>  (
                     {errors.summary && <p className="error-message">{errors.summary}</p>}
 
                     
-                    <div className="field-line input-field">
+                    <div className="form-row">
+                        <label>Username:</label>
                         <input
                             placeholder="username"
-                            type="username"
+                            type="text"
                             name="username"
                             onChange={onChange}
                             className="validate"
@@ -22,7 +23,8 @@ const LoginForm = ({ onSubmit, onChange, errors, user}) =>  (
                             aria-label="username"
                         />
                     </div>
-                    <div className="field-line input-field">
+                    <div className="form-row">
+                        <label>Password:</label>
                         <input
                             placeholder="password"
                             type="password"
@@ -33,12 +35,11 @@ const LoginForm = ({ onSubmit, onChange, errors, user}) =>  (
                             aria-label="password"
                         />
                     </div>
-                    <div className="button-line">
+                    <div className="button-row">
                         <button type="submit" className="btn is-primary">Login</button>
                     </div>
-
-                    <div>Do not have an account? <Link to={'/register'}>Create One</Link></div>
                 </form>
+                
             </div>
         </main>
     );

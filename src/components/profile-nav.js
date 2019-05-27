@@ -62,7 +62,7 @@ export class ProfileNav extends React.Component {
                 <div className="section">
                     <h3>{this.props.title}</h3>
                     <nav className="term-menu">
-                        <ul className="list-horizontal">
+                        <ul className="row">
                             {terms}
                         </ul>
                     </nav> 

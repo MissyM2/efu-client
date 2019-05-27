@@ -1,2 +1,57 @@
 
 
+.row-deliverable,
+.row-week-list-labels,
+.row-section{
+    display:flex;
+    flex-direction: row;
+    list-style-type: none;
+    border: 1px solid yellow;
+  }
+
+.row-deliverable,
+.row-week-list-labels {
+    width: 100%;
+}
+
+.row-section {
+    width: 33.3%
+}
+
+.column-item {
+    width: 100%;
+}
+
+/* On screens that are 992px wide or less, go from four columns to two columns */
+@media screen and (max-width: 992px) {
+    .column-item {
+        width: 50%;
+    }
+  }
+  
+  /* On screens that are 600px wide or less, make the columns stack on top of each other instead of next to each other */
+  @media screen and (max-width: 600px) {
+    .row-deliverable {
+        flex-direction: column;
+    }
+
+    .row-section {
+        width: 100%
+    }
+
+    .column-item {
+        width: 50%;
+    }
+    .courseName,
+    .dueDate {
+        font-weight: bold;
+        color: var(--off-white-color);
+        background-color: var(--mossy-green-color);
+    }
+
+    .row-week-list-labels {
+        display: none;
+    }
+  }
+  
+

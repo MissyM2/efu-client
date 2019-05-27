@@ -31,7 +31,7 @@ export class Courses extends React.Component {
                 this is courses
                     <h2>{this.props.title}</h2>
                     <div className="course-section">
-                        <ul className="list-horizontal">
+                        <ul className="row">
                             {courses}
                         </ul>
                     </div>

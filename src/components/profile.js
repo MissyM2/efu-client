@@ -14,14 +14,14 @@ export default class Profile extends React.Component {
     render() {
         const myterms = this.props.terms.map((term, index) => {
             return (
-                <li key={index} >
+                <li className="column" key={index} >
                     <Term {...term} getselectedterm={this.props.getselectedterm} />
                 </li>
             );
         });
         const mycourses = this.props.currentcourses.map((course, index) => {
             return (
-                <li key={index}>
+                <li className="column" key={index}>
                     <Course {...course} {...this.props} submitupdatecourse={this.props.submitupdatecourse} submitdeletecourse={this.props.submitdeletecourse} />
                 </li>
             );
@@ -29,7 +29,7 @@ export default class Profile extends React.Component {
 
         const myweeks = this.props.currentweeks.map((week, index) => {
             return (
-                <li className="list-horizontal" key={index}>
+                <li className="row" key={index}>
                     <Week {...week} {...this.props} weekstatus="all" submitupdateweek={this.props.submitupdateweek} submitdeleteweek={this.props.submitdeleteweek} />
                 </li>
             );
@@ -42,7 +42,7 @@ export default class Profile extends React.Component {
                         <h3>My Profile for {this.props.currentterm}</h3>
                         <div className="terms">
                             <div className="section-label">Your Terms</div>
-                            <ul className="list-horizontal term-list">
+                            <ul className="row term-list ">
                                {myterms} 
                             </ul>
                             <div>
@@ -52,7 +52,7 @@ export default class Profile extends React.Component {
                         <hr />
                        <div className="courses">
                             <div className="section-label">Your Courses</div>
-                            <ul className="list-horizontal course-list">
+                            <ul className="row course-list ">
                                {mycourses} 
                                </ul>
                                <div>

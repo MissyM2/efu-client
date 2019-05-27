@@ -14,7 +14,7 @@ export default class ReviewCurrentWeek extends React.Component {
         let myweek = this.props.currentweekdetails;
         myweek = myweek.map((week, index) => {
             return (
-                <li className="list-horizontal" key={index}>
+                <li className="row" key={index}>
                     <Week {...week} {...this.props} weekstatus="one" submitupdateweek={this.props.submitUpdateWeek} submitdeleteweek={this.props.submitDeleteWeek} />
                 </li>
             );
