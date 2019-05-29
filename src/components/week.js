@@ -69,68 +69,86 @@ export default class Week extends React.Component {
         };
           
         return ( 
-            <div className="row with-delete-btn flex-wrap-row">
-                <div className="row with-weeknum-and-options flex-wrap-row">
-                    <div className="row-week-header">
-                        <div className="weekNum column">{this.props.weekNum}/{this.props.termDesc}</div>
+            <div className="column with-delete-btn flex-wrap-row">
+                <div>
+                    <div>
+                        <div className="weekNum column">Week {this.props.weekNum} / {this.props.termDesc}</div>
                     </div>
-                    <div className="list-vertical-week-options">
+                    <div>
                         <form onSubmit={this.handleUpdate}>
-                            <div className="row">
+                            <div className="profile-row">
+                                    <div className="row-section">
                                         <div className="week-option column">
                                                 <div className="item-label item">Liked Least</div>
-                                                <div className="item">{this.state.likedLeast}
-                                                <select
-                                                        className="item"
-                                                        type="text"
-                                                        defaultValue= {this.state.likedLeast}
-                                                        onChange={e => this.handleChange(e, "likedLeast")}>
-                                                            {mycoursedropdown}
-                                                    </select>
+                                                <div className="item">
+                                                    <div className="input-look">{this.state.likedLeast}</div>
+                                                    <div>
+                                                        <select
+                                                            className="item"
+                                                            type="text"
+                                                            defaultValue= {this.state.likedLeast}
+                                                            onChange={e => this.handleChange(e, "likedLeast")}>
+                                                                {mycoursedropdown}
+                                                        </select>
+                                                    </div>
+                                                    
                                                 </div>
                                         </div>
-                                        
                                         <div className="week-option column">
                                                 <div className="item-label item">Liked Most</div>
-                                                <div className="item">{this.state.likedMost}
-                                                    <select
-                                                            type="text"
-                                                            defaultValue= {this.state.likedMost}
-                                                            onChange={e => this.handleChange(e, "likedMost")}
-                                                            className="item">
-                                                                {mycoursedropdown}
-                                                    </select>
+                                                <div className="item">
+                                                    <div className="input-look">{this.state.likedMost}</div>
+                                                    <div>
+                                                        <select
+                                                                type="text"
+                                                                defaultValue= {this.state.likedMost}
+                                                                onChange={e => this.handleChange(e, "likedMost")}
+                                                                className="item">
+                                                                    {mycoursedropdown}
+                                                        </select>
+                                                    </div>
+                                                    
                                                 </div>
                                         </div>
-                                       
+                                    </div>
+                                    <div className="row-section">
                                         <div className="week-option column">
                                                 <div className="item-label item">Most Difficult</div>
-                                                <div className="item">{this.state.mostDifficult}
-                                                    <select
-                                                            type="text"
-                                                            defaultValue= {this.state.mostDifficult}
-                                                            onChange={e => this.handleChange(e, "mostDifficult")}
-                                                            className="item">
-                                                                {mycoursedropdown}
-                                                    </select>
+                                                <div className="item">
+                                                    <div className="input-look">{this.state.mostDifficult}</div>
+                                                    <div>
+                                                        <select
+                                                                type="text"
+                                                                defaultValue= {this.state.mostDifficult}
+                                                                onChange={e => this.handleChange(e, "mostDifficult")}
+                                                                className="item">
+                                                                    {mycoursedropdown}
+                                                        </select>
+                                                    </div>
+                                                    
                                                 </div>
                                         </div>
                                     
                                         <div className="week-option column">
                                                 <div className="item-label item">Least Difficult</div>
-                                                <div className="item">{this.state.leastDifficult}
-                                                    <select
-                                                            type="text"
-                                                            defaultValue= {this.state.leastDifficult}
-                                                            onChange={e => this.handleChange(e, "leastDifficult")}
-                                                            className="item">
-                                                                {mycoursedropdown}
-                                                    </select>
+                                                <div className="item">
+                                                    <div className="input-look">{this.state.leastDifficult}</div>
+                                                    <div>
+                                                        <select
+                                                                type="text"
+                                                                defaultValue= {this.state.leastDifficult}
+                                                                onChange={e => this.handleChange(e, "leastDifficult")}
+                                                                className="item">
+                                                                    {mycoursedropdown}
+                                                        </select>
+                                                    </div>
+                                                    
                                                 </div>
                                         </div>
+                                    </div>
                             </div>
                             <div className="item column">
-                                    <input className="btn update-btn center-btn" type="submit" value="Submit" />
+                                    <button className="update-btn center-btn" type="submit" value="Submit"><i class="far fa-save"></i></button>
                             </div> 
                         </form>   
                     </div>

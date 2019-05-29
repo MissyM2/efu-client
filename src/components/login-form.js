@@ -3,8 +3,8 @@ import './css/login-form.css';
 
 const LoginForm = ({ onSubmit, onChange, errors, user}) =>  (
  
-        <main>
-            <div className="container">
+        <div>
+            <div>
                 <form action="/" onSubmit = {e => {e.preventDefault(); onSubmit()}} >
                     <h3 className="heading">Login</h3>
 
@@ -41,7 +41,7 @@ const LoginForm = ({ onSubmit, onChange, errors, user}) =>  (
                 </form>
                 
             </div>
-        </main>
+        </div>
     );
 /*
     LoginForm.propTypes = {

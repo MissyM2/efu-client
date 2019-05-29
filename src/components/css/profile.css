@@ -14,12 +14,19 @@
     margin: 0 auto;
 }
 
-
 .course-section {
     display: flex;
     flex-direction: column;
     margin: 0 auto;
 }
+
+.profile-row {
+    display:flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+    justify-content: center;
+    list-style-type: none;
+  }
 
 
 .profile-list {
@@ -29,6 +36,19 @@
 .highlight {
     background-color:pink;
 }
+
+.section {
+    background-color: var( --darker-blue-color);
+    color: var(--off-white-color);
+    padding: 4px;
+    margin: 5px;
+    border-radius: 4px;
+  }
+
+  .course {
+      width: 200px;
+  }
+  
 
 
 

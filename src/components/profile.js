@@ -1,6 +1,9 @@
 import React from 'react';
+import './css/profile.css';
 
-import NavBar from './navbar';
+import NavBar from "./navbar";
+import SideDrawer from './side-drawer';
+import Backdrop from './backdrop';
 
 import AddForm from './add-form';
 import Term from './term';
@@ -12,16 +15,22 @@ import Week from './week';
 export default class Profile extends React.Component {
  
     render() {
+        let backdrop;
+
+        if(this.props.sideDrawerOpen) {
+            backdrop = <Backdrop click={this.props.backdropclickhandler} />
+        }
+
         const myterms = this.props.terms.map((term, index) => {
             return (
-                <li className="column" key={index} >
+                <li className="section" key={index} >
                     <Term {...term} getselectedterm={this.props.getselectedterm} />
                 </li>
             );
         });
         const mycourses = this.props.currentcourses.map((course, index) => {
             return (
-                <li className="column" key={index}>
+                <li className="section" key={index}>
                     <Course {...course} {...this.props} submitupdatecourse={this.props.submitupdatecourse} submitdeletecourse={this.props.submitdeletecourse} />
                 </li>
             );
@@ -29,20 +38,22 @@ export default class Profile extends React.Component {
 
         const myweeks = this.props.currentweeks.map((week, index) => {
             return (
-                <li className="row" key={index}>
+                <li className="section row" key={index}>
                     <Week {...week} {...this.props} weekstatus="all" submitupdateweek={this.props.submitupdateweek} submitdeleteweek={this.props.submitdeleteweek} />
                 </li>
             );
         });
 
         return (
-            <main>
+            <div className="container">
                 <NavBar {...this.props}/>
+                <SideDrawer show={this.props.sideDrawerOpen} />
+                {backdrop}
                 <div className="container">
                         <h3>My Profile for {this.props.currentterm}</h3>
                         <div className="terms">
                             <div className="section-label">Your Terms</div>
-                            <ul className="row term-list ">
+                            <ul className="profile-row term-list ">
                                {myterms} 
                             </ul>
                             <div>
@@ -52,26 +63,27 @@ export default class Profile extends React.Component {
                         <hr />
                        <div className="courses">
                             <div className="section-label">Your Courses</div>
-                            <ul className="row course-list ">
-                               {mycourses} 
-                               </ul>
-                               <div>
+                            <ul className="profile-row course-list ">
+                                    {mycourses} 
+                            </ul>
+                            <div>
                                 <AddForm type="course" {...this.props} submitaddcourse={this.props.submitaddcourse} />
-                               </div>
+                            </div>
                             
                         </div>
                         <hr />
                         <div className="weeks">
-                            <div className="section-label">Your Weeks</div>
-                                <ul className="list-vertical week-list">
+                            <h3 className="section-label">Your Weeks</h3>
+                            <p>To make a change, click the dropdown, make a new selection and click the save icon.</p>
+                            <ul className="list-vertical week-list">
                                 {myweeks} 
-                                </ul>
+                            </ul>
                             <div>
                                 <AddForm type="week" {...this.props} submitaddweek={this.props.submitaddweek} />
                             </div>
                     </div>
                 </div>
-            </main>
+            </div>
         );
 
     }

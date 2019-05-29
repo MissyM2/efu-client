@@ -1,11 +1,45 @@
 .week-summary {
     margin-top: 20px;
     margin-bottom: 20px;
-    border: 2px solid green;
+    border: 2px solid var( --med-blue-color);
+    border-radius: 4px;
+}
+
+.week {
+    padding: 5px;
+    border: 1px solid;
+    background-color: var(--dark-mossy-green-color);
+}
+
+.weeks-item-label {
+    width: 150px;
+    padding-top:5px;
+    padding-bottom:5px;
+}
+
+.courses {
+    padding: 5px;
+    border: 1px solid;
+    background-color: var(--mossy-green-color);
 }
 
 .weeks-section {
     display: flex;
     flex-direction: column;
+}
+
+.week-label {
+    background-color:var(--darker-off-white-color);
+    color: var(--darker-blue-color);
+    border: 1px solid var( --darkest-color);
+    border-radius:4px 4px 0 0 ;
+}
+
+.item-body {
+    border: 1px solid var( --darkest-color);
+    border-radius: 0 0 4px 4px;
+    color: var( --off-white-color);
+    padding-top:5px;
+    padding-bottom:5px;
 }
 

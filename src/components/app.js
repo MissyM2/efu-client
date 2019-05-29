@@ -36,9 +36,11 @@ class App extends React.Component {
             currentweeks: [],
             todaydeliverables:[],
             thisweekdeliverables:[],
+            sideDrawerOpen: false,
             error: null,
             loading:false
         }
+        this.initialState = { ...this.state };
         this.submitregistration = this.submitregistration.bind(this);
         this.submitlogin = this.submitlogin.bind(this);
         this.setlogin = this.setlogin.bind(this);
@@ -56,6 +58,9 @@ class App extends React.Component {
         this.submitdeleteweek=this.submitdeleteweek.bind(this);
         this.submitupdatecourse=this.submitupdatecourse.bind(this);
         this.submitupdateweek=this.submitupdateweek.bind(this);
+        this.drawertoggleclickhandler=this.drawertoggleclickhandler.bind(this);
+        this.backdropclickhandler=this.backdropclickhandler.bind(this);
+        
     }
 
     componentDidMount() {
@@ -163,6 +168,10 @@ class App extends React.Component {
             console.log('Error:' + err.reason + ' at ' + err.location);
         })
         
+    }
+
+    submitlogout() {
+        this.setState(this.initialState);
     }
 
     // GET functions
@@ -591,6 +600,18 @@ class App extends React.Component {
         const currentState = this.state.islogin;
         this.setState({ islogin: !currentState }); 
     }
+
+    drawertoggleclickhandler = () => {
+        this.setState((prevState) => {
+            return {sideDrawerOpen: !prevState.sideDrawerOpen};
+        });
+    }
+
+    backdropclickhandler = () => {
+        this.setState({
+            sideDrawerOpen: false
+        });
+    }
         
 
 
@@ -608,6 +629,7 @@ class App extends React.Component {
 
                         <Route exact path="/navbar" render={() => <NavBar {...this.state} 
                                                         renderRedirect={(newPath) => this.renderRedirect(newPath)}
+                                                        submitlogout= {() => this.submitlogout()}
                                                         />} /> 
                         <Route exact path="/dashboard" render={() => <Dashboard {...this.state}
                                                         renderRedirect={(newPath) => this.renderRedirect(newPath)}
@@ -618,6 +640,8 @@ class App extends React.Component {
                                                         getcurrentweeks={() => this.getcurrentweeks()}
                                                         getcurrentdeliverables={() => this.getcurrentdeliverables()}
                                                         getcurrentgrades={() => this.getcurrentgrades()}
+                                                        drawertoggleclickhandler={() => this.drawertoggleclickhandler()}
+                                                        backdropclickhandler = {() => this.backdropclickhandler()}
                                                         />} /> 
                         <Route exact path="/profile" render={() => <Profile {...this.state}
                                                         renderRedirect={(newPath) => this.renderRedirect(newPath)}
@@ -628,18 +652,26 @@ class App extends React.Component {
                                                         submitdeleteweek={(selectedweek) => this.submitdeleteweek(selectedweek)}
                                                         submitupdatecourse={(updatedcourse) => this.submitupdatecourse(updatedcourse)}
                                                         submitupdateweek={(updatedweek) => this.submitupdateweek(updatedweek)}
+                                                        drawertoggleclickhandler={() => this.drawertoggleclickhandler()}
+                                                        backdropclickhandler = {() => this.backdropclickhandler()}
                                                         />} /> 
                         <Route exact path="/weeks" render={() => <Weeks {...this.state}
                                                         renderRedirect={(newPath) => this.renderRedirect(newPath)}
                                                         getcurrentgrades={() => this.getcurrentgrades()}
+                                                        drawertoggleclickhandler={() => this.drawertoggleclickhandler()}
+                                                        backdropclickhandler = {() => this.backdropclickhandler()}
                                                         />} /> 
                         <Route exact path="/review-current-week" render={() => <ReviewCurrentWeek {...this.state}
                                                         renderRedirect={(newPath) => this.renderRedirect(newPath)}
                                                         submitupdateweek={(updatedweek) => this.submitupdateweek(updatedweek)}
                                                         submitaddgrade={(newgrade) => this.submitAddGrade(newgrade)}
+                                                        drawertoggleclickhandler={() => this.drawertoggleclickhandler()}
+                                                        backdropclickhandler = {() => this.backdropclickhandler()}
                                                         />} /> 
                         <Route exact path="/plan-next-week" render={() => <PlanNextWeek {...this.state}
                                                         renderRedirect={(newPath) => this.renderRedirect(newPath)}
+                                                        drawertoggleclickhandler={() => this.drawertoggleclickhandler()}
+                                                        backdropclickhandler = {() => this.backdropclickhandler()}
                                                         />} /> 
                        
                     </main>

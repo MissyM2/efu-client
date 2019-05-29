@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const RegistrationForm = ({ onSubmit, onChange, errors, user }) => (
-        <main>
-            <div className="container">
+        <div>
+            <div>
                 <form action="/" onSubmit={e => {e.preventDefault(); onSubmit()}}>
                     <h3 className="heading">Register</h3>
 
@@ -62,7 +62,7 @@ const RegistrationForm = ({ onSubmit, onChange, errors, user }) => (
                     </div>
                     </form>
             </div>
-        </main>
+        </div>
     );
 /*
     RegistrationForm.propTypes = {

@@ -12,6 +12,7 @@ export default class Term extends React.Component {
         return ( 
             <div>
                 <div 
+                    className="input-look"
                     id={this.props.termDesc}
                     onClick={(e) =>{
                     this.setSelectedTerm(e)}}>

@@ -1,15 +1,14 @@
 import React from 'react';
 
+import DrawerToggleButton from './drawer-toggle-button';
+import SideDrawer from './side-drawer';
+
 import './css/navbar.css';
 import { Link } from 'react-router-dom';
 
 export default class NavBar extends React.Component {
 
-    logout(e) {
-        localStorage.removeItem('token');
-        localStorage.removeItem('username');
-        localStorage.removeItem('authToken');
-    }
+    
 
     myFunction() {
         var x = document.getElementById("mainNavbar");
@@ -28,49 +27,27 @@ export default class NavBar extends React.Component {
 
 
     render(){
-/*
-        <div class="topnav" id="myTopnav">
-            <a href="#home" class="active">Home</a>
-            <a href="#news">News</a>
-            <a href="#contact">Contact</a>
-            <a href="#about">About</a>
-            <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-                <i class="fa fa-bars"></i>
-            </a>
-        </div>
-*/
+        console.log('navbar: this.props', this.props);
+
         return (
             <header className="navbar">
             <nav className="navbar_navigation" role="navigation" aria-label="navbar_navigation">
-                <div></div>
-                <div className="navbar_logo"> <Link className="logo item btn is-primary dashboard" to="/dashboard">
-                                                <strong>DASHBOARD HOME</strong>
-                                        </Link>
+                <div className="navbar_toggle-button">
+                    <DrawerToggleButton click={this.props.drawertoggleclickhandler} />
                 </div>
+                <div className="navbar_logo">
+                        <Link className="link logo" to="/dashboard">
+                                DASHBOARD
+                        </Link>
+                </div>
+                <div className="spacer" />
                         <div>
-                            {this.props.loggedIn !== true ? (
-                                <div className="navbar_navigation-items">
-                                    <ul>
-                                        <li>
-                                            <Link className="navitem item btn is-primary" to="/registration">
-                                                <strong>Sign up</strong>
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <Link className="navitem item btn is-light" to="/login">
-                                                Log in
-                                            </Link>
-                                        </li>
-                                    </ul>
-                                    
-                                   
-                                </div>
-                            ) : (
+                            {this.props.loggedIn === true ? (
                                 <div className="navbar_navigation-items">
                                     <ul>
                                         <li>
                                             <Link 
-                                                className="navitem item btn is-primary" 
+                                                className="link navitem item btn" 
                                                 to={{
                                                     pathname: '/weeks'
                                                     }
@@ -81,7 +58,7 @@ export default class NavBar extends React.Component {
                                         </li>
                                         <li>
                                             <Link 
-                                                className="navitem item btn is-primary" 
+                                                className="link navitem item btn" 
                                                 to={{
                                                     pathname: '/profile',
                                                     state: {
@@ -92,39 +69,14 @@ export default class NavBar extends React.Component {
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link className="navitem item btn is-light" onClick={this.logout} to="/">
+                                            <Link className="link navitem item btn is-light" onClick={this.props.submitlogout} to="/">
                                                 Log out
                                             </Link>
                                         </li>
-
                                     </ul>
-                                       
-                                        <Link 
-                                            className="navitem tem btn is-primary" 
-                                            to={{
-                                                pathname: '/review-current-week',
-                                                state: {
-                                                    weekstatus: 'one'
-                                            }}}
-                                            >
-                                            review
-                                        </Link>
-                                        <Link 
-                                            className="navitem item btn is-primary" 
-                                            to={{
-                                                pathname: '/plan-next-week'
-                                            }}
-                                            >
-                                            plan
-                                        </Link>
-                                        
-                                        
-                                       
-                                        <a href="javascript:void(0);" className="icon" onClick={this.myFunction()}>
-                                            <i className="fa fa-bars"></i>
-                                        </a>
-                                            
                                 </div>
+                                ) : (
+                                    <div>this is a joke</div>
                                 )
                             }
                         </div>

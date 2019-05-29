@@ -1,0 +1,10 @@
+
+.course-item {
+    width: 100%;
+    text-align: center;
+    padding: 2px;
+    background-color: var(--light-gray-color);
+}
+
+
+

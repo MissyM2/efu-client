@@ -2,7 +2,12 @@
     box-sizing: border-box;
   }
 
+  html {
+    height: 100%;
+  }
+
   :root{
+    --darkest-color: black;
     --dark-mossy-green-color: #2B423B;
     --mossy-green-color: #687864;
     --darker-blue-color: #31708E;
@@ -12,17 +17,18 @@
     --darker-off-white-color: #dee0e2;
     --pale-green-accent-color: #A9BF78;
     --header-font-family: 'Cantata One', serif;
-    --body-font-family:'Imprima', sans-serif;;
+    --body-font-family:'Imprima', sans-serif;
+    --light-gray-color: #dee0e2;
 }
 
 
   .container {
-    margin: 0 auto;
+    margin: 0 20px;
+    padding: 20px;
   }
 
   .fifty-percent-container {
     width: 50%;
-    border: 1px solid pink;
     margin: 0 auto;
     padding: 10px;
 }
@@ -35,7 +41,7 @@
     text-align: center;
     line-height: 1.5;
     margin:0 auto;
-    border: 1px solid;
+    height: 100%;
     width: 100%;
   }
   
@@ -73,18 +79,13 @@
     padding: 3px;
   }
 
-  .item-label {
-    font-family: var(--body-font-family);
-    color: var(--darker-blue-color);
-    font-weight: bold;
-    background-color: var(--darker-off-white-color);
-  }
+  
 
   .section-label {
     font-family: var(--body-font-family);
-    color: var(--darker-blue-color);
+    color: var( --off-white-color);
     font-weight: bold;
-    font-size: 14px;
+    font-size: 16px;
     padding-top: 10px;
     padding-bottom: 10px;
 
@@ -95,20 +96,35 @@
     padding-bottom: 40px;
   }
 
+ 
+
+  .courses,
+  .weeks,
+  .terms,
+  .deliverables,
+  .grades {
+    padding: 5px;
+    background-color: var(--mossy-green-color);
+    border-radius: 4px;
+    margin:5px;
+}
+
   .accent {
     color: var( --pale-green-accent-color);
-    background-color: var(--med-blue-color);
     padding-top: 10px;
     padding-bottom: 10px;
+    font-size:18px;
+    font-weight: bold;
   }
   
   ul {
     list-style-type: none;
+    margin:0;
+    padding:0;
   }
 
   li {
     margin: 0 auto;
-    border: 1px solid lightseagreen;
   }
 
   textarea {
@@ -133,7 +149,6 @@
     padding-bottom: 4px;
     text-align:center;
     width: 100%;
-    border: 1px solid red;
   }
 
   .item-label {
@@ -142,15 +157,42 @@
     padding-top: 10px;
     padding-bottom: 10px;
     width: 100%;
-    border: 1px solid red;
+    font-family: var(--body-font-family);
+    font-weight: bold;
+  }
+
+  .color-dark-blue {
+    color: var( --darker-blue-color);
+  }
+
+  .color-dark {
+    color: var(--darkest-color);
+  }
+
+  .color-light {
+    color: var(  --off-white-color);
+  }
+
+  .background-color-green {
+    background-color: var( --mossy-green-color);
+  }
+
+  .background-color-blue {
+    background-color: var( --darker-blue-color);
+  
+  }
+
+  .background-color-gray {
+    background-color: var( --light-gray-color);
+  
   }
 
   .center {
     margin-left: auto;
     margin-right: auto;
     text-align: center;
-    border: 1px solid pink;
   }
+
   .instructions {
     margin-top: 20px;
     margin-bottom: 20px;
@@ -161,7 +203,8 @@
   }
 
   main {
-    border: 1px solid;
+    padding-top: 60px;
+    padding-bottom: 20px;
   }
 
   .subtitle {
@@ -290,7 +333,6 @@
   }
 
   .basic-btn {
-    border: 1px solid gray; 
     border-radius: 3px;
     background-color: lightgray;
   }
@@ -304,9 +346,7 @@
     padding:4px;
   }
 
-  .basic-input {
-    border: 1px solid;
-  }
+
 
   .deliverable-types {
     display:flex;
@@ -340,6 +380,15 @@
     
   }
 
+  .input-look {
+    color: var(--darkest-color);
+    background-color: var( --darker-off-white-color);
+    border-width: 2px;
+    border-style: inset;
+    border-color: initial;
+    border-image: initial;
+  }
+
   .far {
     font-size: 18px;
     margin: 6px;
@@ -353,9 +402,11 @@
     display:flex;
     flex-direction: row;
     list-style-type: none;
-    border: 1px solid yellow;
+    justify-content:center;
 
   }
+
+
   /*
   .row {
     display:flex;
@@ -369,7 +420,7 @@
 
   .column {
     flex: 15%;
-    padding: 20px;
+    padding: 5px;
   }
 
   
@@ -378,7 +429,6 @@
     display:flex;
     flex-direction: row;
     list-style-type: none;
-    border: 1px solid yellow;
     margin:0 auto;
     width: 30%;
   }
@@ -387,12 +437,11 @@
     display:flex;
     flex-direction: column;
     list-style-type: none;
-    border: 1px solid yellow;
     margin: 0 auto;
     width: 100%;
   }
 
-  .flex-wrap-row {
+.flex-wrap-row {
     flex-wrap:wrap;
 }
 
@@ -425,13 +474,13 @@
 }
 
 
-/* On screens that are 992px wide or less, go from four columns to two columns */
+/* On screens that are 992px wide or less, go from four columns to two columns 
 @media screen and (max-width: 992px) {
   .column {
     flex: 30%;
   }
 }
-
+*/
 /* On screens that are 600px wide or less, make the columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 600px) {
   .row {
@@ -439,9 +488,17 @@
     width: 100%;
   }
 
+  .row-section {
+    width: 100%
+}
+
+  .container {
+    margin: 0;
+    padding:0;
+  }
+
   .fifty-percent-container {
     width: 100%;
-    border: 1px solid pink;
     margin: 0 auto;
     padding: 10px;
   }

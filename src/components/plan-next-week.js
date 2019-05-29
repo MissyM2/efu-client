@@ -1,5 +1,8 @@
 import React from 'react';
+
 import NavBar from "./navbar";
+import SideDrawer from './side-drawer';
+import Backdrop from './backdrop';
 
 import {API_BASE_URL} from '../config';
 
@@ -52,9 +55,17 @@ export default class PlanNextWeek extends React.Component {
 
          //    {courseDels}
         render() {
+                let backdrop;
+
+                if(this.props.sideDrawerOpen) {
+                    backdrop = <Backdrop click={this.props.backdropclickhandler} />
+                }
+
                 return (
-                        <main>
+                        <div className="container">
                                 <NavBar {...this.props} />
+                                <SideDrawer show={this.props.sideDrawerOpen} />
+                                {backdrop}
                                 <div className="container">
                                         <h2>Plan for Next Week, Week Number {this.props.nextweek}</h2>
                                         <div className="courses-deliverables">
@@ -116,7 +127,7 @@ export default class PlanNextWeek extends React.Component {
                                                 </button>
                                         </form>   
                                 </div>
-                        </main>
+                        </div>
                         
                 );
 
