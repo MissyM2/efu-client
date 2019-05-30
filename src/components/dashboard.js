@@ -3,6 +3,7 @@ import './css/dashboard.css';
 import { Link } from 'react-router-dom';
 
 import NavBar from "./navbar";
+import Deliverable from './deliverable';
 import SideDrawer from './side-drawer';
 import Backdrop from './backdrop';
 import Modal from './modal';
@@ -25,6 +26,14 @@ export default class Dashboard extends React.Component {
         if(this.props.sideDrawerOpen) {
             backdrop = <Backdrop click={this.props.backdropclickhandler} />
         }
+
+        const weekdeliverables = this.props.thisweekdeliverables.map((deliverable, index) => {
+            return (
+                <ul key={index} className="row-deliverable ">
+                        <Deliverable deliverable={deliverable} />                                                        
+                </ul>
+            );
+    })
         //console.log('this.state.', this.state);
 
         //const {suggestion, loading} = this.state;
@@ -137,43 +146,7 @@ export default class Dashboard extends React.Component {
                             </ul>
                                    
                             <div>
-                                {this.props.thisweekdeliverables
-                                        .map((deliverable, index) => {
-                                            return (
-                                                <ul key={index} className="row-deliverable ">
-                                                        <div className="deliverable-sub-section sec-one">
-                                                            <li className="item-label weeks-item-label courseName">
-                                                                {deliverable.courseName}
-                                                            </li>
-                                                        </div>
-                                                        <div className="deliverable-sub-section sec-two">
-                                                            <li className="item-label weeks-item-label dueDate">
-                                                                {deliverable.dueDate}
-                                                            </li>
-                                                            <li className="item-label weeks-item-label pressure">{
-                                                                deliverable.pressure}
-                                                            </li>
-                                                            <li className="item-label weeks-item-label prephrs">
-                                                                {deliverable.prephrs}
-                                                            </li>
-                                                        </div>
-                                                        <div className="deliverable-sub-section sec-three">
-                                                            <li className="item-label weeks-item-labelcolumn-item deliverableName">
-                                                                {deliverable.deliverableName}
-                                                            </li>
-                                                        </div>
-                                                        <div className="deliverable-sub-section sec-four">
-                                                            <li className="item-label weeks-item-labelcolumn-item desc">
-                                                                {deliverable.desc}
-                                                            </li> 
-                                                        </div>
-                                                            
-                                                        
-                                                        
-                                                                                                              
-                                                </ul>
-                                            );
-                                    })}
+                                {weekdeliverables}
                             </div>  
                         </div>
                     </div> 
