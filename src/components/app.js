@@ -164,6 +164,7 @@ class App extends React.Component {
             }
         })
         .then(responseJSON => {
+            console.log('app:login, responseJSON', responseJSON);
             this.setState({
                 currentusername: username,
                 password: password,
