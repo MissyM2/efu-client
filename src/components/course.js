@@ -52,8 +52,8 @@ export default class Course extends React.Component {
                                 </input>
                             </div>
                             <div>
-                                <button className="update-btn center-btn" type="button" value="Update"><i class="far fa-edit"></i></button>
-                                <button className="delete-btn center-btn" onClick={(e) => this.setDelete(e)}><i class="far fa-trash-alt"></i></button>
+                                <button className="update-btn center-btn" type="button" value="Update"><i className="far fa-edit"></i></button>
+                                <button className="delete-btn center-btn" onClick={(e) => this.setDelete(e)}><i className="far fa-trash-alt"></i></button>
                             </div>
                     </div>
                     

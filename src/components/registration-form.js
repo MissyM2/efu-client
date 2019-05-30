@@ -1,24 +1,27 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
-const RegistrationForm = ({ onSubmit, onChange, errors, user }) => (
-        <div>
-            <div>
-                <form action="/" onSubmit={e => {e.preventDefault(); onSubmit()}}>
+import './css/home-page.css';
+
+class RegistrationForm extends React.Component {
+
+    render() {
+        return (
+            <React.Fragment>
+                <form action="/" onSubmit={e => {e.preventDefault(); this.props.onSubmit()}}>
                     <h3 className="heading">Register</h3>
 
-                    {errors.summary && <p className="error-message">{errors.summary}</p>}
+                    {this.props.errors.summary && <p className="error-message">{this.props.errors.summary}</p>}
 
                     <div className="form-row">
                         <label>First Name:</label>
                         <input
                             placeholder="firstname"
                             type="text"
-                            name="firstname"
-                            onChange={onChange}
+                            name="firstName"
+                            onChange={this.props.onChange}
                             className="validate"
-                            value={user.firstName}
-                            aria-label="firstname"
+                            defaultValue=""
+                            aria-label="firstName"
                         />
                     </div>
                     <div className="form-row">
@@ -26,11 +29,11 @@ const RegistrationForm = ({ onSubmit, onChange, errors, user }) => (
                         <input
                             placeholder="lastname"
                             type="text"
-                            name="lastname"
-                            onChange={onChange}
+                            name="lastName"
+                            onChange={this.props.onChange}
                             className="validate"
-                            value={user.lastName}
-                            aria-label="lastname"
+                            defaultValue=""
+                            aria-label="lastName"
                         />
                     </div>
                     <div className="form-row">
@@ -39,9 +42,9 @@ const RegistrationForm = ({ onSubmit, onChange, errors, user }) => (
                             placeholder="username"
                             type="username"
                             name="username"
-                            onChange={onChange}
+                            onChange={this.props.onChange}
                             className="validate"
-                            value={user.username}
+                            defaultValue=""
                             aria-label="username"
                         />
                     </div>
@@ -51,9 +54,9 @@ const RegistrationForm = ({ onSubmit, onChange, errors, user }) => (
                             placeholder="password"
                             type="password"
                             name="password"
-                            onChange={onChange}
+                            onChange={this.props.onChange}
                             className="validate"
-                            value={user.password}
+                            defaultValue=""
                             aria-label="password"
                         />
                     </div>
@@ -61,16 +64,11 @@ const RegistrationForm = ({ onSubmit, onChange, errors, user }) => (
                         <button type="submit" className="btn is-primary" >Create New Account</button>
                     </div>
                     </form>
-            </div>
-        </div>
-    );
-/*
-    RegistrationForm.propTypes = {
-        onSubmit: PropTypes.func.isRequired,
-        onChange: PropTypes.func.isRequired,
-        errors: PropTypes.object.isRequired,
-        user: PropTypes.object.isRequired
-    };
-*/
-    export default RegistrationForm;
+            </React.Fragment>
+        );
+    }
+}
+        
+
+export default RegistrationForm;
 

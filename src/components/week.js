@@ -47,7 +47,6 @@ export default class Week extends React.Component {
     }
 
     render() {
-        console.log('week: this.props', this.props);
       /*  let mycourselist = [];
         if (this.state.weekstatus === "one") {
             mycourselist = this.state.location.props.currentcoursedropdown;
@@ -63,7 +62,6 @@ export default class Week extends React.Component {
             );
         });
         let deleteButton;
-        console.log('week: weekstatus');
         if(this.props.weekstatus === 'all') {
             deleteButton = <button className="btn delete-btn" onClick={(e) => this.setDelete(e)}>Delete Week</button>;
         };

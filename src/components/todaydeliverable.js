@@ -2,7 +2,7 @@ import React from 'react';
 
 import './css/deliverable.css';
 
-export default class Deliverable extends React.Component {
+export default class TodayDeliverable extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -11,7 +11,7 @@ export default class Deliverable extends React.Component {
 
         return (
                 <React.Fragment>
-                    <div className="deliverable-sub-section sec-one">
+                   <div className="deliverable-sub-section sec-one">
                         <li className="item-label weeks-item-label courseName">
                             {this.props.deliverable.courseName}
                         </li>

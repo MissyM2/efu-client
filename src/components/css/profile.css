@@ -33,9 +33,6 @@
     list-style-type: square;
 }
 
-.highlight {
-    background-color:pink;
-}
 
 .section {
     background-color: var( --darker-blue-color);

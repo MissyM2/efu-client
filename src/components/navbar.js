@@ -8,24 +8,6 @@ import { Link } from 'react-router-dom';
 
 export default class NavBar extends React.Component {
 
-    
-
-    myFunction() {
-        var x = document.getElementById("mainNavbar");
-        console.log('navbar: myFunction, x', x);
-        /*
-        if (x.className === "navbar-menu") {
-          x.className += " responsive";
-          console.log('navbar: myFunction, x.className', x.className);
-
-        } else {
-          x.className = "navbar-menu";
-          console.log('navbar: myFunction, x.className', x.className);
-        }
-        */
-      }
-
-
     render(){
 
         return (

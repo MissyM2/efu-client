@@ -4,11 +4,14 @@ import './css/side-drawer.css';
 
 import { Link } from 'react-router-dom';
 
-const SideDrawer = props => {
-    let drawerClasses = 'side-drawer';
-    if (props.show) {
-        drawerClasses = 'side-drawer open';
-    }
+export default class SideDrawer extends React.Component {
+
+   
+    render() {
+        let drawerClasses = 'side-drawer';
+        if (this.props.show) {
+            drawerClasses = 'side-drawer open';
+        }
     return (
             <nav className={drawerClasses}>
                 <ul>
@@ -36,13 +39,14 @@ const SideDrawer = props => {
                         </Link>
                     </li>
                     <li className="logout" href="/">
-                        <Link className="link-logout is-light" onClick={props.submitlogout} to="/">
+                        <Link className="link-logout is-light" onClick={this.props.submitlogout} to="/">
                             Log out
                         </Link>
                     </li>
                 </ul>
             </nav>
-    );
-}
+        );
 
-export default SideDrawer;
+    }
+    
+}

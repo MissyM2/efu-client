@@ -1,4 +1,7 @@
 import React from 'react';
+
+import './css/home-page.css';
+
 import RegistrationForm from './registration-form';
 
 class RegistrationPage extends React.Component {
@@ -24,16 +27,23 @@ class RegistrationPage extends React.Component {
         this.setState({
             user
         });
+        console.log('registration-page: this.state.user', this.state.user);
+        
     }
 
     
 
     render() {
-        console.log('registration-page: this.props.islogin', this.props.islogin);
         return (
             <div>
                 <RegistrationForm
-                    onSubmit={(firstName, lastName, username, password) => this.props.submitRegistration(firstName, lastName, username, password)}
+                    onSubmit={
+                        (firstName, lastName, username, password) => this.props.submitregistration(
+                            this.state.user.firstName, 
+                            this.state.user.lastName, 
+                            this.state.user.username, 
+                            this.state.user.password
+                    )}
                     onChange={(field) => this.changeUser(field)}
                     errors={this.state.errors}
                     user={this.state.user}

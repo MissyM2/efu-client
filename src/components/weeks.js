@@ -27,9 +27,9 @@ export default class Weeks extends React.Component {
                 let weeks = this.props.currentweeks.map((week, index) => {
                         return (
                                 <div className="weeks">
-                                                <div key={index} className="row">
-                                                        <div className="row-section">
-                                                                <div className="section likedLeast ">
+                                                <ul key={index} className="row">
+                                                        <li className="weeks-section">
+                                                                <div className="section likedLeast">
                                                                         <div className="weeks-item-label week-label likedLeast">liked Least</div>
                                                                         <div className="item-body">{week.likedLeast}</div>
                                                                 </div>
@@ -37,8 +37,8 @@ export default class Weeks extends React.Component {
                                                                         <div className="weeks-item-label week-label likedMost">Liked Most</div>
                                                                         <div className="item-body">{week.likedMost}</div>
                                                                 </div>
-                                                        </div>
-                                                        <div className="row-section">
+                                                        </li>
+                                                        <li className="weeks-section">
                                                                 <div className="section mostDifficult">
                                                                         <div className="weeks-item-label week-label mostDifficult">Most Difficult</div>
                                                                         <div className="item-body">{week.mostDifficult}</div>
@@ -47,11 +47,8 @@ export default class Weeks extends React.Component {
                                                                         <div className="weeks-item-label week-label leastDifficult">Least Difficult</div>
                                                                         <div className="item-body">{week.leastDifficult}</div>
                                                                 </div>
-                                                        </div>
-                                                        
-                                                        
-                                                        
-                                                </div>
+                                                        </li>
+                                                </ul>
                                                 <div className="section-label">Courses and Grades</div>
                                                 <div className="row">
                                                         

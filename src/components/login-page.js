@@ -1,4 +1,7 @@
 import React from 'react';
+
+import './css/home-page.css';
+
 import LoginForm from './login-form';
 
 class LoginPage extends React.Component {

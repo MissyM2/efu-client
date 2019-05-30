@@ -1,2 +1,72 @@
+.deliverable-sub-section {
+    display:flex;
+    flex-direction:row;
+    border: 1px solid;
+}
 
+.deliverable-sub-section li {
+    background-color:var(--darker-off-white-color);
+    color: var(--darker-blue-color);
+}
 
+.sec-one{
+    width: 20%;
+}
+
+.sec-two {
+    width: 40%;
+}
+
+.sec-three {
+    width: 15%
+}
+.sec-four {
+    width: 25%;
+}
+
+.courseName,
+.deliverableName,
+.deliverableDesc {
+    text-align:left;
+    padding-left: 8px;
+}
+
+.dueDate,
+.prephrs,
+.week-list-label {
+    text-align:center;
+}
+
+@media screen and (max-width: 600px) {
+
+    .deliverable-sub-section {
+        flex-direction:column;
+        border: 1px solid;
+    }
+    .sec-two {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .sec-one,
+    .sec-two,
+    .sec-three,
+    .sec-four {
+        width: 100%;
+    }
+
+    .courseName,
+    .deliverableName {
+       text-align: center;
+    }
+
+    .row-deliverable li.courseName {
+        font-size: 14px;
+        background-color:var(--mossy-green-color);
+        color: var(--off-white-color);
+    }
+
+    .row-deliverable li.dueDate {
+        font-weight: bold;
+    }
+}

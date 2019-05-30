@@ -25,7 +25,8 @@
 
 .weeks-section {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    content-justify:wrap;
 }
 
 .week-label {

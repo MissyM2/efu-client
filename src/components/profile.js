@@ -15,16 +15,17 @@ import Week from './week';
 export default class Profile extends React.Component {
  
     render() {
+        console.log('profile: this.props', this.props);
         let backdrop;
 
         if(this.props.sideDrawerOpen) {
             backdrop = <Backdrop click={this.props.backdropclickhandler} />
         }
 
-        const myterms = this.props.terms.map((term, index) => {
+        const allterms = this.props.terms.map((term, index) => {
             return (
-                <li className="section" key={index} >
-                    <Term {...term} getselectedterm={this.props.getselectedterm} />
+                <li key={index} >
+                    <Term {...term} {...this.props} />
                 </li>
             );
         });
@@ -51,16 +52,12 @@ export default class Profile extends React.Component {
                 {backdrop}
                 <div className="container">
                         <h3>My Profile for {this.props.currentterm}</h3>
-                        <div className="terms">
-                            <div className="section-label">Your Terms</div>
-                            <ul className="profile-row term-list ">
-                               {myterms} 
+                        <div>
+                            <div className="section-label">Available Terms</div>
+                            <ul className="profile-row">
+                               {allterms} 
                             </ul>
-                            <div>
-                                <AddForm type="term" {...this.props} submitaddterm={this.props.submitaddterm}   />
-                            </div>
                         </div>
-                        <hr />
                        <div className="courses">
                             <div className="section-label">Your Courses</div>
                             <ul className="profile-row course-list ">
@@ -71,7 +68,6 @@ export default class Profile extends React.Component {
                             </div>
                             
                         </div>
-                        <hr />
                         <div className="weeks">
                             <h3 className="section-label">Your Weeks</h3>
                             <p>To make a change, click the dropdown, make a new selection and click the save icon.</p>

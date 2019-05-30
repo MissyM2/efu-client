@@ -45,6 +45,7 @@ class App extends React.Component {
         this.submitregistration = this.submitregistration.bind(this);
         this.submitlogin = this.submitlogin.bind(this);
         this.setlogin = this.setlogin.bind(this);
+        this.getcurrentterm=this.getcurrentterm.bind(this);
         this.getcurrentterms=this.getcurrentterms.bind(this);
         this.getcurrentsuggestion=this.getcurrentsuggestion.bind(this);
         this.getcurrentcourses=this.getcurrentcourses.bind(this);
@@ -72,10 +73,6 @@ class App extends React.Component {
         this.getcurrentdate();
     }
 
-    //renderRedirect = (newPath) => {
-   //     window.location.href = newPath;
-    //}
-
     getcurrentterm(term) {
         console.log('app: getcurrentterm, term', term);
         
@@ -95,14 +92,13 @@ class App extends React.Component {
     }
 
    submitregistration(firstName, lastName, username, password) {
-
         const newuser = {
             firstName: firstName,
             lastName: lastName,
             username: username,
             password: password
         }
-        console.log(newuser);
+        console.log("app: submitregistration, newuser", newuser);
         console.log("Clicked submit registration");
         fetch(`${API_BASE_URL}/users`, {
             method: 'POST',
@@ -127,8 +123,7 @@ class App extends React.Component {
         .then(responseJSON => {
             console.log(responseJSON);
             //return registered user name and show login form
-            //this.renderRedirect('/login');
-            this.props.history.push('/login');
+           this.submitlogin(newuser.username, newuser.password);
         })
         .catch(err => {
             //const {reason, message, location} = err;
@@ -670,7 +665,7 @@ class App extends React.Component {
                                                         />} /> 
                         <Route exact path="/profile" render={() => <Profile {...this.state}
                                                         renderRedirect={(newPath) => this.renderRedirect(newPath)}
-                                                        submitaddterm={(newterm) => this.submitaddterm(newterm)}
+                                                        getcurrentterm={(selectedterm) => this.getcurrentterm(selectedterm)}
                                                         submitaddcourse={(newcourse) => this.submitaddcourse(newcourse)}
                                                         submitaddweek={(newweek) => this.submitaddweek(newweek)}
                                                         submitdeletecourse={(selectedcourse) => this.submitdeletecourse(selectedcourse)}
