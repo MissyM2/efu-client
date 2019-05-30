@@ -5,12 +5,7 @@ import LoginPage from './login-page';
 import RegistrationPage from './registration-page';
 
 class HomePage extends React.Component {
-
-
-   
-
     render() {
-        console.log('home-page: this.props', this.props);
         return (
               <div className="container">
                     <div className="fifty-percent-container">

@@ -25,6 +25,7 @@ class App extends React.Component {
             currentweek: "",
             currentweekdetails:[],
             currentdate:"",
+            selectingterm:false,
             currentterm: "",
             nextweek: "",
             currentsuggestion:[],
@@ -60,6 +61,10 @@ class App extends React.Component {
         this.submitupdateweek=this.submitupdateweek.bind(this);
         this.drawertoggleclickhandler=this.drawertoggleclickhandler.bind(this);
         this.backdropclickhandler=this.backdropclickhandler.bind(this);
+        this.modalconfirmhandler=this.modalconfirmhandler.bind(this);
+        this.modalcancelhandler=this.modalcancelhandler.bind(this);
+       
+        
         
     }
 
@@ -71,11 +76,22 @@ class App extends React.Component {
    //     window.location.href = newPath;
     //}
 
-    getcurrentterm = () => {
+    getcurrentterm(term) {
+        console.log('app: getcurrentterm, term', term);
         
         this.setState({
-            currentterm: 'Spring, 2019'
+            currentterm: term
         });
+
+        this.getcurrentsuggestion();
+        this.getcurrentdeliverables(); 
+       
+        this.getcurrentcourses();
+        this.getcurrentweeks();
+        this.getcurrentgrades();
+
+        this.setState({selectingterm:false});
+         //document.getElementById(selTerm).setAttribute("class", "highlight");
     }
 
    submitregistration(firstName, lastName, username, password) {
@@ -121,7 +137,6 @@ class App extends React.Component {
     }
 
     submitlogin(username, password) {
-        console.log('app:submitlogin');
         const registereduser = {
             username: username,
             password: password
@@ -135,12 +150,10 @@ class App extends React.Component {
             body: JSON.stringify(registereduser)
         })
         .then(response => {
-            console.log('app: submitlogin: response', response);
             if(response.ok){
                 this.setState({
                     errors:{}
                 });
-                console.log('tje form is valid');
                 return response.json();
             } else {
                 //this.setState({
@@ -157,10 +170,11 @@ class App extends React.Component {
                 loggedIn: true,
                 error: null,
                 loading: true,
-                currentterm: "Spring, 2019",
+                //currentterm: "Spring, 2019",
                 currentweek: 2,
                 nextweek: this.currentweek + 1,
-                authToken: responseJSON.authToken
+                authToken: responseJSON.authToken,
+                selectingterm: true
             });
             this.props.history.push('/dashboard');
         }) 
@@ -298,12 +312,10 @@ class App extends React.Component {
             const thisweek = responseJSON.filter(week => {
                 return week.termDesc === this.state.currentterm && week.weekNum ===this.state.currentweek;
             });
-            console.log('app: thisweek', thisweek);
             this.setState({
                 currentweeks: tempweeks,
                 currentweekdetails: thisweek
             });
-            console.log('app: this.state.currentweekdetails',this.state.currentweekdetails);
         })
         .catch((err) => {
             console.log(err);
@@ -587,13 +599,6 @@ class App extends React.Component {
             console.log(err);
         });
     }
-        
-    getSelectedTerm(selTerm){
-        this.setState({
-            currentterm: selTerm
-        });
-        document.getElementById(selTerm).setAttribute("class", "highlight");
-    }
 
     setlogin(e) {
         e.preventDefault();
@@ -612,6 +617,22 @@ class App extends React.Component {
             sideDrawerOpen: false
         });
     }
+
+    modalconfirmhandler =() => {
+        //different function:  when you click on one of the terms, put the currentTarget into a variable
+        // set the state with the variable
+        //filter the data
+        //close the modal on the confirm button.
+       
+        this.setState({selectingterm:false});
+        console.log('click went to modalconfirmhandler', this.state.selectingterm);
+    }
+
+    modalcancelhandler = () => {
+        this.setState({selectingterm:false});
+        console.log('click went to modalCANCELhandler', this.state.selectingterm);
+    }
+
         
 
 
@@ -633,7 +654,7 @@ class App extends React.Component {
                                                         />} /> 
                         <Route exact path="/dashboard" render={() => <Dashboard {...this.state}
                                                         renderRedirect={(newPath) => this.renderRedirect(newPath)}
-                                                        getcurrentterm={() => this.getCurrentTerm()}
+                                                        getcurrentterm={(term) => this.getcurrentterm(term)}
                                                         getcurrentsuggestion={() => this.getcurrentsuggestion()}
                                                         getcurrentterms={() => this.getcurrentterms()}
                                                         getcurrentcourses={() => this.getcurrentcourses()}
@@ -642,6 +663,9 @@ class App extends React.Component {
                                                         getcurrentgrades={() => this.getcurrentgrades()}
                                                         drawertoggleclickhandler={() => this.drawertoggleclickhandler()}
                                                         backdropclickhandler = {() => this.backdropclickhandler()}
+                                                        modalconfirmhandler = {() => this.modalconfirmhandler()}
+                                                        modalcancelhandler = {() => this.modalcancelhandler()}
+
                                                         />} /> 
                         <Route exact path="/profile" render={() => <Profile {...this.state}
                                                         renderRedirect={(newPath) => this.renderRedirect(newPath)}

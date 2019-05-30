@@ -27,7 +27,6 @@ export default class NavBar extends React.Component {
 
 
     render(){
-        console.log('navbar: this.props', this.props);
 
         return (
             <header className="navbar">

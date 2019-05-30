@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import NavBar from "./navbar";
 import SideDrawer from './side-drawer';
 import Backdrop from './backdrop';
+import Modal from './modal';
 
 
 
@@ -14,19 +15,9 @@ import Backdrop from './backdrop';
 export default class Dashboard extends React.Component {
 
     componentDidMount() {
-        console.log('dashboard: this.props', this.props);
-        this.props.getcurrentsuggestion();
-        this.props.getcurrentdeliverables(); 
         this.props.getcurrentterms();
-        this.props.getcurrentcourses();
-        this.props.getcurrentweeks();
-        this.props.getcurrentgrades();
-       
-       
-        
     }
-    
-        
+      
             
     render() {
         let backdrop;
@@ -47,6 +38,10 @@ export default class Dashboard extends React.Component {
         //console.log('thisweekdeliverables ', this.state.thisweekdeliverables);
             return (
                 <div>
+                    {this.props.selectingterm && <Backdrop />}
+                    {this.props.selectingterm && <Modal {...this.props} title="Please select Term" >
+                        <p>Modal Content</p>
+                    </Modal>}
                     <NavBar  {...this.props} />
                     <SideDrawer show={this.props.sideDrawerOpen} />
                     {backdrop}
@@ -147,18 +142,30 @@ export default class Dashboard extends React.Component {
                                             return (
                                                 <ul key={index} className="row-deliverable ">
                                                         <div className="deliverable-sub-section sec-one">
-                                                            <li className="item-label color-dark-blue background-color-gray courseName">{deliverable.courseName}</li>
+                                                            <li className="item-label weeks-item-label courseName">
+                                                                {deliverable.courseName}
+                                                            </li>
                                                         </div>
                                                         <div className="deliverable-sub-section sec-two">
-                                                            <li className="item-label color-dark-blue background-color-gray dueDate">{deliverable.dueDate}</li>
-                                                            <li className="item-label color-dark-blue background-color-gray pressure">{deliverable.pressure}</li>
-                                                            <li className="item-label color-dark-blue background-color-gray prephrs">{deliverable.prephrs}</li>
+                                                            <li className="item-label weeks-item-label dueDate">
+                                                                {deliverable.dueDate}
+                                                            </li>
+                                                            <li className="item-label weeks-item-label pressure">{
+                                                                deliverable.pressure}
+                                                            </li>
+                                                            <li className="item-label weeks-item-label prephrs">
+                                                                {deliverable.prephrs}
+                                                            </li>
                                                         </div>
                                                         <div className="deliverable-sub-section sec-three">
-                                                            <li className="item-label color-dark-blue background-color-gray column-item deliverableName">{deliverable.deliverableName}</li>
+                                                            <li className="item-label weeks-item-labelcolumn-item deliverableName">
+                                                                {deliverable.deliverableName}
+                                                            </li>
                                                         </div>
                                                         <div className="deliverable-sub-section sec-four">
-                                                            <li className="item-label color-dark-blue background-color-gray column-item desc">{deliverable.desc}</li> 
+                                                            <li className="item-label weeks-item-labelcolumn-item desc">
+                                                                {deliverable.desc}
+                                                            </li> 
                                                         </div>
                                                             
                                                         

@@ -25,7 +25,6 @@ class LoginPage extends React.Component {
 
 
     render() {
-        console.log('login-page: this.props.islogin', this.props.islogin);
             return (
                 <div>
                     <LoginForm 

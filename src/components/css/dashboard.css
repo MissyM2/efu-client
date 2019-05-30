@@ -31,6 +31,11 @@
     border-radius: 3px;
 }
 
+.row-deliverable li {
+    background-color:var(--darker-off-white-color);
+    color: var(--darker-blue-color);
+}
+
 .deliverable-label {
     font-family: var(--body-font-family);
     color: var( --darker-blue-color);
@@ -141,10 +146,16 @@
        text-align: center;
     }
 
-    .courseName,
-    .dueDate {
+    .row-deliverable li.courseName {
+        font-size: 14px;
+        background-color:var(--mossy-green-color);
+        color: var(--off-white-color);
+    }
+
+    .row-deliverable li.dueDate {
         font-weight: bold;
     }
+    
     
    
 
