@@ -9,7 +9,6 @@ class Modal extends React.Component {
     }
 
     render() {
-        console.log('modal: this.props', this.props);
 
         const myterms = this.props.terms.map((term, index) => {
             return (
