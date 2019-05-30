@@ -17,7 +17,6 @@ export default class Weeks extends React.Component {
         }
 
         render() {
-                console.log(' currentweeks inside of weeks.js ', this.props);
                 let backdrop;
 
                 if(this.props.sideDrawerOpen) {
@@ -26,7 +25,7 @@ export default class Weeks extends React.Component {
                
                 let weeks = this.props.currentweeks.map((week, index) => {
                         return (
-                                <div className="weeks">
+                                <div className="weeks" key={index}>
                                                 <ul key={index} className="row">
                                                         <li className="weeks-section">
                                                                 <div className="section likedLeast">
@@ -85,9 +84,19 @@ export default class Weeks extends React.Component {
                                 {backdrop}
                                 <div className="container">
                                         <h3>Your Weeks for {this.props.currentterm}</h3>
-                                        <div className="list-vertical this-week-weeks">
-                                               {weeks}
-                                        </div> 
+                                        {(this.props.currentweeks.length === 0) ? (
+                                                <div className="no-data">
+                                                        You have not set up your Profile, yet.  Open Profile, select your term and add your first class.  This will generate the appropriate number of weeks.
+                                                </div>
+                                                ) : (
+                                                <div className="list-vertical this-week-weeks">
+                                                        {weeks}
+                                                 </div> 
+                                                )
+                                        }
+
+
+                                       
                                         
                                 </div>
                         </main>

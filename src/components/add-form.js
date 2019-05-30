@@ -12,7 +12,6 @@ export default class AddForm extends React.Component {
 
  
     onSubmit(e) {
-        console.log('right after onSumbit', this.props);
         e.preventDefault();
         const text = this.state.text;
         if(this.props.type === 'term') {
@@ -33,9 +32,6 @@ export default class AddForm extends React.Component {
             termDesc: this.props.currentterm,
             weekNum:text
         }
-        console.log('newweek', newweek);
-        console.log('this.props', this.props);
-        debugger;
 
         this.props.submitaddweek(newweek);
         }

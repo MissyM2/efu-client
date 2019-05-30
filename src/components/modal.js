@@ -4,15 +4,12 @@ import './css/modal.css';
 import Term from './term';
 
 class Modal extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     render() {
 
         const myterms = this.props.terms.map((term, index) => {
             return (
-                <li className="section" key={index} >
+                <li key={index} >
                     <Term {...term} {...this.props} />
                 </li>
             );

@@ -3,9 +3,6 @@ import React from 'react';
 import './css/deliverable.css';
 
 export default class Deliverable extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     render() {
 
