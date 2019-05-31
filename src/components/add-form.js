@@ -1,5 +1,7 @@
 import React from 'react';
 
+import './css/add-form.css';
+
 export default class AddForm extends React.Component {
     constructor(props) {
         super(props);
@@ -14,6 +16,7 @@ export default class AddForm extends React.Component {
     onSubmit(e) {
         e.preventDefault();
         const text = this.state.text;
+
         if(this.props.type === 'term') {
             let newterm = {
                 termDesc:text
@@ -21,6 +24,7 @@ export default class AddForm extends React.Component {
             this.props.submitaddterm(newterm);
 
         } else if(this.props.type === 'course') {
+            
             let newcourse = {
                 termDesc: this.props.currentterm,
                 courseName:text
@@ -55,8 +59,12 @@ export default class AddForm extends React.Component {
     }
 
     render() {
+        let addclasses='add-form';
         if (!this.state.editing) {
             const text = `Add a ${this.props.type}`;
+            if (this.props.type === 'course') {
+                addclasses='add-form course';
+            }
             return (
                 <div className="btn add-form"
                         onClick={(e) => {
@@ -69,7 +77,7 @@ export default class AddForm extends React.Component {
         }
         const label = `Enter a ${this.props.type}`;
         return (
-            <form className="course add-form" onSubmit={(e) => this.onSubmit(e)} >
+            <form className={addclasses} onSubmit={(e) => this.onSubmit(e)} >
                 <input 
                     type="text"
                     value = {this.state.text}

@@ -33,8 +33,9 @@ class App extends React.Component {
             nextweek: "",
             currentweekdetails:[],
             currentcourses: [],
-            currentcourselength:0,
+            currentcoursecount:0,
             currentgrades:[],
+            currentgradecount:0,
             currentweeks: [],
             todaydeliverables:[],
             thisweekdeliverables:[],
@@ -56,6 +57,7 @@ class App extends React.Component {
         this.getcurrentcourses=this.getcurrentcourses.bind(this);
         this.getcurrentgrades=this.getcurrentgrades.bind(this);
         this.getcurrentweek=this.getcurrentweek.bind(this);
+        this.getcurrentweekdetails=this.getcurrentweekdetails.bind(this);
         this.getcurrentweeks=this.getcurrentweeks.bind(this);
         this.getcurrentdeliverables=this.getcurrentdeliverables.bind(this);
         this.getcurrentdate=this.getcurrentdate.bind(this);
@@ -69,10 +71,7 @@ class App extends React.Component {
         this.drawertoggleclickhandler=this.drawertoggleclickhandler.bind(this);
         this.backdropclickhandler=this.backdropclickhandler.bind(this);
         this.modalconfirmhandler=this.modalconfirmhandler.bind(this);
-        this.modalcancelhandler=this.modalcancelhandler.bind(this);
-       
-        
-        
+        this.modalcancelhandler=this.modalcancelhandler.bind(this); 
     }
 
     componentDidMount() {
@@ -103,9 +102,12 @@ class App extends React.Component {
             currentweek: week
         });
 
+       
+        this.getcurrentweeks();
+        console.log('getcurrentweek, this.state', this.state);
+        //this.getcurrentweekdetails();
         this.getcurrentsuggestion();
         this.getcurrentdeliverables(week); 
-        this.getcurrentweeks();
         this.getcurrentgrades();
 
         this.setState({
@@ -273,12 +275,26 @@ class App extends React.Component {
             const tempcourses = responseJSON.filter(course => {
                     return course.termDesc === this.state.currentterm;
             });
-            this.setState({
-                currentcourses: tempcourses,
-                currentcourselength: tempcourses.length
+            console.log('tempcourses.length', tempcourses.length);
+
+            this.setState((state) => {
+                return {quantity: state.quantity + 1};
+              });
+            this.setState((state) => {
+                return {
+                    currentcourses: tempcourses,
+                    currentcoursecount: tempcourses.length
+                }
             });
-            console.log('app:getcurrrentcourses, currcourselength', this.state.currentcourselength);
-            return (this.state.currentcourselength);
+            console.log('app:getcurrrentcourses, currcourselength', this.state.currentcoursecount);
+            if (this.state.currentcoursecount !== 0) {
+                console.log('getcurrentcourses, this.state.currentcoursecount !== 0 should be true',this.state.currentcoursecount !== 0);
+                return true;
+            } else {
+                console.log('getcurrentcourses, this.state.currentcoursecount !== 0 should be false',this.state.currentcoursecount !== 0);
+
+                return false;
+            }
 
         })
         .catch((err) => {
@@ -286,7 +302,7 @@ class App extends React.Component {
         });
     }
 
-    getcurrentgrades() {
+    getcurrentgrades(course) {
         fetch(`${API_BASE_URL}/grades`, {
             method: 'GET',
             headers: {
@@ -302,11 +318,23 @@ class App extends React.Component {
         })
         .then(responseJSON => {
             const tempgrades = responseJSON.filter(grade => {
-                    return grade.term === this.state.currentterm && grade.week === this.state.currentweek;
+                console.log('inside getcurrentgrade, is course=course?', grade.course === course);
+                    return grade.term === this.state.currentterm;
+                    //&& 
+                           // grade.week === this.state.currentweek &&
+                            //grade.course === course;
             });
-            this.setState({
-                currentgrades: tempgrades
+            console.log('inside getcurrentgrades.. find length setting state', tempgrades.length);
+            this.setState ({
+                currentgradecount: tempgrades.length
             });
+            if (tempgrades.length !== 0) {
+                this.setState({
+                    currentgrades: tempgrades
+                });
+            }
+            return this.state.currentgradecount;
+           
         })
         .catch((err) => {
             console.log(err);
@@ -330,8 +358,9 @@ class App extends React.Component {
             const tempweeks = responseJSON.filter(week => {
                 return week.termDesc === this.state.currentterm;
             });
+            console.log('tempweeks',tempweeks);
             const thisweek = responseJSON.filter(week => {
-                return week.termDesc === this.state.currentterm && week.weekNum ===this.state.currentweek;
+                return week.termDesc === this.state.currentterm && week.weekNum == this.state.currentweek;
             });
             this.setState({
                 currentweeks: tempweeks,
@@ -341,6 +370,15 @@ class App extends React.Component {
         .catch((err) => {
             console.log(err);
         });
+    }
+
+    getcurrentweekdetails() {
+        const thisweek= this.state.currentweeks.filter(week => {
+            return week.weekNum === this.state.currentweek;
+        })
+        this.setState({
+            currentweekdetails:  thisweek
+        })
     }
 
     getcurrentdeliverables(week) {
@@ -422,18 +460,23 @@ class App extends React.Component {
     }
          
     submitaddcourse = (newcourse) => {
-        console.log('made it to exec submitaddcourse, here is the newCourse ', newcourse);
-        this.getcurrentcourses();
-        console.log('after getcurrentcoruses', this.state.currentcourselength);
-        console.log(newcourse);
-        if(this.state.currentcourselength === 0) {
-            console.log(newcourse.termDesc);
+        console.log('submitaddcourse, newCourse ', newcourse);
+        console.log('submitaddcourse, this.state.currentcoursecount BEFORE getcurrentcourses ', this.state.currentcoursecount);
+        var hasCourses = this.getcurrentcourses();
+        console.log('submitaddcourse, hasCourses', hasCourses);
+        console.log('submitaddcourse, this.state.currentcoursecount AFTER getcurrentcourses', this.state.currentcoursecount);
+        if(this.state.currentcoursecount === 0) {
+            console.log('submitaddcourse, this.state.currentcoursecount === 0 ',this.state.currentcoursecount === 0);
             if (newcourse.termDesc === 'Springterm'){
                 console.log('its springterm', newcourse.termDesc);
                 for(let i = 1; i <= this.state.Springterm; i++) {
                     let newweek = {
                         termDesc: this.state.currentterm,
-                        weekNum:i
+                        weekNum:i,
+                        likedLeast: 'no selection',
+                        likedMost: 'no selection',
+                        mostDifficult: 'no selection',
+                        leastDifficult: 'no selection'
                     }
                     this.submitaddweek(newweek);
                     this.getcurrentweeks();
@@ -443,7 +486,11 @@ class App extends React.Component {
                 for(let i = 1; i <= this.state.Fallterm; i++) {
                     let newweek = {
                         termDesc: this.state.currentterm,
-                        weekNum:i
+                        weekNum:i,
+                        likedLeast: 'no selection',
+                        likedMost: 'no selection',
+                        mostDifficult: 'no selection',
+                        leastDifficult: 'no selection'
                     }
                     this.submitaddweek(newweek);
                     this.getcurrentweeks();
@@ -453,7 +500,11 @@ class App extends React.Component {
                 for(let i = 1; i <= this.state.Summerterm; i++) {
                     let newweek = {
                         termDesc: this.state.currentterm,
-                        weekNum:i
+                        weekNum:i,
+                        likedLeast: 'no selection',
+                        likedMost: 'no selection',
+                        mostDifficult: 'no selection',
+                        leastDifficult: 'no selection'
                     }
                     this.submitaddweek(newweek);
                     this.getcurrentweeks();
@@ -463,13 +514,21 @@ class App extends React.Component {
                 for(let i = 1; i <= this.state.Janterm; i++) {
                     let newweek = {
                         termDesc: this.state.currentterm,
-                        weekNum:i
+                        weekNum:i,
+                        likedLeast: 'no selection',
+                        likedMost: 'no selection',
+                        mostDifficult: 'no selection',
+                        leastDifficult: 'no selection'
                     }
                     this.submitaddweek(newweek);
                     this.getcurrentweeks();
                 }
                 console.log('finished generating weeks for janterm. should be 4 records for this term');
             }
+            // once weeks are generated, generate a grade record for the course in each week
+                    // first check to make sure there are no grade documents for that course in any week
+                console.log('trying to find current gradecount for this course', this.getcurrentgrades(newcourse));
+                
         }
             
         //  add the course
@@ -765,6 +824,7 @@ class App extends React.Component {
                                                         renderRedirect={(newPath) => this.renderRedirect(newPath)}
                                                         submitupdateweek={(updatedweek) => this.submitupdateweek(updatedweek)}
                                                         submitaddgrade={(newgrade) => this.submitAddGrade(newgrade)}
+                                                        getcurrentweekdetails={() => this.getcurrentweekdetails()}
                                                         drawertoggleclickhandler={() => this.drawertoggleclickhandler()}
                                                         backdropclickhandler = {() => this.backdropclickhandler()}
                                                         />} /> 

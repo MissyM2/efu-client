@@ -1,11 +1,11 @@
 .side-drawer {
     height: 25%;
-    background: var( --darker-off-white-color);
+    background: var( --pale-green-accent-color);
     box-shadow: 1px 0px 7px rgba(0,0,0,0.5);
     position: fixed;
     top: 56px;
     left: 0;
-    width: 50%;
+    width: 25%;
     max-width: 400px;
     z-index: 200;
     transform: translateX(-100%);
@@ -24,29 +24,63 @@
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    border: 1px solid red;
     
 }
 
 .side-drawer li {
     margin: 0;
-    font-size: 16px;
+    font-size: 14px;
+}
+/*
+.side-drawer li:hover {
+    margin: 0;
+    font-size: 14px;
+    color: orange;
+}
+*/
+
+.link-div {
+    color: var(--mossy-green-color);
+    text-decoration: none;
+    font-size: 14px;
+    padding: 10px 10px 10px 10px;
 }
 
+.link-div:hover {
+    color: var(--darker-blue-color);
+    font-size:18px;
+    padding: 10px 10px 10px 10px; 
+    text-decoration:none; 
+    /*display:inline-block;*/
+    text-shadow: -1px -1px 0 rgba(0,0,0,0.3);
+    font-weight:bold; 
+    
 
+}
+/*
 .side-drawer .link {
     color: var(--mossy-green-color);
     text-decoration: none;
     font-size: 1.2 rem;
 }
-
+*/
+/*
 .side-drawer .link:hover,
 .side-drawer .link:active {
     color: var(--darker-blue-color);
 }
+*/
 
 .logout {
-    background-color: var(--darker-blue-color);
+    color: var(--off-white-color);
+    border:1px solid #347797; font-size:12px;font-family:arial, helvetica, sans-serif; padding: 10px 10px 10px 10px; text-decoration:none; display:inline-block;text-shadow: -1px -1px 0 rgba(0,0,0,0.3);font-weight:bold; color: #FFFFFF;
+    background-color: #4497bf; background-image: -webkit-gradient(linear, left top, left bottom, from(#4497bf), to(#31708E));
+    background-image: -webkit-linear-gradient(top, #4497bf, #31708E);
+    background-image: -moz-linear-gradient(top, #4497bf, #31708E);
+    background-image: -ms-linear-gradient(top, #4497bf, #31708E);
+    background-image: -o-linear-gradient(top, #4497bf, #31708E);
+    background-image: linear-gradient(to bottom, #4497bf, #31708E);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#4497bf, endColorstr=#31708E);
+
 }
 
 .side-drawer.link.logout {

@@ -11,7 +11,6 @@ import CourseGrades from './course-grades';
 
 export default class ReviewCurrentWeek extends React.Component {
     
-
     render() {
         // set up week section
         console.log('review-current-week: after render, this.props', this.props);
@@ -25,7 +24,7 @@ export default class ReviewCurrentWeek extends React.Component {
         myweek = myweek.map((week, index) => {
             return (
                 <li className="section row" key={index}>
-                    <Week {...week} {...this.props} weekstatus="one" submitupdateweek={this.props.submitUpdateWeek} submitdeleteweek={this.props.submitDeleteWeek} />
+                    <Week {...week} {...this.props} weekstatus="one" />
                 </li>
             );
         });
@@ -38,7 +37,7 @@ export default class ReviewCurrentWeek extends React.Component {
                 {backdrop}
                 <div className="container">
                     <h2>Review Last Week, week number {this.props.currentweek}</h2>
-                    <div className="week">
+                    <div className="attitudes">
                         <div className="section-label">How did you feel about your week?</div>
                             <ul className="list-vertical week-list">
                                {myweek}
@@ -46,7 +45,7 @@ export default class ReviewCurrentWeek extends React.Component {
                         
                     </div>
                     <div className="grades">
-                        <h3>Add Your Grades as of Today</h3>
+                        <div className="section-label">Add Your Grades as of Today</div>
                         <ul className="profile-row coursegrades-list">
                             <CourseGrades {...this.props} />
                         </ul>

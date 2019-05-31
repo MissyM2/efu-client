@@ -16,32 +16,43 @@ export default class SideDrawer extends React.Component {
             <nav className={drawerClasses}>
                 <ul>
                     <li href="/"> 
-                        <Link 
-                            className="link drawer-navitem" 
-                            to={{
-                                pathname: '/weeks'
+                        <div className="link-div">
+                            <Link 
+                                className="drawer-navitem"
+                                to={{
+                                    pathname: '/weeks'
+                                    }
                                 }
-                            }
-                            >
-                            Review Your Weeks
-                        </Link>
+                                >
+                                Review Your Weeks
+                            </Link>
+                        </div>
+                    </li>
+                    <li>
+                        <hr />
                     </li>
                     <li href="/">
-                        <Link 
-                            className="link drawer-navitem" 
-                            to={{
-                                pathname: '/profile',
-                                state: {
-                                    weekstatus: 'all'
-                            }}}
-                            >
-                            Your Profile
-                        </Link>
+                        <div className="link-div">
+                            <Link 
+                                className="drawer-navitem"
+                                to={{
+                                    pathname: '/profile',
+                                    state: {
+                                        weekstatus: 'all'
+                                }}}
+                                >
+                                Your Profile
+                            </Link>
+                        </div>
+                       
                     </li>
                     <li className="logout" href="/">
-                        <Link className="link-logout is-light" onClick={this.props.submitlogout} to="/">
-                            Log out
-                        </Link>
+                        <div className="link-div">
+                            <Link className="link-logout" onClick={this.props.submitlogout} to="/">
+                                Log out
+                            </Link>
+                        </div>
+                       
                     </li>
                 </ul>
             </nav>

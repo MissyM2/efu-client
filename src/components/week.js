@@ -43,7 +43,7 @@ export default class Week extends React.Component {
             mostDifficult: this.state.mostDifficult,
             leastDifficult: this.state.leastDifficult,
         };
-        this.props.submitUpdateWeek(updateWeek); 
+        this.props.submitupdateweek(updateWeek); 
     }
 
     render() {

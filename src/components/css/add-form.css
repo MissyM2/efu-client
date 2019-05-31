@@ -1,6 +1,9 @@
+.add-form {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
 
-
-.week-form {
-    padding-top: 50px;
-    padding-bottom: 100px;
+.course{
+    margin:0 auto;
+    background: orange;
 }

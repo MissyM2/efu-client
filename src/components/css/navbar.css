@@ -34,6 +34,7 @@
 .spacer {
   flex: 1;
 }
+/*
 .navbar_logo .link {
     color: var(--off-white-color);
     text-decoration: none;
@@ -48,8 +49,9 @@
 
 .navbar_navigation-items .link:hover,
 .navbar_navigation-items .link:active {
-    color: orange;
+    color: var();
 }
+*/
 
   @media (max-width: 768px) {
     .navbar_navigation-items {

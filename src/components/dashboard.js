@@ -90,14 +90,16 @@ export default class Dashboard extends React.Component {
                     {backdrop}
                      <div className="container">
                         {(this.props.currentweeks.length === 0) ? (
-                                <div className="no-data">
+                                <div className="instructions-large">
                                         You have not set up your Profile, yet, for this term.  Open Profile, select your term and add your first class.  This will generate the appropriate number of weeks.
                                 </div>
                             ) : (
                                 <React.Fragment>
                                         <h2>My Dashboard</h2>
-                                        <h3> Your are working with {this.props.currentterm} term</h3>
-                                        <h4>You are working with Week 1.  Click a week to view details of another week.</h4>
+                                        <h3> Your are working with Week {this.props.currentterm} term</h3>
+                                        <div className="instructions-small">
+                                            You are working with {this.props.currentweek}.  Click another week to view those details.
+                                        </div>
                                         <div>
                                             <ul className="row">
                                                 {availableweeks}

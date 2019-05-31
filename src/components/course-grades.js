@@ -30,7 +30,7 @@ export default class CourseGrades extends React.Component {
         }
         console.log('newgrade', newgrade);
         debugger;
-        this.props.submitAddGrade(newgrade);
+        this.props.submitaddgrade(newgrade);
         //this.state.gradeNum='';
         //this.setEditing(false);   
     }
@@ -47,7 +47,7 @@ export default class CourseGrades extends React.Component {
             console.log('grade, gradeArr is', gradeArr);
             return grade.course === course;
         });
-        if (gradeArr.length>0){
+        if (gradeArr.length > 0){
             return true; 
         } 
         return false;
