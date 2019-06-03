@@ -29,17 +29,20 @@ class LoginPage extends React.Component {
 
     render() {
             return (
-                <div>
+                <div className="login-reg-container">
                     <LoginForm 
                         onSubmit={(username, password) => this.props.submitlogin(this.state.user.username, this.state.user.password)}
                         onChange={(field) => this.changeUser(field)}
                         errors={this.state.errors}
                         user={this.state.user}
                     />
-                    <div>Do not have an account? 
-                        <button className="btn button-row" type="button" onClick={e => this.props.setlogin(e)}>
+                    <div className="instructions-small">
+                        <div>Don't have an account?</div>
+                        <div>
+                            <button className="btn btn-small button-row" type="button" onClick={e => this.props.setlogin(e)}>
                             Create One
-                        </button>      
+                            </button>      
+                        </div>
                     </div>
                 </div>
                 

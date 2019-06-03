@@ -8,7 +8,6 @@ import TodayDeliverable from './todaydeliverable';
 import SideDrawer from './side-drawer';
 import Backdrop from './backdrop';
 import Modal from './modal';
-import AvailableWeek from './available-week';
 
 
 
@@ -19,8 +18,11 @@ export default class Dashboard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            selweek: 1
+            weekSelected: 1,
+            termSelected: 'Spring (16 weeks)'
         }
+        this.setSelectedWeek = this.setSelectedWeek.bind(this);
+        this.setSelectedTerm = this.setSelectedTerm.bind(this);
     }
 
     componentDidMount() {
@@ -28,11 +30,25 @@ export default class Dashboard extends React.Component {
     }
 
     setSelectedWeek(e) {
+        console.log('got to setSelectedTerm');
         e.preventDefault();
         this.setState({
-            selweek: e.currentTarget.getAttribute("data-identifier")
+            weekSelected: e.target.value
+        }, () => {
+            console.log('this.state.weekSelected', this.state.weekSelected);
+            this.props.getcurrentweek(this.state.weekSelected);
         });
-        console.log('dashboard: setSelectedWeek, this.state.selweek', this.state.selweek);
+    }
+
+    setSelectedTerm(e) {
+        console.log('got to setSelectedTerm');
+        e.preventDefault();
+        this.setState({
+            termSelected: e.target.value
+        }, () => {
+            console.log('this.state.termSelected', this.state.termSelected);
+            this.props.getcurrentterm(this.state.termSelected);
+        });
     }
     
 
@@ -44,13 +60,40 @@ export default class Dashboard extends React.Component {
             backdrop = <Backdrop click={this.props.backdropclickhandler} />
         }
 
-       
+        let weekClasses = 'dropdown-large';
+ /*       if (this.props.currentweek == this.props.weekNum) {
+            weekClasses='dropdown-item selected';
+        }
+*/
+        let termClasses = 'dropdown-large';
+                // whatever term is in currentterm, the class should be selected
+                if (this.props.currentterm === this.props.termDesc) {
+                    termClasses='dropdown-item selected';
+        }
+
+        const allterms = this.props.terms.map((term, index) => {
+            return (
+                <option 
+                    key={index}
+                    value={term.termDesc}
+                    className={termClasses}
+                    data-identifier={term.termDesc}
+                >
+                    {term.termDesc}
+                </option>
+            );
+        });
 
         const availableweeks = this.props.currentweeks.map((week, index) => {
             return (
-                <li key={index}>
-                    <AvailableWeek {...week} {...this.props} />
-                </li>                    
+                <option
+                    key={index}
+                    value={week.weekNum}
+                    className={weekClasses}
+                    data-identifier={week.weekNum}
+                >
+                    Week {week.weekNum}
+                </option>                    
             );
         });
 
@@ -80,7 +123,8 @@ export default class Dashboard extends React.Component {
        //     return <p>Loading ...</p>
         //}
             return (
-                <div>
+                <div className="dashboard-container">
+                    <div className="dashboard-content">
                     {this.props.selectingterm && <Backdrop />}
                     {this.props.selectingterm && <Modal {...this.props} title="Please select Term" >
                         <p>Modal Content</p>
@@ -88,26 +132,36 @@ export default class Dashboard extends React.Component {
                     <NavBar  {...this.props} />
                     <SideDrawer show={this.props.sideDrawerOpen} />
                     {backdrop}
-                     <div className="container">
+                     <div>
                         {(this.props.currentweeks.length === 0) ? (
-                                <div className="instructions-large">
-                                        You have not set up your Profile, yet, for this term.  Open Profile, select your term and add your first class.  This will generate the appropriate number of weeks.
+                                <div className="dashboard-no-data">
+                                        <div className="instructions-large">
+                                            You have not set up your Profile, yet, for {this.props.currentterm}.  Either choose another term from the dropdown or
+                                            select Profile, select your term and add your first class.  This will generate the appropriate number of weeks.
+                                        </div>
+                                        <div>
+                                        <div>Available Terms</div>
+                                            <select className="term-row dropdown-large" onChange={this.setSelectedTerm}>
+                                            {allterms} 
+                                            </select>
+                                        </div>
                                 </div>
+                                
                             ) : (
                                 <React.Fragment>
                                         <h2>My Dashboard</h2>
-                                        <h3> Your are working with Week {this.props.currentterm} term</h3>
+                                        <h3> Your are working with Week {this.state.weekSelected}, {this.props.currentterm} Term</h3>
                                         <div className="instructions-small">
-                                            You are working with {this.props.currentweek}.  Click another week to view those details.
+                                            Select from the dropdown to view details of another week.
                                         </div>
                                         <div>
-                                            <ul className="row">
+                                            <select className="dropdown-large" onChange={this.setSelectedWeek}>
                                                 {availableweeks}
-                                            </ul>
+                                            </select>
                                             
                                         </div>
 
-                                        <ul className="accent skills-suggestion"> 
+                                        <ul className="skills-suggestion"> 
                                                 <li >
                                                     <div>{this.props.currentsuggestion.category}</div>
                                                     <div>{this.props.currentsuggestion.desc}</div>
@@ -117,7 +171,7 @@ export default class Dashboard extends React.Component {
 
                                         <div className="review-and-plan">
                                                 <Link 
-                                                    className="link navitem item btn" 
+                                                    className="link navitem item btn btn-large" 
                                                     to={{
                                                         pathname: '/review-current-week',
                                                         state: {
@@ -127,7 +181,7 @@ export default class Dashboard extends React.Component {
                                                     Review This Week
                                                 </Link>
                                                 <Link 
-                                                    className="link navitem item btn" 
+                                                    className="link navitem item btn btn-large" 
                                                     to={{
                                                         pathname: '/plan-next-week'
                                                     }}
@@ -138,7 +192,7 @@ export default class Dashboard extends React.Component {
 
                                         
                                         <div className="deliverables-container">
-                                            <div className="section-label color-dark-blue">Deliverables Due Today, {this.props.currentdate}</div>
+                                            <div className="section-head color-dark-blue">Deliverables Due Today, {this.props.currentdate}</div>
                                             <ul className="row-week-list-labels background-color-green color-light">
                                                         <li className="week-list-label">Course Name</li>
                                                         <li className="week-list-label">Due Date</li>
@@ -153,7 +207,7 @@ export default class Dashboard extends React.Component {
                                             
                                         </div>
                                         <div className="deliverables-container">
-                                            <div className="section-label color-dark-blue">Deliverables Due This Week, Week {this.props.currentweek}</div>
+                                            <div className="section-head color-dark-blue">Deliverables Due This Week, Week {this.props.currentweek}</div>
                                             <ul className="row-week-list-labels background-color-green color-light">
                                                         <li className="week-list-label">Course Name</li>
                                                         <li className="week-list-label">Due Date</li>
@@ -168,7 +222,8 @@ export default class Dashboard extends React.Component {
                                         </div>   
                                 </React.Fragment>
                             )}
-                    </div> 
+                        </div> 
+                    </div>
                 </div>  
             );
     }

@@ -1,4 +1,103 @@
+.homepage-container {
+    height: 100%;
+    width: 100%;
+    background-color: #93A28F; background-image: -webkit-gradient(linear, left top, left bottom, from(#93A28F), to(#687864));
+    background-image: -webkit-linear-gradient(top, #93A28F, #687864);
+    background-image: -moz-linear-gradient(top, #93A28F, #687864);
+    background-image: -ms-linear-gradient(top, #93A28F, #687864);
+    background-image: -o-linear-gradient(top, #93A28F, #687864);
+    background-image: linear-gradient(to bottom, #93A28F, #687864);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#93A28F, endColorstr=#687864);
+}
 
+.homepage-content {
+    width: 70%;
+    position:absolute;
+    top: 60px;
+    left: 15%;
+    margin:0 auto;
+    padding: 50px 25px;
+    background-color: var(--off-white-color);
+}
+
+.logo-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.logo-image{
+    height: 150px;
+}
+
+.title-container {
+    text-align: left;
+}
+
+.homepage-welcome {
+    padding-left: 10px;
+    font-size: 28px;
+    font-style: oblique;
+}
+
+.homepage-title {
+    padding-left: 40px;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.homepage-title,
+.homepage-tagline {
+    color: var( --darker-blue-color);
+}
+
+.homepage-tagline {
+    padding: 10px 50px;
+    font-family: var(--body-font-family);
+}
+
+.login-reg-container {
+    width: 90%;
+    background-color: var(--off-white-color);
+    position: relative;
+	padding: 20px;
+	margin: 0 auto;
+    background-color: var(--off-white-color);
+	-webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
+	-moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
+
+
+}
+
+.login-reg-container:before, .login-reg-container:after
+{
+	position: absolute;
+	width: 40%;
+	height: 10px;
+	content: ' ';
+	left: 12px;
+	bottom: 12px;
+	background: transparent;
+	-webkit-transform: skew(-5deg) rotate(-5deg);
+	-moz-transform: skew(-5deg) rotate(-5deg);
+	-ms-transform: skew(-5deg) rotate(-5deg);
+	-o-transform: skew(-5deg) rotate(-5deg);
+	transform: skew(-5deg) rotate(-5deg);
+	-webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+	-moz-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+	z-index: -1;
+} 
+
+.login-reg-container:after
+{
+	left: auto;
+	right: 12px;
+	-webkit-transform: skew(5deg) rotate(5deg);
+	-moz-transform: skew(5deg) rotate(5deg);
+	-ms-transform: skew(5deg) rotate(5deg);
+	-o-transform: skew(5deg) rotate(5deg);
+	transform: skew(5deg) rotate(5deg);
+}
 
 
 

@@ -12,6 +12,24 @@ import Course from './course';
 
 
 export default class Profile extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            termSelected: 'Spring (16 weeks)'
+        }
+        this.setSelectedTerm = this.setSelectedTerm.bind(this);
+    }
+
+    setSelectedTerm(e) {
+        console.log('got to setSelectedTerm');
+        e.preventDefault();
+        this.setState({
+            termSelected: e.target.value
+        }, () => {
+            console.log('this.state.termSelected', this.state.termSelected);
+            this.props.getcurrentterm(this.state.termSelected);
+        });
+    }
  
     render() {
         let backdrop;
@@ -20,11 +38,22 @@ export default class Profile extends React.Component {
             backdrop = <Backdrop click={this.props.backdropclickhandler} />
         }
 
+        let termClasses = 'dropdown-large';
+        // whatever term is in currentterm, the class should be selected
+        if (this.props.currentterm === this.props.termDesc) {
+            termClasses='dropdown-item selected';
+        }
+
         const allterms = this.props.terms.map((term, index) => {
             return (
-                <li key={index} >
-                    <Term {...term} {...this.props} />
-                </li>
+                <option 
+                    key={index}
+                    value={term.termDesc}
+                    className={termClasses}
+                    data-identifier={term.termDesc}
+                >
+                    {term.termDesc}
+                </option>
             );
         });
         const mycourses = this.props.currentcourses.map((course, index) => {
@@ -44,9 +73,9 @@ export default class Profile extends React.Component {
                         <h3>My Profile for {this.props.currentterm}</h3>
                         <div>
                             <div className="section-label">Available Terms</div>
-                            <ul className="profile-row">
+                            <select className="term-row dropdown-large" onChange={this.setSelectedTerm}>
                                {allterms} 
-                            </ul>
+                            </select>
                         </div>
                        <div className="courses">
                             <div className="section-label">Your Courses</div>

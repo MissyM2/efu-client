@@ -35,7 +35,7 @@ class RegistrationPage extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="login-reg-container">
                 <RegistrationForm
                     onSubmit={
                         (firstName, lastName, username, password) => this.props.submitregistration(
@@ -48,11 +48,16 @@ class RegistrationPage extends React.Component {
                     errors={this.state.errors}
                     user={this.state.user}
                 />
-                <div>Already have an account? 
-                        <button className="btn button-row" type="button" onClick={e => this.props.setlogin(e)}>
-                            Log In
+                <div className="instructions-small">
+                    <div>Already have an account?</div>
+                    <div>
+                        <button className="btn btn-small button-row" type="button" onClick={e => this.props.setlogin(e)}>
+                                Log In
                         </button>      
-                </div> 
+                    </div> 
+
+                </div>
+                
             </div>
             );
     }  

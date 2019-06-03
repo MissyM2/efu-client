@@ -5,7 +5,7 @@
     color: var(--off-white-color);*/
     cursor:pointer;
     padding:3px 8px;
-
+    width: 130px;
     border:1px solid #768871; -webkit-border-radius: 3px; -moz-border-radius: 3px;border-radius: 3px;font-size:12px;font-family:arial, helvetica, sans-serif; padding: 10px 10px 10px 10px; text-decoration:none; display:inline-block;text-shadow: -1px -1px 0 rgba(0,0,0,0.3);font-weight:bold; color: #FFFFFF;
     background-color: #93A28F; background-image: -webkit-gradient(linear, left top, left bottom, from(#93A28F), to(#687864));
     background-image: -webkit-linear-gradient(top, #93A28F, #687864);
@@ -27,3 +27,36 @@
     background-color:pink;
 
 }
+
+/*==========  Mobile First Method  ==========*/
+
+    /* Custom, iPhone Retina */ 
+    @media only screen and (min-width : 320px) {
+
+    }
+
+    /* Extra Small Devices, Phones */ 
+    @media only screen and (min-width : 480px) {
+        .available-terms {
+            margin-top:10px;
+        }
+
+    }
+
+    /* Small Devices, Tablets */
+    @media only screen and (min-width : 768px) {
+        .available-terms {
+            margin-top:10px;
+        }
+
+    }
+
+    /* Medium Devices, Desktops */
+    @media only screen and (min-width : 992px) {
+
+    }
+
+    /* Large Devices, Wide Screens */
+    @media only screen and (min-width : 1200px) {
+
+    }

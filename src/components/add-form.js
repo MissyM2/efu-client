@@ -16,34 +16,17 @@ export default class AddForm extends React.Component {
     onSubmit(e) {
         e.preventDefault();
         const text = this.state.text;
-
-        if(this.props.type === 'term') {
-            let newterm = {
-                termDesc:text
-            }
-            this.props.submitaddterm(newterm);
-
-        } else if(this.props.type === 'course') {
-            
-            let newcourse = {
-                termDesc: this.props.currentterm,
-                courseName:text
-            }
-            this.props.submitaddcourse(newcourse);
-
-        } else if(this.props.type === 'week') {
-        let newweek = {
+        let newcourse = {
             termDesc: this.props.currentterm,
-            weekNum:text
+            courseName:text
         }
-
-        this.props.submitaddweek(newweek);
-        }
-        this.setState({
-            text: ""
-        })
+        this.setText('');
         this.setEditing(false);
-        
+            this.props.submitaddcourse(newcourse);
+           // this.props.generateweeksforterm(this.props.currentterm);
+           // this.props.getcurrentweeks();
+
+           // this.props.generategradesforcourse(this.props.currentterm, this.state.text);
     }
 
     setText(text) {
@@ -59,12 +42,8 @@ export default class AddForm extends React.Component {
     }
 
     render() {
-        let addclasses='add-form';
         if (!this.state.editing) {
             const text = `Add a ${this.props.type}`;
-            if (this.props.type === 'course') {
-                addclasses='add-form course';
-            }
             return (
                 <div className="btn add-form"
                         onClick={(e) => {
@@ -77,18 +56,24 @@ export default class AddForm extends React.Component {
         }
         const label = `Enter a ${this.props.type}`;
         return (
-            <form className={addclasses} onSubmit={(e) => this.onSubmit(e)} >
-                <input 
-                    type="text"
-                    value = {this.state.text}
-                    onChange = {e => this.setText(e.target.value)}
-                    aria-label={label}
-                />
-                <button className="btn">Add </button>
-                <button className="btn" type="button" onClick={() => this.setEditing(false)}>
-                    Cancel
-                </button>      
+            <form className='add-form course' onSubmit={(e) => this.onSubmit(e)} >
+                <div>Add Your Course</div>
+                <div>
+                    <input
+                        className="course-input"
+                        type="text"
+                        value = {this.state.text}
+                        onChange = {e => this.setText(e.target.value)}
+                        aria-label={label}
+                    />
+                </div>
+                <div>
+                    <button className="btn add-btn">Add </button>
+                    <button className="btn cancel-btn" type="button" onClick={() => this.setEditing(false)}>
+                        Cancel
+                    </button>    
 
+                </div>
             </form>
         );
     }

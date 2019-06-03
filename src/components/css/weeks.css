@@ -1,3 +1,8 @@
+.grade-item-body {
+    border: 1px solid orange;
+    height:20px;
+}
+
 .week-summary {
     margin-top: 20px;
     margin-bottom: 20px;
@@ -23,10 +28,15 @@
     background-color: var(--mossy-green-color);
 }
 
+.weeks-row {
+    display:flex;
+    list-style-type: none;
+    justify-content:center;
+  }
+
 .weeks-section {
     display: flex;
     flex-direction: row;
-    content-justify:wrap;
 }
 
 .week-label {
@@ -43,4 +53,61 @@
     padding-top:5px;
     padding-bottom:5px;
 }
+
+/*==========  Mobile First Method  ==========*/
+
+    /* Custom, iPhone Retina */ 
+    @media only screen and (min-width : 320px) {
+        .weeks-row {
+            flex-direction:column;
+        }
+
+        .weeks-section {
+            flex-direction: column;
+        }
+    }
+
+    /* Extra Small Devices, Phones */ 
+    @media only screen and (min-width : 480px) {
+        .weeks-row {
+            flex-direction:row;
+        }
+
+        .weeks-section {
+            flex-direction: column;
+        }
+    }
+
+    /* Small Devices, Tablets */
+    @media only screen and (min-width : 768px) {
+        .weeks-row {
+            flex-direction:row;
+        }
+
+        .weeks-section {
+            flex-direction: row;
+        }
+    }
+
+    /* Medium Devices, Desktops */
+    @media only screen and (min-width : 992px) {
+        .weeks-row {
+            flex-direction:row;
+        }
+
+        .weeks-section {
+            flex-direction: row;
+        }
+    }
+
+    /* Large Devices, Wide Screens */
+    @media only screen and (min-width : 1200px) {
+        .weeks-row {
+            flex-direction:row;
+        }
+
+        .weeks-section {
+            flex-direction: row;
+        }
+    }
 

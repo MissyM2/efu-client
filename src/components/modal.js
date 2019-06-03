@@ -18,7 +18,7 @@ class Modal extends React.Component {
             <div className="modal">
                     <header className="modal__header">{this.props.title}</header>
                     <section className="modal__content">
-                        <ul className="profile-row term-list">
+                        <ul className="modal-row term-list">
                             {myterms}
                         </ul>
                     </section>

@@ -38,7 +38,7 @@ class LoginForm extends React.Component {
                         />
                     </div>
                     <div className="button-row">
-                        <button type="submit" className="btn is-primary">Login</button>
+                        <button type="submit" className="btn btn-small">Login</button>
                     </div>
                 </form>
             </React.Fragment>

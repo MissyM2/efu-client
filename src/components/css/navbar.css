@@ -4,9 +4,17 @@
     left: 0;
     width: 100%;
     height: 56px;
-    background-color: var(--mossy-green-color);
     text-align: center;
-    border: 1px solid darkblue;
+    background-color: #93A28F; 
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#93A28F), to(#687864));
+    background-image: -webkit-linear-gradient(top, #93A28F, #687864);
+    background-image: -moz-linear-gradient(top, #93A28F, #687864);
+    background-image: -ms-linear-gradient(top, #93A28F, #687864);
+    background-image: -o-linear-gradient(top, #93A28F, #687864);
+    background-image: linear-gradient(to bottom, #93A28F, #687864);
+    filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#93A28F, endColorstr=#687864);
+
+    
 }
 
 .navbar_navigation {

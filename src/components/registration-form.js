@@ -61,7 +61,7 @@ class RegistrationForm extends React.Component {
                         />
                     </div>
                     <div className="button-row">
-                        <button type="submit" className="btn is-primary" >Create New Account</button>
+                        <button type="submit" className="btn is-primary btn-small" >Create New Account</button>
                     </div>
                     </form>
             </React.Fragment>

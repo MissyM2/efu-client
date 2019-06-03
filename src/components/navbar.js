@@ -9,7 +9,6 @@ import { Link } from 'react-router-dom';
 export default class NavBar extends React.Component {
 
     render(){
-
         return (
             <header className="navbar">
             <nav className="navbar_navigation" role="navigation" aria-label="navbar_navigation">

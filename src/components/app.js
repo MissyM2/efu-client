@@ -30,22 +30,23 @@ class App extends React.Component {
             selectingterm:false,
             selectingweek:false,
             terms:[],
-            nextweek: "",
             currentweekdetails:[],
+            currentcoursename: '',
             currentcourses: [],
             currentcoursecount:0,
             currentgrades:[],
             currentgradecount:0,
             currentweeks: [],
+            currentweekcount:0,
             todaydeliverables:[],
             thisweekdeliverables:[],
             sideDrawerOpen: false,
             error: null,
             loading:false,
-            Springterm:16,
-            Fallterm:16,
-            Summerterm:8,
-            Janterm:4
+            SpringFall:16,
+            SummerLong:8,
+            SummerShort:4,
+            Short:4
         }
         this.initialState = { ...this.state };
         this.submitregistration = this.submitregistration.bind(this);
@@ -63,7 +64,8 @@ class App extends React.Component {
         this.getcurrentdate=this.getcurrentdate.bind(this);
         this.submitaddterm=this.submitaddterm.bind(this);
         this.submitaddcourse=this.submitaddcourse.bind(this);
-        this.submitaddweek=this.submitaddweek.bind(this);
+        this.generateweeksforterm=this.generateweeksforterm.bind(this);
+        this.generategradesforcourse=this.generategradesforcourse.bind(this);
         this.submitdeletecourse=this.submitdeletecourse.bind(this);
         this.submitdeleteweek=this.submitdeleteweek.bind(this);
         this.submitupdatecourse=this.submitupdatecourse.bind(this);
@@ -76,6 +78,10 @@ class App extends React.Component {
 
     componentDidMount() {
         this.getcurrentdate();
+    }
+
+    componentDidUpdate() {
+        console.log('componentDidUpdate fired currentgrades', this.state.currentgrades);
     }
 
     getcurrentterm(term) {
@@ -115,7 +121,7 @@ class App extends React.Component {
         }); 
     }
 
-   submitregistration(firstName, lastName, username, password) {
+    submitregistration(firstName, lastName, username, password) {
         const newuser = {
             firstName: firstName,
             lastName: lastName,
@@ -183,7 +189,6 @@ class App extends React.Component {
             }
         })
         .then(responseJSON => {
-            console.log('app:login, responseJSON', responseJSON);
             this.setState({
                 currentusername: username,
                 password: password,
@@ -275,27 +280,11 @@ class App extends React.Component {
             const tempcourses = responseJSON.filter(course => {
                     return course.termDesc === this.state.currentterm;
             });
-            console.log('tempcourses.length', tempcourses.length);
-
             this.setState((state) => {
-                return {quantity: state.quantity + 1};
-              });
-            this.setState((state) => {
-                return {
-                    currentcourses: tempcourses,
-                    currentcoursecount: tempcourses.length
-                }
-            });
-            console.log('app:getcurrrentcourses, currcourselength', this.state.currentcoursecount);
-            if (this.state.currentcoursecount !== 0) {
-                console.log('getcurrentcourses, this.state.currentcoursecount !== 0 should be true',this.state.currentcoursecount !== 0);
-                return true;
-            } else {
-                console.log('getcurrentcourses, this.state.currentcoursecount !== 0 should be false',this.state.currentcoursecount !== 0);
-
-                return false;
-            }
-
+                    return {
+                        currentcourses: tempcourses,
+                        currentcoursecount: tempcourses.length
+                    }});
         })
         .catch((err) => {
             console.log(err);
@@ -316,32 +305,28 @@ class App extends React.Component {
             }
             throw new Error(response.text)
         })
-        .then(responseJSON => {
-            const tempgrades = responseJSON.filter(grade => {
-                console.log('inside getcurrentgrade, is course=course?', grade.course === course);
-                    return grade.term === this.state.currentterm;
+        .then(grades => {
+            const tempgrades = grades.filter(grade => {
+                                   return grade.termDesc === this.state.currentterm;
                     //&& 
                            // grade.week === this.state.currentweek &&
                             //grade.course === course;
             });
-            console.log('inside getcurrentgrades.. find length setting state', tempgrades.length);
-            this.setState ({
-                currentgradecount: tempgrades.length
-            });
-            if (tempgrades.length !== 0) {
-                this.setState({
-                    currentgrades: tempgrades
-                });
-            }
-            return this.state.currentgradecount;
-           
+            this.setState ((state) => {
+                return {
+                    currentgrades: tempgrades,
+                    currentgradecount: tempgrades.length
+                }}, () => { 
+                    console.log('getcurrentgrades:  this is the state after the callback', this.state.currentgrades);//this will print the updated state value);
+                })
         })
         .catch((err) => {
             console.log(err);
         });
     }
 
-    getcurrentweeks() {
+    getcurrentweeks(term) {
+        console.log('made it to getcurrentweeks, here is the term', term);
         fetch(`${API_BASE_URL}/weeks`, {
             method: 'GET',
             headers: {
@@ -355,17 +340,22 @@ class App extends React.Component {
             throw new Error(response.text)
         })
         .then(responseJSON => {
-            const tempweeks = responseJSON.filter(week => {
-                return week.termDesc === this.state.currentterm;
-            });
-            console.log('tempweeks',tempweeks);
+            const sortedweeks = responseJSON
+                                .sort((a, b) => a.weekNum - b.weekNum)
+                                .filter(week => {
+                                        return week.termDesc === this.state.currentterm;
+                                });
             const thisweek = responseJSON.filter(week => {
-                return week.termDesc === this.state.currentterm && week.weekNum == this.state.currentweek;
+                return week.termDesc === term && week.weekNum === this.state.currentweek;
             });
-            this.setState({
-                currentweeks: tempweeks,
-                currentweekdetails: thisweek
-            });
+            this.setState((state) => {
+                return {
+                    currentweeks: sortedweeks,
+                    currentweekdetails: thisweek,
+                    currentweekcount: sortedweeks.length
+                }}, () => { 
+                    console.log('getcurrentweeks:  this is the state after the callback', this.state.currentweeks);//this will print the updated state value);
+                })
         })
         .catch((err) => {
             console.log(err);
@@ -460,77 +450,11 @@ class App extends React.Component {
     }
          
     submitaddcourse = (newcourse) => {
-        console.log('submitaddcourse, newCourse ', newcourse);
-        console.log('submitaddcourse, this.state.currentcoursecount BEFORE getcurrentcourses ', this.state.currentcoursecount);
-        var hasCourses = this.getcurrentcourses();
-        console.log('submitaddcourse, hasCourses', hasCourses);
-        console.log('submitaddcourse, this.state.currentcoursecount AFTER getcurrentcourses', this.state.currentcoursecount);
-        if(this.state.currentcoursecount === 0) {
-            console.log('submitaddcourse, this.state.currentcoursecount === 0 ',this.state.currentcoursecount === 0);
-            if (newcourse.termDesc === 'Springterm'){
-                console.log('its springterm', newcourse.termDesc);
-                for(let i = 1; i <= this.state.Springterm; i++) {
-                    let newweek = {
-                        termDesc: this.state.currentterm,
-                        weekNum:i,
-                        likedLeast: 'no selection',
-                        likedMost: 'no selection',
-                        mostDifficult: 'no selection',
-                        leastDifficult: 'no selection'
-                    }
-                    this.submitaddweek(newweek);
-                    this.getcurrentweeks();
-                }
-            } else if(newcourse.termDesc === 'Fallterm') {
-                console.log('its fallterm', newcourse.termDesc);
-                for(let i = 1; i <= this.state.Fallterm; i++) {
-                    let newweek = {
-                        termDesc: this.state.currentterm,
-                        weekNum:i,
-                        likedLeast: 'no selection',
-                        likedMost: 'no selection',
-                        mostDifficult: 'no selection',
-                        leastDifficult: 'no selection'
-                    }
-                    this.submitaddweek(newweek);
-                    this.getcurrentweeks();
-                }
-            } else if (newcourse.termDesc === 'Summerterm'){
-                console.log('its summerterm', newcourse.termDesc);
-                for(let i = 1; i <= this.state.Summerterm; i++) {
-                    let newweek = {
-                        termDesc: this.state.currentterm,
-                        weekNum:i,
-                        likedLeast: 'no selection',
-                        likedMost: 'no selection',
-                        mostDifficult: 'no selection',
-                        leastDifficult: 'no selection'
-                    }
-                    this.submitaddweek(newweek);
-                    this.getcurrentweeks();
-                }
-            } else if (newcourse.termDesc === 'Janterm') {
-                console.log('its janterm', newcourse.termDesc);
-                for(let i = 1; i <= this.state.Janterm; i++) {
-                    let newweek = {
-                        termDesc: this.state.currentterm,
-                        weekNum:i,
-                        likedLeast: 'no selection',
-                        likedMost: 'no selection',
-                        mostDifficult: 'no selection',
-                        leastDifficult: 'no selection'
-                    }
-                    this.submitaddweek(newweek);
-                    this.getcurrentweeks();
-                }
-                console.log('finished generating weeks for janterm. should be 4 records for this term');
-            }
-            // once weeks are generated, generate a grade record for the course in each week
-                    // first check to make sure there are no grade documents for that course in any week
-                console.log('trying to find current gradecount for this course', this.getcurrentgrades(newcourse));
-                
-        }
-            
+        console.log('newcourse', newcourse);
+        this.setState({
+            currentcourseName: newcourse.courseName
+        });
+      
         //  add the course
         fetch(`${API_BASE_URL}/courses`, {
             method: 'POST',
@@ -548,70 +472,133 @@ class App extends React.Component {
             throw new Error(response.text)
         })
         .then(responseJSON =>  {
-            console.log('course added', responseJSON);
             this.setState({
-                currentcourses: [...this.state.currentcourses, responseJSON]
-            });
+                    currentcourses: [...this.state.currentcourses, responseJSON],
+                    currentcoursecount: this.state.currentcoursecount + 1
+                });
+            return this.generateweeksforterm(this.state.currentterm);
+               // .then(response => {
+               //     return this.generategradesforcourse(this.currentterm, this.state.currentcoursename) 
+               // })
+               // .catch((err) => {
+               //     let msg = "there was a problem with the gengrades";
+               //     console.log(msg);
+               // })
         })
         .catch((err) => {
             console.log(err);
         });
-    }
-    
-    submitaddweek = (newweek) => {
-        
-        console.log('app:submitaddweek, neweek', newweek);
-        fetch(`${API_BASE_URL}/weeks`, {
-            method: 'POST',
-            headers: {
-                // Provide our auth token as credentials
-                Authorization: `Bearer ${this.state.authToken}`,
-                "Content-Type": 'application/json'
-            },
-            body: JSON.stringify(newweek)
-        })
-        .then(response => {
-            if(response.ok){
-                return response.json();
-            }
-            throw new Error(response.text)
-        })
-        .then(responseJSON =>  {
-            this.setState({
-                weeks: [...this.state.currentweeks, responseJSON]
-            });
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+
     }
 
-    submitAddGrade(newgrade) { 
-        debugger;
-        console.log('made it to submitAdd Grade.  Here is newgrade', newgrade);
-        fetch(`${API_BASE_URL}/grades`, {
-                method: 'POST',
-                headers: {
-                    // Provide our auth token as credentials
-                    Authorization: `Bearer ${this.state.authToken}`,
-                    "Content-Type": 'application/json'
-                },
-                body: JSON.stringify(newgrade)
-            })
-            .then(response => {
-                if(response.ok) {
-                        return response.json()
+    
+    
+    generateweeksforterm = (term) => {
+        console.log('genweeks start');
+        console.log('genweeks this.state.currentcoursecount', this.state.currentcoursecount);
+
+        if(this.state.currentcoursecount === 1) {
+                let termWeeks=0;
+                if(term  === 'Spring (16 weeks)' || term === 'Fall (16 weeks)') {
+                    termWeeks= this.state.SpringFall;
+                } else if (term === 'Summer (8 weeks)') {
+                    termWeeks = this.state.SummerLong;
+                } else if (term === 'Winter (4 weeks)') {
+                    termWeeks = this.state.Short;
+                } else if (term === 'Summer (4 weeks)') {
+                    termWeeks = this.state.SummerShort
                 }
-                throw new Error(response.text)
-            })
-            .then(grade => {
-                console.log("was grade successful..  found a grade", grade);
-                return grade;
-            })
-            .catch((err) => {
-                console.log(err);
-            }); 
+                for(let i = 1; i <= termWeeks; i++) {
+                    let newweek = {
+                        termDesc: this.state.currentterm,
+                        weekNum:i,
+                        likedLeast: 'no selection',
+                        likedMost: 'no selection',
+                        mostDifficult: 'no selection',
+                        leastDifficult: 'no selection'
+                    }
+                    fetch(`${API_BASE_URL}/weeks`, {
+                        method: 'POST',
+                        headers: {
+                            // Provide our auth token as credentials
+                            Authorization: `Bearer ${this.state.authToken}`,
+                            "Content-Type": 'application/json'
+                        },
+                        body: JSON.stringify(newweek)
+                    })
+                    .then(response => {
+                        if(response.ok){
+                            return response.json();
+                        }
+                        throw new Error(response.text)
+                    })
+                    .then(week =>  {
+                         this.setState({
+                                    currentweeks: [...this.state.currentweeks, week],
+                                    currentweekcount: this.state.currentweekcount + 1
+                                });
+                        return this.getcurrentweeks(this.state.currentterm); 
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+                }
+            
+            } else {
+                console.log('there is more than one class so no new weeks should have been generated.', this.state.currentcoursecount);
+            } 
     }
+
+    generategradesforcourse = (term, course) => {
+            console.log('gengrades start');
+            let courseGrades = 0;
+            if(term  === 'Spring (16 weeks)' || term === 'Fall (16 weeks)') {
+                courseGrades= this.state.SpringFall;
+            } else if (term === 'Summer (8 weeks)') {
+                courseGrades = this.state.SummerLong;
+            } else if (term === 'Winter (4 weeks)') {
+                courseGrades = this.state.Short;
+            } else if (term === 'Summer (4 weeks)') {
+                courseGrades = this.state.SummerShort;
+            }
+            for(let i = 1; i <= courseGrades; i++) {
+                let newgrade = {
+                    termDesc: this.state.currentterm,
+                    courseName: course,
+                    weekNum:i,
+                    gradeNum: 100
+                }
+                fetch(`${API_BASE_URL}/grades`, {
+                    method: 'POST',
+                    headers: {
+                        // Provide our auth token as credentials
+                        Authorization: `Bearer ${this.state.authToken}`,
+                        "Content-Type": 'application/json'
+                    },
+                    body: JSON.stringify(newgrade)
+                })
+                .then(response => {
+                    if(response.ok) {
+                            return response.json()
+                    }
+                    throw new Error(response.text)
+                })
+                .then(grade => {
+                    this.setState({
+                        currentgrades: [...this.state.currentgrades, grade],
+                        //currentgradecount: this.state.currentgradecount + 1
+                        }, () => {
+                            console.log('grades:this is the callback', this.state.currentgrades);
+                        }
+                    );
+                })
+                .catch((err) => {
+                    console.log(err);
+                }); 
+            }
+    }
+
+ 
     
     // DELETE functions
     submitdeletecourse = (selectedCourse) => {
@@ -793,7 +780,7 @@ class App extends React.Component {
                                                         getcurrentsuggestion={() => this.getcurrentsuggestion()}
                                                         getcurrentterms={() => this.getcurrentterms()}
                                                         getcurrentcourses={() => this.getcurrentcourses()}
-                                                        getcurrentweeks={() => this.getcurrentweeks()}
+                                                        getcurrentweeks={(term) => this.getcurrentweeks(term)}
                                                         getcurrentdeliverables={(week) => this.getcurrentdeliverables(week)}
                                                         getcurrentgrades={() => this.getcurrentgrades()}
                                                         drawertoggleclickhandler={() => this.drawertoggleclickhandler()}
@@ -805,8 +792,10 @@ class App extends React.Component {
                         <Route exact path="/profile" render={() => <Profile {...this.state}
                                                         renderRedirect={(newPath) => this.renderRedirect(newPath)}
                                                         getcurrentterm={(selectedterm) => this.getcurrentterm(selectedterm)}
+                                                        getcurrentweeks={(term) => this.getcurrentweeks(term)}
                                                         submitaddcourse={(newcourse) => this.submitaddcourse(newcourse)}
-                                                        submitaddweek={(newweek) => this.submitaddweek(newweek)}
+                                                        generateweeksforterm={(term) => this.generateweeksforterm(term)}
+                                                        generategradesforcourse={(term, course) => this.generategradesforcourse(term, course)}
                                                         submitdeletecourse={(selectedcourse) => this.submitdeletecourse(selectedcourse)}
                                                         submitdeleteweek={(selectedweek) => this.submitdeleteweek(selectedweek)}
                                                         submitupdatecourse={(updatedcourse) => this.submitupdatecourse(updatedcourse)}
@@ -815,6 +804,7 @@ class App extends React.Component {
                                                         backdropclickhandler = {() => this.backdropclickhandler()}
                                                         />} /> 
                         <Route exact path="/weeks" render={() => <Weeks {...this.state}
+                                                        getcurrentweeks = {(term) => this.getcurrentweeks(term)}
                                                         renderRedirect={(newPath) => this.renderRedirect(newPath)}
                                                         getcurrentgrades={() => this.getcurrentgrades()}
                                                         drawertoggleclickhandler={() => this.drawertoggleclickhandler()}

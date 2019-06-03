@@ -1,9 +1,19 @@
 .add-form {
-    margin-top: 15px;
+    margin-top: 20px;
     margin-bottom: 15px;
 }
 
 .course{
     margin:0 auto;
-    background: orange;
+}
+
+.course-input {
+    width: 150px;
+    margin-top: 5px;
+    margin-bottom:5px;
+}
+
+.add-btn,
+.cancel-btn {
+    width: 50px;
 }

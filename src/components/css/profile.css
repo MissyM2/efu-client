@@ -20,6 +20,14 @@
     margin: 0 auto;
 }
 
+.term-row {
+    display:flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+    justify-content: center;
+    list-style-type: none;
+  }
+
 .profile-row {
     display:flex;
     flex-direction: row;
@@ -34,17 +42,13 @@
 }
 
 
-.section {
-    background-color: var( --darker-blue-color);
-    color: var(--off-white-color);
-    padding: 4px;
-    margin: 5px;
-    border-radius: 4px;
-  }
+
 
   .course {
       width: 200px;
   }
+
+
   
 
 
