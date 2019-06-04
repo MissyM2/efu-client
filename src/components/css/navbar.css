@@ -3,7 +3,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 56px;
+    height: 60px;
     text-align: center;
     background-color: #93A28F; 
     background-image: -webkit-gradient(linear, left top, left bottom, from(#93A28F), to(#687864));
@@ -37,6 +37,24 @@
 
 .navbar_logo {
   margin-left: 1rem;
+  
+}
+
+.logo-group {
+  display:flex;
+  flex-direction: row;
+  padding-top:8px;
+}
+
+.logo-verbage {
+  padding-top: 12px;
+  width: 130px;
+  text-align:left;
+  padding-left:6px;
+}
+
+.logo-nav-image {
+  height: 50px;
 }
 
 .spacer {

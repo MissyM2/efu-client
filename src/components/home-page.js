@@ -11,8 +11,10 @@ class HomePage extends React.Component {
                         
                             <div className="homepage-content">
                                 <div>
-                                    <div className="logo-container">
-                                        <div><img className="logo-image" src={require("./assets/lightbulb.png")}  alt="Executive Followup Logo" /></div>
+                                    <div className="logo">
+                                        <div className="logo-container">
+                                            <img className="logo-image" src={require("./assets/lightbulb.png")}  alt="Executive Followup Logo" />
+                                        </div>
                                         <div className="title-container">
                                             <div className="homepage-welcome">Welcome to</div>
                                             <div className="homepage-title">Executive Followup</div>

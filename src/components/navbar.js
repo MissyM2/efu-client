@@ -16,8 +16,14 @@ export default class NavBar extends React.Component {
                     <DrawerToggleButton click={this.props.drawertoggleclickhandler} />
                 </div>
                 <div className="navbar_logo">
-                        <Link className="link logo" to="/dashboard">
-                                DASHBOARD
+                        <Link className="logo-group link logo" to="/dashboard">
+                            <div className="logo-nav">
+                                <img className="logo-nav-image" src={require("./assets/lightbulb.png")}  alt="Executive Followup Logo" />
+                            </div>
+                            <div className="logo-verbage">
+                                Back to Dashboard
+                            </div>
+                                
                         </Link>
                 </div>
                 <div className="spacer" />

@@ -38,14 +38,14 @@ export default class ReviewCurrentWeek extends React.Component {
                 <div className="container">
                     <h2>Review Last Week, week number {this.props.currentweek}</h2>
                     <div className="attitudes">
-                        <div className="section-label">How did you feel about your week?</div>
+                        <div className="section-head color-light">How did you feel about your week?</div>
                             <ul className="list-vertical week-list">
                                {myweek}
                             </ul>
                         
                     </div>
                     <div className="grades">
-                        <div className="section-label">Add Your Grades as of Today</div>
+                        <div className="section-head color-light">Add Your Grades as of Today</div>
                         <ul className="profile-row coursegrades-list">
                             <CourseGrades {...this.props} />
                         </ul>
