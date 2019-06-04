@@ -41,6 +41,7 @@ class App extends React.Component {
             todaydeliverables:[],
             thisweekdeliverables:[],
             sideDrawerOpen: false,
+            showNavButtons:true,
             error: null,
             loading:false,
             SpringFall:16,
@@ -52,13 +53,15 @@ class App extends React.Component {
         this.submitregistration = this.submitregistration.bind(this);
         this.submitlogin = this.submitlogin.bind(this);
         this.setlogin = this.setlogin.bind(this);
+        this.setcurrentterm = this.setcurrentterm.bind(this);
         this.getcurrentterm=this.getcurrentterm.bind(this);
+        this.setcurrentweek=this.setcurrentweek.bind(this);
+        this.getcurrentweekdetails=this.getcurrentweekdetails.bind(this);
         this.getcurrentterms=this.getcurrentterms.bind(this);
         this.getcurrentsuggestion=this.getcurrentsuggestion.bind(this);
         this.getcurrentcourses=this.getcurrentcourses.bind(this);
         this.getcurrentgrades=this.getcurrentgrades.bind(this);
-        this.getcurrentweek=this.getcurrentweek.bind(this);
-        this.getcurrentweekdetails=this.getcurrentweekdetails.bind(this);
+        //this.getcurrentweek=this.getcurrentweek.bind(this);
         this.getcurrentweeks=this.getcurrentweeks.bind(this);
         this.getcurrentdeliverables=this.getcurrentdeliverables.bind(this);
         this.getcurrentdate=this.getcurrentdate.bind(this);
@@ -71,6 +74,7 @@ class App extends React.Component {
         this.submitupdatecourse=this.submitupdatecourse.bind(this);
         this.submitupdateweek=this.submitupdateweek.bind(this);
         this.drawertoggleclickhandler=this.drawertoggleclickhandler.bind(this);
+        this.navbuttonstoggleclickhandler=this.navbuttonstoggleclickhandler.bind(this);
         this.backdropclickhandler=this.backdropclickhandler.bind(this);
         this.modalconfirmhandler=this.modalconfirmhandler.bind(this);
         this.modalcancelhandler=this.modalcancelhandler.bind(this); 
@@ -81,35 +85,58 @@ class App extends React.Component {
     }
 
     componentDidUpdate() {
-        console.log('componentDidUpdate fired currentgrades', this.state.currentgrades);
+        //console.log('componentDidUpdate fired currentweeks', this.state.currentweeks);
+       // console.log('componentDidUpdate fired currentgrades', this.state.currentgrades);
     }
 
-    getcurrentterm(term) {
-        
-        this.setState({
-            currentterm: term
-        });
+    setcurrentterm = (term) => {
+        this.setState(
+            {
+            currentterm:term,
+            selectingterm:false
+            },
+        this.getcurrentterm(this.state.currentterm)
+        );
+    }
 
+    setcurrentweek = (week) => {
+        console.log('setcurrentweek: made it week', week);
+        this.setState(
+            {
+            currentweek:week,
+            selectingweek:false
+            },
+        this.getcurrentweekdetails(this.state.currentweek)
+        );
+    }
+
+    getcurrentterm = (term) => {
         this.getcurrentsuggestion();
-        this.getcurrentdeliverables(); 
+        //this.getcurrentdeliverables(); 
         this.getcurrentcourses();
-        this.getcurrentweeks();
-        this.getcurrentgrades();
+        this.getcurrentweeks(this.state.currentterm);
+        //this.getcurrentgrades(this.state.currentterm);
 
         this.setState({
             selectingterm:false
         });
     }
 
+    navbuttonstoggleclickhandler() {
+        this.setState((prevState) => {
+            return {showNavButtons: !prevState.showNavButtons};
+        })
+
+    }
+
+/*
     getcurrentweek(week) {
         console.log('app: getcurrentweek, week', week);
         
         this.setState({
             currentweek: week
         });
-
-       
-        this.getcurrentweeks();
+        this.getcurrentweeks(this.state.currentterm);
         console.log('getcurrentweek, this.state', this.state);
         //this.getcurrentweekdetails();
         this.getcurrentsuggestion();
@@ -120,7 +147,7 @@ class App extends React.Component {
             selectingweek:false
         }); 
     }
-
+*/
     submitregistration(firstName, lastName, username, password) {
         const newuser = {
             firstName: firstName,
@@ -195,11 +222,13 @@ class App extends React.Component {
                 loggedIn: true,
                 error: null,
                 loading: true,
-                //currentterm: "Spring, 2019",
                 nextweek: this.currentweek + 1,
                 authToken: responseJSON.authToken,
                 selectingterm: true
+            }, () => {
+                console.log('app: this.state', this.state);
             });
+
             this.props.history.push('/dashboard');
         }) 
         .catch((err) => {
@@ -263,6 +292,7 @@ class App extends React.Component {
     }
 
     getcurrentcourses() {
+        //console.log('made it to getcurrcourses');
         fetch(`${API_BASE_URL}/courses`, {
             method: 'GET',
             headers: {
@@ -280,18 +310,18 @@ class App extends React.Component {
             const tempcourses = responseJSON.filter(course => {
                     return course.termDesc === this.state.currentterm;
             });
-            this.setState((state) => {
-                    return {
+            this.setState({
                         currentcourses: tempcourses,
                         currentcoursecount: tempcourses.length
-                    }});
+                    });
+
         })
         .catch((err) => {
             console.log(err);
         });
     }
 
-    getcurrentgrades(course) {
+    getcurrentgrades(term) {
         fetch(`${API_BASE_URL}/grades`, {
             method: 'GET',
             headers: {
@@ -307,18 +337,13 @@ class App extends React.Component {
         })
         .then(grades => {
             const tempgrades = grades.filter(grade => {
-                                   return grade.termDesc === this.state.currentterm;
-                    //&& 
-                           // grade.week === this.state.currentweek &&
-                            //grade.course === course;
+                                   return grade.term === term;
             });
-            this.setState ((state) => {
-                return {
+            this.setState ({
                     currentgrades: tempgrades,
                     currentgradecount: tempgrades.length
-                }}, () => { 
-                    console.log('getcurrentgrades:  this is the state after the callback', this.state.currentgrades);//this will print the updated state value);
-                })
+                });
+                
         })
         .catch((err) => {
             console.log(err);
@@ -326,7 +351,6 @@ class App extends React.Component {
     }
 
     getcurrentweeks(term) {
-        console.log('made it to getcurrentweeks, here is the term', term);
         fetch(`${API_BASE_URL}/weeks`, {
             method: 'GET',
             headers: {
@@ -348,24 +372,28 @@ class App extends React.Component {
             const thisweek = responseJSON.filter(week => {
                 return week.termDesc === term && week.weekNum === this.state.currentweek;
             });
-            this.setState((state) => {
-                return {
+            console.log('app: getcurrentweeks, thisweek', thisweek);
+            this.setState(
+                {
                     currentweeks: sortedweeks,
                     currentweekdetails: thisweek,
                     currentweekcount: sortedweeks.length
-                }}, () => { 
-                    console.log('getcurrentweeks:  this is the state after the callback', this.state.currentweeks);//this will print the updated state value);
-                })
+                },
+                this.getcurrentgrades(this.state.currentterm)
+            );
         })
         .catch((err) => {
             console.log(err);
         });
     }
 
-    getcurrentweekdetails() {
+    getcurrentweekdetails = (week) => {
+        console.log('getcurrentweekdetails: week', week);
         const thisweek= this.state.currentweeks.filter(week => {
             return week.weekNum === this.state.currentweek;
         })
+        console.log('getcurrweekdets: thisweek', thisweek);
+
         this.setState({
             currentweekdetails:  thisweek
         })
@@ -476,15 +504,10 @@ class App extends React.Component {
                     currentcourses: [...this.state.currentcourses, responseJSON],
                     currentcoursecount: this.state.currentcoursecount + 1
                 });
-            return this.generateweeksforterm(this.state.currentterm);
-               // .then(response => {
-               //     return this.generategradesforcourse(this.currentterm, this.state.currentcoursename) 
-               // })
-               // .catch((err) => {
-               //     let msg = "there was a problem with the gengrades";
-               //     console.log(msg);
-               // })
-        })
+            //  once the currentcoursecount is set in the state to include the new course,
+            //  generate the weeks for the term
+            return this.generateweeksforterm(this.state.currentterm, newcourse);
+        })  
         .catch((err) => {
             console.log(err);
         });
@@ -493,9 +516,7 @@ class App extends React.Component {
 
     
     
-    generateweeksforterm = (term) => {
-        console.log('genweeks start');
-        console.log('genweeks this.state.currentcoursecount', this.state.currentcoursecount);
+    generateweeksforterm = (term, course) => {
 
         if(this.state.currentcoursecount === 1) {
                 let termWeeks=0;
@@ -508,6 +529,7 @@ class App extends React.Component {
                 } else if (term === 'Summer (4 weeks)') {
                     termWeeks = this.state.SummerShort
                 }
+                console.log('genweeks: termWeeks', termWeeks);
                 for(let i = 1; i <= termWeeks; i++) {
                     let newweek = {
                         termDesc: this.state.currentterm,
@@ -533,11 +555,12 @@ class App extends React.Component {
                         throw new Error(response.text)
                     })
                     .then(week =>  {
-                         this.setState({
+                        this.setState(
+                                {
                                     currentweeks: [...this.state.currentweeks, week],
                                     currentweekcount: this.state.currentweekcount + 1
                                 });
-                        return this.getcurrentweeks(this.state.currentterm); 
+
                     })
                     .catch((err) => {
                         console.log(err);
@@ -545,12 +568,13 @@ class App extends React.Component {
                 }
             
             } else {
+                
                 console.log('there is more than one class so no new weeks should have been generated.', this.state.currentcoursecount);
             } 
+            this.generategradesforcourse(term, course.courseName);
     }
 
     generategradesforcourse = (term, course) => {
-            console.log('gengrades start');
             let courseGrades = 0;
             if(term  === 'Spring (16 weeks)' || term === 'Fall (16 weeks)') {
                 courseGrades= this.state.SpringFall;
@@ -584,13 +608,13 @@ class App extends React.Component {
                     throw new Error(response.text)
                 })
                 .then(grade => {
-                    this.setState({
+                    this.setState(
+                        {
                         currentgrades: [...this.state.currentgrades, grade],
-                        //currentgradecount: this.state.currentgradecount + 1
-                        }, () => {
-                            console.log('grades:this is the callback', this.state.currentgrades);
+                        currentgradecount: this.state.currentgradecount + 1
                         }
                     );
+                    return this.getcurrentgrades(this.state.currentterm); 
                 })
                 .catch((err) => {
                     console.log(err);
@@ -770,20 +794,25 @@ class App extends React.Component {
                                                         />} /> 
 
                         <Route exact path="/navbar" render={() => <NavBar {...this.state} 
+                                                        getcurrentterm={(term) => this.getcurrentterm(term)}
                                                         renderRedirect={(newPath) => this.renderRedirect(newPath)}
+                                                        setcurrentterm = {(term) => this.setcurrentterm(term)}
                                                         submitlogout= {() => this.submitlogout()}
                                                         />} /> 
                         <Route exact path="/dashboard" render={() => <Dashboard {...this.state}
+                                                        setcurrentterm = {(term) => this.setcurrentterm(term)}
+                                                        setcurrentweek = {(week) => this.setcurrentweek(week)}
                                                         renderRedirect={(newPath) => this.renderRedirect(newPath)}
                                                         getcurrentterm={(term) => this.getcurrentterm(term)}
-                                                        getcurrentweek={(week) => this.getcurrentweek(week)}
+                                                        //getcurrentweek={(week) => this.getcurrentweek(week)}
                                                         getcurrentsuggestion={() => this.getcurrentsuggestion()}
                                                         getcurrentterms={() => this.getcurrentterms()}
                                                         getcurrentcourses={() => this.getcurrentcourses()}
                                                         getcurrentweeks={(term) => this.getcurrentweeks(term)}
                                                         getcurrentdeliverables={(week) => this.getcurrentdeliverables(week)}
-                                                        getcurrentgrades={() => this.getcurrentgrades()}
+                                                        getcurrentgrades={(term) => this.getcurrentgrades(term)}
                                                         drawertoggleclickhandler={() => this.drawertoggleclickhandler()}
+                                                        navbuttonstoggleclickhandler={() => this.navbuttonstoggleclickhandler()}
                                                         backdropclickhandler = {() => this.backdropclickhandler()}
                                                         modalconfirmhandler = {() => this.modalconfirmhandler()}
                                                         modalcancelhandler = {() => this.modalcancelhandler()}
@@ -791,6 +820,7 @@ class App extends React.Component {
                                                         />} /> 
                         <Route exact path="/profile" render={() => <Profile {...this.state}
                                                         renderRedirect={(newPath) => this.renderRedirect(newPath)}
+                                                        setcurrentterm = {(term) => this.setcurrentterm(term)}
                                                         getcurrentterm={(selectedterm) => this.getcurrentterm(selectedterm)}
                                                         getcurrentweeks={(term) => this.getcurrentweeks(term)}
                                                         submitaddcourse={(newcourse) => this.submitaddcourse(newcourse)}
@@ -804,19 +834,23 @@ class App extends React.Component {
                                                         backdropclickhandler = {() => this.backdropclickhandler()}
                                                         />} /> 
                         <Route exact path="/weeks" render={() => <Weeks {...this.state}
+                                                        setcurrentterm = {(term) => this.setcurrentterm(term)}
+                                                        getcurrentterm={(selectedterm) => this.getcurrentterm(selectedterm)}
                                                         getcurrentweeks = {(term) => this.getcurrentweeks(term)}
                                                         renderRedirect={(newPath) => this.renderRedirect(newPath)}
-                                                        getcurrentgrades={() => this.getcurrentgrades()}
+                                                        getcurrentgrades={(term) => this.getcurrentgrades(term)}
                                                         drawertoggleclickhandler={() => this.drawertoggleclickhandler()}
                                                         backdropclickhandler = {() => this.backdropclickhandler()}
                                                         />} /> 
                         <Route exact path="/review-current-week" render={() => <ReviewCurrentWeek {...this.state}
                                                         renderRedirect={(newPath) => this.renderRedirect(newPath)}
+                                                        setcurrentweek={(week) => this.setcurrentweek(week)}
                                                         submitupdateweek={(updatedweek) => this.submitupdateweek(updatedweek)}
                                                         submitaddgrade={(newgrade) => this.submitAddGrade(newgrade)}
                                                         getcurrentweekdetails={() => this.getcurrentweekdetails()}
                                                         drawertoggleclickhandler={() => this.drawertoggleclickhandler()}
                                                         backdropclickhandler = {() => this.backdropclickhandler()}
+                                                        navbuttonstoggleclickhandler={() => this.navbuttonstoggleclickhandler()}
                                                         />} /> 
                         <Route exact path="/plan-next-week" render={() => <PlanNextWeek {...this.state}
                                                         renderRedirect={(newPath) => this.renderRedirect(newPath)}

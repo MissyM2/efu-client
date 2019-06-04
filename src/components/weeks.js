@@ -15,22 +15,33 @@ export default class Weeks extends React.Component {
                         mygrades: [],
                         termSelected:'',
                 }
-                this.setSelectedTerm = this.setSelectedTerm.bind(this);
+                //this.setSelectedTerm = this.setSelectedTerm.bind(this);
         }
+/*
+        componentDidMount() {
+                this.setState({
+                    termSelected:this.props.currentterm
+                })
+                this.props.getcurrentweeks(this.props.currentterm);
+                this.props.getcurrentgrades(this.props.currentterm);
+                console.log('weeks: componentDidMount this.props.currentcourses', this.props.currentcourses);
+            }
+         
 
         setSelectedTerm(e) {
-                console.log('got to setSelectedTerm');
                 e.preventDefault();
                 this.setState({
                     termSelected: e.target.value
                 }, () => {
-                    console.log('this.state.termSelected', this.state.termSelected);
-                    console.log('here are the weeks for the termselected', this.props.getcurrentweeks(this.state.termSelected));
+                        this.props.setcurrentterm(this.state.termSelected);
+                        console.log('this.state.termSelected', this.state.termSelected);
+                        console.log('here are the weeks for the termselected', this.props.currentweeks);
+                        this.props.getcurrentweeks(this.state.termSelected);
                 });
             }
         
-        
-
+           */
+           
         render() {
                 console.log('weeks, this.state', this.props);
                 let backdrop;
@@ -38,25 +49,6 @@ export default class Weeks extends React.Component {
                 if(this.props.sideDrawerOpen) {
                         backdrop = <Backdrop click={this.props.backdropclickhandler} />
                 }
-
-                let termClasses = 'dropdown-large';
-                // whatever term is in currentterm, the class should be selected
-                if (this.props.currentterm === this.props.termDesc) {
-                termClasses='dropdown-item selected';
-                }
-
-                const allterms = this.props.terms.map((term, index) => {
-                        return (
-                                <option 
-                                key={index}
-                                value={term.termDesc}
-                                className={termClasses}
-                                data-identifier={term.termDesc}
-                                >
-                                {term.termDesc}
-                                </option>
-                        );
-                });
                
                 const weeks = this.props.currentweeks.map((week, index) => {
                         return (
@@ -86,28 +78,19 @@ export default class Weeks extends React.Component {
                                                 </li>
                                         </ul>
                                         <div className="section-label">Courses and Grades</div>
-                                        <div className="row">
-                                                {this.props.currentcourses.map((course, index) => {
-                                                                        return (
-                                                                                <div className="sub-section" key={index}>
-                                                                                        <div className="weeks-item-label week-label">{course.courseName}</div>
-                                                                                        {this.props.currentgrades.filter(grade => {
-                                                                                                return (
-                                                                                                        grade.term === course.termDesc &&
-                                                                                                        grade.week === week.weekNum &&
-                                                                                                        grade.course === course.courseName
-                                                                                                );
-                                                                                        }).map(grade => {
-                                                                                                return (
-                                                                                                        <div key={index} className="item-body">{grade.gradeNum}</div>
-                                                                                                );
-                                                                                        })
-                                                                                        }
-                                                                                </div>
-                                                                        );
+                                        <div className="grade-row">
 
-                                                                })
-                                                        }
+                                                {this.props.currentgrades.filter(grade => grade.week === week.weekNum )
+                                                                //grade.course === course.courseName
+                                                .map(grade => {
+                                                                return (
+                                                                        <div key={index} className="grade-column">
+                                                                                <div className="course-title">{grade.course}</div>
+                                                                                <div className="course-grade">{grade.gradeNum}</div>
+                                                                        </div>
+                                                                );
+                                                })
+                                        }
                                         </div>
                                         
                                 </div>
@@ -121,32 +104,24 @@ export default class Weeks extends React.Component {
                                 {backdrop}
                                 <div className="container">
                                         <h3>Your Weeks for {this.props.currentterm}</h3>
-                                        {(this.props.currentweeks.length === 0) ? (
-                                                <div>
-                                                        <div className="no-data">
-                                                                You have not set up your Profile, yet.  Open Profile, select your term and add your first class.  This will generate the appropriate number of weeks.
+                                        <div>
+                                                {(this.props.currentweeks.length === 0) ? (
+                                                        <div className="dashboard-no-data">
+                                                                <div className="instructions-large">
+                                                                You have not set up your Profile, yet, for {this.props.currentterm}.  Either choose another term from the dropdown or
+                                                                select Profile, select your term and add your first class.  This will generate the appropriate number of weeks.
+                                                                </div>
                                                         </div>
-                                                        <div className="section-label">Available Terms</div>
-                                                        <div>
-                                                                <select className="term-row dropdown-large" onChange={this.setSelectedTerm}>
-                                                                {allterms} 
-                                                                </select>
-                                                        </div> 
-                                                </div>
                                                 ) : (
                                                 <div>
-                                                        <div>
-                                                                <select className="term-row dropdown-large" onChange={this.setSelectedTerm}>
-                                                                {allterms} 
-                                                                </select>
-                                                        </div> 
                                                         <div className="list-vertical this-week-weeks">
                                                                 {weeks}
                                                         </div> 
                                                 </div>
                                                 
                                                 )    
-                                        }
+                                                }
+                                        </div>
                                 </div>
                                         
                         </main>

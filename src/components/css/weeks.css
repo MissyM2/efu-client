@@ -1,6 +1,15 @@
-.grade-item-body {
-    border: 1px solid orange;
-    height:20px;
+.grade-row {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid;
+}
+
+
+.course-title,
+.course-grade {
+    color: white;
+    padding: 4px;
+    border: 1px solid;
 }
 
 .week-summary {

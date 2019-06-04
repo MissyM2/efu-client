@@ -2,6 +2,14 @@
     box-sizing: border-box;
   }
 
+  .available-terms-unit {
+    border: 2px solid orange;
+  }
+
+  .available-terms-unit.not-visible {
+    display:none;
+  }
+
   html {
     height: 100%;
   }
@@ -168,7 +176,8 @@
   .attitudes,
   .terms,
   .deliverables,
-  .grades {
+  .grades,
+  .action-links {
     width:95%;
     padding: 5px;
     border:1px solid #768871;
@@ -309,8 +318,13 @@
       should keep the default arrow cursor for buttons */
       cursor: pointer;
     }
+
   .btn-small {
     width: 100px;
+  }
+
+  .btn-med {
+    width: 200px;
   }
 
   .btn {
@@ -388,6 +402,12 @@
   .center-btn {
     margin:0 auto;
   }
+
+  .action-links {
+    display:flex;
+    flex-direction:row;
+    margin: 0 auto;
+}
 
   /***** link styles *****/
 
@@ -645,6 +665,10 @@
     /* Custom, iPhone Retina */ 
     @media only screen and (min-width : 320px) {
 
+      .action-links {
+          margin: 10px 5px;
+      }
+
       .row {
         flex-direction: column;
         width: 100%;
@@ -660,6 +684,11 @@
 
     /* Extra Small Devices, Phones */ 
     @media only screen and (min-width : 480px) {
+  
+
+      .action-links {
+          margin: 10px 5px;
+      }
 
       .row {
         flex-direction: column;
@@ -679,6 +708,11 @@
 
     /* Small Devices, Tablets */
     @media only screen and (min-width : 768px) {
+      
+
+      .action-links {
+          margin: 10px 5px;
+      }
 
       .row {
         flex-direction: column;

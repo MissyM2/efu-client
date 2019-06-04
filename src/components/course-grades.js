@@ -62,16 +62,13 @@ export default class CourseGrades extends React.Component {
         // set up courses and grades section
 
         let mycoursesgrades = this.props.currentcourses.map((course, index) => {
-            const isThereGradeForThisCourse = this.checkForGrade(course.courseName);
-            console.log('course-grades: inside let mycoursegrades, isThereGradeForThisCourse', isThereGradeForThisCourse);
-            if (!isThereGradeForThisCourse) {
                 return (
-                    <li className="row" key={index}>
+                    <li className="course-unit" key={index}>
                         <div 
-                            className="item-label course">
+                            className="color-light">
                             {course.courseName}
                         </div>
-                        <div className="item">
+                        <div className="color-light">
                             <input 
                                 type="number" 
                                 id={course.courseName}
@@ -79,29 +76,14 @@ export default class CourseGrades extends React.Component {
                                 onChange={e =>this.handleChange(e, "gradeNum")}
                                 />
                         </div>
-                        <div className="item">
+                        <div className="grade-item color-light">
                             <button
-                                className="btn is-primary">
+                                className="btn">
                                 Commit Grade
                             </button>
                         </div>
                     </li>
                 );
-            } else {
-                return (
-                    <li className="row" key={index}>
-                        <div 
-                            className="item-label course">
-                            {course.courseName}
-                        </div>
-                        <div className="item">
-                            Course grade for this week has been entered.  View the whole week under Weeks.
-                        </div>
-                    </li>
-                );
-            }
-
-            
         });
 
         return (

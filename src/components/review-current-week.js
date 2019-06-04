@@ -1,10 +1,13 @@
 import React from 'react';
 
+import { Link } from 'react-router-dom';
+
 import NavBar from "./navbar";
 import SideDrawer from './side-drawer';
 import Backdrop from './backdrop';
 
-import './css/course-grades.css';
+import './css/review-current-week.css';
+//import './css/course-grades.css';
 
 import Week from './week';
 import CourseGrades from './course-grades';
@@ -23,13 +26,13 @@ export default class ReviewCurrentWeek extends React.Component {
         let myweek = this.props.currentweekdetails;
         myweek = myweek.map((week, index) => {
             return (
-                <li className="section row" key={index}>
+                <li className="review-section row" key={index}>
                     <Week {...week} {...this.props} weekstatus="one" />
                 </li>
             );
         });
         
-
+        console.log('reviewcurrweek: this.props', this.props);
         return (
             <div className="container">
                 <NavBar  {...this.props} />
@@ -50,6 +53,25 @@ export default class ReviewCurrentWeek extends React.Component {
                             <CourseGrades {...this.props} />
                         </ul>
                     </div>
+                    <div className="help">
+                                                <Link 
+                                                    className="link navitem item btn btn-med" 
+                                                    to={{
+                                                        pathname: '/dashboard',
+                                                        }}
+                                                    onClick={this.props.navbuttonstoggleclickhandler}
+                                                    >
+                                                    Return to Your Dashboard
+                                                </Link>
+                                                <Link 
+                                                    className="link navitem item btn btn-med" 
+                                                    to={{
+                                                        pathname: '/plan-next-week'
+                                                    }}
+                                                    >
+                                                    Plan Your Next Week
+                                                </Link>
+                                        </div>
                 </div>  
             </div>    
         );  

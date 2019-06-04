@@ -19,10 +19,9 @@ export default class Dashboard extends React.Component {
         super(props);
         this.state = {
             weekSelected: 1,
-            termSelected: 'Spring (16 weeks)'
+            termSelected: ''
         }
         this.setSelectedWeek = this.setSelectedWeek.bind(this);
-        this.setSelectedTerm = this.setSelectedTerm.bind(this);
     }
 
     componentDidMount() {
@@ -30,30 +29,18 @@ export default class Dashboard extends React.Component {
     }
 
     setSelectedWeek(e) {
-        console.log('got to setSelectedTerm');
+        console.log('got to setSelectedWeek');
         e.preventDefault();
         this.setState({
             weekSelected: e.target.value
         }, () => {
-            console.log('this.state.weekSelected', this.state.weekSelected);
-            this.props.getcurrentweek(this.state.weekSelected);
+            this.props.setcurrentweek(this.state.weekSelected);
         });
     }
-
-    setSelectedTerm(e) {
-        console.log('got to setSelectedTerm');
-        e.preventDefault();
-        this.setState({
-            termSelected: e.target.value
-        }, () => {
-            console.log('this.state.termSelected', this.state.termSelected);
-            this.props.getcurrentterm(this.state.termSelected);
-        });
-    }
-    
-
+   
             
     render() {
+        
         let backdrop;
 
         if(this.props.sideDrawerOpen) {
@@ -61,36 +48,15 @@ export default class Dashboard extends React.Component {
         }
 
         let weekClasses = 'dropdown-large';
- /*       if (this.props.currentweek == this.props.weekNum) {
-            weekClasses='dropdown-item selected';
-        }
-*/
-        let termClasses = 'dropdown-large';
-                // whatever term is in currentterm, the class should be selected
-                if (this.props.currentterm === this.props.termDesc) {
-                    termClasses='dropdown-item selected';
-        }
 
-        const allterms = this.props.terms.map((term, index) => {
-            return (
-                <option 
-                    key={index}
-                    value={term.termDesc}
-                    className={termClasses}
-                    data-identifier={term.termDesc}
-                >
-                    {term.termDesc}
-                </option>
-            );
-        });
-
-        const availableweeks = this.props.currentweeks.map((week, index) => {
+        const allweeks = this.props.currentweeks.map((week, index) => {
             return (
                 <option
                     key={index}
                     value={week.weekNum}
                     className={weekClasses}
                     data-identifier={week.weekNum}
+                    onChange={this.setSelectedWeek}
                 >
                     Week {week.weekNum}
                 </option>                    
@@ -122,6 +88,7 @@ export default class Dashboard extends React.Component {
         //if (loading) {
        //     return <p>Loading ...</p>
         //}
+        console.log('dashboard: this.props', this.props);
             return (
                 <div className="dashboard-container">
                     <div className="dashboard-content">
@@ -139,12 +106,6 @@ export default class Dashboard extends React.Component {
                                             You have not set up your Profile, yet, for {this.props.currentterm}.  Either choose another term from the dropdown or
                                             select Profile, select your term and add your first class.  This will generate the appropriate number of weeks.
                                         </div>
-                                        <div>
-                                        <div>Available Terms</div>
-                                            <select className="term-row dropdown-large" onChange={this.setSelectedTerm}>
-                                            {allterms} 
-                                            </select>
-                                        </div>
                                 </div>
                                 
                             ) : (
@@ -155,8 +116,10 @@ export default class Dashboard extends React.Component {
                                             Select from the dropdown to view details of another week.
                                         </div>
                                         <div>
-                                            <select className="dropdown-large" onChange={this.setSelectedWeek}>
-                                                {availableweeks}
+                                            <div>Available Weeks</div>
+                                            <select className="dropdown-large" value={this.props.currentweek} onChange={this.setSelectedWeek}>
+                                                <option value="-1" disabled>Choose a week</option>
+                                                {allweeks}
                                             </select>
                                             
                                         </div>
@@ -169,7 +132,7 @@ export default class Dashboard extends React.Component {
                                                 </li>
                                         </ul> 
 
-                                        <div className="review-and-plan">
+                                        <div className="action-links">
                                                 <Link 
                                                     className="link navitem item btn btn-large" 
                                                     to={{
@@ -177,6 +140,7 @@ export default class Dashboard extends React.Component {
                                                         state: {
                                                             weekstatus: 'one'
                                                     }}}
+                                                    onClick={this.props.navbuttonstoggleclickhandler}
                                                     >
                                                     Review This Week
                                                 </Link>

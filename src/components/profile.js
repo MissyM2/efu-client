@@ -15,21 +15,31 @@ export default class Profile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            termSelected: 'Spring (16 weeks)'
+            termSelected: props.currentterm
         }
-        this.setSelectedTerm = this.setSelectedTerm.bind(this);
+        //this.setSelectedTerm = this.setSelectedTerm.bind(this);
     }
+/*
+    componentDidMount() {
+        this.setState({
+            termSelected:this.props.currentterm
+        })
+        this.props.getcurrentterm(this.props.currentterm);
+        console.log('profile: componentDidMount this.props.currentcourses', this.props.currentcourses);
+    }
+ 
 
     setSelectedTerm(e) {
-        console.log('got to setSelectedTerm');
         e.preventDefault();
         this.setState({
             termSelected: e.target.value
         }, () => {
-            console.log('this.state.termSelected', this.state.termSelected);
+            console.log('changed the dropdown');
             this.props.getcurrentterm(this.state.termSelected);
+
         });
     }
+       */
  
     render() {
         let backdrop;
@@ -38,24 +48,6 @@ export default class Profile extends React.Component {
             backdrop = <Backdrop click={this.props.backdropclickhandler} />
         }
 
-        let termClasses = 'dropdown-large';
-        // whatever term is in currentterm, the class should be selected
-        if (this.props.currentterm === this.props.termDesc) {
-            termClasses='dropdown-item selected';
-        }
-
-        const allterms = this.props.terms.map((term, index) => {
-            return (
-                <option 
-                    key={index}
-                    value={term.termDesc}
-                    className={termClasses}
-                    data-identifier={term.termDesc}
-                >
-                    {term.termDesc}
-                </option>
-            );
-        });
         const mycourses = this.props.currentcourses.map((course, index) => {
             return (
                 <li className="section" key={index}>
@@ -63,7 +55,7 @@ export default class Profile extends React.Component {
                 </li>
             );
         });
-
+        //console.log('profile: this.props', this.props);
         return (
             <div className="container">
                 <NavBar {...this.props}/>
@@ -71,12 +63,6 @@ export default class Profile extends React.Component {
                 {backdrop}
                 <div className="container">
                         <h3>My Profile for {this.props.currentterm}</h3>
-                        <div>
-                            <div className="section-label">Available Terms</div>
-                            <select className="term-row dropdown-large" onChange={this.setSelectedTerm}>
-                               {allterms} 
-                            </select>
-                        </div>
                        <div className="courses">
                             <div className="section-label">Your Courses</div>
                             <ul className="profile-row course-list ">

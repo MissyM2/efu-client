@@ -1,4 +1,14 @@
-.li-before-coursegrades {
-    border: 1px solid blue;
+.form-course-grades {
+    display:flex;
+    flex-direction:row;
+}
+
+.grade-item,
+.grade-item-label {
+    color: white;
+}
+
+.course-unit {
+    margin: 2px 10px;
 }
 

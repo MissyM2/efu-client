@@ -20,13 +20,10 @@ export default class AddForm extends React.Component {
             termDesc: this.props.currentterm,
             courseName:text
         }
+        console.log('addform:newcourse', newcourse);
         this.setText('');
         this.setEditing(false);
             this.props.submitaddcourse(newcourse);
-           // this.props.generateweeksforterm(this.props.currentterm);
-           // this.props.getcurrentweeks();
-
-           // this.props.generategradesforcourse(this.props.currentterm, this.state.text);
     }
 
     setText(text) {
