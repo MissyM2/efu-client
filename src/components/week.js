@@ -1,5 +1,5 @@
 import React from 'react';
-import './css/week.css';
+import './css/weeks.css';
 
 export default class Week extends React.Component {
 
@@ -70,19 +70,16 @@ export default class Week extends React.Component {
             <div className="column with-delete-btn flex-wrap-row">
                 <div>
                     <div>
-                        <div className="weekNum column">Week {this.props.weekNum} / {this.props.termDesc}</div>
-                    </div>
-                    <div>
                         <form onSubmit={this.handleUpdate}>
                             <div className="profile-row">
-                                    <div className="row-section">
-                                        <div className="week-option column">
-                                                <div className="item-label item">Liked Least</div>
-                                                <div className="item">
-                                                    <div className="input-look">{this.state.likedLeast}</div>
+                                    <div className="weeks-row">
+                                        <div className="column unit-container-green">
+                                                <div className="weeks-item-label week-label likedLeast">Liked Least</div>
+                                                <div>
+                                                    <div className="item-body">{this.state.likedLeast}</div>
                                                     <div>
                                                         <select
-                                                            className="item"
+                                                            className="input-look"
                                                             type="text"
                                                             defaultValue= {this.state.likedLeast}
                                                             onChange={e => this.handleChange(e, "likedLeast")}>
@@ -92,16 +89,16 @@ export default class Week extends React.Component {
                                                     
                                                 </div>
                                         </div>
-                                        <div className="week-option column">
-                                                <div className="item-label item">Liked Most</div>
-                                                <div className="item">
-                                                    <div className="input-look">{this.state.likedMost}</div>
+                                        <div className="column unit-container-green">
+                                                <div className="weeks-item-label week-label likedMost">Liked Most</div>
+                                                <div>
+                                                    <div className="item-body">{this.state.likedMost}</div>
                                                     <div>
                                                         <select
                                                                 type="text"
                                                                 defaultValue= {this.state.likedMost}
                                                                 onChange={e => this.handleChange(e, "likedMost")}
-                                                                className="item">
+                                                                className="input-look">
                                                                     {mycoursedropdown}
                                                         </select>
                                                     </div>
@@ -109,17 +106,17 @@ export default class Week extends React.Component {
                                                 </div>
                                         </div>
                                     </div>
-                                    <div className="row-section">
-                                        <div className="week-option column">
-                                                <div className="item-label item">Most Difficult</div>
-                                                <div className="item">
-                                                    <div className="input-look">{this.state.mostDifficult}</div>
+                                    <div className="weeks-row">
+                                        <div className="column unit-container-green">
+                                                <div className="weeks-item-label week-label mostDifficult">Most Difficult</div>
+                                                <div>
+                                                    <div className="item-body">{this.state.mostDifficult}</div>
                                                     <div>
                                                         <select
                                                                 type="text"
                                                                 defaultValue= {this.state.mostDifficult}
                                                                 onChange={e => this.handleChange(e, "mostDifficult")}
-                                                                className="item">
+                                                                className="input-look">
                                                                     {mycoursedropdown}
                                                         </select>
                                                     </div>
@@ -127,16 +124,16 @@ export default class Week extends React.Component {
                                                 </div>
                                         </div>
                                     
-                                        <div className="week-option column">
-                                                <div className="item-label item">Least Difficult</div>
-                                                <div className="item">
-                                                    <div className="input-look">{this.state.leastDifficult}</div>
+                                        <div className="column unit-container-green">
+                                                <div className="weeks-item-label week-label leastDifficult">Least Difficult</div>
+                                                <div>
+                                                    <div className="item-body">{this.state.leastDifficult}</div>
                                                     <div>
                                                         <select
                                                                 type="text"
                                                                 defaultValue= {this.state.leastDifficult}
                                                                 onChange={e => this.handleChange(e, "leastDifficult")}
-                                                                className="item">
+                                                                className="input-look">
                                                                     {mycoursedropdown}
                                                         </select>
                                                     </div>
@@ -146,7 +143,7 @@ export default class Week extends React.Component {
                                     </div>
                             </div>
                             <div className="item column">
-                                    <button className="update-btn center-btn" type="submit" value="Submit"><i class="far fa-save"></i></button>
+                                    <button className="blue-btn center-btn" type="submit" value="Submit">Save Your Selections</button>
                             </div> 
                         </form>   
                     </div>

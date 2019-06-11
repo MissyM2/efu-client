@@ -1,3 +1,87 @@
+ul {
+    padding: 0;
+}
+
+.myweek-details-list {
+    display:flex;
+    display:column;
+}
+
+
+
+/*  Week Stuff */
+.student-section,
+.student-section-labels {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid;
+}
+
+.student-section-labels {
+    font-weight: bold;
+    background-color:rgba(211, 211, 211, 0.349);
+}
+
+.myweek-label {
+    font-weight: bold;
+}
+
+
+.myweekitem {
+    width: 50%;
+    border: 1px solid;
+}
+
+.myweeksection,
+.myweeksectionlabels {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid green;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.myweekupdatelabel,
+.myweekupdateitem {
+    width: 50%;
+    border: 1px solid;
+    padding: 3px;
+    margin: 5px;
+    
+}
+
+.myweekitemlabel {
+    width: 50%;
+    border: 1px solid;
+}
+
+.action-btns {
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+
+.li-courses {
+    width: 20%;
+}
+
+.course-grade-detail {
+    width: 100%;
+    border: 1px solid green;
+    margin: 0 auto;
+}
+
+
+.course-field {
+    border: 1px solid;
+    width: 50%;
+   
+}
+.grade-field {
+    border: 1px solid;
+    width: 50%;
+}
+
 .grade-row {
     display: flex;
     flex-direction: row;
@@ -26,7 +110,6 @@
 }
 
 .weeks-item-label {
-    width: 150px;
     padding-top:5px;
     padding-bottom:5px;
 }
@@ -37,11 +120,7 @@
     background-color: var(--mossy-green-color);
 }
 
-.weeks-row {
-    display:flex;
-    list-style-type: none;
-    justify-content:center;
-  }
+
 
 .weeks-section {
     display: flex;
@@ -63,13 +142,44 @@
     padding-bottom:5px;
 }
 
+
+
+.weekNum {
+    text-align: left;
+}
+
+.week-option {
+  color: var(--dark-mossy-green-color);
+  border-radius: 4px;
+}
+
+select {
+  background-color: var( --off-white-color);
+}
+
+
 /*==========  Mobile First Method  ==========*/
 
     /* Custom, iPhone Retina */ 
     @media only screen and (min-width : 320px) {
         .weeks-row {
-            flex-direction:column;
+            display:block;
+            width: 100%;
+            padding-left: 5px;
+            padding-right: 5px;
         }
+
+        .week-item {
+            width: 100%;
+            margin: 8px;
+        }
+
+        .unit-container-green,
+        .unit-container-blue {
+            width: 100%;
+            margin:0 auto;
+        }
+        
 
         .weeks-section {
             flex-direction: column;
@@ -78,9 +188,7 @@
 
     /* Extra Small Devices, Phones */ 
     @media only screen and (min-width : 480px) {
-        .weeks-row {
-            flex-direction:row;
-        }
+        
 
         .weeks-section {
             flex-direction: column;
@@ -90,8 +198,14 @@
     /* Small Devices, Tablets */
     @media only screen and (min-width : 768px) {
         .weeks-row {
-            flex-direction:row;
+            display:flex;
+            width: 100%;
         }
+
+        .week-item {
+            width: 50%;
+        }
+        
 
         .weeks-section {
             flex-direction: row;
@@ -100,13 +214,18 @@
 
     /* Medium Devices, Desktops */
     @media only screen and (min-width : 992px) {
-        .weeks-row {
+        .row {
+            display:flex;
+            flex-direction: row;
+        }
+       /* .weeks-row {
             flex-direction:row;
         }
 
         .weeks-section {
             flex-direction: row;
         }
+        */
     }
 
     /* Large Devices, Wide Screens */

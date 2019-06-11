@@ -8,7 +8,6 @@ class RegistrationPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            errors: {},
             user: {
                 firstName: '',
                 lastName: '',
@@ -45,7 +44,6 @@ class RegistrationPage extends React.Component {
                             this.state.user.password
                     )}
                     onChange={(field) => this.changeUser(field)}
-                    errors={this.state.errors}
                     user={this.state.user}
                 />
                 <div className="instructions-small">

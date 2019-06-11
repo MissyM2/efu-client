@@ -39,20 +39,28 @@ export default class Course extends React.Component {
     }
 
     render () {
+        console.log('course:this.props.courseName', this.props.courseName);
         return (
             <div>
+                <div>{this.props.courseName}</div>
                 <form onSubmit={this.handleUpdate}>
                     <div className="course-unit">
                             <div className="column">
                                 <input
                                     className="course-item"
                                     type="text"
-                                    defaultValue={this.props.courseName}
-                                    onChange={e => this.handleChange(e,"newCourseName")}>
-                                </input>
+                                    value={this.props.courseName}
+                                    onChange={e => this.handleChange(e,"newCourseName")}
+                                 />
                             </div>
                             <div>
-                                <button className="update-btn center-btn" type="button" value="Update"><i className="far fa-edit"></i></button>
+                                <button 
+                                    className="update-btn center-btn" 
+                                    type="button" 
+                                    value="Update"
+                                >
+                                    Update Course
+                                </button>
                                 <button className="delete-btn center-btn" onClick={(e) => this.setDelete(e)}><i className="far fa-trash-alt"></i></button>
                             </div>
                     </div>

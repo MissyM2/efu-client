@@ -7,6 +7,8 @@ import Deliverable from './deliverable';
 import TodayDeliverable from './todaydeliverable';
 import SideDrawer from './side-drawer';
 import Backdrop from './backdrop';
+import BackdropGreen from './backdrop-green';
+import BackdropWhite from './backdrop-white';
 import Modal from './modal';
 
 
@@ -42,12 +44,30 @@ export default class Dashboard extends React.Component {
     render() {
         
         let backdrop;
+        let dashboardContentClasses;
+        let dashboardNoData;
+        let navbarClasses;
+        let sidedrawerClasses;
 
         if(this.props.sideDrawerOpen) {
             backdrop = <Backdrop click={this.props.backdropclickhandler} />
+        } else {
+            backdrop = <BackdropWhite />
         }
 
-        let weekClasses = 'dropdown-large';
+        let weekClasses = 'dropdown unit-container-green';
+        
+        if(this.props.selectingterm) {
+            dashboardContentClasses = 'dashboard-content not-visible';
+            dashboardNoData='dashboard-no-data not-visible';
+            navbarClasses='not-visible';
+            sidedrawerClasses = 'not-visible';
+        } else {
+            dashboardContentClasses = 'dashboard-content';
+            dashboardNoData='dashboard-no-data';
+            navbarClasses="";
+            sidedrawerClasses="";
+        }
 
         const allweeks = this.props.currentweeks.map((week, index) => {
             return (
@@ -88,20 +108,21 @@ export default class Dashboard extends React.Component {
         //if (loading) {
        //     return <p>Loading ...</p>
         //}
-        console.log('dashboard: this.props', this.props);
             return (
                 <div className="dashboard-container">
-                    <div className="dashboard-content">
-                    {this.props.selectingterm && <Backdrop />}
                     {this.props.selectingterm && <Modal {...this.props} title="Please select Term" >
                         <p>Modal Content</p>
                     </Modal>}
-                    <NavBar  {...this.props} />
-                    <SideDrawer show={this.props.sideDrawerOpen} />
+                    <div className={navbarClasses}>
+                        <NavBar  {...this.props} />
+                    </div>
+                    <div className={sidedrawerClasses}>
+                        <SideDrawer show={this.props.sideDrawerOpen} />
+                    </div>
                     {backdrop}
-                     <div>
+                     <div className={dashboardContentClasses}>
                         {(this.props.currentweeks.length === 0) ? (
-                                <div className="dashboard-no-data">
+                                <div className={dashboardNoData}>
                                         <div className="instructions-large">
                                             You have not set up your Profile, yet, for {this.props.currentterm}.  Either choose another term from the dropdown or
                                             select Profile, select your term and add your first class.  This will generate the appropriate number of weeks.
@@ -110,20 +131,7 @@ export default class Dashboard extends React.Component {
                                 
                             ) : (
                                 <React.Fragment>
-                                        <h2>My Dashboard</h2>
-                                        <h3> Your are working with Week {this.state.weekSelected}, {this.props.currentterm} Term</h3>
-                                        <div className="instructions-small">
-                                            Select from the dropdown to view details of another week.
-                                        </div>
-                                        <div>
-                                            <div>Available Weeks</div>
-                                            <select className="dropdown-large" value={this.props.currentweek} onChange={this.setSelectedWeek}>
-                                                <option value="-1" disabled>Choose a week</option>
-                                                {allweeks}
-                                            </select>
-                                            
-                                        </div>
-
+                                        <h2>My Dashboard, Week {this.state.weekSelected}</h2>
                                         <ul className="skills-suggestion"> 
                                                 <li >
                                                     <div>{this.props.currentsuggestion.category}</div>
@@ -131,10 +139,22 @@ export default class Dashboard extends React.Component {
                                                     <div>~ {this.props.currentsuggestion.credit}</div>
                                                 </li>
                                         </ul> 
+                                        <div className="instructions-small">
+                                            Select from the dropdown to select a different week.
+                                        </div>
+                                        <div>
+                                            <select className="dropdown unit-container-green week" value={this.props.currentweek} onChange={this.setSelectedWeek}>
+                                                <option value="-1" selected="true">Choose a week</option>
+                                                {allweeks}
+                                            </select>
+                                            
+                                        </div>
+
+                                        
 
                                         <div className="action-links">
                                                 <Link 
-                                                    className="link navitem item btn btn-large" 
+                                                    className="blue-btn btn-large" 
                                                     to={{
                                                         pathname: '/review-current-week',
                                                         state: {
@@ -145,7 +165,7 @@ export default class Dashboard extends React.Component {
                                                     Review This Week
                                                 </Link>
                                                 <Link 
-                                                    className="link navitem item btn btn-large" 
+                                                    className="blue-btn btn-large" 
                                                     to={{
                                                         pathname: '/plan-next-week'
                                                     }}
@@ -187,7 +207,6 @@ export default class Dashboard extends React.Component {
                                 </React.Fragment>
                             )}
                         </div> 
-                    </div>
                 </div>  
             );
     }

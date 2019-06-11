@@ -3,12 +3,12 @@
     flex-direction:row;
 }
 
-.grade-item,
+/*
 .grade-item-label {
     color: white;
 }
-
-.course-unit {
-    margin: 2px 10px;
+.grade-item {
+    color: black;
 }
 
+*/

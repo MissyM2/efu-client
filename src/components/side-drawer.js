@@ -15,8 +15,8 @@ export default class SideDrawer extends React.Component {
     return (
             <nav className={drawerClasses}>
                 <ul>
-                    <li href="/"> 
-                        <div className="link-div">
+                    <li className="link-div" href="/"> 
+                        <div>
                             <Link 
                                 className="drawer-navitem"
                                 to={{
@@ -28,11 +28,9 @@ export default class SideDrawer extends React.Component {
                             </Link>
                         </div>
                     </li>
-                    <li>
-                        <hr />
-                    </li>
-                    <li href="/">
-                        <div className="link-div">
+                    
+                    <li className="link-div" href="/">
+                        <div>
                             <Link 
                                 className="drawer-navitem"
                                 to={{
@@ -47,7 +45,7 @@ export default class SideDrawer extends React.Component {
                        
                     </li>
                     <li className="logout" href="/">
-                        <div className="link-div">
+                        <div>
                             <Link className="link-logout" onClick={this.props.submitlogout} to="/">
                                 Log out
                             </Link>

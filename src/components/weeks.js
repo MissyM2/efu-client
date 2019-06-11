@@ -52,39 +52,39 @@ export default class Weeks extends React.Component {
                
                 const weeks = this.props.currentweeks.map((week, index) => {
                         return (
-                                <div className="weeks" key={index}>
+                                <div className="unit-container-blue" key={index}>
                                         <div className="section-head color-light">Week Number {week.weekNum}</div>
                                         
-                                        <ul key={index} className="weeks-row">
-                                                <li className="weeks-section">
-                                                        <div className="sub-section attitude-effect likedLeast">
+                                        <ul key={index} className="row">
+                                                <li className="weeks-row">
+                                                        <div className="week-item">
                                                                 <div className="weeks-item-label week-label likedLeast">liked Least</div>
                                                                 <div className="item-body">{week.likedLeast}</div>
                                                         </div>
-                                                        <div className="sub-section attitude-effect likedMost">
+                                                        <div className="week-item">
                                                                 <div className="weeks-item-label week-label likedMost">Liked Most</div>
                                                                 <div className="item-body">{week.likedMost}</div>
                                                         </div>
                                                 </li>
-                                                <li className="weeks-section">
-                                                        <div className="sub-section attitude-effect mostDifficult">
+                                                <li className="weeks-row">
+                                                        <div className="week-item">
                                                                 <div className="weeks-item-label week-label mostDifficult">Most Difficult</div>
                                                                 <div className="item-body">{week.mostDifficult}</div>
                                                         </div>
-                                                        <div className="sub-section attitude-effect leastDifficult">
+                                                        <div className="week-item">
                                                                 <div className="weeks-item-label week-label leastDifficult">Least Difficult</div>
                                                                 <div className="item-body">{week.leastDifficult}</div>
                                                         </div>
                                                 </li>
                                         </ul>
                                         <div className="section-label">Courses and Grades</div>
-                                        <div className="grade-row">
+                                        <div className="row">
 
                                                 {this.props.currentgrades.filter(grade => grade.week === week.weekNum )
                                                                 //grade.course === course.courseName
                                                 .map(grade => {
                                                                 return (
-                                                                        <div key={index} className="grade-column">
+                                                                        <div key={index}>
                                                                                 <div className="course-title">{grade.course}</div>
                                                                                 <div className="course-grade">{grade.gradeNum}</div>
                                                                         </div>
@@ -98,11 +98,11 @@ export default class Weeks extends React.Component {
 
                 });
                 return (
-                        <main>
+                          <div className="content-container">
                                 <NavBar {...this.props}/>
                                 <SideDrawer show={this.props.sideDrawerOpen} />
                                 {backdrop}
-                                <div className="container">
+                                <div className="content-sub-container">
                                         <h3>Your Weeks for {this.props.currentterm}</h3>
                                         <div>
                                                 {(this.props.currentweeks.length === 0) ? (
@@ -113,7 +113,7 @@ export default class Weeks extends React.Component {
                                                                 </div>
                                                         </div>
                                                 ) : (
-                                                <div>
+                                                <div className="section-container">
                                                         <div className="list-vertical this-week-weeks">
                                                                 {weeks}
                                                         </div> 
@@ -123,8 +123,10 @@ export default class Weeks extends React.Component {
                                                 }
                                         </div>
                                 </div>
+
+                          </div>
+                                
                                         
-                        </main>
                 );
         }
 }

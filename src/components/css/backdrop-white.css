@@ -1,0 +1,21 @@
+.backdrop-white {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left:0;
+   
+    background-color: #D5D8DA; 
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#D5D8DA), to(#fff));
+    background-image: -webkit-linear-gradient(top, #D5D8DA, #fff);
+    background-image: -moz-linear-gradient(top, #D5D8DA, #fff);
+    background-image: -ms-linear-gradient(top, #D5D8DA, #fff);
+    background-image: -o-linear-gradient(top, #D5D8DA, #fff);
+    background-image: linear-gradient(to bottom, #D5D8DA, #fff);
+    filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#D5D8DA, endColorstr=#fff);     
+
+   /* background: rgba(0,0,0,0.5); */
+   /* z-index: 100;*/
+
+   
+}

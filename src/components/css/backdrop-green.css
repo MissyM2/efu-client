@@ -1,0 +1,19 @@
+.backdrop-green {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left:0;
+   
+    background-color: #9ca998; background-image: -webkit-gradient(linear, left top, left bottom, from(#9ca998), to(#C0C8BD));
+    background-image: -webkit-linear-gradient(top, #9ca998, #C0C8BD);
+    background-image: -moz-linear-gradient(top, #9ca998, #C0C8BD);
+    background-image: -ms-linear-gradient(top, #9ca998, #C0C8BD);
+    background-image: -o-linear-gradient(top, #9ca998, #C0C8BD);
+    background-image: linear-gradient(to bottom, #9ca998, #C0C8BD);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#9ca998, endColorstr=#C0C8BD);/*
+
+   /* background: rgba(0,0,0,0.5); */
+    z-index: 100;
+
+   
+}

@@ -1,13 +1,3 @@
-.modal {
-    width: 50%;
-    background: var( --off-white-color);
-    box-shadow:0 2px 8px rgba(0, 0, 0.26);
-    position: fixed;
-    top: 20vh;
-    z-index: 200;
-    left: 25%;
-}
-
 
 .modal__header {
     padding-top:10px;
@@ -32,6 +22,15 @@
 
     /* Custom, iPhone Retina */ 
     @media only screen and (min-width : 320px) {
+        .modal {
+            width: 75%;
+            background: var( --off-white-color);
+            box-shadow:0 2px 8px rgba(0, 0, 0.26);
+            position: fixed;
+            top: 25vh;
+            z-index: 200;
+            left: 15%;
+        }
 
     
 
@@ -44,7 +43,15 @@
 
     /* Small Devices, Tablets */
     @media only screen and (min-width : 768px) {
-       
+        .modal {
+            width: 50%;
+            background: var( --off-white-color);
+            box-shadow:0 2px 8px rgba(0, 0, 0.26);
+            position: fixed;
+            top: 25vh;
+            z-index: 200;
+            left: 25%;
+        }  
 
     }
 

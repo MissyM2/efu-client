@@ -51,17 +51,17 @@ export default class Profile extends React.Component {
         const mycourses = this.props.currentcourses.map((course, index) => {
             return (
                 <li className="section" key={index}>
-                    <Course {...course} {...this.props} submitupdatecourse={this.props.submitupdatecourse} submitdeletecourse={this.props.submitdeletecourse} />
+                    <Course {...course} courseName={course.courseName} submitupdatecourse={this.props.submitupdatecourse} submitdeletecourse={this.props.submitdeletecourse} />
                 </li>
             );
         });
-        //console.log('profile: this.props', this.props);
+        console.log('profile: this.props', mycourses);
         return (
             <div className="container">
                 <NavBar {...this.props}/>
                 <SideDrawer show={this.props.sideDrawerOpen} />
                 {backdrop}
-                <div className="container">
+                <div>
                         <h3>My Profile for {this.props.currentterm}</h3>
                        <div className="courses">
                             <div className="section-label">Your Courses</div>
