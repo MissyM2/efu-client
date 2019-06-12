@@ -71,9 +71,9 @@ export default class Week extends React.Component {
                 <div>
                     <div>
                         <form onSubmit={this.handleUpdate}>
-                            <div className="profile-row">
-                                    <div className="weeks-row">
-                                        <div className="column unit-container-green">
+                            <div className="top-week-container">
+                                    <div className="sub-week-container">
+                                        <div className="unit-container-green fivepx-margin">
                                                 <div className="weeks-item-label week-label likedLeast">Liked Least</div>
                                                 <div>
                                                     <div className="item-body">{this.state.likedLeast}</div>
@@ -89,7 +89,7 @@ export default class Week extends React.Component {
                                                     
                                                 </div>
                                         </div>
-                                        <div className="column unit-container-green">
+                                        <div className="unit-container-green fivepx-margin">
                                                 <div className="weeks-item-label week-label likedMost">Liked Most</div>
                                                 <div>
                                                     <div className="item-body">{this.state.likedMost}</div>
@@ -106,8 +106,8 @@ export default class Week extends React.Component {
                                                 </div>
                                         </div>
                                     </div>
-                                    <div className="weeks-row">
-                                        <div className="column unit-container-green">
+                                    <div className="sub-week-container">
+                                        <div className="unit-container-green fivepx-margin">
                                                 <div className="weeks-item-label week-label mostDifficult">Most Difficult</div>
                                                 <div>
                                                     <div className="item-body">{this.state.mostDifficult}</div>
@@ -124,7 +124,7 @@ export default class Week extends React.Component {
                                                 </div>
                                         </div>
                                     
-                                        <div className="column unit-container-green">
+                                        <div className="unit-container-green fivepx-margin">
                                                 <div className="weeks-item-label week-label leastDifficult">Least Difficult</div>
                                                 <div>
                                                     <div className="item-body">{this.state.leastDifficult}</div>
@@ -142,7 +142,7 @@ export default class Week extends React.Component {
                                         </div>
                                     </div>
                             </div>
-                            <div className="item column">
+                            <div className="item">
                                     <button className="blue-btn center-btn" type="submit" value="Submit">Save Your Selections</button>
                             </div> 
                         </form>   

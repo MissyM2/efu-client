@@ -70,6 +70,25 @@ ul {
     margin: 0 auto;
 }
 
+.unit-course-grade-blue {
+    border:1px solid #59a3c6; 
+    -webkit-border-radius: 3px; 
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    font-size:12px;
+    font-family:var( --body-font-family); 
+    padding: 10px 10px 10px 10px; 
+    text-decoration:none; 
+    display:inline-block;
+    font-weight:bold; color: #FFFFFF;
+    background-color: #83bad4; background-image: -webkit-gradient(linear, left top, left bottom, from(#83bad4), to(#3E8EB4));
+    background-image: -webkit-linear-gradient(top, #83bad4, #3E8EB4);
+    background-image: -moz-linear-gradient(top, #83bad4, #3E8EB4);
+    background-image: -ms-linear-gradient(top, #83bad4, #3E8EB4);
+    background-image: -o-linear-gradient(top, #83bad4, #3E8EB4);
+    background-image: linear-gradient(to bottom, #83bad4, #3E8EB4);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#83bad4, endColorstr=#3E8EB4);
+  }
+
 
 .course-field {
     border: 1px solid;
@@ -80,3 +99,51 @@ ul {
     border: 1px solid;
     width: 50%;
 }
+
+/*==========  Mobile First Method  ==========*/
+
+    /* Custom, iPhone Retina */ 
+    @media only screen and (min-width : 320px) {
+        .course-grades {
+            width: 100%;
+        }
+        
+      }
+  
+  
+      /* Extra Small Devices, Phones */ 
+      @media only screen and (min-width : 480px) {
+        
+  
+        
+      
+      }
+  
+      /* Small Devices, Tablets */
+      @media only screen and (min-width : 768px) {
+          .course-grades {
+            display:flex;
+            flex-direction:row;
+
+          }
+        }
+          
+        
+   
+  
+      /* Medium Devices, Desktops */
+      @media only screen and (min-width : 992px) {
+  
+      }
+  
+      /* Large Devices, Wide Screens */
+      @media only screen and (min-width : 1200px) {
+  
+      }
+  
+  
+  
+    
+  
+  
+  

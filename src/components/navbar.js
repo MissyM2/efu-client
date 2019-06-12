@@ -26,7 +26,6 @@ export default class NavBar extends React.Component {
         this.setState({
             termSelected: e.target.value
         }, () => {
-                console.log('navbar: this.state.termselected', this.state.termSelected);
                 this.props.setcurrentterm(this.state.termSelected);
         });
     }
@@ -110,17 +109,29 @@ export default class NavBar extends React.Component {
                                     </div>
                                     
                                 </li>
-                                <li className="navbar-profile other link">
+                                <li className="navbar-courses other link">
                                     <div className="navbar-positioning navbar-item">
                                         <Link 
                                             className="green-btn" 
                                             to={{
-                                                pathname: '/profile',
+                                                pathname: '/courses',
                                                 state: {
                                                     weekstatus: 'all'
                                             }}}
                                             >
-                                            Profile
+                                            Courses
+                                        </Link>
+                                    </div>
+                                </li>
+                                <li className="navbar-courses other link">
+                                    <div className="navbar-positioning navbar-item">
+                                        <Link 
+                                            className="green-btn" 
+                                            to={{
+                                                pathname: '/deliverables',
+                                                }}
+                                            >
+                                            Deliverables
                                         </Link>
                                     </div>
                                 </li>
@@ -134,7 +145,7 @@ export default class NavBar extends React.Component {
                             </ul>
                         </div>
                         ) : (
-                            <div>this is a joke</div>
+                            <div>what to do if not logged in</div>
                         )
                     }
                 </div>

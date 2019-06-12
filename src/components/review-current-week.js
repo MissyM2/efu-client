@@ -7,8 +7,7 @@ import SideDrawer from './side-drawer';
 import Backdrop from './backdrop';
 import BackdropWhite from './backdrop-white';
 
-import './css/weeks.css';
-//import './css/course-grades.css';
+import './css/review-current-week.css';
 
 import Week from './week';
 import CourseGrades from './course-grades';
@@ -29,7 +28,7 @@ export default class ReviewCurrentWeek extends React.Component {
         let myweek = this.props.currentweekdetails;
         myweek = myweek.map((week, index) => {
             return (
-                <li className="review-section row" key={index}>
+                <li className="" key={index}>
                     <Week {...week} {...this.props} weekstatus="one" />
                 </li>
             );
@@ -38,7 +37,7 @@ export default class ReviewCurrentWeek extends React.Component {
         let mygrades = this.props.currentgrades;
         mygrades = mygrades.map((grade, index) => {
            return ( 
-                <li className="unit-container-blue" key={index}>
+                <li className="unit-course-grade-blue fivepx-margin course-grade" key={index}>
                     <CourseGrades {...grade} {...this.props} />      
                 </li>
            );
@@ -62,7 +61,7 @@ export default class ReviewCurrentWeek extends React.Component {
                 <div className="content-sub-container">
                         <h3 >How were your grades this week?</h3>
                         <h4>Add your grades now.</h4>
-                        <ul className="row">
+                        <ul className="course-grades">
                             {mygrades}
                         </ul>
                 </div>

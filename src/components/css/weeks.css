@@ -140,6 +140,7 @@ ul {
     color: var( --off-white-color);
     padding-top:5px;
     padding-bottom:5px;
+    margin-bottom: 8px;
 }
 
 
@@ -188,6 +189,10 @@ select {
 
     /* Extra Small Devices, Phones */ 
     @media only screen and (min-width : 480px) {
+
+        .top-week-container {
+            display:flex;
+        }
         
 
         .weeks-section {
@@ -197,6 +202,16 @@ select {
 
     /* Small Devices, Tablets */
     @media only screen and (min-width : 768px) {
+        .top-week-container {
+            display:flex;
+            flex-direction: row;
+        }
+
+        .sub-week-container {
+            display:flex;
+            flex-direction: row;
+        }
+
         .weeks-row {
             display:flex;
             width: 100%;

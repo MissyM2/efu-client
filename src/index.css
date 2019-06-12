@@ -148,7 +148,7 @@ background-image: linear-gradient(to bottom, #31708E, #3e8eb4);filter:progid:DXI
 .content-container {
     width: 90%;
     height: 100%;
-    margin: 125px auto;
+    margin: 160px auto;
     padding: 20px;
     text-align: center;
 }
@@ -196,6 +196,13 @@ background-image: linear-gradient(to bottom, #31708E, #3e8eb4);filter:progid:DXI
   color: var(--darker-blue-color);
   background-color: var(--off-white-color); 
       
+}
+.tenpx-bottom-margin {
+  margin-bottom: 10px;
+}
+
+.fivepx-margin {
+  margin: 5px;
 }
 .unit-container-blue {
   border:1px solid #59a3c6; 
@@ -262,8 +269,8 @@ background-image: linear-gradient(to bottom, #31708E, #3e8eb4);filter:progid:DXI
 
  
 
-  .courses,
-  .weeks,
+  
+  
   .attitudes,
   .terms,
   .deliverables,

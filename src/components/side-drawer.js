@@ -24,7 +24,7 @@ export default class SideDrawer extends React.Component {
                                     }
                                 }
                                 >
-                                Review Your Weeks
+                                Your Weeks
                             </Link>
                         </div>
                     </li>
@@ -34,12 +34,25 @@ export default class SideDrawer extends React.Component {
                             <Link 
                                 className="drawer-navitem"
                                 to={{
-                                    pathname: '/profile',
+                                    pathname: '/courses',
                                     state: {
                                         weekstatus: 'all'
                                 }}}
                                 >
-                                Your Profile
+                                Your Courses
+                            </Link>
+                        </div>
+                       
+                    </li>
+                    <li className="link-div" href="/">
+                        <div>
+                            <Link 
+                                className="drawer-navitem"
+                                to={{
+                                    pathname: '/deliverables',
+                                    }}
+                                >
+                                Deliverables
                             </Link>
                         </div>
                        

@@ -1,0 +1,147 @@
+.profile-header {
+    margin-top: 150px;
+}
+
+.profile-nav {
+    display:flex;
+    flex-direction: row;
+    padding: 1% 0;
+    background-color: #aaa;
+   
+}
+
+.term-menu {
+    margin: 0 auto;
+}
+
+.course-section {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+.term-row {
+    display:flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+    justify-content: center;
+    list-style-type: none;
+    width: 100%;
+    font-size: 14px;
+    font-family:var (--body-font-family);
+    padding:3px;
+    margin:3px;
+    background-color: var(--off-white-color);
+    color: var(--dark-mossy-green-color);
+  }
+
+.profile-row {
+    display:flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+    justify-content: center;
+    list-style-type: none;
+  }
+
+
+.profile-list {
+    list-style-type: square;
+}
+
+
+
+
+  .course {
+      width: 200px;
+  }
+
+/*==========  Mobile First Method  ==========*/
+
+    /* Custom, iPhone Retina */ 
+    @media only screen and (min-width : 320px) {
+        .courses-container {
+            width: 90%;
+            margin: 160px auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .row-deliverable {
+            flex-direction: column;
+        }
+
+        .column-item {
+            width: 50%;
+        }
+
+        .courseName,
+        .dueDate {
+            font-weight: bold;
+            color: var(--off-white-color);
+            background-color: var(--mossy-green-color);
+        }
+    
+        .row-week-list-labels {
+            display: none;
+        }
+
+        .column-item {
+            width: 50%;
+        }
+
+    }
+
+    /* Extra Small Devices, Phones */ 
+    @media only screen and (min-width : 480px) {
+       
+
+    }
+
+    /* Small Devices, Tablets */
+    @media only screen and (min-width : 768px) {
+        .courses-container {
+            width: 90%;
+            top: 60px;
+        }
+
+        .row-deliverable {
+            flex-direction: row;
+        }
+    
+        .column-item {
+            width: 50%;
+        }
+        .courseName,
+        .dueDate {
+            font-weight: bold;
+            color: var(--off-white-color);
+            background-color: var(--mossy-green-color);
+        }
+    
+        .row-week-list-labels {
+            display: none;
+        }
+
+    }
+
+    /* Medium Devices, Desktops */
+    @media only screen and (min-width : 992px) {
+
+    }
+
+    /* Large Devices, Wide Screens */
+    @media only screen and (min-width : 1200px) {
+
+    }
+
+
+
+
+  
+
+
+
+
+
+
+

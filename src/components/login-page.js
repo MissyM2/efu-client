@@ -23,7 +23,6 @@ class LoginPage extends React.Component {
         if (!fields["username"]) {
             formIsValid = false;
             errors["username"] = "Username cannot be empty.";
-            console.log('username empty: errors', errors);
         }
 
         if (typeof fields["username"] !== "undefined") {
@@ -34,12 +33,10 @@ class LoginPage extends React.Component {
         }
 
         // Password
-        console.log('handlevadlidation, before password');
         errors["password"] = "";
         if(!fields["password"]) {
             formIsValid = false;
             errors["password"] = "Password cannot be empty.";
-            console.log('password empty: errors', errors);
         }
 
         if (typeof fields["password"] !== "undefined") {
@@ -48,11 +45,9 @@ class LoginPage extends React.Component {
             if (!fields["password"].length > 8) {
                 formIsValid = false;
                 errors["password"] = "Password must be at least 8 characters long."
-                console.log('password must be 8 char long: errors', errors);
             }
 
         }
-        console.log("what is the status of the errors object", errors);
         this.setState({
             errors:errors
         });
@@ -67,21 +62,16 @@ class LoginPage extends React.Component {
 
     loginSubmit(e) {
         e.preventDefault();
-        console.log('made it to submitlogin');
         if(this.handleValidation()){
-            console.log("form is : TRUE", this.handleValidation());
             this.props.submitlogin(this.state.fields.username, this.state.fields.password);
           }else{
-
             console.log("form is : False", this.handleValidation());
-            console.log("Form has errors.");
          }
 
     }
 
 
     render() {
-
             return (
                 <div className="login-reg-container">
                     <div className="login-reg-content">
@@ -103,7 +93,6 @@ class LoginPage extends React.Component {
                                                 />
                                                 <div className="error-msg">{this.state.errors["username"]}</div>
                                         </div>
-                                    
                                     </div>
                                     <div className="input-row">
                                         <div className="input-unit">

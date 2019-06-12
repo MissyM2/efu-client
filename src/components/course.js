@@ -1,5 +1,7 @@
 import React from 'react';
 
+
+
 import './css/course.css';
 
 export default class Course extends React.Component {
@@ -7,65 +9,80 @@ export default class Course extends React.Component {
         super(props);
         this.state = {
             oldCourseName: this.props.courseName,
-            newCourseName: ""
+            newCourseName: '',
+            gradeCount:0,
+            
         }
-        this.handleUpdate = this.handleUpdate.bind(this);
     }
 
-    setDelete(e) {
-        e.preventDefault();
-        let selectedCourse = {
-            termDesc: this.props.termDesc,
-            courseName:this.props.courseName
-        };
-        this.props.submitdeletecourse(selectedCourse); 
-    }
 
-    handleChange(e, field) {
+    prepDelete(e) {
+         // find out if there are grades for the selected course
+         const tempGrades = this.props.currentgrades.filter(grade => {
+            return grade.course == this.state.oldCourseName && grade.gradeNum > 0;
+        });
+        console.log('tempGrades', tempGrades);
         this.setState({
-            [field]: e.target.value
-          });
+            gradeCount:tempGrades.length
+        });
+
+        this.props.setcoursedeletemodal(true);
+        console.log('course: this.props', this.props);
     }
 
-    handleUpdate(e) {
-        e.preventDefault();
     
+
+    
+
+    handleChange(field, e) {
+        this.setState({
+            newCourseName: e.target.value
+        });
+    }
+
+    updateSubmit(e) {
+        e.preventDefault();
         let updateCourse = {
             termDesc: this.props.termDesc,
             oldCourseName: this.state.oldCourseName,
             newCourseName:this.state.newCourseName
         };
+        console.log('Course: updateCourse', updateCourse);
         this.props.submitupdatecourse(updateCourse); 
     }
 
     render () {
-        console.log('course:this.props.courseName', this.props.courseName);
+        console.log('Course: this.props', this.props);
         return (
             <div>
-                <div>{this.props.courseName}</div>
-                <form onSubmit={this.handleUpdate}>
-                    <div className="course-unit">
+                
+                <form onSubmit={this.updateSubmit.bind(this)}>
+                    <div className="unit-container-blue tenpx-bottom-margin">
                             <div className="column">
                                 <input
                                     className="course-item"
+                                    refs="courseName"
                                     type="text"
-                                    value={this.props.courseName}
-                                    onChange={e => this.handleChange(e,"newCourseName")}
+                                    onChange={this.handleChange.bind(this,"newCourseName")}
+                                    defaultValue={this.state["oldCourseName"]}
+                                    aria-label="courseName"
                                  />
                             </div>
                             <div>
                                 <button 
-                                    className="update-btn center-btn" 
-                                    type="button" 
+                                    className="green-btn btn-small button-row" 
+                                    type="submit" 
                                     value="Update"
                                 >
-                                    Update Course
+                                    Update Course Name
                                 </button>
-                                <button className="delete-btn center-btn" onClick={(e) => this.setDelete(e)}><i className="far fa-trash-alt"></i></button>
+                                
                             </div>
                     </div>
-                    
                 </form>
+                <button className="green-btn btn-small button-row" onClick={(e) => this.prepDelete(e)}>
+                                    Delete
+                                </button>
                 
             </div>
             

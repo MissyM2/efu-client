@@ -1,5 +1,5 @@
 import React from 'react';
-import './css/course-grades.css';
+//import './css/course-grades.css';
 
 export default class CourseGrades extends React.Component {
     constructor(props) {

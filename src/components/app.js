@@ -5,11 +5,10 @@ import { API_BASE_URL } from '../config';
 import HomePage from './home-page';
 import NavBar from './navbar';
 import Dashboard from './dashboard';
-import Profile from './profile';
+import Courses from './courses';
 import Weeks from './weeks';
 import ReviewCurrentWeek from './review-current-week';
-import PlanNextWeek from './plan-next-week';
-import RegistrationPage from './registration-page';
+import Deliverables from './deliverables';
 
 import './css/app.css'
 
@@ -41,8 +40,10 @@ class App extends React.Component {
             currentweekcount:0,
             todaydeliverables:[],
             thisweekdeliverables:[],
+            thistermdeliverables:[],
             sideDrawerOpen: false,
             showNavButtons:true,
+            showCourseDeleteModal: false,
             error:'',
             isError: false,
             loading:false,
@@ -57,6 +58,7 @@ class App extends React.Component {
         this.setlogin = this.setlogin.bind(this);
         this.setcurrentterm = this.setcurrentterm.bind(this);
         this.getcurrenttermdetails=this.getcurrenttermdetails.bind(this);
+        this.setcoursedeletemodal=this.setcoursedeletemodal.bind(this);
         this.setcurrentweek=this.setcurrentweek.bind(this);
         this.getcurrentweekdetails=this.getcurrentweekdetails.bind(this);
         this.getcurrentterms=this.getcurrentterms.bind(this);
@@ -69,6 +71,7 @@ class App extends React.Component {
         this.getcurrentdate=this.getcurrentdate.bind(this);
         this.submitaddterm=this.submitaddterm.bind(this);
         this.submitaddcourse=this.submitaddcourse.bind(this);
+        this.submitadddeliverable=this.submitadddeliverable.bind(this);
         this.generateweeksforterm=this.generateweeksforterm.bind(this);
         this.generategradesforcourse=this.generategradesforcourse.bind(this);
         this.submitdeletecourse=this.submitdeletecourse.bind(this);
@@ -92,9 +95,8 @@ class App extends React.Component {
        // console.log('componentDidUpdate fired currentgrades', this.state.currentgrades);
     }
 
-    errorHandler = (errorCode) => {
-        console.log('made it to errorHandler', errorCode);
-        switch (errorCode) {
+    errorHandler = (errorStatus) => {
+        switch (errorStatus) {
             case 400:
                 this.setState({
                     error:'Bad Request: You must enter login and password.'
@@ -104,14 +106,13 @@ class App extends React.Component {
                 this.setState({
                     error:'Unauthorized: Either your login or password is incorrect.'
                 });
-            break;
-            
-            default:
-                    this.setState({
-                        error:'Uncaught error.  Please report this to the administrator.'
-                    });
+                break;
+            case 422:
+                this.setState({
+                    error: 'Username already taken.'
+                });
+                break;
         }
-        console.log('this.state.error', this.state.error.code + this.state.error.text);
     }
 
     submitregistration(firstName, lastName, username, password) {
@@ -121,8 +122,6 @@ class App extends React.Component {
             username: username,
             password: password
         }
-        console.log("app: submitregistration, newuser", newuser);
-        console.log("Clicked submit registration");
         fetch(`${API_BASE_URL}/users`, {
             method: 'POST',
             headers: {
@@ -133,17 +132,16 @@ class App extends React.Component {
         .then(response => {
             if(response.ok){
                 this.setState({
-                    error:{}
+                    error:null,
+                    isError: false
                 });
                 return response.json();
+            } else {
+                this.errorHandler(response.status);
             }
-            //this.setState({
-           //     errors
-           // });
-            throw new Error(response.text)
+            throw new Error('on throw new Error', response.status);
         })
         .then(responseJSON => {
-            console.log(responseJSON);
             //return registered user name and show login form
            this.submitlogin(newuser.username, newuser.password);
         })
@@ -167,9 +165,6 @@ class App extends React.Component {
             body: JSON.stringify(registereduser)
         })
         .then(response => {
-            console.log('response object', response);
-            console.log('response.statusText', response.statusText);
-            
             if(response.ok){
                 this.setState({
                     error: null,
@@ -178,8 +173,6 @@ class App extends React.Component {
                 return response.json();
             } else {
                 this.errorHandler(response.status);
-                console.log('login name or password is wrong. try again');
-                console.log('this.state.error', this.state.error);
                 throw new Error('on throw new Error', response.status);
             }
         })
@@ -193,15 +186,11 @@ class App extends React.Component {
                 authToken: responseJSON.authToken,
                 selectingterm: true
             }, () => {
-                console.log('app: this.state', this.state);
             });
-
             this.props.history.push('/dashboard');
         }) 
         .catch((err) => {
-            //this.errorHander(err)
-            console.log('err:  what attributes', err);
-            console.log('Error:' + err.reason + ' at ' + err.location);
+            console.log(err);
         })
         
     }
@@ -221,11 +210,20 @@ class App extends React.Component {
             });
     }
 
+    setcoursedeletemodal(bool) {
+        this.setState({
+          showCourseDeleteModal:bool
+        },() => {
+            console.log('this.state.showCourseDeleteModal should be set properly', this.state.showCourseDeleteModal);
+        });
+    }
+
     setcurrentweek = (week) => {
-        console.log('setcurrentweek: made it week', week);
+        console.log('week is', week);
         this.setState(
             {
-            currentweek:week,
+            currentweek:parseInt(week),
+            nextweek: parseInt(week) + 1,
             selectingweek:false
             }, () => {
                 this.getcurrentweekdetails();
@@ -234,7 +232,6 @@ class App extends React.Component {
     }
 
     getcurrenttermdetails = () => {
-        console.log("app: getcurrenttermdetails: this.state.currentterm", this.state.currentterm);
         this.getcurrentsuggestion();
 
         //create promise for getting the courses
@@ -242,8 +239,10 @@ class App extends React.Component {
             this.getcurrentcourses(resolve, reject);
             })
             .then(res => {
-                console.log('app: getcurrenttermdetails: res', res);
-                    this.getcurrentweeks();
+                return this.getcurrentweeks();
+            })
+            .then(res => {
+                return this.getcurrentgrades();
             })
             .catch(err => {
                 console.log('Error:' + err.reason + ' at ' + err.location);
@@ -263,7 +262,6 @@ class App extends React.Component {
                 }
         })
         .then(response => {
-            console.log('response', response);
             if(response.ok) {
                     return response.json()
             }
@@ -278,8 +276,6 @@ class App extends React.Component {
                     return grade.term === this.state.currentterm && grade.week == this.state.currentweek;
             });
 
-            console.log('thisweekgrades', thisweekgrades);
-
             return this.setState({
                 currentweekdetails:  thisweek,
                 currentgrades: thisweekgrades
@@ -287,26 +283,7 @@ class App extends React.Component {
         })
         .catch((err) => {
             console.log(err);
-        });
-                /*(
-                    const thisweek= this.state.currentweeks.filter(week => {
-                        return week.weekNum == this.state.currentweek;
-                    });
-            
-                    console.log('getcurrweekdets: this.state.currentgrades', this.state.currentgrades);
-            
-                    const thisweekgrades = this.state.currentgrades.filter(grade => {
-                        return grade.week == this.state.currentweek;
-                    });
-                    console.log('getcurrweekdets: thisweekgrades', thisweekgrades);
-                    return this.setState({
-                        currentweekdetails:  thisweek,
-                        currentgrades: thisweekgrades
-                        });
-                        */
-
-
-            
+        });       
             
     }
 
@@ -369,7 +346,6 @@ class App extends React.Component {
     }
 
     getcurrentcourses(resolve, reject) {
-        //console.log('made it to getcurrcourses');
         fetch(`${API_BASE_URL}/courses`, {
             method: 'GET',
             headers: {
@@ -391,7 +367,6 @@ class App extends React.Component {
                         currentcourses: tempcourses,
                         currentcoursecount: tempcourses.length
                     },() => {
-                        console.log('app:getcurrentcourses', this.state.currentcourses);
                         resolve({message: 'finished coursesPromise'});
                     });
         })
@@ -402,7 +377,6 @@ class App extends React.Component {
     }
 
     getcurrentgrades() {
-        console.log('made it to getcurrgrades');
         fetch(`${API_BASE_URL}/grades`, {
             method: 'GET',
             headers: {
@@ -411,7 +385,6 @@ class App extends React.Component {
                 }
         })
         .then(response => {
-            console.log('response', response);
             if(response.ok) {
                     return response.json()
             }
@@ -469,7 +442,7 @@ class App extends React.Component {
 
    
 
-    getcurrentdeliverables(week) {
+    getcurrentdeliverables() {
 
         fetch(`${API_BASE_URL}/deliverables`, {
             method: 'GET',
@@ -485,18 +458,32 @@ class App extends React.Component {
             throw new Error(response.text)
         })
         .then(responseJSON => {
+            // get deliverables for the term
+            const temptermdeliverables = responseJSON.filter(deliverable => {
+                return deliverable.termDesc === this.state.currentterm;
+            });
+            this.setState({
+                thistermdeliverables: temptermdeliverables
+            })
+            console.log('termtermdeliverables', temptermdeliverables);
+
+            //get deliverables for the week
+            const tempweekdeliverables = responseJSON.filter(deliverable => {
+                return deliverable.termDesc === this.state.currentterm && deliverable.weekNum == this.state.currentweek;
+            });
+            this.setState({
+                thisweekdeliverables: tempweekdeliverables
+            });
+
+            //get deliverables for the day
+
             const temptodaydeliverables = responseJSON.filter(deliverable => {
                     return deliverable.termDesc === this.state.currentterm && deliverable.dueDate === this.state.currentdate;
             });
             this.setState({
                 todaydeliverables: temptodaydeliverables
             });
-            const tempweekdeliverables = responseJSON.filter(deliverable => {
-                return deliverable.termDesc === this.state.currentterm && deliverable.weekNum == week;
-            });
-            this.setState({
-                thisweekdeliverables: tempweekdeliverables
-            });
+           
         })
         .catch((err) => {
             console.log(err);
@@ -535,11 +522,9 @@ class App extends React.Component {
                     throw new Error(response.text)
                 })
                 .then(responseJSON => {
-                    console.log('responseJSON looks like ', responseJSON);
                     this.setState((responseJSON) => ({
                         terms: [...this.state.terms, responseJSON]
                     }));
-                    console.log(this.state);
                     return responseJSON;
                 })   
                 .catch((err) => {
@@ -548,7 +533,6 @@ class App extends React.Component {
     }
          
     submitaddcourse = (newcourse) => {
-        console.log('newcourse', newcourse);
         this.setState({
             currentcourseName: newcourse.courseName
         });
@@ -584,6 +568,34 @@ class App extends React.Component {
 
     }
 
+    submitadddeliverable(newDeliverable) {
+        fetch(`${API_BASE_URL}/deliverables`, {
+            method: 'POST',
+            headers: {
+                    // Provide our auth token as credentials
+                    Authorization: `Bearer ${this.state.authToken}`,
+                    "Content-Type": 'application/json'
+            },
+            body: JSON.stringify(newDeliverable)
+            })
+        .then(response => {
+                if(response.ok) {
+                        return response.json()
+                }
+                throw new Error(response.text)
+                })
+        .then((deliverable) => {
+                console.log('deliverable that has just been added.', deliverable);
+                return this.getcurrentdeliverables;
+        })
+        .catch((err) => {
+                console.log(err);
+        });
+        
+
+    }
+
+    
     
     
     generateweeksforterm = (term, course) => {
@@ -660,7 +672,7 @@ class App extends React.Component {
                     termDesc: this.state.currentterm,
                     courseName: course,
                     weekNum:i,
-                    gradeNum: 100
+                    gradeNum: 0
                 }
                 fetch(`${API_BASE_URL}/grades`, {
                     method: 'POST',
@@ -684,7 +696,7 @@ class App extends React.Component {
                         currentgradecount: this.state.currentgradecount + 1
                         }
                     );
-                    return this.getcurrentgrades(this.state.currentterm); 
+                    return this.getcurrentgrades(); 
                 })
                 .catch((err) => {
                     console.log(err);
@@ -696,9 +708,11 @@ class App extends React.Component {
     
     // DELETE functions
     submitdeletecourse = (selectedCourse) => {
-        console.log('app: this.state', this.state);
-        console.log('app: delete course');
-        fetch(`${API_BASE_URL}/courses`, {
+        console.log('made it to submitdeletecourse');
+
+        //must delete course and all grade documents
+       
+       /* fetch(`${API_BASE_URL}/courses`, {
                 method: 'DELETE',
                 headers: {
                     Authorization: `Bearer ${this.state.authToken}`,
@@ -723,8 +737,9 @@ class App extends React.Component {
             .catch((err) => {
                 console.log(err);
             });
+            */
     }
-        
+
     submitdeleteweek = (selectedweek) => {
         console.log('made it to delete Week selectedweek ', selectedweek)
         fetch(`${API_BASE_URL}/weeks`, {
@@ -753,6 +768,7 @@ class App extends React.Component {
                 console.log(err);
             });
     }
+        
 
     // UPDATE(PUT) functions
         
@@ -779,6 +795,9 @@ class App extends React.Component {
                 this.setState({
                     currentcourses: tempcourses
                 });
+                let coursesPromise = new Promise((resolve, reject) => {
+                    this.getcurrentcourses(resolve, reject);
+                    });
         })
         .catch((err) => {
             console.log(err);
@@ -786,7 +805,6 @@ class App extends React.Component {
     }
         
     submitupdateweek = (updatedweek) => {
-        console.log('app: updated week', updatedweek);
         fetch(`${API_BASE_URL}/weeks`, {
             method: 'PUT',
             headers: {
@@ -831,11 +849,8 @@ class App extends React.Component {
                 }
                 throw new Error(response.text)
             })
-            .then(grade => {
-                return this.getcurrentgrades(); 
-            })
             .then(res => {
-                return this.setcurrentweek();
+                return this.setcurrentweek(updatedgrade.weekNum);
             })
             .catch((err) => {
                 console.log(err);
@@ -846,7 +861,10 @@ class App extends React.Component {
     setlogin(e) {
         e.preventDefault();
         const currentState = this.state.islogin;
-        this.setState({ islogin: !currentState }); 
+        this.setState({ 
+            islogin: !currentState ,
+            error:''
+        }); 
     }
 
     drawertoggleclickhandler = () => {
@@ -868,12 +886,10 @@ class App extends React.Component {
         //close the modal on the confirm button.
        
         this.setState({selectingterm:false});
-        console.log('click went to modalconfirmhandler', this.state.selectingterm);
     }
 
     modalcancelhandler = () => {
         this.setState({selectingterm:false});
-        console.log('click went to modalCANCELhandler', this.state.selectingterm);
     }
 
         
@@ -894,14 +910,12 @@ class App extends React.Component {
                         <Route exact path="/navbar" render={() => <NavBar {...this.state} 
                                                         setcurrentterm = {(term) => this.setcurrentterm(term)}
                                                         getcurrenttermdetails={() => this.getcurrenttermdetails()}
-                                                        renderRedirect={(newPath) => this.renderRedirect(newPath)}
                                                        
                                                         submitlogout= {() => this.submitlogout()}
                                                         />} /> 
                         <Route exact path="/dashboard" render={() => <Dashboard {...this.state}
                                                         setcurrentterm = {(term) => this.setcurrentterm(term)}
                                                         setcurrentweek = {(week) => this.setcurrentweek(week)}
-                                                        renderRedirect={(newPath) => this.renderRedirect(newPath)}
                                                         getcurrenttermdetails={(term) => this.getcurrenttermdetails(term)}
                                                         //getcurrentweek={(week) => this.getcurrentweek(week)}
                                                         getcurrentsuggestion={() => this.getcurrentsuggestion()}
@@ -909,7 +923,7 @@ class App extends React.Component {
                                                         getcurrentcourses={() => this.getcurrentcourses()}
                                                         getcurrentweeks={() => this.getcurrentweeks()}
                                                         getcurrentdeliverables={(week) => this.getcurrentdeliverables(week)}
-                                                        getcurrentgrades={(term) => this.getcurrentgrades(term)}
+                                                        getcurrentgrades={() => this.getcurrentgrades()}
                                                         drawertoggleclickhandler={() => this.drawertoggleclickhandler()}
                                                         navbuttonstoggleclickhandler={() => this.navbuttonstoggleclickhandler()}
                                                         backdropclickhandler = {() => this.backdropclickhandler()}
@@ -917,14 +931,13 @@ class App extends React.Component {
                                                         modalcancelhandler = {() => this.modalcancelhandler()}
 
                                                         />} /> 
-                        <Route exact path="/profile" render={() => <Profile {...this.state}
-                                                        renderRedirect={(newPath) => this.renderRedirect(newPath)}
-                                                        setcurrentterm = {(term) => this.setcurrentterm(term)}
+                        <Route exact path="/courses" render={() => <Courses {...this.state}
                                                         getcurrenttermdetails={(selectedterm) => this.getcurrenttermdetails(selectedterm)}
+                                                        setcoursedeletemodal={(bool) => this.setcoursedeletemodal(bool)}
                                                         getcurrentweeks={() => this.getcurrentweeks()}
                                                         submitaddcourse={(newcourse) => this.submitaddcourse(newcourse)}
-                                                        generateweeksforterm={(term) => this.generateweeksforterm(term)}
-                                                        generategradesforcourse={(term, course) => this.generategradesforcourse(term, course)}
+                                                        //generateweeksforterm={(term) => this.generateweeksforterm(term)}
+                                                        //generategradesforcourse={(term, course) => this.generategradesforcourse(term, course)}
                                                         submitdeletecourse={(selectedcourse) => this.submitdeletecourse(selectedcourse)}
                                                         submitdeleteweek={(selectedweek) => this.submitdeleteweek(selectedweek)}
                                                         submitupdatecourse={(updatedcourse) => this.submitupdatecourse(updatedcourse)}
@@ -936,13 +949,15 @@ class App extends React.Component {
                                                         setcurrentterm = {(term) => this.setcurrentterm(term)}
                                                         getcurrenttermdetails={(selectedterm) => this.getcurrenttermdetails(selectedterm)}
                                                         getcurrentweeks = {() => this.getcurrentweeks()}
-                                                        renderRedirect={(newPath) => this.renderRedirect(newPath)}
                                                         getcurrentgrades={() => this.getcurrentgrades()}
                                                         drawertoggleclickhandler={() => this.drawertoggleclickhandler()}
                                                         backdropclickhandler = {() => this.backdropclickhandler()}
                                                         />} /> 
+                        <Route exact path="/deliverables" render={() => <Deliverables {...this.state}
+                                                        drawertoggleclickhandler={() => this.drawertoggleclickhandler()}
+                                                        backdropclickhandler = {() => this.backdropclickhandler()}
+                                                        />} /> 
                         <Route exact path="/review-current-week" render={() => <ReviewCurrentWeek {...this.state}
-                                                        renderRedirect={(newPath) => this.renderRedirect(newPath)}
                                                         setcurrentweek={(week) => this.setcurrentweek(week)}
                                                         submitupdateweek={(updatedweek) => this.submitupdateweek(updatedweek)}
                                                         submitupdategrade={(updatedgrade) => this.submitupdategrade(updatedgrade)}
@@ -951,11 +966,7 @@ class App extends React.Component {
                                                         backdropclickhandler = {() => this.backdropclickhandler()}
                                                         navbuttonstoggleclickhandler={() => this.navbuttonstoggleclickhandler()}
                                                         />} /> 
-                        <Route exact path="/plan-next-week" render={() => <PlanNextWeek {...this.state}
-                                                        renderRedirect={(newPath) => this.renderRedirect(newPath)}
-                                                        drawertoggleclickhandler={() => this.drawertoggleclickhandler()}
-                                                        backdropclickhandler = {() => this.backdropclickhandler()}
-                                                        />} /> 
+                        
                        
                     </Switch>
                 </section>
