@@ -39,9 +39,7 @@
 
 }
 
-.deliverables-container {
-    margin-bottom: 8px;
-}
+
 
 .row-deliverable,
 .row-week-list-labels,
@@ -67,8 +65,8 @@
     font-weight: bold;
     width: 75%;
     position: relative;
-	padding: 20px;
-	margin: 25px auto;
+	padding: 10px;
+	margin: 8px auto;
     background-color: var(--off-white-color);
 	-webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
 	-moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
@@ -94,9 +92,7 @@
     padding-bottom: 10px;
 }
 
-.dropdown.week {
-    width: 50%;
-}
+
 
 
 
@@ -113,9 +109,23 @@
     @media only screen and (min-width : 320px) {
         .dashboard-container {
             width: 90%;
-            margin: 160px auto;
+            margin: 190px auto;
             padding: 20px;
             text-align: center;
+        }
+
+        .deliverables-container {
+            margin-bottom: 8px;
+            font-size:18px;
+            font-weight: bold;
+            width: 100%;
+            position: relative;
+            padding: 5px;
+            margin: 25px auto;
+            background-color: var(--off-white-color);
+            -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
+            -moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
         }
 
         .row-deliverable {
@@ -145,6 +155,33 @@
             width: 50%;
         }
 
+        .instructions-small {
+            display:none;
+        }
+
+        .dropdown.week {
+            width: 50%;
+            margin-bottom: 10px;
+        }
+
+        .dels-label {
+            font-size:18px;
+          }
+    
+        .dels-date {
+        font-size: 16px;
+        margin: 4px auto;
+        }
+
+        .dels-header {
+            margin-bottom: 10px;
+        }
+    
+        .dels-subhead{
+            display:flex;
+            flex-direction:row;
+          }
+
     }
 
     /* Extra Small Devices, Phones */ 
@@ -159,6 +196,16 @@
             width: 90%;
             top: 60px;
         }
+
+        .deliverables-container {
+            margin-bottom: 8px;
+            font-size:18px;
+            font-weight: bold;
+            width: 100%;
+            padding: 20px;
+            position: relative;
+            margin: 25px auto;
+                    }
 
         .row-deliverable {
             flex-direction: row;

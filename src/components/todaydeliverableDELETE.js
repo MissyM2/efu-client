@@ -15,25 +15,24 @@ export default class TodayDeliverable extends React.Component {
                     </div>
                     <div className="deliverable-sub-section sec-two">
                         <li className="item-label weeks-item-label dueDate">
-                            {this.props.deliverable.dueDate}
+                            {this.props.deliverable.dueDateFormatted}
                         </li>
-                        <li className="item-label weeks-item-label pressure">
-                            {this.props.deliverable.pressure}
+                        <li className="item-label weeks-item-label impact">
+                            {this.props.deliverable.impact}
                         </li>
                         <li className="item-label weeks-item-label prephrs">
                             {this.props.deliverable.prephrs}
                         </li>
                     </div>
                     <div className="deliverable-sub-section sec-three">
-                        <li className="item-label weeks-item-labelcolumn-item deliverableName">
+                        <li className="item-label weeks-item-label column-item deliverableName">
                             {this.props.deliverable.deliverableName}
                         </li>
-                    </div>
-                    <div className="deliverable-sub-section sec-four">
-                        <li className="item-label weeks-item-labelcolumn-item desc">
+                        <li className="item-label weeks-item-label column-item desc">
                             {this.props.deliverable.desc}
                         </li> 
                     </div>
+                    
                 </React.Fragment>
         );
     }

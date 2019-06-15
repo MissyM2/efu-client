@@ -52,7 +52,7 @@ export default class Weeks extends React.Component {
                
                 const weeks = this.props.currentweeks.map((week, index) => {
                         return (
-                                <div className="unit-container-blue tenpx-bottom-margin" key={index}>
+                                <div className="unit-container-blue unit-width tenpx-bottom-margin" key={index}>
                                         <div className="section-head color-light">Week Number {week.weekNum}</div>
                                         
                                         <ul key={index} className="row">
@@ -84,7 +84,7 @@ export default class Weeks extends React.Component {
                                                                 //grade.course === course.courseName
                                                 .map(grade => {
                                                                 return (
-                                                                        <div className="unit-container-green" key={index}>
+                                                                        <div className="unit-container-green unit-width" key={index}>
                                                                                 <div className="course-title">{grade.course}</div>
                                                                                 <div className="course-grade">{grade.gradeNum}</div>
                                                                         </div>

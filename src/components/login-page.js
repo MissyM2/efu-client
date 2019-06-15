@@ -76,7 +76,7 @@ class LoginPage extends React.Component {
                 <div className="login-reg-container">
                     <div className="login-reg-content">
                             <div className="login-reg-unit">
-                                    <form action="/" onSubmit={this.loginSubmit.bind(this)} >
+                                <form action="/" onSubmit={this.loginSubmit.bind(this)} >
                                     <h3 className="heading">Login</h3>
                                     <div className={this.props.error ? "error-msg" : ""}>{this.props.error}</div>
                                     <div className="input-row">
@@ -121,13 +121,13 @@ class LoginPage extends React.Component {
                                         <button type="submit" className="green-btn btn-small">Login</button>
                                     </div>
                                 </form>
-                        </div>
-                        <div className="login-other-unit">
-                                    <div className="instructions-small">
+                            </div>
+                            <div className="login-other-unit">
+                                    <div className="login-reg-instruction">
                                         <div>Don't have an account?</div>
                                         <div>
                                             <button className="green-btn btn-small button-row" type="button" onClick={e => this.props.setlogin(e)}>
-                                            Create One
+                                                Create One
                                             </button>      
                                         </div>
                                     </div>
@@ -141,5 +141,4 @@ class LoginPage extends React.Component {
 
 export default LoginPage;
 
- //onSubmit={(username, password) => this.props.submitlogin(this.state.user.username, this.state.user.password)}
 

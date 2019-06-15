@@ -21,6 +21,7 @@ body {
     --red-color: red;
     --off-white-color: #F7F9FB;
     --darker-off-white-color: #dee0e2;
+    --orange-accent-color:#F28627;
     --pale-green-accent-color: #A9BF78;
     --header-font-family: 'Cantata One', serif;
     --body-font-family:'Imprima', sans-serif;
@@ -146,9 +147,9 @@ background-image: linear-gradient(to bottom, #31708E, #3e8eb4);filter:progid:DXI
     padding: 3px;
   }
 .content-container {
-    width: 90%;
+    width: 100%;
     height: 100%;
-    margin: 160px auto;
+    margin: 190px auto;
     padding: 20px;
     text-align: center;
 }
@@ -270,7 +271,7 @@ background-image: linear-gradient(to bottom, #31708E, #3e8eb4);filter:progid:DXI
  
 
   
-  
+  /*
   .attitudes,
   .terms,
   .deliverables,
@@ -295,7 +296,7 @@ background-image: linear-gradient(to bottom, #31708E, #3e8eb4);filter:progid:DXI
     border-radius: 4px;
     margin:5px;
 }
-
+*/
   
   
   ul {
@@ -332,6 +333,20 @@ background-image: linear-gradient(to bottom, #31708E, #3e8eb4);filter:progid:DXI
     padding-top: 8px;
     padding-bottom: 8px;
     width: 100%;
+  }
+
+  .nav-label {
+    display:table-cell;
+    vertical-align:middle;
+    color: var(--off-white-color);
+    font-family: var(--body-font-family);
+    font-size: 14px;
+    font-weight:bold;
+  }
+
+  .table-container {
+    display:table;
+    height: 100%;
   }
 
   .item-label {
@@ -818,9 +833,14 @@ background-image: linear-gradient(to bottom, #31708E, #3e8eb4);filter:progid:DXI
 
 
 }
+.error { border: 1px solid darkred; }
 
-.error-message {
-  color: red;
+
+
+.error-msg {
+  color:darkred;
+  margin-bottom: 8px;
+  font-size:16px;
 }
 
 .display-yes select {
@@ -840,6 +860,7 @@ background-image: linear-gradient(to bottom, #31708E, #3e8eb4);filter:progid:DXI
         display:flex;
         flex-direction:column;
         margin: 0 auto;
+        margin-bottom: 10px;
       }
 
 
@@ -857,6 +878,8 @@ background-image: linear-gradient(to bottom, #31708E, #3e8eb4);filter:progid:DXI
         width: 100%;
         font-size:14px;
       }
+
+      
     
     
     }
@@ -869,6 +892,16 @@ background-image: linear-gradient(to bottom, #31708E, #3e8eb4);filter:progid:DXI
       
     
     }
+
+    @media (min-width: 835px) {
+      .content-container {
+        width: 100%;
+        height: 100%;
+        margin: 80px auto;
+        padding: 20px;
+        text-align: center;
+      }
+  }
 
     /* Small Devices, Tablets */
     @media only screen and (min-width : 768px) {

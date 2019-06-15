@@ -51,37 +51,6 @@
     font-family: var(--body-font-family);
 }
 
-
-
-.login-reg-container:before, .login-reg-container:after {
-
-	width: 40%;
-	height: 10px;
-	content: ' ';
-	left: 12px;
-	bottom: 12px;
-	background: transparent;
-	-webkit-transform: skew(-5deg) rotate(-5deg);
-	-moz-transform: skew(-5deg) rotate(-5deg);
-	-ms-transform: skew(-5deg) rotate(-5deg);
-	-o-transform: skew(-5deg) rotate(-5deg);
-	transform: skew(-5deg) rotate(-5deg);
-	-webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-	-moz-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-	z-index: -1;
-} 
-
-.login-reg-container:after {
-	left: auto;
-	right: 12px;
-	-webkit-transform: skew(5deg) rotate(5deg);
-	-moz-transform: skew(5deg) rotate(5deg);
-	-ms-transform: skew(5deg) rotate(5deg);
-	-o-transform: skew(5deg) rotate(5deg);
-	transform: skew(5deg) rotate(5deg);
-}
-
 .input-unit {
     display:flex;
     flex-direction: column;
@@ -108,11 +77,14 @@
     margin:0 auto;
 }
 
-.error { border: 1px solid red; }
+.login-reg-instructions {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding:5px;
+    color: var(--dark-mossy-green-color);
+  }
 
-.error-msg {
-    color:red;
-}
+
 
 
 
@@ -120,6 +92,52 @@
 
     /* Custom, iPhone Retina */ 
     @media only screen and (min-width : 320px) {
+
+        .login-reg-container {
+            width: 75%;
+            padding: 10px;
+            z-index: 200;
+            background-color: var(--off-white-color);
+            position: relative;
+            padding: 20px;
+            margin-top: 30px;
+            margin-bottom: 50px;
+            text-align: center;
+            margin: 0 auto;
+            -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
+            -moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-reg-container:before, .login-reg-container:after {
+
+            width: 40%;
+            height: 10px;
+            content: ' ';
+            left: 12px;
+            bottom: 12px;
+            background: transparent;
+            -webkit-transform: skew(-5deg) rotate(-5deg);
+            -moz-transform: skew(-5deg) rotate(-5deg);
+            -ms-transform: skew(-5deg) rotate(-5deg);
+            -o-transform: skew(-5deg) rotate(-5deg);
+            transform: skew(-5deg) rotate(-5deg);
+            -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            -moz-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            z-index: -1;
+        } 
+        
+        .login-reg-container:after {
+            left: auto;
+            right: 12px;
+            -webkit-transform: skew(5deg) rotate(5deg);
+            -moz-transform: skew(5deg) rotate(5deg);
+            -ms-transform: skew(5deg) rotate(5deg);
+            -o-transform: skew(5deg) rotate(5deg);
+            transform: skew(5deg) rotate(5deg);
+        }
+
         .title-div {
             margin-top: 75px;
         }
@@ -129,9 +147,9 @@
         }
 
         .input-row {
-                display:flex;
-                flex-direction: column;
-                width: 100%;
+            display:flex;
+            flex-direction: column;
+            width: 100%;
         }
 
         .input-unit{
@@ -186,24 +204,7 @@
             color: var(--off-white-color);
         }
 
-        .login-reg-container {
-            width: 75%;
-            padding: 10px;
-            z-index: 200;
-            background-color: var(--off-white-color);
-            position: relative;
-            padding: 20px;
-            margin-top: 30px;
-            margin-bottom: 50px;
-            text-align: center;
-            margin: 0 auto;
-            -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
-            -moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
         
-        
-        }
-
 
     }
 
@@ -211,6 +212,7 @@
     @media only screen and (min-width : 480px) {
         
     }
+
 
     /* Small Devices, Tablets */
     @media only screen and (min-width : 768px) {

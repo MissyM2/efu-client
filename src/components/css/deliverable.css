@@ -5,25 +5,13 @@
 }
 
 .deliverable-sub-section li {
-    background-color:var(--darker-off-white-color);
+    background-color:var(--off-white-color);
     color: var(--darker-blue-color);
 }
 
-.sec-one{
-    width: 20%;
-}
 
-.sec-two {
-    width: 40%;
-}
-
-.sec-three {
-    width: 15%
-}
-.sec-four {
-    width: 25%;
-}
-
+.dueDate,
+.prephrs,
 .courseName,
 .deliverableName,
 .deliverableDesc {
@@ -31,42 +19,67 @@
     padding-left: 8px;
 }
 
-.dueDate,
-.prephrs,
 .week-list-label {
     text-align:center;
 }
 
-@media screen and (max-width: 600px) {
 
-    .deliverable-sub-section {
-        flex-direction:column;
-        border: 1px solid;
-    }
-    .sec-two {
-        display: flex;
-        flex-direction: row;
+
+/*==========  Mobile First Method  ==========*/
+
+    /* Custom, iPhone Retina */ 
+    @media only screen and (min-width : 320px) {
+        .deliverable-sub-section {
+            flex-direction:column;
+            border: 1px solid;
+        }
+
+        .row-deliverable li.dueDate {
+            font-size: 14px;
+            background-color:var(--mossy-green-color);
+            color: var(--off-white-color);
+        }
+    
+        .row-deliverable li.dueDate {
+            font-weight: bold;
+        }
+
+        .sec-one,
+        .sec-two,
+        .sec-three{
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+        }
+
+        
+        
+        
     }
 
-    .sec-one,
-    .sec-two,
-    .sec-three,
-    .sec-four {
-        width: 100%;
+    /* Extra Small Devices, Phones */ 
+    @media only screen and (min-width : 480px) {
+       
+
     }
 
-    .courseName,
-    .deliverableName {
-       text-align: center;
+    /* Small Devices, Tablets */
+    @media only screen and (min-width : 768px) {
+        
+
+    
+        
     }
 
-    .row-deliverable li.courseName {
-        font-size: 14px;
-        background-color:var(--mossy-green-color);
-        color: var(--off-white-color);
+    /* Medium Devices, Desktops */
+    @media only screen and (min-width : 992px) {
+
     }
 
-    .row-deliverable li.dueDate {
-        font-weight: bold;
+    /* Large Devices, Wide Screens */
+    @media only screen and (min-width : 1200px) {
+
     }
-}
+
+
+

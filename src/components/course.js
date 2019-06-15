@@ -21,13 +21,13 @@ export default class Course extends React.Component {
          const tempGrades = this.props.currentgrades.filter(grade => {
             return grade.course == this.state.oldCourseName && grade.gradeNum > 0;
         });
-        console.log('tempGrades', tempGrades);
+        //console.log('tempGrades', tempGrades);
         this.setState({
             gradeCount:tempGrades.length
         });
 
         this.props.setcoursedeletemodal(true);
-        console.log('course: this.props', this.props);
+        //console.log('course: this.props', this.props);
     }
 
     
@@ -52,7 +52,7 @@ export default class Course extends React.Component {
     }
 
     render () {
-        console.log('Course: this.props', this.props);
+       // console.log('Course: this.props', this.props);
         return (
             <div>
                 

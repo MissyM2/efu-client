@@ -175,12 +175,11 @@ select {
             margin: 8px;
         }
 
-        .unit-container-green,
-        .unit-container-blue {
+        .unit-width {
             width: 100%;
             margin:0 auto;
         }
-        
+   
 
         .weeks-section {
             flex-direction: column;

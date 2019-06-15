@@ -83,6 +83,7 @@ export default class Week extends React.Component {
                                                             type="text"
                                                             defaultValue= {this.state.likedLeast}
                                                             onChange={e => this.handleChange(e, "likedLeast")}>
+                                                                <option value="-1" selected="true">Choose a course</option>
                                                                 {mycoursedropdown}
                                                         </select>
                                                     </div>
@@ -99,6 +100,7 @@ export default class Week extends React.Component {
                                                                 defaultValue= {this.state.likedMost}
                                                                 onChange={e => this.handleChange(e, "likedMost")}
                                                                 className="input-look">
+                                                                    <option value="-1" selected="true">Choose a course</option>
                                                                     {mycoursedropdown}
                                                         </select>
                                                     </div>
@@ -117,6 +119,7 @@ export default class Week extends React.Component {
                                                                 defaultValue= {this.state.mostDifficult}
                                                                 onChange={e => this.handleChange(e, "mostDifficult")}
                                                                 className="input-look">
+                                                                    <option value="-1" selected="true">Choose a course</option>
                                                                     {mycoursedropdown}
                                                         </select>
                                                     </div>
@@ -134,6 +137,7 @@ export default class Week extends React.Component {
                                                                 defaultValue= {this.state.leastDifficult}
                                                                 onChange={e => this.handleChange(e, "leastDifficult")}
                                                                 className="input-look">
+                                                                    <option value="-1" selected="true">Choose a course</option>
                                                                     {mycoursedropdown}
                                                         </select>
                                                     </div>

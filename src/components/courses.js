@@ -2,9 +2,10 @@ import React from 'react';
 import './css/courses.css';
 
 import NavBar from "./navbar";
-import SideDrawer from './side-drawer';
+import RightSideDrawer from './right-side-drawer';
 import Backdrop from './backdrop';
 import BackdropBlack from './backdrop-black';
+import BackdropWhite from './backdrop-white';
 import ModalDeleteCourse from './modal-delete-course';
 
 import AddForm from './add-form';
@@ -35,6 +36,8 @@ export default class Courses extends React.Component {
 
         if(this.props.sideDrawerOpen) {
             backdrop = <Backdrop click={this.props.backdropclickhandler} />
+        } else {
+            backdrop = <BackdropWhite />
         }
 
         const mycourses = this.props.currentcourses.map((course, index) => {
@@ -45,10 +48,15 @@ export default class Courses extends React.Component {
                 </li>
             );
         });
+        console.log('courses: this.props', this.props);
         return (
             <div className="content-container">
-                <NavBar {...this.props}/>
-                <SideDrawer show={this.props.sideDrawerOpen} />
+                <div className="">
+                    <NavBar {...this.props}/>
+                </div>
+                <div className="">
+                    <RightSideDrawer user={this.props.currentusername} click={this.props.rightdrawertoggleclickhandler} show={this.props.rightSideDrawerOpen} submitlogout={this.props.submitlogout} />
+                </div>
                 {backdrop}
                 {(this.props.showCourseDeleteModal === true) ? 
                         (

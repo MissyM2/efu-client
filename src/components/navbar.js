@@ -1,7 +1,7 @@
 import React from 'react';
 
 import DrawerToggleButton from './drawer-toggle-button';
-import SideDrawer from './side-drawer';
+import RightSideDrawer from './right-side-drawer';
 
 import './css/navbar.css';
 import { Link } from 'react-router-dom';
@@ -56,14 +56,12 @@ export default class NavBar extends React.Component {
                     </option>
             );
         });
+        console.log('navbar: this.props', this.props);
         return (
             <header className="navbar">
             <nav className="navbar_navigation" role="navigation" aria-label="navbar_navigation">
-                <div className="navbar-unit-one">
-                        <div className="navbar_toggle-button">
-                            <DrawerToggleButton click={this.props.drawertoggleclickhandler} />
-                        </div>
-                        <div className="navbar_logo navbar-positioning">
+                <div className="navbar-positioning">
+                        <div className="navbar-item navbar_logo ">
                                 <Link className="logo-group link logo" to="/dashboard">
                                     <div className="logo-nav">
                                         <img className="logo-nav-image" src={require("./assets/lightbulb.png")}  alt="Executive Followup Logo" />
@@ -75,30 +73,40 @@ export default class NavBar extends React.Component {
                                 </Link>
                         </div>
                 </div>
-                <div className="spacer navbar-positioning" />
-                <div>
+                <div className="navbar-positioning spacer" />
+                <div className="navbar-positioning">
                     {this.props.loggedIn === true ? (
-                        <div className="navbar_navigation-items">
-                            <ul>
-                                <li className="navbar-term-label">
-                                    <div className="navbar-positioning item">Term in View
+                        <div className="navbar_navigation-items terms">
+                            <ul className="nav-ul">
+                                <li className="navbar-item term-unit">
+                                    <div className="tbl-container">
+                                        <div className="navbar-cell nav-label term-label">Term</div>
                                     </div>
-                                </li>
-                                <li>
                                     <div className={availabletermsclasses}>
-                                        <div >
-                                                <select className="dropdown unit-container-green" value={this.props.currentterm} onChange={this.setSelectedTerm}>
+                                        <div className="navbar-cell" >
+                                                <select className="unit-container-green btn-twohundred fivepx-margin" value={this.props.currentterm} onChange={this.setSelectedTerm}>
                                                     <option value="-1" selected="true">Select Term</option> 
                                                     {allterms} 
                                                 </select>
                                         </div>
                                     </div>
-
                                 </li>
-                                <li className="navbar-weeks other-link">
-                                    <div className="navbar-positioning navbar-item">
+                                <li className="navbar-item review-unit">
+                                    <div className="navbar-cell review-link">
                                         <Link 
-                                            className="green-btn" 
+                                            className="green-btn btn-onefifty fivepx-margin" 
+                                            to={{
+                                                pathname: '/review-current-week',
+                                                state: {
+                                                    weekstatus: 'one'
+                                            }}}
+                                            >
+                                            Review This Week
+                                        </Link>
+                                    </div>
+                                    <div className="navbar-cell weeks-link">
+                                        <Link 
+                                            className="green-btn btn-onefifty fivepx-margin" 
                                             to={{
                                                 pathname: '/weeks'
                                                 }
@@ -107,45 +115,18 @@ export default class NavBar extends React.Component {
                                             Weeks
                                         </Link>
                                     </div>
-                                    
-                                </li>
-                                <li className="navbar-courses other link">
-                                    <div className="navbar-positioning navbar-item">
-                                        <Link 
-                                            className="green-btn" 
-                                            to={{
-                                                pathname: '/courses',
-                                                state: {
-                                                    weekstatus: 'all'
-                                            }}}
-                                            >
-                                            Courses
-                                        </Link>
+                                    <div className="spacer" />
+                                    <div className="tbl-container">
+                                        <div className="navbar-cell navbar_right-toggle-button">
+                                            <DrawerToggleButton click={this.props.rightdrawertoggleclickhandler} />
+                                        </div>
                                     </div>
                                 </li>
-                                <li className="navbar-courses other link">
-                                    <div className="navbar-positioning navbar-item">
-                                        <Link 
-                                            className="green-btn" 
-                                            to={{
-                                                pathname: '/deliverables',
-                                                }}
-                                            >
-                                            Deliverables
-                                        </Link>
-                                    </div>
-                                </li>
-                                <li className="navbar-logout">
-                                    <div className="navbar-positioning navbar-item">
-                                        <Link className="link navitem blue-btn" onClick={this.props.submitlogout} to="/">
-                                            Logout
-                                        </Link>
-                                    </div>
-                                </li>
+                                
                             </ul>
                         </div>
                         ) : (
-                            <div>what to do if not logged in</div>
+                            <div></div>
                         )
                     }
                 </div>
