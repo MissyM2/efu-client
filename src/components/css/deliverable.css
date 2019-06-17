@@ -10,15 +10,6 @@
 }
 
 
-.dueDate,
-.prephrs,
-.courseName,
-.deliverableName,
-.deliverableDesc {
-    text-align:left;
-    padding-left: 8px;
-}
-
 .week-list-label {
     text-align:center;
 }

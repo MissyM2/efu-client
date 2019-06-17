@@ -55,10 +55,7 @@ ul {
     border: 1px solid;
 }
 
-.action-btns {
-    margin-top: 12px;
-    margin-bottom: 12px;
-}
+
 
 
 .li-courses {
@@ -153,17 +150,21 @@ ul {
   color: var(--dark-mossy-green-color);
   border-radius: 4px;
 }
-
+/*
 select {
   background-color: var( --off-white-color);
 }
-
+*/
 
 /*==========  Mobile First Method  ==========*/
 
     /* Custom, iPhone Retina */ 
     @media only screen and (min-width : 320px) {
         .weeks-row {
+            display:flex;
+            flex-direction:column;
+        }
+        .week-row {
             display:block;
             width: 100%;
             padding-left: 5px;
@@ -188,6 +189,10 @@ select {
 
     /* Extra Small Devices, Phones */ 
     @media only screen and (min-width : 480px) {
+        .weeks-row {
+            flex-direction:row;
+            flex-wrap: wrap;
+        }
 
         .top-week-container {
             display:flex;
@@ -211,7 +216,7 @@ select {
             flex-direction: row;
         }
 
-        .weeks-row {
+        .week-row {
             display:flex;
             width: 100%;
         }
@@ -244,7 +249,7 @@ select {
 
     /* Large Devices, Wide Screens */
     @media only screen and (min-width : 1200px) {
-        .weeks-row {
+        .week-row {
             flex-direction:row;
         }
 

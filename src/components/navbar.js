@@ -26,8 +26,10 @@ export default class NavBar extends React.Component {
         this.setState({
             termSelected: e.target.value
         }, () => {
+            console.log('navbar: this.setSelectedTerm, this.state.termSelected', this.state.termSelected);
                 this.props.setcurrentterm(this.state.termSelected);
         });
+
     }
 
     render(){
@@ -36,19 +38,18 @@ export default class NavBar extends React.Component {
        /*  if (!this.props.showNavButtons) {
             availabletermsclasses = 'available-terms-unit not-visible';
         }*/
-
+/*
         let termClasses = 'dropdown unit-container-green';
                 // whatever term is in currentterm, the class should be selected
                 if (this.props.currentterm === this.props.termDesc) {
                 termClasses='dropdown-item selected';
         }
-
+*/
         const allterms = this.props.terms.map((term, index) => {
             return (
                     <option 
                             key={index}
                             value={term.termDesc}
-                            className={termClasses}
                             data-identifier={term.termDesc}
                             onChange={this.setSelectedTerm}
                     >
@@ -79,15 +80,14 @@ export default class NavBar extends React.Component {
                         <div className="navbar_navigation-items terms">
                             <ul className="nav-ul">
                                 <li className="navbar-item term-unit">
-                                    <div className="tbl-container">
-                                        <div className="navbar-cell nav-label term-label">Term</div>
-                                    </div>
                                     <div className={availabletermsclasses}>
-                                        <div className="navbar-cell" >
-                                                <select className="unit-container-green btn-twohundred fivepx-margin" value={this.props.currentterm} onChange={this.setSelectedTerm}>
+                                        <div className="navbar-cell dropdown-green-btn btn-full-width fivepx-margin" >
+                                                <select className="" value={this.props.currentterm} onChange={this.setSelectedTerm}>
                                                     <option value="-1" selected="true">Select Term</option> 
                                                     {allterms} 
                                                 </select>
+                                                <i className ="fas fa-caret-down"></i>
+                                                
                                         </div>
                                     </div>
                                 </li>

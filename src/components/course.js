@@ -2,88 +2,130 @@ import React from 'react';
 
 
 
-import './css/course.css';
+import './css/courses.css';
+import ReviewCurrentWeek from './review-current-week';
 
 export default class Course extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             oldCourseName: this.props.courseName,
-            newCourseName: '',
+            oldCourseDesc: this.props.courseDesc,
             gradeCount:0,
-            
+            fields:{},
+            message:''
         }
+        this.courseName = React.createRef();
+        this.courseDesc = React.createRef();
+        this.prepDelete = this.prepDelete.bind(this);
     }
 
 
-    prepDelete(e) {
+    prepDelete() {
          // find out if there are grades for the selected course
+         let course = this.courseName.value;
+         this.props.setcurrentcoursename(course);
          const tempGrades = this.props.currentgrades.filter(grade => {
-            return grade.course == this.state.oldCourseName && grade.gradeNum > 0;
+            return grade.course == course && grade.gradeNum > 0;
         });
-        //console.log('tempGrades', tempGrades);
         this.setState({
             gradeCount:tempGrades.length
         });
-
         this.props.setcoursedeletemodal(true);
-        //console.log('course: this.props', this.props);
     }
 
-    
-
-    
-
     handleChange(field, e) {
-        this.setState({
-            newCourseName: e.target.value
-        });
+        let fields = this.state.fields;
+        fields[field] = e.target.value;
+        this.setState({fields});
     }
 
     updateSubmit(e) {
         e.preventDefault();
+        let course;
+        let courseDesc;
+        if(this.state.fields["newCourseName"]) {
+            course=this.state.fields["newCourseName"];
+        } else {
+            course=this.state.oldCourseName;
+        }
+
+        if(this.state.fields["newCourseDesc"]) {
+            courseDesc=this.state.fields["newCourseDesc"];
+        } else {
+            courseDesc=this.state.oldCourseDesc;
+        }
+
         let updateCourse = {
             termDesc: this.props.termDesc,
             oldCourseName: this.state.oldCourseName,
-            newCourseName:this.state.newCourseName
+            newCourseName:course,
+            newCourseDesc:courseDesc
         };
-        console.log('Course: updateCourse', updateCourse);
-        this.props.submitupdatecourse(updateCourse); 
+        this.props.submitupdatecourse(updateCourse);
+        if(this.props.courseUpdated) {
+            this.setState({message: 'Your course has been updated'});
+        } else {
+            this.setState({message: 'There was a problem with the update.'})
+        }
     }
 
     render () {
-       // console.log('Course: this.props', this.props);
         return (
             <div>
                 
                 <form onSubmit={this.updateSubmit.bind(this)}>
-                    <div className="unit-container-blue tenpx-bottom-margin">
+                    <div className="course-container-blue tenpx-bottom-margin">
+                    <div className="error-msg">{this.state.message}</div>
+
                             <div className="column">
-                                <input
-                                    className="course-item"
-                                    refs="courseName"
-                                    type="text"
-                                    onChange={this.handleChange.bind(this,"newCourseName")}
-                                    defaultValue={this.state["oldCourseName"]}
-                                    aria-label="courseName"
-                                 />
+                                <div className="courseName-unit">
+                                    <label className="course-label">Course</label>
+                                    <input
+                                        className="course-item field"
+                                        ref={element => this.courseName = element}
+                                        type="text"
+                                        onChange={this.handleChange.bind(this,"newCourseName")}
+                                        defaultValue={this.state["oldCourseName"]}
+                                        aria-label="courseName"
+                                    />
+                                </div>
                             </div>
-                            <div>
+                            <div className="column">
+                                <div className="courseDesc-unit">
+                                            <label className="course-label">Details</label>
+                                            <textarea 
+                                            className="course-item field"
+                                            ref={element => this.courseDesc = element}
+                                            placeholder="Course Description"
+                                            type="text"
+                                            rows="2"
+                                            cols="30"
+                                            wrap="soft"
+                                            size="60"
+                                            name="CourseDesc"
+                                            onChange={this.handleChange.bind(this,"newCourseDesc")}
+                                            defaultValue={this.props.courseDesc}
+                                            aria-label="CourseDesc"
+                                        />
+                                                                        </div>
+                            </div>
+                            <div className="action-btns">
                                 <button 
-                                    className="green-btn btn-small button-row" 
+                                    className="green-btn btn-small fivepx-margin" 
                                     type="submit" 
                                     value="Update"
                                 >
-                                    Update Course Name
+                                    Update
+                                </button>
+                                <button className="green-btn btn-small fivepx-margin" onClick={this.prepDelete}>
+                                        Delete
                                 </button>
                                 
                             </div>
                     </div>
+                    
                 </form>
-                <button className="green-btn btn-small button-row" onClick={(e) => this.prepDelete(e)}>
-                                    Delete
-                                </button>
-                
             </div>
             
                 

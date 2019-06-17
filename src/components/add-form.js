@@ -1,35 +1,38 @@
 import React from 'react';
 
-import './css/add-form.css';
+import './css/courses.css';
 
 export default class AddForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             editing: false,
-            text: ''
+            fields: {},
+            errors: {}
         }
     }
 
 
  
-    onSubmit(e) {
+    addformSubmit(e) {
         e.preventDefault();
-        const text = this.state.text;
         let newcourse = {
             termDesc: this.props.currentterm,
-            courseName:text
+            courseName:this.state.fields.courseName,
+            courseDesc: this.state.fields.courseDesc
         }
+        this.state.fields["courseName"]="";
+        this.state.fields["courseDesc"]="";
+        console.log('add-form: addformSubmit, this.state.fields', this.state.fields);
         console.log('addform:newcourse', newcourse);
-        this.setText('');
         this.setEditing(false);
-            this.props.submitaddcourse(newcourse);
+        this.props.submitaddcourse(newcourse);
     }
 
-    setText(text) {
-        this.setState({
-            text
-        });
+    handleChange(field, e) {
+        let fields = this.state.fields;
+        fields[field]=e.target.value;
+        this.setState({fields});
     }
 
     setEditing(editing) {
@@ -42,7 +45,7 @@ export default class AddForm extends React.Component {
         if (!this.state.editing) {
             const text = `Add a ${this.props.type}`;
             return (
-                <div className="btn add-form"
+                <div className="blue-btn btn-med tenpx-bottom-margin"
                         onClick={(e) => {
                             e.preventDefault();
                             this.setEditing(true)
@@ -53,25 +56,50 @@ export default class AddForm extends React.Component {
         }
         const label = `Enter a ${this.props.type}`;
         return (
-            <form className='add-form course' onSubmit={(e) => this.onSubmit(e)} >
-                <div>Add Your Course</div>
-                <div>
-                    <input
-                        className="course-input"
-                        type="text"
-                        value = {this.state.text}
-                        onChange = {e => this.setText(e.target.value)}
-                        aria-label={label}
-                    />
-                </div>
-                <div>
-                    <button className="btn add-btn">Add </button>
-                    <button className="btn cancel-btn" type="button" onClick={() => this.setEditing(false)}>
-                        Cancel
-                    </button>    
+            <div className="add-form">
+                    <form onSubmit={this.addformSubmit.bind(this)} >
+                        <h2 className="heading">Add Your Course</h2>
+                        <div className={this.props.error ? "error-msg" : ""}>{this.props.error}</div>
+                        <div className="courseName-unit">
+                                <input
+                                    className={this.state.errors["courseName"] ? "course-item field error": "course-item field"}
+                                    ref="courseName"
+                                    placeholder="Course Name"
+                                    type="text"
+                                    size="30"
+                                    name="courseName"
+                                    onChange = {this.handleChange.bind(this,"courseName")}
+                                    value = {this.state.fields["courseName"]}
+                                    aria-label="courseName"
+                                />
+                                <div className="error-msg">{this.state.errors["courseName"]}</div>
+                        </div>
+                        <div className="courseDesc-unit">
 
-                </div>
-            </form>
+                                <textarea 
+                                    className={this.state.errors["courseDesc"] ? "course-item field error": "course-item field"}
+                                    ref="courseDesc"
+                                    placeholder="Course Description"
+                                    type="text"
+                                    rows="2"
+                                    cols="30"
+                                    wrap="soft"
+                                    size="60"
+                                    name="CourseDesc"
+                                    onChange={this.handleChange.bind(this,"courseDesc")}
+                                    value = {this.state.fields["courseDesc"]}
+                                    aria-label="CourseDesc"
+                                />
+                                <div className="error-msg">{this.state.errors["courseDesc"]}</div>
+                        </div>
+                        <div className="action-btns">
+                            <button type="submit" className="blue-btn btn-small fivepx-margin">Add </button>
+                            <button className="blue-btn btn-small fivepx-margin" type="button" onClick={() => this.setEditing(false)}>
+                                Cancel
+                            </button>    
+                        </div>
+                    </form>
+            </div>
         );
     }
 

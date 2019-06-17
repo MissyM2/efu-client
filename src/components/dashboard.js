@@ -10,7 +10,7 @@ import Backdrop from './backdrop';
 import BackdropGreen from './backdrop-green';
 import BackdropWhite from './backdrop-white';
 import BackdropBlue from './backdrop-white';
-import StudySkill from './study-skill';
+import Suggestion from './suggestion';
 import Modal from './modal';
 
 
@@ -58,19 +58,17 @@ export default class Dashboard extends React.Component {
         
         if(this.props.selectingterm) {
             dashboardContentClasses = 'dashboard-content not-visible';
-            dashboardNoDataClasses='dashboard-no-data not-visible';
+            dashboardNoDataClasses='modal not-visible';
             navbarClasses='not-visible';
-            sidedrawerClasses = 'not-visible';
             backdrop= <BackdropGreen />
         } else if (this.props.currentweekcount === 0) {
             dashboardContentClasses = 'dashboard-content not-visible';
-            dashboardNoDataClasses='dashboard-no-data';
+            dashboardNoDataClasses='modal';
            
         } else {
             console.log('made it to else');
             dashboardContentClasses = 'dashboard-content';
             navbarClasses="";
-            sidedrawerClasses="";
 
         }
 
@@ -105,28 +103,41 @@ export default class Dashboard extends React.Component {
 
             return (
                 <div className="content-container">
-                        {this.props.selectingterm && <Modal {...this.props} title="Please select Term" >
-                            <p>Modal Content</p>
-                        </Modal>}
+                        {(this.props.selectingterm) ? (
+                            <div>
+                                <Modal {...this.props} title="Please select Term" />
+                            </div>
+                        ) : (
+                            <div></div>
+                        )}
                         <div className={navbarClasses}>
                             <NavBar  {...this.props} />
                         </div>
-                        <div className={sidedrawerClasses}>
-                            <RightSideDrawer user={this.props.currentusername} click={this.props.rightdrawertoggleclickhandler} show={this.props.rightSideDrawerOpen} submitlogout={this.props.submitlogout} />
-                        </div>
+                        {(this.props.rightSideDrawerOpen) ? (
+                            <div className={sidedrawerClasses}>
+                                <RightSideDrawer user={this.props.currentusername} click={this.props.rightdrawertoggleclickhandler} show={this.props.rightSideDrawerOpen} submitlogout={this.props.submitlogout} />
+                            </div>
+                        ) : (
+                            <div></div>
+                        )}
                         {backdrop}
                                     {(this.props.currentweeks.length === 0) ? (
                                         <div className={dashboardNoDataClasses}>
-                                                <div className="instructions-large">
-                                                    You have not set up your Profile, yet, for {this.props.currentterm}.  Either choose another term from the dropdown or
-                                                    select Profile, select your term and add your first class.  This will generate the appropriate number of weeks.
+                                            <header className="modal__header"> No Data</header>
+                                            <section className="modal__content">
+                                                <div className="message">
+                                                    <p>{this.props.currentterm} has not been set up.</p>
+                                                    <p><i class="fas fa-asterisk"></i>  Choose another term, or</p>
+                                                    <p><i class="fas fa-asterisk"></i>  Select <span className="accent-word">Profile</span>, and add your first class.</p>
                                                 </div>
+                                                  
+                                            </section>
                                         </div>
                                 
                                     ) : (
                                         <div className={dashboardContentClasses}>
 
-                                            <StudySkill {...this.props} />
+                                            <Suggestion {...this.props} />
                                                 <h2>What is Due?</h2>
                                                
                                                 <div className="deliverables-container">

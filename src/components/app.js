@@ -21,6 +21,8 @@ class App extends React.Component {
             currentdate:"",
             fCurrentDate:"",
             pCurrentDate:0,
+            courseDeleted: false,
+            courseUpdated:false,
             currentsuggestion:[],
             currentterm: "",
             currentweek: null,
@@ -51,13 +53,12 @@ class App extends React.Component {
             selectingterm:false,
             selectingweek:false,
             showNavButtons:true,
-            showCourseDeleteModal: false,
+            setcoursedeletemodal: false,
             showAddDeliverableCompleteModal: false,
             SpringFall:16,
             SummerLong:8,
             SummerShort:4,
             Short:4,
-            sideDrawerOpen: false,
             terms:[],
             todaydate:"",
             todaydeliverables:[],
@@ -69,6 +70,7 @@ class App extends React.Component {
         this.submitlogin = this.submitlogin.bind(this);
         this.setlogin = this.setlogin.bind(this);
         this.setcurrentterm = this.setcurrentterm.bind(this);
+        this.setcurrentcoursename = this.setcurrentcoursename.bind(this);
         this.getcurrenttermdetails=this.getcurrenttermdetails.bind(this);
         this.setcoursedeletemodal=this.setcoursedeletemodal.bind(this);
         this.setcurrentweek=this.setcurrentweek.bind(this);
@@ -86,8 +88,10 @@ class App extends React.Component {
         this.submitadddeliverable=this.submitadddeliverable.bind(this);
         this.generateweeksforterm=this.generateweeksforterm.bind(this);
         this.generategradesforcourse=this.generategradesforcourse.bind(this);
+        this.deletecoursedetails=this.deletecoursedetails.bind(this);
         this.submitdeletecourse=this.submitdeletecourse.bind(this);
         this.submitdeleteweek=this.submitdeleteweek.bind(this);
+        this.submitdeletegrades=this.submitdeletegrades.bind(this);
         this.submitlogout=this.submitlogout.bind(this);
         this.submitupdatecourse=this.submitupdatecourse.bind(this);
         this.submitupdateweek=this.submitupdateweek.bind(this);
@@ -224,14 +228,13 @@ class App extends React.Component {
     }
 
     setcoursedeletemodal(bool) {
+        console.log('made it to the setcoursedeletemodal');
         this.setState({
           showCourseDeleteModal:bool
         },() => {
             console.log('this.state.showCourseDeleteModal should be set properly', this.state.showCourseDeleteModal);
         });
     }
-
-    
 
     setcurrentweek = (week) => {
         console.log('week is', week);
@@ -246,7 +249,17 @@ class App extends React.Component {
         );
     }
 
+    setcurrentcoursename = (courseName) => {
+        this.setState(
+            {currentcoursename: courseName}, 
+            () => {
+                console.log('inside setcurrentcoursename: this.state.currentcoursename', this.state.currentcoursename);
+            }
+        );
+    }
+
     getcurrenttermdetails = () => {
+        console.log('made it to getcurrenttermdetails');
         this.getcurrentdates();
         this.getcurrentsuggestion();
 
@@ -389,7 +402,8 @@ class App extends React.Component {
             });
             this.setState({
                         currentcourses: tempcourses,
-                        currentcoursecount: tempcourses.length
+                        currentcoursecount: tempcourses.length,
+                        courseUpdated: true
                     },() => {
                         resolve({message: 'finished coursesPromise'});
                     });
@@ -672,6 +686,7 @@ class App extends React.Component {
     }
          
     submitaddcourse = (newcourse) => {
+        console.log('submitaddcourse: newcourse', newcourse);
         this.setState({
             currentcourseName: newcourse.courseName
         });
@@ -850,20 +865,41 @@ class App extends React.Component {
             }
     }
 
+    deletecoursedetails = () => {
+        console.log('made it to deletecoursedetails');
+        console.log('selected course is', this.state.currentcoursename);
+        this.setcoursedeletemodal(false)
+        let gradesPromise = new Promise((resolve, reject) => {
+            console.log('deleting grades for course first');
+            this.submitdeletegrades(resolve, reject);
+        })
+
+        let coursePromise = new Promise((resolve, reject) => {
+            console.log('deleting course');
+            this.submitdeletecourse(resolve, reject);
+        })
+        this.getcurrenttermdetails();
+        
+
+
+    }
+
  
     
     // DELETE functions
-    submitdeletecourse = (selectedCourse) => {
+    submitdeletecourse = (resolve, reject)  => {
         console.log('made it to submitdeletecourse');
-
-        //must delete course and all grade documents
+        const courseForDeletion = {
+            termDesc: this.state.currentterm,
+            courseName: this.state.currentcoursename
+        }
        
-       /* fetch(`${API_BASE_URL}/courses`, {
+       fetch(`${API_BASE_URL}/courses`, {
                 method: 'DELETE',
                 headers: {
                     Authorization: `Bearer ${this.state.authToken}`,
                     'Content-Type': 'application/json'},
-                body: JSON.stringify(selectedCourse)
+                body: JSON.stringify(courseForDeletion)
             })
             .then(response => {
                 console.log('deletecourse response', response);
@@ -877,13 +913,57 @@ class App extends React.Component {
                         return course.termDesc === this.state.currentterm;
                 });
                 this.setState({
-                    currentcourses: tempcourses
+                    currentcourses: tempcourses,
+                    courseDeleted: true
+                }, () => {
+                    resolve({message: 'finished coursePromise'})
                 });
             })
             .catch((err) => {
                 console.log(err);
+                reject();
             });
-            */
+            
+    }
+
+    submitdeletegrades = (resolve, reject) => {
+        
+        console.log('made it to submitdeletegrades');
+
+        const coursegradesForDeletion = {
+            termDesc: this.state.currentterm,
+            courseName: this.state.currentcoursename
+        }
+       
+        console.log('coursegradesForDeletion is', coursegradesForDeletion);
+    // delete all grades for the selected course
+       
+        fetch(`${API_BASE_URL}/grades`, {
+                method: 'DELETE',
+                headers: {
+                    Authorization: `Bearer ${this.state.authToken}`,
+                    'Content-Type': 'application/json'},
+                body: JSON.stringify(coursegradesForDeletion)
+            })
+            .then(response => {
+                console.log('deletegrades response', response);
+                if(response.ok) {
+                        return response.json()
+                }
+                throw new Error(response.text)
+            })
+            .then(responseJSON => {
+               console.log('responseJSON after deleting grades', responseJSON);
+                this.setState({
+                    currentgrades: [],
+                }, () => {
+                    resolve({message: 'finished gradesPromise'})
+                });
+            })
+            .catch((err) => {
+                console.log(err);
+                reject();
+            });
     }
 
     submitdeleteweek = (selectedweek) => {
@@ -919,6 +999,9 @@ class App extends React.Component {
     // UPDATE(PUT) functions
         
     submitupdatecourse = (updatedcourse) => {
+        this.setState({
+            courseUpdated:false
+        })
         fetch(`${API_BASE_URL}/courses`, {
             method: 'PUT',
             headers: {
@@ -935,16 +1018,13 @@ class App extends React.Component {
             throw new Error(response.text)
         })
         .then(responseJSON =>  {
-                const tempcourses = responseJSON.filter(course => {
-                    return course.termDesc === this.state.currentterm;
-                });
-                this.setState({
-                    currentcourses: tempcourses
-                });
+                
                 let coursesPromise = new Promise((resolve, reject) => {
                     this.getcurrentcourses(resolve, reject);
-                    });
+                });
+                    
         })
+       
         .catch((err) => {
             console.log(err);
         });
@@ -1073,9 +1153,9 @@ class App extends React.Component {
                                                         />} /> 
 
                         <Route exact path="/navbar" render={() => <NavBar {...this.state} 
-                                                        //setcurrentterm = {() => this.setcurrentterm()}
-                                                        //getcurrenttermdetails={() => this.getcurrenttermdetails()}
-                                                        //submitlogout= {() => this.submitlogout()}
+                                                        setcurrentterm = {(term) => this.setcurrentterm(term)}
+                                                        getcurrenttermdetails={() => this.getcurrenttermdetails()}
+                                                        submitlogout= {() => this.submitlogout()}
                                                         />} /> 
                         <Route exact path="/dashboard" render={() => <Dashboard {...this.state}
                                                         setcurrentterm = {(term) => this.setcurrentterm(term)}
@@ -1111,13 +1191,16 @@ class App extends React.Component {
                                                         submitlogout= {() => this.submitlogout()}
                                                         />} /> 
                         <Route exact path="/courses" render={() => <Courses {...this.state}
+                                                        setcurrentterm = {(term) => this.setcurrentterm(term)}
                                                         getcurrenttermdetails={(selectedterm) => this.getcurrenttermdetails(selectedterm)}
                                                         setcoursedeletemodal={(bool) => this.setcoursedeletemodal(bool)}
                                                         getcurrentweeks={() => this.getcurrentweeks()}
+                                                        setcurrentcoursename={(course) => this.setcurrentcoursename(course)}
                                                         submitaddcourse={(newcourse) => this.submitaddcourse(newcourse)}
+                                                        deletecoursedetails={() => this.deletecoursedetails()}
                                                         //generateweeksforterm={(term) => this.generateweeksforterm(term)}
                                                         //generategradesforcourse={(term, course) => this.generategradesforcourse(term, course)}
-                                                        submitdeletecourse={(selectedcourse) => this.submitdeletecourse(selectedcourse)}
+                                                        submitdeletecourse={() => this.submitdeletecourse()}
                                                         submitdeleteweek={(selectedweek) => this.submitdeleteweek(selectedweek)}
                                                         submitupdatecourse={(updatedcourse) => this.submitupdatecourse(updatedcourse)}
                                                         submitupdateweek={(updatedweek) => this.submitupdateweek(updatedweek)}
@@ -1128,6 +1211,7 @@ class App extends React.Component {
                                                         submitlogout= {() => this.submitlogout()}
                                                         />} /> 
                         <Route exact path="/deliverables" render={() => <Deliverables {...this.state}
+                                                        setcurrentterm = {(term) => this.setcurrentterm(term)}
                                                         submitadddeliverable = {(newdeliverable) => this.submitadddeliverable(newdeliverable)}
                                                         //drawertoggleclickhandler={() => this.drawertoggleclickhandler()}
                                                         rightdrawertoggleclickhandler={() => this.rightdrawertoggleclickhandler()}

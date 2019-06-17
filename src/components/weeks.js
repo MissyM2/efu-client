@@ -1,7 +1,7 @@
 import React from 'react';
 
 import NavBar from "./navbar";
-import SideDrawer from './side-drawer';
+import RightSideDrawer from './right-side-drawer';
 import Backdrop from './backdrop';
 
 import './css/weeks.css';
@@ -55,8 +55,8 @@ export default class Weeks extends React.Component {
                                 <div className="unit-container-blue unit-width tenpx-bottom-margin" key={index}>
                                         <div className="section-head color-light">Week Number {week.weekNum}</div>
                                         
-                                        <ul key={index} className="row">
-                                                <li className="weeks-row">
+                                        <ul key={index} className="weeks-row">
+                                                <li className="week-row">
                                                         <div className="week-item">
                                                                 <div className="weeks-item-label week-label likedLeast">liked Least</div>
                                                                 <div className="item-body">{week.likedLeast}</div>
@@ -66,7 +66,7 @@ export default class Weeks extends React.Component {
                                                                 <div className="item-body">{week.likedMost}</div>
                                                         </div>
                                                 </li>
-                                                <li className="weeks-row">
+                                                <li className="week-row">
                                                         <div className="week-item">
                                                                 <div className="weeks-item-label week-label mostDifficult">Most Difficult</div>
                                                                 <div className="item-body">{week.mostDifficult}</div>
@@ -100,7 +100,9 @@ export default class Weeks extends React.Component {
                 return (
                           <div className="content-container">
                                 <NavBar {...this.props}/>
-                                <SideDrawer show={this.props.sideDrawerOpen} />
+                                <div className="">
+                                        <RightSideDrawer user={this.props.currentusername} click={this.props.rightdrawertoggleclickhandler} show={this.props.rightSideDrawerOpen} submitlogout={this.props.submitlogout} />
+                                </div>
                                 {backdrop}
                                 
                                         

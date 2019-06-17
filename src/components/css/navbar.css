@@ -143,7 +143,6 @@
     .term-unit {
       display:flex;
       flex-direction: row;
-      padding-left: 10px;
     }
 
     .review-unit {

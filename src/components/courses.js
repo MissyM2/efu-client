@@ -15,6 +15,12 @@ import Course from './course';
 
 
 export default class Courses extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state= {
+            delMessage: ''
+        }
+    }
 
     cancelcoursedelete() {
         console.log('inside cancelcoursedelete', this.props);
@@ -23,11 +29,17 @@ export default class Courses extends React.Component {
 
     deletecourse(e) {
         e.preventDefault();
+        console.log('made it to deletecourse')
         let selectedCourse = {
             termDesc: this.props.termDesc,
             courseName:this.props.courseName
         };
         this.props.submitdeletecourse(selectedCourse); 
+        if(this.props.courseDeleted) {
+            this.setState({delMessage: `${selectedCourse.courseName} has been deleted`});
+        } else {
+            this.setState({message: 'There was a problem with the deletion.'})
+        }
     }
  
     render() {
@@ -44,44 +56,43 @@ export default class Courses extends React.Component {
             console.log('courses: this.props', this.props);
             return (
                 <li className="" key={index}>
-                    <Course {...course} {...this.props} courseName={course.courseName} submitupdatecourse={this.props.submitupdatecourse} submitdeletecourse={this.props.submitdeletecourse} />
+                    <Course {...course} {...this.props} courseName={course.courseName} submitupdatecourse={this.props.submitupdatecourse} deletecoursedetails={this.props.deletecoursedetails} />
                 </li>
             );
         });
-        console.log('courses: this.props', this.props);
         return (
             <div className="content-container">
-                <div className="">
-                    <NavBar {...this.props}/>
-                </div>
-                <div className="">
-                    <RightSideDrawer user={this.props.currentusername} click={this.props.rightdrawertoggleclickhandler} show={this.props.rightSideDrawerOpen} submitlogout={this.props.submitlogout} />
-                </div>
-                {backdrop}
-                {(this.props.showCourseDeleteModal === true) ? 
-                        (
-                            <div>
-                                <BackdropBlack />
-                                <ModalDeleteCourse 
-                                        {...this.props} 
-                                        cancelcoursedelete={this.cancelcoursedelete} 
-                                        coursedelete={this.coursedelete}
-                                        />
-                            </div>
-                         ) : (
-                             null
-                         )
-                         }
+            <div className="">
+                <NavBar {...this.props}/>
+            </div>
+            <div className="">
+                <RightSideDrawer user={this.props.currentusername} click={this.props.rightdrawertoggleclickhandler} show={this.props.rightSideDrawerOpen} submitlogout={this.props.submitlogout} />
+            </div>
+            {backdrop}
+            {(this.props.showCourseDeleteModal === true) ? 
+                    (
+                        <div>
+                            <BackdropBlack />
+                            <ModalDeleteCourse 
+                                    {...this.props} 
+                                    cancelcoursedelete={this.cancelcoursedelete} 
+                                    coursedelete={this.coursedelete}
+                                    />
+                        </div>
+                     ) : (
+                         null
+                     )
+                     }
+
+                
                 <div className="content-sub-container">
                         <h3>My courses for {this.props.currentterm}</h3>
-                        <div >
-                            <ul className="row">
+                        <div>
+                            <div className="error-msg">{this.state.message}</div>
+                            <AddForm type="course" {...this.props} submitaddcourse={this.props.submitaddcourse} />
+                            <ul className="course-row">
                                     {mycourses} 
                             </ul>
-                            <div>
-                                <AddForm type="course" {...this.props} submitaddcourse={this.props.submitaddcourse} />
-                            </div>
-                            
                         </div>
                         
                 </div>

@@ -2,7 +2,7 @@ import React from 'react';
 
 import './css/dashboard.css';
 
-class StudySkill extends React.Component {
+class Suggestion extends React.Component {
     render() {
         return (
             <ul className="skills-suggestion"> 
@@ -17,4 +17,4 @@ class StudySkill extends React.Component {
     
 }
 
-export default StudySkill;
+export default Suggestion;

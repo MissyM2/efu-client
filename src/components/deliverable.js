@@ -10,29 +10,29 @@ export default class Deliverable extends React.Component {
                 <React.Fragment>
                     
                     <div className="deliverable-sub-section sec-one">
-                        <li className="item-label weeks-item-label dueDate">
+                        <li className="item-label weeks-item-label field">
                                 {this.props.deliverable.dueDateFormatted}
                         </li>
-                        <li className="item-label weeks-item-label prephrs">
+                        <li className="item-label weeks-item-label field">
                             {this.props.deliverable.prephrs} hours prep
                         </li>
                     </div>
                     <div className="deliverable-sub-section sec-three">
-                        <li className="item-label weeks-item-label courseName">
+                        <li className="item-label weeks-item-label field">
                             {this.props.deliverable.courseName}
                         </li>
-                        <li className="item-label weeks-item-label column-item deliverableName">
+                        <li className="item-label weeks-item-label column-item field">
                             {this.props.deliverable.deliverableName}
                         </li>
                         
                     </div>
                     <div className="deliverable-sub-section sec-two">
                        
-                        <li className="item-label weeks-item-label column-item desc">
+                        <li className="item-label weeks-item-label column-item field">
                             {this.props.deliverable.desc}
                         </li> 
                         
-                        <li className="item-label weeks-item-label impact">
+                        <li className="item-label weeks-item-label field">
                             {this.props.deliverable.impact}
                         </li>
                         

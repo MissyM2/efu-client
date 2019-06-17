@@ -21,15 +21,7 @@
     z-index: -1;
 }
 
-.test-user-unit {
-    width: 80%;
-    display:flex;
-    flex-direction:row;
-    margin: 0 auto;
-    text-align: left;
-    font-size: 14px;
-    color: var( --darker-blue-color);
-}
+
 
 .test-user-info {
     
@@ -142,8 +134,15 @@
             margin-top: 75px;
         }
 
-        .test-user-div {
-            width: 70%;
+        .test-user-unit {
+            width: 100%;
+            display:flex;
+            flex-direction:row;
+            margin: 0 auto;
+            text-align: left;
+            font-size: 14px;
+            color: var( --darker-blue-color);
+            padding-left: 15px;
         }
 
         .input-row {
@@ -320,6 +319,10 @@
             width: 100%;
             top: 90px;
             z-index: 200;
+        }
+
+        .test-user-unit {
+            width: 100%;
         }
 
        
