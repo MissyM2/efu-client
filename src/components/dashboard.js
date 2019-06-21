@@ -1,15 +1,11 @@
 import React from 'react';
 import './css/dashboard.css';
-import { Link } from 'react-router-dom';
 
 import NavBar from "./navbar";
 import Deliverable from './deliverable';
-import SideDrawer from './side-drawer';
 import RightSideDrawer from './right-side-drawer';
 import Backdrop from './backdrop';
 import BackdropGreen from './backdrop-green';
-import BackdropWhite from './backdrop-white';
-import BackdropBlue from './backdrop-white';
 import Suggestion from './suggestion';
 import Modal from './modal';
 
@@ -99,7 +95,7 @@ export default class Dashboard extends React.Component {
         //if (loading) {
        //     return <p>Loading ...</p>
         //}
-        console.log('dashboard: this.state.props', this.props);
+        //console.log('dashboard: this.state.props', this.props);
 
             return (
                 <div className="content-container">

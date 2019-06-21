@@ -12,8 +12,10 @@ export default class Course extends React.Component {
             oldCourseName: this.props.courseName,
             oldCourseDesc: this.props.courseDesc,
             gradeCount:0,
-            fields:{},
-            message:''
+            fields:{
+                newCourseName:"",
+                newCourseDesc:""
+            }
         }
         this.courseName = React.createRef();
         this.courseDesc = React.createRef();
@@ -35,12 +37,18 @@ export default class Course extends React.Component {
     }
 
     handleChange(field, e) {
+
+        this.props.setCourseIsChanged(false);
         let fields = this.state.fields;
         fields[field] = e.target.value;
-        this.setState({fields});
+        this.setState({
+            fields
+        });
+        
     }
 
     updateSubmit(e) {
+        console.log('this.props.courseIsChanged', this.props.courseIsChanged);
         e.preventDefault();
         let course;
         let courseDesc;
@@ -63,20 +71,31 @@ export default class Course extends React.Component {
             newCourseDesc:courseDesc
         };
         this.props.submitupdatecourse(updateCourse);
-        if(this.props.courseUpdated) {
-            this.setState({message: 'Your course has been updated'});
-        } else {
-            this.setState({message: 'There was a problem with the update.'})
-        }
+        this.props.setCourseIsChanged(true);
+        this.setState({
+            oldCourseName: course,
+            fields:{
+                newCourseName: ""
+            }
+        })
     }
 
     render () {
+        console.log('this.state.oldCourseName', this.state.oldCourseName);
+        console.log('this.state.fields["newCourseName"]', this.state.fields["newCourseName"]);
+        console.log('this.state.oldCourseDesc', this.state.oldCourseDesc);
+        console.log('this.state.fields["newCourseDesc"]', this.state.fields["newCourseDesc"]);
+        console.log('this.props.courseIsChanged', this.props.courseIsChanged);
         return (
             <div>
                 
                 <form onSubmit={this.updateSubmit.bind(this)}>
                     <div className="course-container-blue tenpx-bottom-margin">
-                    <div className="error-msg">{this.state.message}</div>
+                        {(this.props.courseIsChanged) ? (
+                            <div className="error-msg">Your course has been updated.</div>
+                            ):(
+                               ""
+                            )}
 
                             <div className="column">
                                 <div className="courseName-unit">

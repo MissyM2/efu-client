@@ -6,7 +6,12 @@ class RegistrationPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            fields: {},
+            fields: {
+                firstName:"",
+                lastName:"",
+                username:"",
+                password:""
+            },
             errors: {}
             }
         };

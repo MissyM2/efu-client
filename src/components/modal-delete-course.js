@@ -34,8 +34,8 @@ class ModalDeleteCourse extends React.Component {
                             All grade information for this course will be deleted if you delete this class.  Proceed with deletion?
                         </div>
                         <div className="content-sub-container action-links">
-                            <button className="link navitem item blue-btn" onClick={this.props.deletecoursedetails}>Delete</button>
-                            <button className="link navitem item blue-btn" onClick={this.cancelModal}>Cancel</button>
+                            <button className="link navitem item blue-btn fivepx-margin" onClick={this.props.deletecoursedetails}>Delete</button>
+                            <button className="link navitem item blue-btn fivepx-margin" onClick={this.cancelModal}>Cancel</button>
                         </div>        
                     </section>
                     

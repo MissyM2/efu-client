@@ -8,7 +8,10 @@ class LoginPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            fields:{},
+            fields:{
+                username:"",
+                password: ""
+            },
             errors: {}
         };
     }

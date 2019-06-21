@@ -7,7 +7,10 @@ export default class AddForm extends React.Component {
         super(props);
         this.state = {
             editing: false,
-            fields: {},
+            fields: {
+                courseName:"",
+                courseDesc:""
+            },
             errors: {}
         }
     }
@@ -21,10 +24,13 @@ export default class AddForm extends React.Component {
             courseName:this.state.fields.courseName,
             courseDesc: this.state.fields.courseDesc
         }
-        this.state.fields["courseName"]="";
-        this.state.fields["courseDesc"]="";
-        console.log('add-form: addformSubmit, this.state.fields', this.state.fields);
-        console.log('addform:newcourse', newcourse);
+        this.setState({
+            fields:{
+                courseName:"",
+                courseDesc: ""
+            }
+        });
+        
         this.setEditing(false);
         this.props.submitaddcourse(newcourse);
     }
@@ -48,7 +54,8 @@ export default class AddForm extends React.Component {
                 <div className="blue-btn btn-med tenpx-bottom-margin"
                         onClick={(e) => {
                             e.preventDefault();
-                            this.setEditing(true)
+                            this.setEditing(true);
+                            this.props.setCourseIsChanged(false);
                         }}>
                         <a href="#">{text}...</a>
                 </div>

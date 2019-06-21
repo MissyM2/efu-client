@@ -9,7 +9,6 @@ import BackdropWhite from './backdrop-white';
 import ModalDeleteCourse from './modal-delete-course';
 
 import AddForm from './add-form';
-import Term from './term';
 import Course from './course';
 
 
@@ -18,8 +17,16 @@ export default class Courses extends React.Component {
     constructor(props) {
         super(props);
         this.state= {
-            delMessage: ''
+            delMessage: '',
+            courseIsChanged: false
         }
+    }
+
+    setCourseIsChanged = (bool) => {
+            this.setState({
+                courseIsChanged: bool
+            });
+        
     }
 
     cancelcoursedelete() {
@@ -53,10 +60,17 @@ export default class Courses extends React.Component {
         }
 
         const mycourses = this.props.currentcourses.map((course, index) => {
-            console.log('courses: this.props', this.props);
+           // console.log('courses: this.props', this.props);
             return (
                 <li className="" key={index}>
-                    <Course {...course} {...this.props} courseName={course.courseName} submitupdatecourse={this.props.submitupdatecourse} deletecoursedetails={this.props.deletecoursedetails} />
+                    <Course 
+                        {...course} 
+                        {...this.props} 
+                        {...this.state}
+                        courseName={course.courseName} 
+                        setCourseIsChanged={this.setCourseIsChanged}
+                        submitupdatecourse={this.props.submitupdatecourse} 
+                        deletecoursedetails={this.props.deletecoursedetails} />
                 </li>
             );
         });
@@ -66,7 +80,12 @@ export default class Courses extends React.Component {
                 <NavBar {...this.props}/>
             </div>
             <div className="">
-                <RightSideDrawer user={this.props.currentusername} click={this.props.rightdrawertoggleclickhandler} show={this.props.rightSideDrawerOpen} submitlogout={this.props.submitlogout} />
+                <RightSideDrawer 
+                    user={this.props.currentusername} 
+                    click={this.props.rightdrawertoggleclickhandler} 
+                    show={this.props.rightSideDrawerOpen} 
+                    submitlogout={this.props.submitlogout} 
+                />
             </div>
             {backdrop}
             {(this.props.showCourseDeleteModal === true) ? 
@@ -89,7 +108,12 @@ export default class Courses extends React.Component {
                         <h3>My courses for {this.props.currentterm}</h3>
                         <div>
                             <div className="error-msg">{this.state.message}</div>
-                            <AddForm type="course" {...this.props} submitaddcourse={this.props.submitaddcourse} />
+                            <AddForm 
+                                type="course" 
+                                {...this.props} 
+                                submitaddcourse={this.props.submitaddcourse}
+                                setCourseIsChanged={this.setCourseIsChanged} 
+                            />
                             <ul className="course-row">
                                     {mycourses} 
                             </ul>

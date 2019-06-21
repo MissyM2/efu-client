@@ -57,7 +57,7 @@ export default class NavBar extends React.Component {
                     </option>
             );
         });
-        console.log('navbar: this.props', this.props);
+        //console.log('navbar: this.props', this.props);
         return (
             <header className="navbar">
             <nav className="navbar_navigation" role="navigation" aria-label="navbar_navigation">

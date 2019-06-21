@@ -305,12 +305,12 @@ class App extends React.Component {
             throw new Error(response.text)
         })
         .then(grades => {
-            const thisweek= this.state.currentweeks.filter(week => {
-                return week.weekNum == this.state.currentweek;
+            const thisweek = this.state.currentweeks.filter(week => {
+                return week.weekNum ===this.state.currentweek;
             });
 
             const thisweekgrades = grades.filter(grade => {
-                    return grade.term === this.state.currentterm && grade.week == this.state.currentweek;
+                    return grade.term === this.state.currentterm && grade.week === this.state.currentweek;
             });
 
             return this.setState({
@@ -383,6 +383,7 @@ class App extends React.Component {
     }
 
     getcurrentcourses(resolve, reject) {
+        console.log('made it to getcurrentcourses');
         fetch(`${API_BASE_URL}/courses`, {
             method: 'GET',
             headers: {
@@ -397,6 +398,7 @@ class App extends React.Component {
             throw new Error(response.text)
         })
         .then(responseJSON => {
+            console.log('after .then with responseJson', responseJSON);
             const tempcourses = responseJSON.filter(course => {
                     return course.termDesc === this.state.currentterm;
             });
@@ -405,7 +407,7 @@ class App extends React.Component {
                         currentcoursecount: tempcourses.length,
                         courseUpdated: true
                     },() => {
-                        resolve({message: 'finished coursesPromise'});
+                        resolve({message: 'DID COURSES GET UPDATEDfinished coursesPromise'});
                     });
         })
         .catch((err) => {
@@ -999,6 +1001,7 @@ class App extends React.Component {
     // UPDATE(PUT) functions
         
     submitupdatecourse = (updatedcourse) => {
+        console.log('made it to submitupdatecourse');
         this.setState({
             courseUpdated:false
         })
@@ -1018,8 +1021,10 @@ class App extends React.Component {
             throw new Error(response.text)
         })
         .then(responseJSON =>  {
+                console.log('before coursesePromise', responseJSON);
                 
                 let coursesPromise = new Promise((resolve, reject) => {
+                    console.log('about to getcurrentcourses');
                     this.getcurrentcourses(resolve, reject);
                 });
                     

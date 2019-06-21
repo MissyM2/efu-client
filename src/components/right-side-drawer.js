@@ -9,7 +9,7 @@ export default class RightSideDrawer extends React.Component {
    
     render() {
         let drawerClasses = 'right-side-drawer';
-        console.log('rsdrawer, this.props', this.props.show);
+        //console.log('rsdrawer, this.props', this.props.show);
         if (this.props.show) {
             console.log('adding classes right-side-drawer open');
             drawerClasses = 'right-side-drawer open';
@@ -17,7 +17,7 @@ export default class RightSideDrawer extends React.Component {
             drawerClasses='right-side-drawer not-visible';
         }
 
-        console.log('right-side-drawer: this.props', this.props);
+        //console.log('right-side-drawer: this.props', this.props);
     return (
             <div className={drawerClasses} >
                 <ul>

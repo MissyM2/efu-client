@@ -9,7 +9,6 @@ import BackdropWhite from './backdrop-white';
 import BackdropBlack from './backdrop-black';
 import ModalAddDeliverableComplete from './modal-add-deliverable-complete';
 
-import {API_BASE_URL} from '../config';
 import './css/deliverables.css';
 
 
