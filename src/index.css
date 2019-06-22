@@ -92,16 +92,16 @@ background-image: linear-gradient(to bottom, #31708E, #3e8eb4);filter:progid:DXI
 
   
 
- 
+ */
 
   .section-head {
     font-family: var(--body-font-family);
     font-weight: bold;
     font-size: 16px;
-    padding: 0px 10px;
-    text-align:left
+    padding: 10px;
+    text-align:center
   }
-
+/*
   .sub-section {
     background-color: var( --darker-blue-color);
     color: var(--off-white-color);
@@ -370,7 +370,7 @@ background-image: linear-gradient(to bottom, #31708E, #3e8eb4);filter:progid:DXI
   }
 
   .color-dark {
-    color: var(--darkest-color);
+    color: var( --dark-mossy-green-color);
   }
 
   .color-light {

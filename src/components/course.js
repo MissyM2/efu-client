@@ -81,11 +81,6 @@ export default class Course extends React.Component {
     }
 
     render () {
-        console.log('this.state.oldCourseName', this.state.oldCourseName);
-        console.log('this.state.fields["newCourseName"]', this.state.fields["newCourseName"]);
-        console.log('this.state.oldCourseDesc', this.state.oldCourseDesc);
-        console.log('this.state.fields["newCourseDesc"]', this.state.fields["newCourseDesc"]);
-        console.log('this.props.courseIsChanged', this.props.courseIsChanged);
         return (
             <div>
                 

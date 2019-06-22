@@ -160,10 +160,35 @@ select {
 
     /* Custom, iPhone Retina */ 
     @media only screen and (min-width : 320px) {
+
         .weeks-row {
             display:flex;
             flex-direction:column;
         }
+
+        .grade-container-green {
+            position:relative;
+            width: 100%;
+            border:1px solid #7f8f79; 
+            text-decoration:none; 
+            display:inline-block;
+            color: var(--darker-blue-color);
+            border:1px solid #768871; -webkit-border-radius: 3px; 
+            -moz-border-radius: 3px;
+            border-radius:3px;
+            font-size:14px;
+            font-family:var(--body-font-family); 
+            padding: 10px 10px 10px 10px; 
+            color: #FFFFFF;
+            background-color: #93A28F; background-image: -webkit-gradient(linear, left top, left bottom, from(#93A28F), to(#687864));
+            background-image: -webkit-linear-gradient(top, #93A28F, #687864);
+            background-image: -moz-linear-gradient(top, #93A28F, #687864);
+            background-image: -ms-linear-gradient(top, #93A28F, #687864);
+            background-image: -o-linear-gradient(top, #93A28F, #687864);
+            background-image: linear-gradient(to bottom, #93A28F, #687864);
+            filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#93A28F, endColorstr=#687864);
+        }
+
         .week-row {
             display:block;
             width: 100%;
@@ -176,12 +201,6 @@ select {
             margin: 8px;
         }
 
-        .unit-width {
-            width: 100%;
-            margin:0 auto;
-        }
-   
-
         .weeks-section {
             flex-direction: column;
         }
@@ -189,11 +208,30 @@ select {
 
     /* Extra Small Devices, Phones */ 
     @media only screen and (min-width : 480px) {
+        .grade-container-green {
+            width: 45%;
+            height: 90px;
+            vertical-align: top;
+        }
+
+        
         .weeks-row {
             flex-direction:row;
             flex-wrap: wrap;
         }
 
+        .week-row {
+            display:flex;
+            width: 100%;
+        }
+
+        .week-item {
+            width: 50%;
+        }
+
+        .course-title {
+            height: 2.5rem;
+        }
         .top-week-container {
             display:flex;
         }
@@ -206,6 +244,11 @@ select {
 
     /* Small Devices, Tablets */
     @media only screen and (min-width : 768px) {
+        .grade-container-green {
+            width: 31%;
+            height: 75px;
+        }
+
         .top-week-container {
             display:flex;
             flex-direction: row;
@@ -216,14 +259,13 @@ select {
             flex-direction: row;
         }
 
-        .week-row {
-            display:flex;
-            width: 100%;
+        
+
+        .course-title {
+            height: initial;
         }
 
-        .week-item {
-            width: 50%;
-        }
+       
         
 
         .weeks-section {
@@ -233,22 +275,20 @@ select {
 
     /* Medium Devices, Desktops */
     @media only screen and (min-width : 992px) {
+        .grade-container-green {
+            width: 23.5%;
+        }
+
         .row {
             display:flex;
             flex-direction: row;
         }
-       /* .weeks-row {
-            flex-direction:row;
-        }
-
-        .weeks-section {
-            flex-direction: row;
-        }
-        */
+        
     }
 
     /* Large Devices, Wide Screens */
     @media only screen and (min-width : 1200px) {
+
         .week-row {
             flex-direction:row;
         }

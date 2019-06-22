@@ -35,16 +35,6 @@ export default class NavBar extends React.Component {
     render(){
 
         let availabletermsclasses = 'available-terms-unit navbar-positioning';
-       /*  if (!this.props.showNavButtons) {
-            availabletermsclasses = 'available-terms-unit not-visible';
-        }*/
-/*
-        let termClasses = 'dropdown unit-container-green';
-                // whatever term is in currentterm, the class should be selected
-                if (this.props.currentterm === this.props.termDesc) {
-                termClasses='dropdown-item selected';
-        }
-*/
         const allterms = this.props.terms.map((term, index) => {
             return (
                     <option 
@@ -57,7 +47,6 @@ export default class NavBar extends React.Component {
                     </option>
             );
         });
-        //console.log('navbar: this.props', this.props);
         return (
             <header className="navbar">
             <nav className="navbar_navigation" role="navigation" aria-label="navbar_navigation">
@@ -96,12 +85,11 @@ export default class NavBar extends React.Component {
                                         <Link 
                                             className="green-btn btn-onefifty fivepx-margin" 
                                             to={{
-                                                pathname: '/review-current-week',
-                                                state: {
-                                                    weekstatus: 'one'
-                                            }}}
+                                                pathname: '/review-current-week'
+                                                }
+                                            }
                                             >
-                                            Review This Week
+                                            Review Week
                                         </Link>
                                     </div>
                                     <div className="navbar-cell weeks-link">
@@ -115,14 +103,11 @@ export default class NavBar extends React.Component {
                                             Weeks
                                         </Link>
                                     </div>
-                                    <div className="spacer" />
-                                    <div className="tbl-container">
-                                        <div className="navbar-cell navbar_right-toggle-button">
-                                            <DrawerToggleButton click={this.props.rightdrawertoggleclickhandler} />
-                                        </div>
+                                    <div className="navbar-cell spacer-hamburger"></div>
+                                    <div className="navbar-cell navbar_right-toggle-button fivepx-margin">
+                                        <DrawerToggleButton click={this.props.rightdrawertoggleclickhandler} />
                                     </div>
                                 </li>
-                                
                             </ul>
                         </div>
                         ) : (

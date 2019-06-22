@@ -21,9 +21,6 @@
 
 
 
-.btn-onefifty {
-  width: 150px;
-}
 
 .btn-twohundred {
   width:200px;
@@ -103,6 +100,18 @@
 
   /* Custom, iPhone Retina */ 
   @media only screen and (min-width : 320px) {
+    .spacer-hamburger {
+      flex: 1 1 auto;
+    }
+
+    .navbar_right-toggle-button {
+      padding-top: 6px;
+    }
+
+    .btn-onefifty {
+      width: 120px;
+    }
+
     .navbar {
       position: fixed;
       top: 0;
@@ -113,6 +122,7 @@
 
     .navbar-positioning {
       display:flex; 
+      flex:auto;
       height: 100%;
       align-items: center;
     }
@@ -148,6 +158,7 @@
     .review-unit {
       display:flex;
       flex-direction: row;
+      flex: auto;
       border-top: 1px solid var(--off-white-color);
     }
 
@@ -190,10 +201,6 @@
      padding:10px;
     }
 
-    .spacer {
-      display:flex;
-      flex: 1;
-    } 
 
     .right-toggle-button-parent {
       position:absolute;
@@ -216,6 +223,10 @@
 
   /* Small Devices, Tablets */
   @media only screen and (min-width : 768px) {
+
+    .btn-onefifty {
+      width: 150px;
+    }
 
     .navbar_navigation-items ul {
       width: 100%;
@@ -248,13 +259,16 @@
       display:initial;
     }
 
-    .spacer {
-      width: 145px;
-    }
+  
   }
     
 
   @media (min-width: 835px) {
+
+    .spacer{
+      width: 50px;;
+    }
+
     .navbar {
       height: 85px;
     }
@@ -271,9 +285,7 @@
       border:initial;
     }
 
-    .spacer {
-      width: 20px;
-    }
+    
    
     
   }

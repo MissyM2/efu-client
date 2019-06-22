@@ -15,35 +15,9 @@ export default class Weeks extends React.Component {
                         mygrades: [],
                         termSelected:'',
                 }
-                //this.setSelectedTerm = this.setSelectedTerm.bind(this);
         }
-/*
-        componentDidMount() {
-                this.setState({
-                    termSelected:this.props.currentterm
-                })
-                this.props.getcurrentweeks(this.props.currentterm);
-                this.props.getcurrentgrades(this.props.currentterm);
-                console.log('weeks: componentDidMount this.props.currentcourses', this.props.currentcourses);
-            }
-         
-
-        setSelectedTerm(e) {
-                e.preventDefault();
-                this.setState({
-                    termSelected: e.target.value
-                }, () => {
-                        this.props.setcurrentterm(this.state.termSelected);
-                        console.log('this.state.termSelected', this.state.termSelected);
-                        console.log('here are the weeks for the termselected', this.props.currentweeks);
-                        this.props.getcurrentweeks(this.state.termSelected);
-                });
-            }
-        
-           */
            
         render() {
-                console.log('weeks: this.props.currentgrades', this.props.currentgrades);
                 let backdrop;
 
                 if(this.props.sideDrawerOpen) {
@@ -53,7 +27,7 @@ export default class Weeks extends React.Component {
                 const weeks = this.props.currentweeks.map((week, index) => {
                         return (
                                 <div className="unit-container-blue unit-width tenpx-bottom-margin" key={index}>
-                                        <div className="section-head color-light">Week Number {week.weekNum}</div>
+                                        <div className="section-head color-dark">Week Number {week.weekNum}</div>
                                         
                                         <ul key={index} className="weeks-row">
                                                 <li className="week-row">
@@ -77,14 +51,14 @@ export default class Weeks extends React.Component {
                                                         </div>
                                                 </li>
                                         </ul>
-                                        <div className="section-label">Courses and Grades</div>
-                                        <div className="row">
+                                        <div className="section-head color-dark">Courses and Grades</div>
+                                        <div className="weeks-row">
 
                                                 {this.props.currentgrades.filter(grade => grade.week === week.weekNum )
                                                                 //grade.course === course.courseName
                                                 .map(grade => {
                                                                 return (
-                                                                        <div className="unit-container-green unit-width" key={index}>
+                                                                        <div className="grade-container-green fivepx-margin" key={index}>
                                                                                 <div className="course-title">{grade.course}</div>
                                                                                 <div className="course-grade">{grade.gradeNum}</div>
                                                                         </div>
@@ -101,11 +75,14 @@ export default class Weeks extends React.Component {
                           <div className="content-container">
                                 <NavBar {...this.props}/>
                                 <div className="">
-                                        <RightSideDrawer user={this.props.currentusername} click={this.props.rightdrawertoggleclickhandler} show={this.props.rightSideDrawerOpen} submitlogout={this.props.submitlogout} />
+                                        <RightSideDrawer
+                                                user={this.props.currentusername}
+                                                click={this.props.rightdrawertoggleclickhandler}
+                                                show={this.props.rightSideDrawerOpen}
+                                                submitlogout={this.props.submitlogout}
+                                        />
                                 </div>
                                 {backdrop}
-                                
-                                        
                                         <div>
                                                         {(this.props.currentweeks.length === 0) ? (
                                                                 <div className="dashboard-no-data">
@@ -116,7 +93,8 @@ export default class Weeks extends React.Component {
                                                                 </div>
                                                         ) : (
                                                                 <div className="content-sub-container">
-                                                                        <h3>Your Weeks for {this.props.currentterm}</h3>
+                                                                        <h3>Your Weeks</h3>
+                                                                        <h3>{this.props.currentterm}</h3>
                                                                         <div className="section-container">
                                                                                 <div className="list-vertical this-week-weeks">
                                                                                         {weeks}

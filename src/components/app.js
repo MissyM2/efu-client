@@ -165,7 +165,6 @@ class App extends React.Component {
     }
 
     submitlogin(username, password) {
-        console.log('before login, this.state', this.state);
         const registereduser = {
             username: username,
             password: password
@@ -201,6 +200,7 @@ class App extends React.Component {
                 selectingterm: true
             }, () => {
             });
+            console.log('this.state after login', this.state);
             this.props.history.push('/dashboard');
         }) 
         .catch((err) => {
@@ -280,6 +280,10 @@ class App extends React.Component {
             .then(res => {
                 console.log('getcurrenttermdetails:  did I get currentgrades', this.state.currentgrades);
                 return this.getcurrentdeliverables(); 
+            })
+            .then(res => {
+                console.log('getcurrenttermdetails:  did I get currentdeliverables', this.state.currentdeliverables);
+                return this.setcurrentweek(1);
             })
             .catch(err => {
                 console.log('Error:' + err.reason + ' at ' + err.location);

@@ -26,6 +26,7 @@ export default class Dashboard extends React.Component {
 
     componentDidMount() {
         this.props.getcurrentterms();
+        console.log('after componentDidMount, dashboard', this.props);
     }
 
     setSelectedWeek(e) {
@@ -62,7 +63,6 @@ export default class Dashboard extends React.Component {
             dashboardNoDataClasses='modal';
            
         } else {
-            console.log('made it to else');
             dashboardContentClasses = 'dashboard-content';
             navbarClasses="";
 

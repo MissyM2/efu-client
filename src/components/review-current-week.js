@@ -29,6 +29,7 @@ export default class ReviewCurrentWeek extends React.Component {
 
         const allweeks = this.props.currentweeks.map((week, index) => {
             return (
+
                 <option
                     key={index}
                     value={week.weekNum}
@@ -59,11 +60,18 @@ export default class ReviewCurrentWeek extends React.Component {
            );
         });
         
-        console.log('reviewcurrweek: this.props', this.props);
+        console.log('reviewcurrweek: this.props.currentweekdetails', this.props.currentweekdetails);
         return (
             <div className="content-container">
-                <NavBar  {...this.props} />
-                <RightSideDrawer show={this.props.rightSideDrawerOpen} submitlogout={this.props.submitlogout} />
+                <NavBar {...this.props}/>
+                <div className="">
+                        <RightSideDrawer
+                                user={this.props.currentusername}
+                                click={this.props.rightdrawertoggleclickhandler}
+                                show={this.props.rightSideDrawerOpen}
+                                submitlogout={this.props.submitlogout}
+                        />
+                </div>
                 {backdrop}
                 <h2>Review Last Week, Week {this.props.currentweek}</h2>
                 <div className="instructions-small">
