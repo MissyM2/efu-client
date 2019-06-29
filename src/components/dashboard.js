@@ -50,8 +50,6 @@ export default class Dashboard extends React.Component {
         if(this.props.rightSideDrawerOpen) {
             backdrop = <Backdrop click={this.props.backdropclickhandler} />
         } 
-
-        let weekClasses = 'dropdown unit-container-green';
         
         if(this.props.selectingterm) {
             dashboardContentClasses = 'dashboard-content not-visible';
@@ -73,7 +71,12 @@ export default class Dashboard extends React.Component {
         const todaydeliverables = this.props.todaydeliverables.map((deliverable, index) => {
             return (
                 <ul key={index} className="row-deliverable tenpx-bottom-margin ">
-                     <Deliverable deliverable={deliverable} />     
+                    <Deliverable
+                            {...deliverable}
+                            setDeliverableIsChanged={this.setDeliverableIsChanged}
+                            submitupdatedel={this.props.submitupdatedel}
+                            deletedel={this.props.deletedeliverable}
+                    />     
                 </ul>
                 
             );
@@ -82,7 +85,12 @@ export default class Dashboard extends React.Component {
         const weekdeliverables = this.props.thisweekdeliverables.map((deliverable, index) => {
             return (
                 <ul key={index} className="row-deliverable tenpx-bottom-margin ">
-                        <Deliverable deliverable={deliverable} />                                                        
+                    <Deliverable
+                        {...deliverable}
+                        setDeliverableIsChanged={this.setDeliverableIsChanged}
+                        submitupdatedel={this.props.submitupdatedel}
+                        deletedel={this.props.deletedeliverable} 
+                    />                                                       
                 </ul>
             );
         })
@@ -95,7 +103,7 @@ export default class Dashboard extends React.Component {
         //if (loading) {
        //     return <p>Loading ...</p>
         //}
-        //console.log('dashboard: this.state.props', this.props);
+        console.log('dashboard: this.state.props', this.props);
 
             return (
                 <div className="content-container">
@@ -123,8 +131,8 @@ export default class Dashboard extends React.Component {
                                             <section className="modal__content">
                                                 <div className="message">
                                                     <p>{this.props.currentterm} has not been set up.</p>
-                                                    <p><i class="fas fa-asterisk"></i>  Choose another term, or</p>
-                                                    <p><i class="fas fa-asterisk"></i>  Select <span className="accent-word">Profile</span>, and add your first class.</p>
+                                                    <p><i className="fas fa-asterisk"></i>  Choose another term, or</p>
+                                                    <p><i className="fas fa-asterisk"></i>  Select <span className="accent-word">Profile</span>, and add your first class.</p>
                                                 </div>
                                                   
                                             </section>

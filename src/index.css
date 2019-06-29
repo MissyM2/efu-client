@@ -49,7 +49,6 @@ h3 {
 }
 
 select {
-  color: var(--off-white-color);
   font-family: var(--body-font-family);
   font-size:14px;
   width: 90%;
@@ -61,6 +60,24 @@ select {
   font-size: 20px;
   width: 10%;
 }
+
+select option:disabled {
+  color: var(--dark-mossy-green-color);
+}
+
+::placeholder {
+  color:var(--dark-mossy-green-color);
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+ color: var(--dark-mossy-green-color);
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+ color: var(--dark-mossy-green-color);
+}
+
 
 /* blue gradient, no button
 background-color: #31708E; background-image: -webkit-gradient(linear, left top, left bottom, from(#31708E), to(#3e8eb4));

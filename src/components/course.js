@@ -3,7 +3,6 @@ import React from 'react';
 
 
 import './css/courses.css';
-import ReviewCurrentWeek from './review-current-week';
 
 export default class Course extends React.Component {
     constructor(props) {
@@ -28,7 +27,7 @@ export default class Course extends React.Component {
          let course = this.courseName.value;
          this.props.setcurrentcoursename(course);
          const tempGrades = this.props.currentgrades.filter(grade => {
-            return grade.course == course && grade.gradeNum > 0;
+            return grade.course === course && grade.gradeNum > 0;
         });
         this.setState({
             gradeCount:tempGrades.length

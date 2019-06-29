@@ -56,9 +56,13 @@ class Modal extends React.Component {
             <div className="modal">
                     <header className="modal__header">{this.props.title}</header>
                     <section className="modal__content">
-                        <select className="term-row dropdown-large" value={this.props.currentterm} onChange={this.setSelectedTerm}>
-                            <option value="-1" selected="true">Select an Academic Term</option> 
-                            {allterms}
+                        <select 
+                            className="term-row dropdown-large" 
+                            defaultValue={'DEFAULT'}
+                            onChange={this.setSelectedTerm}
+                            >
+                                <option value="DEFAULT" disabled>Select an Academic Term...</option> 
+                                {allterms}
                         </select>
                             
                     </section>

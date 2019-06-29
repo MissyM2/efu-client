@@ -264,29 +264,6 @@
     
 
   @media (min-width: 835px) {
-
-    .spacer{
-      width: 50px;;
-    }
-
-    .navbar {
-      height: 85px;
-    }
-
-    .navbar_navigation {
-      display: flex;
-      flex-direction:row;
-      height: 100%;
-      padding: 0 1rem;
-      align-items: left;
-    }
-
-    .navbar_navigation-items ul {
-      border:initial;
-    }
-
-    
-   
     
   }
    

@@ -6,10 +6,10 @@ export default class Week extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            likedLeast: this.props.likedLeast,
-            likedMost: this.props.likedMost,
-            mostDifficult: this.props.mostDifficult,
-            leastDifficult: this.props.leastDifficult
+            likedLeast: this.props.currentweekdetails[0].likedLeast,
+            likedMost: this.props.currentweekdetails[0].likedMost,
+            mostDifficult: this.props.currentweekdetails[0].mostDifficult,
+            leastDifficult: this.props.currentweekdetails[0].leastDifficult
             
         }
         this.handleUpdate = this.handleUpdate.bind(this);
@@ -47,13 +47,6 @@ export default class Week extends React.Component {
     }
 
     render() {
-      /*  let mycourselist = [];
-        if (this.state.weekstatus === "one") {
-            mycourselist = this.state.location.props.currentcoursedropdown;
-        } else  {
-            mycourselist = this.props.currentcoursedropdown;
-        }
-*/
         const mycoursedropdown = this.props.currentcourses.map((course, index) => {
             return (
                 <option key={index} >
@@ -65,7 +58,9 @@ export default class Week extends React.Component {
         if(this.props.weekstatus === 'all') {
             deleteButton = <button className="btn delete-btn" onClick={(e) => this.setDelete(e)}>Delete Week</button>;
         };
-          
+          console.log('this.props.currentweekdetails', this.props.currentweekdetails);
+          console.log('this.state', this.state);
+          console.log('this.props.currentweekdetails.likedLeast', this.props.currentweekdetails[0].likedLeast);
         return ( 
             <div className="column with-delete-btn flex-wrap-row">
                 <div>
@@ -81,9 +76,9 @@ export default class Week extends React.Component {
                                                         <select
                                                             className="input-look"
                                                             type="text"
-                                                            defaultValue= {this.state.likedLeast}
+                                                            defaultValue= "DEFAULT"
                                                             onChange={e => this.handleChange(e, "likedLeast")}>
-                                                                <option value="-1" selected="true">Choose a course</option>
+                                                                <option value="DEFAULT" disabled>Choose a course</option>
                                                                 {mycoursedropdown}
                                                         </select>
                                                     </div>
@@ -97,10 +92,10 @@ export default class Week extends React.Component {
                                                     <div>
                                                         <select
                                                                 type="text"
-                                                                defaultValue= {this.state.likedMost}
+                                                                defaultValue= "DEFAULT"
                                                                 onChange={e => this.handleChange(e, "likedMost")}
                                                                 className="input-look">
-                                                                    <option value="-1" selected="true">Choose a course</option>
+                                                                    <option value="DEFAULT" disabled>Choose a course</option>
                                                                     {mycoursedropdown}
                                                         </select>
                                                     </div>
@@ -116,10 +111,10 @@ export default class Week extends React.Component {
                                                     <div>
                                                         <select
                                                                 type="text"
-                                                                defaultValue= {this.state.mostDifficult}
+                                                                defaultValue= "DEFAULT"
                                                                 onChange={e => this.handleChange(e, "mostDifficult")}
                                                                 className="input-look">
-                                                                    <option value="-1" selected="true">Choose a course</option>
+                                                                    <option value="DEFAULT" disabled>Choose a course</option>
                                                                     {mycoursedropdown}
                                                         </select>
                                                     </div>
@@ -134,10 +129,10 @@ export default class Week extends React.Component {
                                                     <div>
                                                         <select
                                                                 type="text"
-                                                                defaultValue= {this.state.leastDifficult}
+                                                                defaultValue= "DEFAULT"
                                                                 onChange={e => this.handleChange(e, "leastDifficult")}
                                                                 className="input-look">
-                                                                    <option value="-1" selected="true">Choose a course</option>
+                                                                    <option value="DEFAULT" disabled>Choose a course</option>
                                                                     {mycoursedropdown}
                                                         </select>
                                                     </div>

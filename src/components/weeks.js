@@ -19,7 +19,6 @@ export default class Weeks extends React.Component {
            
         render() {
                 let backdrop;
-
                 if(this.props.sideDrawerOpen) {
                         backdrop = <Backdrop click={this.props.backdropclickhandler} />
                 }
@@ -54,7 +53,7 @@ export default class Weeks extends React.Component {
                                         <div className="section-head color-dark">Courses and Grades</div>
                                         <div className="weeks-row">
 
-                                                {this.props.currentgrades.filter(grade => grade.week === week.weekNum )
+                                                {this.props.currenttermgrades.filter(grade => grade.week === week.weekNum )
                                                                 //grade.course === course.courseName
                                                 .map(grade => {
                                                                 return (
@@ -83,28 +82,28 @@ export default class Weeks extends React.Component {
                                         />
                                 </div>
                                 {backdrop}
-                                        <div>
-                                                        {(this.props.currentweeks.length === 0) ? (
-                                                                <div className="dashboard-no-data">
-                                                                        <div className="instructions-large">
-                                                                        You have not set up your Profile, yet, for {this.props.currentterm}.  Either choose another term from the dropdown or
-                                                                        select Profile, select your term and add your first class.  This will generate the appropriate number of weeks.
-                                                                        </div>
-                                                                </div>
-                                                        ) : (
-                                                                <div className="content-sub-container">
-                                                                        <h3>Your Weeks</h3>
-                                                                        <h3>{this.props.currentterm}</h3>
-                                                                        <div className="section-container">
-                                                                                <div className="list-vertical this-week-weeks">
-                                                                                        {weeks}
-                                                                                </div> 
-                                                                        </div>
+                                <div>
+                                        {(this.props.currentweeks.length === 0) ? (
+                                                <div className="dashboard-no-data">
+                                                        <div className="instructions-large">
+                                                        You have not set up your Profile, yet, for {this.props.currentterm}.  Either choose another term from the dropdown or
+                                                        select Profile, select your term and add your first class.  This will generate the appropriate number of weeks.
                                                         </div>
-                                                        
-                                                        )    
-                                                }
+                                                </div>
+                                        ) : (
+                                        <div className="content-sub-container">
+                                                <h3>Your Weeks</h3>
+                                                <h3>{this.props.currentterm}</h3>
+                                                <div className="section-container">
+                                                        <div className="list-vertical this-week-weeks">
+                                                                {weeks}
+                                                        </div> 
+                                                </div>
+                                        </div>
                                         
+                                        )    
+                                        }
+                                
                                 </div>
 
                           </div>

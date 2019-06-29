@@ -22,6 +22,10 @@ export default class Courses extends React.Component {
         }
     }
 
+    componentDidMount() {
+        this.props.setcourseanddeliverableflags();
+    }
+
     setCourseIsChanged = (bool) => {
             this.setState({
                 courseIsChanged: bool

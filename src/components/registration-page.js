@@ -18,20 +18,24 @@ class RegistrationPage extends React.Component {
 
 
     handleValidation() {
-        let fields = this.state.fields;
+        let firstname = this.state.fields["firstName"];
+        let lastname = this.state.fields["lastName"];
+        let username = this.state.fields["username"];
+        let password = this.state.fields["password"];
         let errors = {};
         let formIsValid = true;
+        let regularExpression = /\S+@\S+\.\S+/;
 
         // Firstname
         errors["firstName"] = "";
-        if (!fields["firstName"]) {
+        if (!firstname) {
             formIsValid = false;
             errors["firstName"] = "Firstname cannot be empty.";
         }
 
         // Lastname
         errors["lastName"] = "";
-        if (!fields["lastName"]) {
+        if (!lastname) {
             formIsValid = false;
             errors["lastName"] = "Lastname cannot be empty.";
         }
@@ -39,28 +43,28 @@ class RegistrationPage extends React.Component {
 
         // Username
         errors["username"] = "";
-        if (!fields["username"]) {
+        if (!username) {
             formIsValid = false;
             errors["username"] = "Username cannot be empty.";
         }
 
-        if (typeof fields["username"] !== "undefined") {
-            if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(fields["username"]))){
-                formIsValid = false;
+        if (typeof username !== "undefined") {
+            formIsValid = regularExpression.text(username.toLowerCase());
+            if (!formIsValid) {
                 errors["username"]="Username must be in email format.";
             }
         }
 
         // Password
         errors["password"] = "";
-        if(!fields["password"]) {
+        if(!password) {
             formIsValid = false;
             errors["password"] = "Password cannot be empty.";
         }
 
-        if (typeof fields["password"] !== "undefined") {
+        if (typeof password !== "undefined") {
             
-            if (!fields["password"].length > 8){
+            if (!password.length > 8){
                 formIsValid = false;
                 errors["password"] = "Password must be at least 8 characters long.";
             }

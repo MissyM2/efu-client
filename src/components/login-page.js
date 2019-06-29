@@ -17,35 +17,35 @@ class LoginPage extends React.Component {
     }
 
     handleValidation() {
-        let fields = this.state.fields;
+        let username = this.state.fields["username"];
+        let pass = this.state.fields["password"];
         let errors = {};
         let formIsValid = true;
+        let regularExpression = /\S+@\S+\.\S+/;
 
         // Username
         errors["username"] = "";
-        if (!fields["username"]) {
+        if (!username) {
             formIsValid = false;
             errors["username"] = "Username cannot be empty.";
         }
 
-        if (typeof fields["username"] !== "undefined") {
-            if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(fields["username"]))){
-                formIsValid = false;
-                errors["username"]="Username must be in email format.";
-            }
+        if (typeof username !== "undefined") {
+                formIsValid = regularExpression.test(username.toLowerCase());
+                if (!formIsValid) {
+                    errors["username"]="Username must be in email format.";
+                }   
         }
 
         // Password
         errors["password"] = "";
-        if(!fields["password"]) {
+        if(!pass) {
             formIsValid = false;
             errors["password"] = "Password cannot be empty.";
         }
 
-        if (typeof fields["password"] !== "undefined") {
-            //const letterNumberPattern = "/^([a-zA-Z0-9]+)$/";
-            
-            if (!fields["password"].length > 8) {
+        if (typeof pass !== "undefined") {
+            if (!pass.length > 8) {
                 formIsValid = false;
                 errors["password"] = "Password must be at least 8 characters long."
             }
@@ -67,9 +67,7 @@ class LoginPage extends React.Component {
         e.preventDefault();
         if(this.handleValidation()){
             this.props.submitlogin(this.state.fields.username, this.state.fields.password);
-          }else{
-            console.log("form is : False", this.handleValidation());
-         }
+          }
 
     }
 

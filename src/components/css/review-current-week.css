@@ -95,13 +95,28 @@ ul {
     border: 1px solid;
     width: 50%;
 }
+.grade-label,
+.grade {
+    color: var(--dark-mossy-green-color);
+    font-family: var(--body-font-family);
+    font-size: 16px;
+    font-weight:bold;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    width: 100%;
+
+}
 
 /*==========  Mobile First Method  ==========*/
 
     /* Custom, iPhone Retina */ 
     @media only screen and (min-width : 320px) {
         .course-grades {
-            width: 100%;
+            display:flex;
+            flex-direction:column;
+            width: 75%;
+            margin:0 auto;
+
         }
         
       }
@@ -109,19 +124,32 @@ ul {
   
       /* Extra Small Devices, Phones */ 
       @media only screen and (min-width : 480px) {
-        
-  
+        .course-grades {
+            display:flex;
+            flex-direction:row;
+            flex-wrap:wrap;
+            width: 100%;
+            margin:0 auto;
+
+        }
+
+        .unit-course-grade-blue {
+            width: 47%;
+        }
         
       
       }
   
       /* Small Devices, Tablets */
       @media only screen and (min-width : 768px) {
-          .course-grades {
-            display:flex;
-            flex-direction:row;
+            .course-grades {
+                display:flex;
+                flex-direction:row;
+            }
 
-          }
+            .unit-course-grade-blue {
+                width: 31%;
+            }
         }
           
         
@@ -129,6 +157,10 @@ ul {
   
       /* Medium Devices, Desktops */
       @media only screen and (min-width : 992px) {
+
+        .unit-course-grade-blue {
+            width: 15%;
+        }
   
       }
   

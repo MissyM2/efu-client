@@ -1,7 +1,6 @@
 import React from 'react';
 
 import DrawerToggleButton from './drawer-toggle-button';
-import RightSideDrawer from './right-side-drawer';
 
 import './css/navbar.css';
 import { Link } from 'react-router-dom';
@@ -10,7 +9,7 @@ export default class NavBar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-                termSelected:'',
+                termSelected:''
         }
         this.setSelectedTerm = this.setSelectedTerm.bind(this);
 }
@@ -71,9 +70,13 @@ export default class NavBar extends React.Component {
                                 <li className="navbar-item term-unit">
                                     <div className={availabletermsclasses}>
                                         <div className="navbar-cell dropdown-green-btn btn-full-width fivepx-margin" >
-                                                <select className="" value={this.props.currentterm} onChange={this.setSelectedTerm}>
-                                                    <option value="-1" selected="true">Select Term</option> 
-                                                    {allterms} 
+                                                <select 
+                                                    className="color-light" 
+                                                    defaultValue="DEFAULT" 
+                                                    onChange={this.setSelectedTerm}
+                                                >
+                                                        <option value="DEFAULT" disabled>Select Term</option> 
+                                                        {allterms} 
                                                 </select>
                                                 <i className ="fas fa-caret-down"></i>
                                                 

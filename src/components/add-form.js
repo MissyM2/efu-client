@@ -1,5 +1,7 @@
 import React from 'react';
 
+import {Link} from 'react-router-dom';
+
 import './css/courses.css';
 
 export default class AddForm extends React.Component {
@@ -14,8 +16,6 @@ export default class AddForm extends React.Component {
             errors: {}
         }
     }
-
-
  
     addformSubmit(e) {
         e.preventDefault();
@@ -57,14 +57,13 @@ export default class AddForm extends React.Component {
                             this.setEditing(true);
                             this.props.setCourseIsChanged(false);
                         }}>
-                        <a href="#">{text}...</a>
+                        <Link to="#">{text}...</Link>
                 </div>
             );
         }
-        const label = `Enter a ${this.props.type}`;
         return (
             <div className="add-form">
-                    <form onSubmit={this.addformSubmit.bind(this)} >
+                    <form onSubmit={this.addformSubmit.bind(this)}>
                         <h2 className="heading">Add Your Course</h2>
                         <div className={this.props.error ? "error-msg" : ""}>{this.props.error}</div>
                         <div className="courseName-unit">

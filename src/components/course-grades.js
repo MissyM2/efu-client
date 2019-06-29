@@ -1,5 +1,5 @@
 import React from 'react';
-//import './css/course-grades.css';
+import './css/review-current-week.css';
 
 export default class CourseGrades extends React.Component {
     constructor(props) {
@@ -14,7 +14,6 @@ export default class CourseGrades extends React.Component {
         this.setState({
             newGradeNum
           });
-          console.log('this.state.newgradenum should be changing', this.state.newGradeNum);
     } 
 
     onSubmit(e) {
@@ -28,10 +27,8 @@ export default class CourseGrades extends React.Component {
             oldgradeNum: this.props.gradeNum,
             newgradeNum:   newGradeNum
         }
-        console.log('updatedgrade', updatedgrade);
         this.props.submitupdategrade(updatedgrade);
-        //this.state.gradeNum='';
-        //this.setEditing(false);   
+        this.props.setGradeIsUpdated(true);
     }
 
 
@@ -42,16 +39,23 @@ export default class CourseGrades extends React.Component {
     }
 
     render() {
-        console.log('this.props', this.props);
-            return (
+        console.log('this.props.gradeIsUpdated', this.props.gradeIsUpdated);
+        
+        return (
                 <div>
-                    <div className="item-label" >
-                        {this.props.course}
+                    
+                    <div className="grade-label" >
+                        Course:  {this.props.course}
                     </div>
-                    <div className="item">
-                        {this.props.gradeNum}
+                    <div className="grade">
+                        Current Grade:  {this.props.gradeNum}
                     </div>
                     <form onSubmit={(e) => {this.onSubmit(e)}}>
+                    {(this.props.gradeIsUpdated) ? (
+                            <div className="error-msg">Grade updated.</div>
+                            ):(
+                               ""
+                            )}
                             <div>
                                 <input
                                     className="input-look"

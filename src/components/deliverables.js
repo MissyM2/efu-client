@@ -1,25 +1,69 @@
 import React from 'react';
-
-import { Link } from 'react-router-dom';
+import './css/deliverables.css';
 
 import NavBar from "./navbar";
 import RightSideDrawer from './right-side-drawer';
 import Backdrop from './backdrop';
 import BackdropWhite from './backdrop-white';
 import BackdropBlack from './backdrop-black';
+import AddDeliverableForm from './add-deliverable-form';
 import ModalAddDeliverableComplete from './modal-add-deliverable-complete';
+import Deliverable from './deliverable';
 
-import './css/deliverables.css';
+
 
 
 export default class Deliverables extends React.Component {
         constructor(props) {
                 super(props);
                 this.state = {
+                        courseSelected: "",
                         fields:{},
-                        errors:{}
+                        errors:{},
+                        delMessage: '',
+                        deliverableIsChanged:false,
+                        addMessage:"Deliverable has been added."
                 }
+                this.handleChange = this.handleChange.bind(this);
+                this.setSelectedCourse = this.setSelectedCourse.bind(this);
+                this.setDeliverableIsChanged = this.setDeliverableIsChanged.bind(this);
         }
+
+        componentDidMount() {
+                console.log('deliverables: this is within componentdidmount');
+                this.props.setcourseanddeliverableflags();
+        }
+
+        setDeliverableIsChanged = (bool) => {
+                this.setState({
+                    deliverableIsChanged: bool
+                });
+            
+        }
+
+        canceldeldelete() {
+                console.log('inside canceldeldelete', this.props);
+                this.props.setdeldeletemodal(false);
+        }
+
+        deletedeliverable(e) {
+                e.preventDefault();
+                console.log('made it to deletedeliverable')
+                let selectedDel = {
+                    termDesc: this.props.currentterm,
+                    courseName:this.props.currentcoursename,
+                    dueDate: "01/01/2019",
+                    deliverableName:'testDeliverable', 
+                    impact:'low', 
+                    prephrs: 5
+                };
+                this.props.submitdeletedel(selectedDel); 
+                if(this.props.delDeleted) {
+                    this.setState({delMessage: `${selectedDel.delName} has been deleted`});
+                } else {
+                    this.setState({message: 'There was a problem with the deletion.'})
+                }
+            }
 
         handleValidation() {
                 console.log('made it to handleValidation');
@@ -42,7 +86,20 @@ export default class Deliverables extends React.Component {
 
         }
 
+        setSelectedCourse(e) {
+                e.preventDefault();
+                this.props.setdeliverableadded(false);
+                this.setState({
+                    courseSelected: e.target.value
+                }, () => {
+                    console.log('deliverables: this.setSelectedCourse, this.state.courseSelected', this.state.courseSelected);
+                        this.props.setcurrentcoursename(this.state.courseSelected);
+                });
+        
+            }
+
         handleChange(field, e) {
+                
                 console.log('this.state', this.state);
                 let fields = this.state.fields;
                 fields[field]= e.target.value;
@@ -64,26 +121,19 @@ export default class Deliverables extends React.Component {
                 };
                 
 
-                console.log('newDeliverable', newDeliverable);
-
                 if(this.handleValidation()) {
                         this.setState({
                                 fields:{}
                         });
                         console.log('headed to handleValidation');
-                        this.props.submitadddeliverable(newDeliverable)
+                        this.props.submitadddeliverable(newDeliverable);
+                                
                 } else {
                         console.log("add deliverable form is false", this.handleValidation());
                 }       
         }
 
-        clearDeliverableForm(e) {
-                e.preventDefault();
-               
-                this.props.modaldeliverablecancelhandler();
-        }
-
-         //    {courseDels}
+        
         render() {
                 let backdrop;
 
@@ -93,149 +143,93 @@ export default class Deliverables extends React.Component {
                         backdrop = <BackdropWhite />
                 }
 
+                const thistermdeliverables = this.props.thistermdeliverables.map((deliverable, index) => {
+                        console.log('deliverables: mydeliverables, deliverable', deliverable);
+                        return (
+                                <ul key={index} className="row-deliverable tenpx-bottom-margin ">
+                                        <Deliverable
+                                                {...deliverable}
+                                                setDeliverableIsChanged={this.setDeliverableIsChanged}
+                                                submitupdatedel={this.props.submitupdatedel}
+                                                deletedel={this.props.deletedeliverable}
+                                        />   
+                                </ul>
+                        );
+                })
+
                 const mycoursedropdown = this.props.currentcourses.map((course, index) => {
                         return (
                             <option 
                                 key={index}
                                 value={course.courseName}
-                                onChange={this.handleChange.bind(this, "course")}
+                                onChange={this.handleChange}
                                 >
                                 {course.courseName}
                             </option>
                         );
                     });
                     console.log('deliverables, this.props', this.props);
+                    //console.log('deliverables, this.state', this.state);
                 return (
                         <div className="content-container">
                                 <div className="">
                                         <NavBar {...this.props} />
                                 </div>
                                 <div className="">
-                                        <RightSideDrawer user={this.props.currentusername} click={this.props.rightdrawertoggleclickhandler} show={this.props.rightSideDrawerOpen} submitlogout={this.props.submitlogout} />
+                                        <RightSideDrawer 
+                                                user={this.props.currentusername} 
+                                                click={this.props.rightdrawertoggleclickhandler} 
+                                                show={this.props.rightSideDrawerOpen} 
+                                                submitlogout={this.props.submitlogout} 
+                                        />
                                 </div>
                                 {backdrop}
-                                {(this.props.showAddDeliverableCompleteModal === true) ? 
-                                        (
-                                        <div>
-                                                <BackdropBlack />
-                                                <ModalAddDeliverableComplete 
-                                                        {...this.props} 
-                                                        addanother={this.clearDeliverableForm.bind(this)} 
-                                                        />
-                                        </div>
-                                        ) : (
-                                        null
-                                        )
-                                        }
-                                        <h2>Add Your Deliverables</h2>
                                         
                                         <div className="content-sub-container">
-                                                <form className="del-form" action="/" onSubmit={this.addDeliverable.bind(this)}>
-                                                        <select
-                                                                type="text"
-                                                                className="dropdown unit-container-green fivepx-margin course"
-                                                                onChange={this.handleChange.bind(this, "courseName")}
-                                                                >
-                                                                <option value="-1" selected="true">Choose a course</option>
-                                                                        {mycoursedropdown}
-                                                        </select>
-
-                                                        <div className="error-msg">
-                                                                {this.state.errors["emptyFields"]}
-                                                        </div>
+                                                <h3>My deliverables for {this.props.currentterm}</h3>
+                                                {this.props.thistermdeliverables.length === 0 ? (
+                                                                <div>
+                                                                        <h4>There are no deliverables currently set up for this term.</h4>
+                                                                        <h4>Select a course to add deliverables for that course.</h4>
+                                                                </div>
+                                                        ) : (
+                                                                <div>
+                                                                        <h4>Select a course to add deliverables for that course.</h4>
+                                                                </div>
+                                                        )
+                                                }
                                                 
-                                                        <ul className="unit-container-blue ul-deliverable">
-                                                                <li className="del-row">
-                                                                        <input 
-                                                                                className="del-unit-container fivepx-margin duedate"
-                                                                                refs="duedate"
-                                                                                placeholder="Due Date"
-                                                                                type="date"
-                                                                                onChange={this.handleChange.bind(this, "dueDate")}
-                                                                                value={this.state.fields["duedate"]}
-                                                                                aria-label="dueDate"
-                                                                        />
-                                                                        <input 
-                                                                                className="del-unit-container fivepx-margin delname" 
-                                                                                refs="deliverableName"
-                                                                                placeholder="Name of Deliverable"
-                                                                                type="text"
-                                                                                onChange={this.handleChange.bind(this, "deliverableName")}
-                                                                                value={this.state.fields["deliverableName"]}
-                                                                                aria-label="deliverableName"
-                                                                        />
-                                                                        <input 
-                                                                                className="del-unit-container fivepx-margin prephrs" 
-                                                                                refs="lastName"
-                                                                                placeholder="Prep Hours"
-                                                                                type="number"
-                                                                                onChange={this.handleChange.bind(this, "prephrs")}
-                                                                                value={this.state.fields["prephrs"]}
-                                                                                aria-label="prephrs"
-                                                                        />
-                                                                </li>
-                                                                <li className="del-row">
-                                                                        <select 
-                                                                                className="del-unit-container fivepx-margin impact" 
-                                                                                refs="impact"
-                                                                                placeholder="How much will it impact your grade?"
-                                                                                type="text"
-                                                                                onChange={this.handleChange.bind(this, "impact")}
-                                                                                value={this.state.fields["impact"]}
-                                                                                aria-label="impact"
-                                                                                >
-                                                                                <option value="-1" selected="true">Choose the impact</option>
-                                                                                <option 
-                                                                                        key = "1"
-                                                                                        value='low'
-                                                                                        >
-                                                                                        Low Impact: less than 5% of final grade
-                                                                                </option>
-                                                                                <option 
-                                                                                        key = "2"
-                                                                                        value='moderate'
-                                                                                        >
-                                                                                        Moderate Impact: about 10% of final grade
-                                                                                </option>
-                                                                                <option 
-                                                                                        key = "3"
-                                                                                        value='high'
-                                                                                        >
-                                                                                        High Impact: 15% or greater of final grade
-                                                                                </option>
-                                                                        </select>
-                                                                        <input 
-                                                                                className="del-unit-container fivepx-margin desc"
-                                                                                refs="desc"
-                                                                                placeholder="Description"
-                                                                                type="text"
-                                                                                onChange={this.handleChange.bind(this, "desc")}
-                                                                                value={this.state.fields["desc"]}
-                                                                                aria-label="deliverable-desc"
-                                                                        />
-                                                                </li>
-                                                                
-                                                </ul>
-                                                <button
-                                                        type="submit"
-                                                        className="add-deliverable blue-btn btn-med fivepx-margin"
-                                                >
-                                                        Add Deliverable
-                                                </button>
-                                        </form>   
+                                                <select
+                                                        type="text"
+                                                        className="dropdown unit-container-green fivepx-margin course"
+                                                        defaultValue='DEFAULT'
+                                                        onChange={this.setSelectedCourse}
+                                                        >
+                                                        <option value="DEFAULT" disabled>Choose a course</option>
+                                                                {mycoursedropdown}
+                                                </select>
+
+                                                {(this.props.deliverableAdded === true) ? (
+                                                        <div className="error-msg">{this.state.addMessage}</div>
+                                                ) : (
+                                                        <div></div>
+                                                )}
+                                                
+                                                {(this.props.currentcoursename) !== "" ? (
+                                                                <AddDeliverableForm
+                                                                        {...this.props}
+                                                                        submitadddeliverable={this.props.submitadddeliverable}
+                                                                        setdeliverableischanged={this.setDeliverableIsChanged}
+                                                                />
+                                                        ) : (
+                                                                <div></div>
+                                                        )
+                                                }
+                                                
+                                                <div>
+                                                        {thistermdeliverables}
+                                                </div>  
                                         </div>
-                                <div className="content-sub-container action-links">
-                                        <Link 
-                                                className="link navitem item blue-btn btn-med" 
-                                                to={{
-                                                        pathname: '/dashboard',
-                                                        }}
-                                                onClick={this.props.navbuttonstoggleclickhandler}
-                                        >
-                                        Return to Your Dashboard
-                                        </Link>
-                                        
-                                </div>
                         </div>
                         
                 );
