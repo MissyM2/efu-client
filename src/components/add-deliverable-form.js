@@ -2,7 +2,7 @@ import React from 'react';
 
 import {Link} from 'react-router-dom';
 
-import './css/deliverables.css';
+import './css/add-deliverable-form.css';
 
 export default class AddDeliverableForm extends React.Component {
     constructor(props) {
@@ -46,7 +46,7 @@ export default class AddDeliverableForm extends React.Component {
         let errors={};
         let formIsValid = true;
 
-        if(!fields["courseName"] || !fields["dueDate"] || !fields["deliverableName"] || !fields["impact"] || !fields["prephrs"]) {
+        if(!fields["courseName"] || !fields["dueDate"] || !fields["deliverableName"] ) {
                 console.log('one of the fields is false', this.state.fields);
                 formIsValid = false;
                 errors["emptyFields"] = "All the following information is required:  Course Name, Due Date, Deliverable Name, Grade Impact and Prep Hours Needed.";

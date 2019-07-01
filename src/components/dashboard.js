@@ -71,7 +71,7 @@ export default class Dashboard extends React.Component {
 
         const todaydeliverables = this.props.todaydeliverables.map((deliverable, index) => {
             return (
-                <ul key={index} className="row-deliverable tenpx-bottom-margin ">
+                <ul key={index} className="tenpx-bottom-margin ">
                     <Deliverable
                             {...deliverable}
                             allprephrs={this.props.allprephrs}
@@ -86,7 +86,7 @@ export default class Dashboard extends React.Component {
 
         const weekdeliverables = this.props.thisweekdeliverables.map((deliverable, index) => {
             return (
-                <ul key={index} className="row-deliverable tenpx-bottom-margin ">
+                <ul key={index} className="tenpx-bottom-margin ">
                     <Deliverable
                         {...deliverable}
                         {...this.props}

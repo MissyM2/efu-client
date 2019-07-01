@@ -95,7 +95,7 @@
     /* Custom, iPhone Retina */ 
     @media only screen and (min-width : 320px) {
         .right-side-drawer {
-            height: 40%;
+            height: 33%;
             width: 50%;
             position: fixed;
             right:0;
@@ -159,37 +159,25 @@
   
       /* Small Devices, Tablets */
       @media only screen and (min-width : 768px) {
-        .logout-link {
-            display:none;
-        }
-
         .right-side-drawer {
-            height: 40%;
-            width: 40%;
-            position: fixed;
-            right:0;
             top: 130px;
         }
       
       }
 
       @media (min-width: 835px) {
-        .right-side-drawer {
-            height: 40%;
-            width: 30%;
-            position: fixed;
-            right:0;
-            top: 80px;
-        }
+        
         }
    
   
       /* Medium Devices, Desktops */
       @media only screen and (min-width : 992px) {
+          /*
         .right-side-drawer {
             top: 65px;
             right: 30px;
         }
+        */
   
       }
   

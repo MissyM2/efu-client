@@ -28,7 +28,23 @@ export default class DeliverableFromMenu extends React.Component {
         this.impact = React.createRef();
         this._onFocus = this._onFocus.bind(this);
         this._onBlur = this._onBlur.bind(this);
+        this.prepDelete = this.prepDelete.bind(this);
     }
+
+    prepDelete() {
+
+        let delToBeDeleted = {
+            termDesc: this.props.termDesc,
+            courseName: this.props.courseName,
+            dueDate: this.state.oldDueDateFormatted,
+            deliverableName: this.state.oldDeliverableName,
+            prephrs: this.state.oldPrephrs,
+            desc: this.state.oldDesc,
+            impact:this.state.oldImpact
+        };
+        this.props.setdeliverabletobedeleted(delToBeDeleted);
+        //this.props.setdeliverabledeletemodal(true);
+   }
 
 
    handleChange(field, e) {
@@ -129,7 +145,7 @@ export default class DeliverableFromMenu extends React.Component {
                             key = {index}
                             value={option}
                         >
-                               {option} Missy
+                               {option}
                     </option>
                 );
         });
@@ -149,7 +165,7 @@ export default class DeliverableFromMenu extends React.Component {
     return (
             
                 <div>
-                    <form onSubmit={this.updateSubmit.bind(this)}>
+                    {/*<form onSubmit={this.updateSubmit.bind(this)}>*/}
                         <div className="course-container-blue tenpx-bottom-margin">
                             {(this.props.deliverableischanged) ? (
                                 <div className="error-msg">
@@ -157,113 +173,121 @@ export default class DeliverableFromMenu extends React.Component {
                                 </div>
                             ):(
                                 <div>
-                                        <div className="deliverable-sub-section sec-one">
-                                                <div className="column">
-                                                        <label className="small-titles light-label">Due Date</label>
-                                                        <input
-                                                            ref={element => this.dueDateFormatted = element}
-                                                            type="text"
-                                                            onFocus={this._onFocus}
-                                                            onBlur={this._onBlur}
-                                                            onChange={this.handleChange.bind(this, "newDueDateFormatted")}
-                                                            defaultValue={this.state["oldDueDateFormatted"]}
-                                                            aria-label="dueDateFormatted"
-                                                        />
-                                                </div>
-                                                <div className="column">
-                                                        <label className="small-titles light-label">Prep Hours</label>
-                                                        <select
-                                                            ref={element => this.prephrs = element}
-                                                            type="number"
-                                                            onChange={this.handleChange.bind(this, "newPrephrs")}
-                                                            defaultValue={this.state["oldPrephrs"]}
-                                                            aria-label="prephrs"
-                                                        >  
-                                                           {prephrsoptions}
-                                                        </select>
-                                                </div>
-                                        </div>
-                                        <div className="deliverable-sub-section sec-three">
-                                                    <div className="column">
-                                                        <label className="small-titles light-label"> Course Name</label>
-                                                        <div className="course-name">{this.props.courseName}</div>
+                                    <form onSubmit={this.updateSubmit.bind(this)}>
+                                            <div className="center">
+                                                    <div className="deliverable-sub-section sec-one">
+                                                            <div className="column">
+                                                                <label className="small-titles light-label"> Course Name</label>
+                                                                <div className="course-name">{this.props.courseName}</div>
+                                                            </div>
+                                                            <div className="column">
+                                                                    <label className="small-titles light-label">Due Date</label>
+                                                                    <input
+                                                                        ref={element => this.dueDateFormatted = element}
+                                                                        type="text"
+                                                                        onFocus={this._onFocus}
+                                                                        onBlur={this._onBlur}
+                                                                        onChange={this.handleChange.bind(this, "newDueDateFormatted")}
+                                                                        defaultValue={this.state["oldDueDateFormatted"]}
+                                                                        aria-label="dueDateFormatted"
+                                                                    />
+                                                            </div>
+                                                            
                                                     </div>
-                                                    <div className="column">
-                                                        <label className="small-titles light-label"> Deliverable Name</label>
-                                                        <select
-                                                                ref={element => this.deliverableName = element}
-                                                                type="text"
-                                                                onChange={this.handleChange.bind(this, "newDeliverableName")}
-                                                                defaultValue={this.state["oldDeliverableName"]}
-                                                                aria-label="DeliverableName"
+                                                    <div className="deliverable-sub-section sec-three">
+                                                                <div className="column">
+                                                                        <label className="small-titles light-label">Prep Hours</label>
+                                                                        <select
+                                                                            ref={element => this.prephrs = element}
+                                                                            type="number"
+                                                                            onChange={this.handleChange.bind(this, "newPrephrs")}
+                                                                            defaultValue={this.state["oldPrephrs"]}
+                                                                            aria-label="prephrs"
+                                                                        >  
+                                                                        {prephrsoptions}
+                                                                        </select>
+                                                                </div>
+                                                                <div className="column">
+                                                                    <label className="small-titles light-label"> Deliverable Name</label>
+                                                                    <select
+                                                                            ref={element => this.deliverableName = element}
+                                                                            type="text"
+                                                                            onChange={this.handleChange.bind(this, "newDeliverableName")}
+                                                                            defaultValue={this.state["oldDeliverableName"]}
+                                                                            aria-label="DeliverableName"
+                                                                    >
+                                                                        {delNames}
+                                                                    </select>
+                                                                </div> 
+                                                    </div>
+                                                    <div className="deliverable-sub-section sec-two">
+                                                                <div className="column">
+                                                                        <label className="small-titles light-label"> Description</label>
+                                                                        <input
+                                                                                ref={element => this.desc = element}
+                                                                                type="text"
+                                                                                onChange={this.handleChange.bind(this, "desc")}
+                                                                                defaultValue={this.state["oldDesc"]}
+                                                                                aria-label="Desc"
+                                                                            />
+                                                                    
+                                                                </div>
+                                                                <div className="column">
+                                                                        <label className="small-titles light-label"> Impact</label>
+                                                                        <select
+                                                                                ref={element => this.impact = element}
+                                                                                type="text"
+                                                                                onChange={this.handleChange.bind(this, "impact")}
+                                                                                defaultValue={this.state["oldImpact"]}
+                                                                                aria-label="Impact"
+                                                                        >
+                                                                            <option 
+                                                                                key = "1"
+                                                                                value='low'
+                                                                                >
+                                                                                Low Impact: less than 5% of final grade
+                                                                            </option>
+                                                                            <option 
+                                                                                key = "2"
+                                                                                value='moderate'
+                                                                                >
+                                                                                Moderate Impact: about 10% of final grade
+                                                                            </option>
+                                                                            <option 
+                                                                                key = "3"
+                                                                                value='high'
+                                                                                >
+                                                                                High Impact: 15% or greater of final grade
+                                                                            </option>
+                                                                        </select>
+                                                                </div>    
+                                                    </div>
+                                                    <div className="action-btns">
+                                                        <button 
+                                                            className="green-btn btn-small fivepx-margin" 
+                                                            type="submit" 
+                                                            value="Update"
                                                         >
-                                                            {/*{delNames}*/}Missy
-                                                        </select>
-                                                    </div> 
-                                        </div>
-                                        <div className="deliverable-sub-section sec-two">
-                                                    <div className="column">
-                                                            <label className="small-titles light-label"> Description</label>
-                                                            <input
-                                                                    ref={element => this.desc = element}
-                                                                    type="text"
-                                                                    onChange={this.handleChange.bind(this, "desc")}
-                                                                    defaultValue={this.state["oldDesc"]}
-                                                                    aria-label="Desc"
-                                                                />
-                                                        
+                                                            Update
+                                                        </button>
                                                     </div>
-                                                    <div className="column">
-                                                            <label className="small-titles light-label"> Impact</label>
-                                                            <select
-                                                                    ref={element => this.impact = element}
-                                                                    type="text"
-                                                                    onChange={this.handleChange.bind(this, "impact")}
-                                                                    defaultValue={this.state["oldImpact"]}
-                                                                    aria-label="Impact"
-                                                            >
-                                                                <option 
-                                                                    key = "1"
-                                                                    value='low'
-                                                                    >
-                                                                    Low Impact: less than 5% of final grade
-                                                                </option>
-                                                                <option 
-                                                                    key = "2"
-                                                                    value='moderate'
-                                                                    >
-                                                                    Moderate Impact: about 10% of final grade
-                                                                </option>
-                                                                <option 
-                                                                    key = "3"
-                                                                    value='high'
-                                                                    >
-                                                                    High Impact: 15% or greater of final grade
-                                                                </option>
-                                                            </select>
-                                                    </div>    
-                                        </div>
-                                        <div className="action-btns">
-                                            <button 
-                                                className="green-btn btn-small fivepx-margin" 
-                                                type="submit" 
-                                                value="Update"
-                                            >
-                                                Update
-                                            </button>
-                                            <button className="green-btn btn-small fivepx-margin">
-                                                    Delete
-                                            </button>
-                                        </div>
-                                        
+                                            </div>
+                                    </form>
+                                            <div className="center">
+                                                    <div className="action-btns">
+                                                        <button 
+                                                            className="green-btn btn-small fivepx-margin" 
+                                                            onClick={this.prepDelete}
+                                                        >
+                                                            Delete
+                                                        </button>
+                                                    </div>
+                                            </div>
                                 </div>
+                                
                             )}
                                 
-                        </div>     
-                    </form>
-                    
-                    
-                    
+                        </div>   
                 </div>
             );
         } 

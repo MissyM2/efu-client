@@ -118,6 +118,10 @@ ul {
             margin:0 auto;
 
         }
+        .select-week-dd {
+            width:80%;
+            margin-bottom:10px;
+        }
         
       }
   
@@ -149,6 +153,10 @@ ul {
 
             .unit-course-grade-blue {
                 width: 31%;
+            }
+
+            .select-week-dd {
+                width:50%;
             }
         }
           

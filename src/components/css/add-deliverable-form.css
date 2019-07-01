@@ -1,0 +1,142 @@
+button {
+    margin: 0 auto;
+}
+.deliverable-section {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+.single-deliverable {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid;
+}
+
+.course-header {
+    font-weight: bold;
+    text-align: left;
+}
+
+.course-deliverables-field {
+    text-align: left;
+    padding-left: 60px;
+}
+
+.del-form li {
+    color: var(--off-white-color);
+    font-size: 14px;
+}
+
+.del-unit-container {
+        border:1px solid #59a3c6; 
+        -webkit-border-radius: 3px; 
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        font-size:14px;
+        font-family:var( --body-font-family); 
+        padding: 10px 10px 10px 10px; 
+        text-decoration:none; 
+        font-weight:bold;
+        
+}
+
+.ul-deliverable {
+    margin-bottom: 10px;
+}
+
+
+.add-deliverable {
+    margin: 0 auto;
+}
+
+
+
+
+
+
+
+/*==========  Mobile First Method  ==========*/
+
+    /* Custom, iPhone Retina */ 
+    @media only screen and (min-width : 320px) {
+        .del-form {
+            display:flex;
+            flex-direction:column;
+        }
+
+        .dropdown.course {
+            width: 100%;
+            margin: 0 auto;
+            margin-bottom: 10px;
+        }
+
+        .del-row {
+            display:flex;
+            flex-direction: column;
+        }
+
+        .duedate,
+        .delname,
+        .prephrs,
+        .impact,
+        .desc {
+            width: 100%;
+        }
+
+        
+      
+      }
+  
+  
+      /* Extra Small Devices, Phones */ 
+      @media only screen and (min-width : 480px) {
+        
+  
+        
+      
+      }
+  
+      /* Small Devices, Tablets */
+      @media only screen and (min-width : 768px) {
+        .del-row {
+            display:flex;
+            flex-direction: row;
+        }
+
+        .dropdown.course {
+            width: 40%;
+            margin: 0 auto;
+            margin-bottom: 10px;
+        }
+
+        .duedate {
+            width:30%;
+        }
+        
+        .delname {
+            width: 75%;
+        }
+        
+        
+        .desc {
+            width: 100%;
+        }
+      
+      }
+   
+  
+      /* Medium Devices, Desktops */
+      @media only screen and (min-width : 992px) {
+          .ul-deliverable {
+              width: 75%;
+              margin:0 auto;
+          }
+  
+      }
+  
+      /* Large Devices, Wide Screens */
+      @media only screen and (min-width : 1200px) {
+  
+      }
+  

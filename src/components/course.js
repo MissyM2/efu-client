@@ -124,7 +124,7 @@ export default class Course extends React.Component {
                                                 defaultValue={this.props.courseDesc}
                                                 aria-label="CourseDesc"
                                         />
-                                                                        </div>
+                                </div>
                             </div>
                             <div className="action-btns">
                                 <button 
@@ -134,13 +134,14 @@ export default class Course extends React.Component {
                                 >
                                     Update
                                 </button>
-                                <button className="green-btn btn-small fivepx-margin" onClick={this.prepDelete}>
-                                        Delete
+                                <button 
+                                    className="green-btn btn-small fivepx-margin" 
+                                    onClick={this.prepDelete}
+                                >
+                                    Delete
                                 </button>
-                                
                             </div>
                     </div>
-                    
                 </form>
             </div>
             

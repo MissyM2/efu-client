@@ -31,6 +31,15 @@ class App extends React.Component {
             deliverableAdded: false,
             deliverableIsChanged:false,
             deliverableDeleted: false,
+            deliverabletobedeleted:{
+                termDesc:"",
+                courseName: "",
+                dueDate: null,
+                deliverableName: "",
+                prephrs: 0,
+                desc: "",
+                impact:""
+            },
             deliverableNames:['Quiz', 'Test', 'Midterm', 'Final', 'Lab/Essay', 'Term Paper/Group Project Final', 'Term Paper/Group-Project Checkpoint', 'Homework', 'Participation'],
             deliverablesUpdated:false,
             error:'',
@@ -54,7 +63,7 @@ class App extends React.Component {
             selectingweek:false,
             showNavButtons:true,
             setcoursedeletemodal: false,
-            setdeldeletemodal: false,
+            setdeliverabledeletemodal: false,
             SpringFall:16,
             SummerLong:8,
             SummerShort:4,
@@ -97,7 +106,8 @@ class App extends React.Component {
         this.setloadingflag=this.setloadingflag.bind(this);
         this.setdeliverableischanged=this.setdeliverableischanged.bind(this);
         this.setcoursedeletemodal=this.setcoursedeletemodal.bind(this);
-        this.setdeldeletemodal=this.setdeldeletemodal.bind(this);
+        this.setdeliverabletobedeleted=this.setdeliverabletobedeleted.bind(this);
+        this.setdeliverabledeletemodal=this.setdeliverabledeletemodal.bind(this);
         this.setdeliverableadded=this.setdeliverableadded.bind(this);
         this.setcourseanddeliverableflags=this.setcourseanddeliverableflags.bind(this);
 
@@ -384,13 +394,28 @@ class App extends React.Component {
             deliverableIsChanged: bool
         });
     }
-
-    setdeldeletemodal(bool) {
-        //console.log('made it to the setcoursedeletemodal');
+    setdeliverabletobedeleted(deliverable) {
         this.setState({
-          showDelDeleteModal:bool
+            deliverabletobedeleted:{
+                termDesc: deliverable.termDesc,
+                courseName: deliverable.courseName,
+                dueDate: deliverable.dueDateFormatted,
+                deliverableName: deliverable.deliverableName,
+                prephrs: deliverable.prephrs,
+                desc: deliverable.desc,
+                impact:deliverable.impact
+            }
+          },() => {
+              console.log('this.state.deliverabletobedeleted should be set properly', this.state.deliverabletobedeleted);
+              this.setdeliverabledeletemodal(true);
+          });
+    }
+    setdeliverabledeletemodal(bool) {
+        console.log('made it to the setdeliverabledeletemodal');
+        this.setState({
+          showDeliverableDeleteModal:bool
         },() => {
-            console.log('this.state.showDelDeleteModal should be set properly', this.state.showDelDeleteModal);
+            console.log('this.state.showDeliverableDeleteModal should be set properly', this.state.showDeliverableDeleteModal);
         });
     }
 
@@ -1452,6 +1477,7 @@ class App extends React.Component {
                                                         setcurrentterm = {(term) => this.setcurrentterm(term)}
                                                         setcurrentweek = {(week) => this.setcurrentweek(week)}
                                                         setdeliverableischanged = {(bool) => this.setdeliverableischanged(bool)}
+                                                        setdeliverabletobedeleted = {(deliverable) => {this.setdeliverabletobedeleted(deliverable)}}
                                                         submitupdatedeliverable = {(deliverable) => this.submitupdatedeliverable(deliverable)}
                                                         getcurrenttermdetails={(term) => this.getcurrenttermdetails(term)}
                                                         //getcurrentweek={(week) => this.getcurrentweek(week)}
@@ -1511,6 +1537,7 @@ class App extends React.Component {
                                                         setcurrentcoursename = {(course) => this.setcurrentcoursename(course)}
                                                         setdeliverableischanged = {(bool) => this.setdeliverableischanged(bool)}
                                                         setdeliverableadded = {(bool) => this.setdeliverableadded(bool)}
+                                                        setdeliverabletobedeleted = {(deliverable) => {this.setdeliverabletobedeleted(deliverable)}}
                                                         submitadddeliverable = {(deliverable) => this.submitadddeliverable(deliverable)}
                                                         submitupdatedeliverable = {(deliverable) => this.submitupdatedeliverable(deliverable)}
                                                         submitdeletedeliverable = {(deliverable) => this.submitdeletedeliverable(deliverable)}

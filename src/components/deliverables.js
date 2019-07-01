@@ -86,11 +86,12 @@ export default class Deliverables extends React.Component {
 
                 const thiscoursedeliverables = this.props.thiscoursedeliverables.map((deliverable, index) => {
                         return (
-                                <ul key={index} className="row-deliverable tenpx-bottom-margin ">
+                                <ul key={index} className="tenpx-bottom-margin ">
                                         <DeliverableFromMenu
                                                 {...deliverable}
                                                 {...this.props}
                                                 {...this.state}
+                                                setdeliverableischanged={this.setdeliverableischanged}
                                                 submitupdatedeliverable={this.props.submitupdatedeliverable}
                                                 deletedeliverable={this.props.deletedeliverable}
                                         />   
@@ -102,7 +103,7 @@ export default class Deliverables extends React.Component {
 
                 const thistermdeliverables = this.props.thistermdeliverables.map((deliverable, index) => {
                         return (
-                                <ul key={index} className="row-deliverable tenpx-bottom-margin ">
+                                <ul key={index} className="tenpx-bottom-margin ">
                                         <DeliverableFromMenu
                                                 {...deliverable}
                                                 {...this.props}
@@ -177,7 +178,7 @@ export default class Deliverables extends React.Component {
                                                                 <AddDeliverableForm
                                                                         {...this.props}
                                                                         submitadddeliverable={this.props.submitadddeliverable}
-                                                                        setdeliverableischanged={this.setdeliverableischanged}
+                                                                        setdeliverableischanged={this.props.setdeliverableischanged}
                                                                 />
                                                         ) : (
                                                                 <div></div>
