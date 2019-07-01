@@ -14,7 +14,7 @@ export default class Deliverable extends React.Component {
             deliverableCount:0,
             currDelDate:"01/20/1963",
             fields: {
-                newDueDateFormatted: null,
+                newDueDateFormatted: "01/01/2000",
                 newPrephrs:0,
                 newDeliverableName:"",
                 newDesc: "",
@@ -121,6 +121,7 @@ export default class Deliverable extends React.Component {
            impact:impact
        };
        this.props.submitupdatedeliverable(updatedDeliverable);
+       console.log('updatedDeliverable', updatedDeliverable);
        this.props.setdeliverableischanged(true);
        /*
        this.setState({
