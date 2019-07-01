@@ -39,42 +39,37 @@ export default class CourseGrades extends React.Component {
     }
 
     render() {
-        console.log('this.props.gradeIsUpdated', this.props.gradeIsUpdated);
-        
         return (
-                <div>
+                <li className="week-row">
+                    <div className="week-item-grade grade-container-green fivepx-margin">
+                            <div className="small-titles dark-label week-label course-title" >Course:  {this.props.course}</div>
+                            <div className="small-titles light-label item-body course-grade">Current Grade:  {this.props.gradeNum}</div>
+                            <form onSubmit={(e) => {this.onSubmit(e)}}>
+                                {(this.props.gradeIsUpdated) ? (
+                                        <div className="error-msg">Grade updated.</div>
+                                        ):(
+                                        ""
+                                        )}
+                                <div className="dd">
+                                    <input
+                                        type="number" 
+                                        value={this.state.newGradeNum}
+                                        onChange={e =>this.setNewGradeNum(e.target.value)}
+                                    />
+                                </div>
+                                <div className="item">
+                                    <button
+                                        className="blue-btn center-btn fivepx-margin"
+                                        type="submit"
+                                        value="Update"
+                                    >
+                                        Commit Your Grade
+                                    </button>
+                                </div>
+                            </form>
+                    </div>
                     
-                    <div className="grade-label" >
-                        Course:  {this.props.course}
-                    </div>
-                    <div className="grade">
-                        Current Grade:  {this.props.gradeNum}
-                    </div>
-                    <form onSubmit={(e) => {this.onSubmit(e)}}>
-                    {(this.props.gradeIsUpdated) ? (
-                            <div className="error-msg">Grade updated.</div>
-                            ):(
-                               ""
-                            )}
-                            <div>
-                                <input
-                                    className="input-look"
-                                    type="number" 
-                                    value={this.state.newGradeNum}
-                                    onChange={e =>this.setNewGradeNum(e.target.value)}
-                                />
-                            </div>
-                            <div className="grade-item">
-                                <button
-                                    className="green-btn btn-full-width update-btn center-btn"
-                                    type="submit"
-                                    value="Update"
-                                >
-                                    Commit Your Grade
-                                </button>
-                            </div>
-                    </form>
-                </div>
+                </li>
                     
             );
         };

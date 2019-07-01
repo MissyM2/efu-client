@@ -176,6 +176,7 @@
     .logo-group {
       display:flex;
       flex-direction: row;
+      padding-top: 20px;
     }
     
     .logo-verbage {
@@ -196,10 +197,6 @@
       flex-direction:column;
       justify-content:center;
     } 
-
-    .navbar-positioning select {
-     padding:10px;
-    }
 
 
     .right-toggle-button-parent {

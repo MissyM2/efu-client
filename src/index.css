@@ -24,6 +24,7 @@ body {
     --darker-off-white-color: #dee0e2;
     --orange-accent-color:#F28627;
     --pale-green-accent-color: #A9BF78;
+    --navy-color: #144673;
     --header-font-family: 'Cantata One', serif;
     --body-font-family:'Imprima', sans-serif;
     --light-gray-color: #dee0e2;
@@ -33,7 +34,7 @@ body {
 h2 {
   position:relative;
   font-family: var(--header-font-family);
-  color: var(--darker-blue-color);
+  color: var(--navy-color);
   font-weight: bold;
   font-size: 18px;
   text-align:center;
@@ -41,18 +42,61 @@ h2 {
 }
 
 h3 {
-  font-family: var(--header-font-family);
-  color: var(--dark-mossy-green-color);
+  font-family: var(--body-font-family);
+  color: var(--off-white-color);
   font-weight: bold;
   font-size: 18px;
+  text-align:center;
 
+}
+
+h4 {
+  font-family: var(--body-font-family);
+  color:var(--navy-color);
+  font-weight: bold;
+  font-size: 14px;
+  text-align:center;
+}
+
+h5 {
+  font-family: var(--body-font-family);
+  color:var(--off-white-color);
+  font-weight: bold;
+  font-size: 14px;
+  text-align:center;
+  padding: 5px;
 }
 
 select {
   font-family: var(--body-font-family);
-  font-size:14px;
-  width: 90%;
+  background-color: var( --off-white-color);
+  color: var(--dark-mossy-green-color);
+  border-width: 2px;
+  border-style: inset;
+  border-color: initial;
+  border-image: initial;
+  padding: 3px;
+  margin: 5px;
+  border-radius: 4px;
+  font-size:16px;
+  width: 96%;
 }
+/*
+.input-look {
+  font-family: var(--body-font-family);
+  background-color: var( --off-white-color);
+  color: var(--dark-mossy-green-color);
+  border-width: 2px;
+  border-style: inset;
+  border-color: initial;
+  border-image: initial;
+  padding: 3px;
+  margin: 5px;
+  border-radius: 4px;
+  font-size:16px;
+}
+  
+*/
 
 .fa-caret-down {
   color: var(--off-white-color);
@@ -170,10 +214,7 @@ background-image: linear-gradient(to bottom, #31708E, #3e8eb4);filter:progid:DXI
   left: auto;
 }
 
-  label {
-    display: block;
-    padding: 3px;
-  }
+ 
 .content-container {
     width: 100%;
     height: 100%;
@@ -230,6 +271,10 @@ background-image: linear-gradient(to bottom, #31708E, #3e8eb4);filter:progid:DXI
 
 .fivepx-margin {
   margin: 5px;
+}
+
+.hundredpercent-width {
+  width: 100%;
 }
 .unit-container-blue {
   border:1px solid #59a3c6; 
@@ -360,6 +405,23 @@ background-image: linear-gradient(to bottom, #31708E, #3e8eb4);filter:progid:DXI
     width: 100%;
   }
 
+  .small-titles {
+    display: block;
+    padding: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: var(--body-font-family);
+
+  }
+  .light-label {
+    color:var(--off-white-color);
+  }
+
+  .dark-label {
+    background-color: var(--off-white-color);
+    color:var(--navy-color);
+  }
+
   .nav-label {
     display:table-cell;
     vertical-align:middle;
@@ -387,7 +449,7 @@ background-image: linear-gradient(to bottom, #31708E, #3e8eb4);filter:progid:DXI
   }
 
   .color-dark {
-    color: var( --dark-mossy-green-color);
+    color: var( --navy-color);
   }
 
   .color-light {
@@ -433,7 +495,9 @@ background-image: linear-gradient(to bottom, #31708E, #3e8eb4);filter:progid:DXI
 /**
 /**********************************************/
 
-  
+  .dd {
+    width: 100%;
+  }
 
   .available-terms-label {
     color: var(--off-white-color);
@@ -654,8 +718,20 @@ background-image: linear-gradient(to bottom, #31708E, #3e8eb4);filter:progid:DXI
     margin-top: 15px;
   }
 
-  input {
-    margin-bottom: 3px;
+  input,
+  textarea {
+    font-family: var(--body-font-family);
+    background-color: var( --off-white-color);
+    color: var(--dark-mossy-green-color);
+    border-width: 2px;
+    border-style: inset;
+    border-color: initial;
+    border-image: initial;
+    padding: 3px;
+    margin: 5px;
+    border-radius: 4px;
+    font-size:16px;
+    width: 96%;
   }
  
   
@@ -673,18 +749,7 @@ background-image: linear-gradient(to bottom, #31708E, #3e8eb4);filter:progid:DXI
   }
   */
 
-  .input-look {
-    color: var( --dark-mossy-green-color);
-    background-color: var( --darker-off-white-color);
-    width: 100%;
-    border-width: 2px;
-    border-style: inset;
-    border-color: initial;
-    border-image: initial;
-    font-size: 14px;
-    padding: 3px;
-    border-radius: 4px;
-  }
+  
 
   .far {
     font-size: 18px;
@@ -845,6 +910,21 @@ background-image: linear-gradient(to bottom, #31708E, #3e8eb4);filter:progid:DXI
         padding-left: 8px;
       }
 
+      .term-row {
+        display:flex;
+        flex-direction: row;
+        flex-wrap:wrap;
+        justify-content: center;
+        list-style-type: none;
+        width: 100%;
+        font-size: 16px;
+        font-family:var (--body-font-family);
+        padding:3px;
+        margin:4px;
+        background-color: var(--off-white-color);
+        color: var(--dark-mossy-green-color);
+      }
+
     
 
       .green-btn {
@@ -920,7 +1000,7 @@ background-image: linear-gradient(to bottom, #31708E, #3e8eb4);filter:progid:DXI
       .message {
         text-align: left;
         width: 95%;
-        margin: 0 auto;
+        margin: 8px auto;
         font-size: 18px;
         font-family: var(--body-font-family);
         color: var(--dark-mossy-green-color);
@@ -935,6 +1015,30 @@ background-image: linear-gradient(to bottom, #31708E, #3e8eb4);filter:progid:DXI
         font-size: 14px;
         padding: 2px;
       }
+
+      .week-item,
+      .week-item-grade {
+        width: 100%;
+        margin: 8px;
+      }
+
+      .weeks-row {
+        display:flex;
+        flex-direction:column;
+      }
+
+      .weeks-row-grade {
+        display:flex;
+        flex-direction:row;
+        width: 100%;
+      }
+
+      .week-row {
+        display:block;
+        width: 100%;
+        padding-left: 5px;
+        padding-right: 5px;
+      }
       
 
       
@@ -945,6 +1049,20 @@ background-image: linear-gradient(to bottom, #31708E, #3e8eb4);filter:progid:DXI
 
     /* Extra Small Devices, Phones */ 
     @media only screen and (min-width : 480px) {
+      .week-item {
+        width: 50%;
+      }
+
+      .weeks-row {
+        display:flex;
+        flex-direction:row;
+        flex-wrap: wrap;
+      }
+
+      .week-row {
+        display:flex;
+        width: 100%;
+      }
       
       
 
@@ -1017,6 +1135,10 @@ background-image: linear-gradient(to bottom, #31708E, #3e8eb4);filter:progid:DXI
 
     /* Large Devices, Wide Screens */
     @media only screen and (min-width : 1200px) {
+
+      .week-row {
+        flex-direction:row;
+    }
 
     }
 

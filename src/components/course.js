@@ -11,6 +11,7 @@ export default class Course extends React.Component {
             oldCourseName: this.props.courseName,
             oldCourseDesc: this.props.courseDesc,
             gradeCount:0,
+            deliverableCount:0,
             fields:{
                 newCourseName:"",
                 newCourseDesc:""
@@ -26,11 +27,15 @@ export default class Course extends React.Component {
          // find out if there are grades for the selected course
          let course = this.courseName.value;
          this.props.setcurrentcoursename(course);
-         const tempGrades = this.props.currentgrades.filter(grade => {
+         const tempGrades = this.props.thistermgrades.filter(grade => {
             return grade.course === course && grade.gradeNum > 0;
         });
+        const tempDeliverables = this.props.currenttermdeliverables.filter(deliverable => {
+            return deliverable.course === course;
+        });
         this.setState({
-            gradeCount:tempGrades.length
+            gradeCount:tempGrades.length,
+            deliverableCount:tempDeliverables.length
         });
         this.props.setcoursedeletemodal(true);
     }
@@ -92,10 +97,9 @@ export default class Course extends React.Component {
                             )}
 
                             <div className="column">
-                                <div className="courseName-unit">
-                                    <label className="course-label">Course</label>
+                                <div>
+                                    <label className="small-titles light-label">Course</label>
                                     <input
-                                        className="course-item field"
                                         ref={element => this.courseName = element}
                                         type="text"
                                         onChange={this.handleChange.bind(this,"newCourseName")}
@@ -105,21 +109,20 @@ export default class Course extends React.Component {
                                 </div>
                             </div>
                             <div className="column">
-                                <div className="courseDesc-unit">
-                                            <label className="course-label">Details</label>
+                                <div>
+                                            <label className="small-titles light-label">Details</label>
                                             <textarea 
-                                            className="course-item field"
-                                            ref={element => this.courseDesc = element}
-                                            placeholder="Course Description"
-                                            type="text"
-                                            rows="2"
-                                            cols="30"
-                                            wrap="soft"
-                                            size="60"
-                                            name="CourseDesc"
-                                            onChange={this.handleChange.bind(this,"newCourseDesc")}
-                                            defaultValue={this.props.courseDesc}
-                                            aria-label="CourseDesc"
+                                                ref={element => this.courseDesc = element}
+                                                placeholder="Course Description"
+                                                type="text"
+                                                rows="2"
+                                                cols="30"
+                                                wrap="soft"
+                                                size="60"
+                                                name="CourseDesc"
+                                                onChange={this.handleChange.bind(this,"newCourseDesc")}
+                                                defaultValue={this.props.courseDesc}
+                                                aria-label="CourseDesc"
                                         />
                                                                         </div>
                             </div>

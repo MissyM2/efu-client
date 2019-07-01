@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 
 import './css/courses.css';
 
-export default class AddForm extends React.Component {
+export default class AddCourseForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -62,7 +62,7 @@ export default class AddForm extends React.Component {
             );
         }
         return (
-            <div className="add-form">
+            <div className="add-course-form">
                     <form onSubmit={this.addformSubmit.bind(this)}>
                         <h2 className="heading">Add Your Course</h2>
                         <div className={this.props.error ? "error-msg" : ""}>{this.props.error}</div>

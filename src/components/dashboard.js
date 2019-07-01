@@ -26,7 +26,6 @@ export default class Dashboard extends React.Component {
 
     componentDidMount() {
         this.props.getcurrentterms();
-        console.log('after componentDidMount, dashboard', this.props);
     }
 
     setSelectedWeek(e) {
@@ -48,7 +47,9 @@ export default class Dashboard extends React.Component {
         let sidedrawerClasses;
 
         if(this.props.rightSideDrawerOpen) {
-            backdrop = <Backdrop click={this.props.backdropclickhandler} />
+            backdrop = <Backdrop 
+                            rightbackdropclickhandler={this.props.rightbackdropclickhandler} 
+                        />
         } 
         
         if(this.props.selectingterm) {
@@ -56,7 +57,7 @@ export default class Dashboard extends React.Component {
             dashboardNoDataClasses='modal not-visible';
             navbarClasses='not-visible';
             backdrop= <BackdropGreen />
-        } else if (this.props.currentweekcount === 0) {
+        } else if (this.props.thistermweekcount === 0) {
             dashboardContentClasses = 'dashboard-content not-visible';
             dashboardNoDataClasses='modal';
            
@@ -73,7 +74,8 @@ export default class Dashboard extends React.Component {
                 <ul key={index} className="row-deliverable tenpx-bottom-margin ">
                     <Deliverable
                             {...deliverable}
-                            setDeliverableIsChanged={this.setDeliverableIsChanged}
+                            allprephrs={this.props.allprephrs}
+                            setdeliverableischanged={this.props.setdeliverableischanged}
                             submitupdatedel={this.props.submitupdatedel}
                             deletedel={this.props.deletedeliverable}
                     />     
@@ -87,7 +89,9 @@ export default class Dashboard extends React.Component {
                 <ul key={index} className="row-deliverable tenpx-bottom-margin ">
                     <Deliverable
                         {...deliverable}
-                        setDeliverableIsChanged={this.setDeliverableIsChanged}
+                        {...this.props}
+                        {...this.state}
+                        setdeliverableischanged={this.props.setdeliverableischanged}
                         submitupdatedel={this.props.submitupdatedel}
                         deletedel={this.props.deletedeliverable} 
                     />                                                       
@@ -103,8 +107,6 @@ export default class Dashboard extends React.Component {
         //if (loading) {
        //     return <p>Loading ...</p>
         //}
-        console.log('dashboard: this.state.props', this.props);
-
             return (
                 <div className="content-container">
                         {(this.props.selectingterm) ? (
@@ -119,13 +121,23 @@ export default class Dashboard extends React.Component {
                         </div>
                         {(this.props.rightSideDrawerOpen) ? (
                             <div className={sidedrawerClasses}>
-                                <RightSideDrawer user={this.props.currentusername} click={this.props.rightdrawertoggleclickhandler} show={this.props.rightSideDrawerOpen} submitlogout={this.props.submitlogout} />
+                                <RightSideDrawer
+                                    {...this.props}
+                                    allprephrs={this.props.allprephrs}
+                                    currentusername={this.props.currentusername} 
+                                    rightdrawertoggleclickhandler={this.props.rightdrawertoggleclickhandler}
+                                    rightSideDrawerOpen={this.props.rightSideDrawerOpen}
+                                    submitlogout={this.props.submitlogout} 
+                                    />
+                                    
                             </div>
+                            
                         ) : (
                             <div></div>
                         )}
                         {backdrop}
-                                    {(this.props.currentweeks.length === 0) ? (
+                        
+                                    {(this.props.thistermweeks.length === 0) ? (
                                         <div className={dashboardNoDataClasses}>
                                             <header className="modal__header"> No Data</header>
                                             <section className="modal__content">
@@ -143,6 +155,7 @@ export default class Dashboard extends React.Component {
 
                                             <Suggestion {...this.props} />
                                                 <h2>What is Due?</h2>
+                                                <h3>Term:  {this.props.currentterm}</h3>
                                                
                                                 <div className="deliverables-container">
                                                         <div className="dels-header">

@@ -6,10 +6,10 @@ export default class Week extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            likedLeast: this.props.currentweekdetails[0].likedLeast,
-            likedMost: this.props.currentweekdetails[0].likedMost,
-            mostDifficult: this.props.currentweekdetails[0].mostDifficult,
-            leastDifficult: this.props.currentweekdetails[0].leastDifficult
+            likedLeast: this.props.thisweekdetails[0].likedLeast,
+            likedMost: this.props.thisweekdetails[0].likedMost,
+            mostDifficult: this.props.thisweekdetails[0].mostDifficult,
+            leastDifficult: this.props.thisweekdetails[0].leastDifficult
             
         }
         this.handleUpdate = this.handleUpdate.bind(this);
@@ -47,7 +47,7 @@ export default class Week extends React.Component {
     }
 
     render() {
-        const mycoursedropdown = this.props.currentcourses.map((course, index) => {
+        const mycoursedropdown = this.props.thistermcourses.map((course, index) => {
             return (
                 <option key={index} >
                     {course.courseName}
@@ -58,9 +58,9 @@ export default class Week extends React.Component {
         if(this.props.weekstatus === 'all') {
             deleteButton = <button className="btn delete-btn" onClick={(e) => this.setDelete(e)}>Delete Week</button>;
         };
-          console.log('this.props.currentweekdetails', this.props.currentweekdetails);
+          console.log('this.props.thisweekdetails', this.props.thisweekdetails);
           console.log('this.state', this.state);
-          console.log('this.props.currentweekdetails.likedLeast', this.props.currentweekdetails[0].likedLeast);
+          console.log('this.props.thisweekdetails.likedLeast', this.props.thisweekdetails[0].likedLeast);
         return ( 
             <div className="column with-delete-btn flex-wrap-row">
                 <div>
@@ -74,7 +74,6 @@ export default class Week extends React.Component {
                                                     <div className="item-body">{this.state.likedLeast}</div>
                                                     <div>
                                                         <select
-                                                            className="input-look"
                                                             type="text"
                                                             defaultValue= "DEFAULT"
                                                             onChange={e => this.handleChange(e, "likedLeast")}>
@@ -94,7 +93,7 @@ export default class Week extends React.Component {
                                                                 type="text"
                                                                 defaultValue= "DEFAULT"
                                                                 onChange={e => this.handleChange(e, "likedMost")}
-                                                                className="input-look">
+                                                               >
                                                                     <option value="DEFAULT" disabled>Choose a course</option>
                                                                     {mycoursedropdown}
                                                         </select>
@@ -113,7 +112,7 @@ export default class Week extends React.Component {
                                                                 type="text"
                                                                 defaultValue= "DEFAULT"
                                                                 onChange={e => this.handleChange(e, "mostDifficult")}
-                                                                className="input-look">
+                                                               >
                                                                     <option value="DEFAULT" disabled>Choose a course</option>
                                                                     {mycoursedropdown}
                                                         </select>
@@ -131,7 +130,7 @@ export default class Week extends React.Component {
                                                                 type="text"
                                                                 defaultValue= "DEFAULT"
                                                                 onChange={e => this.handleChange(e, "leastDifficult")}
-                                                                className="input-look">
+                                                               >
                                                                     <option value="DEFAULT" disabled>Choose a course</option>
                                                                     {mycoursedropdown}
                                                         </select>

@@ -25,7 +25,6 @@ export default class NavBar extends React.Component {
         this.setState({
             termSelected: e.target.value
         }, () => {
-            console.log('navbar: this.setSelectedTerm, this.state.termSelected', this.state.termSelected);
                 this.props.setcurrentterm(this.state.termSelected);
         });
 
@@ -69,16 +68,14 @@ export default class NavBar extends React.Component {
                             <ul className="nav-ul">
                                 <li className="navbar-item term-unit">
                                     <div className={availabletermsclasses}>
-                                        <div className="navbar-cell dropdown-green-btn btn-full-width fivepx-margin" >
-                                                <select 
-                                                    className="color-light" 
+                                        <div className="hundredpercent-width">
+                                                <select
                                                     defaultValue="DEFAULT" 
                                                     onChange={this.setSelectedTerm}
                                                 >
                                                         <option value="DEFAULT" disabled>Select Term</option> 
                                                         {allterms} 
                                                 </select>
-                                                <i className ="fas fa-caret-down"></i>
                                                 
                                         </div>
                                     </div>
@@ -108,7 +105,9 @@ export default class NavBar extends React.Component {
                                     </div>
                                     <div className="navbar-cell spacer-hamburger"></div>
                                     <div className="navbar-cell navbar_right-toggle-button fivepx-margin">
-                                        <DrawerToggleButton click={this.props.rightdrawertoggleclickhandler} />
+                                        <DrawerToggleButton 
+                                            {...this.props}
+                                            rightdrawertoggleclickhandler={this.props.rightdrawertoggleclickhandler} />
                                     </div>
                                 </li>
                             </ul>

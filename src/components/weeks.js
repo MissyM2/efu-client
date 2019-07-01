@@ -19,47 +19,48 @@ export default class Weeks extends React.Component {
            
         render() {
                 let backdrop;
-                if(this.props.sideDrawerOpen) {
+                if(this.props.rightSideDrawerOpen) {
                         backdrop = <Backdrop click={this.props.backdropclickhandler} />
                 }
                
-                const weeks = this.props.currentweeks.map((week, index) => {
+                const weeks = this.props.thistermweeks.map((week, index) => {
                         return (
-                                <div className="unit-container-blue unit-width tenpx-bottom-margin" key={index}>
-                                        <div className="section-head color-dark">Week Number {week.weekNum}</div>
+                                <div className="unit-container-blue hundredpercent-width tenpx-bottom-margin" key={index + 100}>
+                                        <h3>Week Number {week.weekNum}</h3>
+                                        <h5>Attitudes</h5>
                                         
                                         <ul key={index} className="weeks-row">
                                                 <li className="week-row">
                                                         <div className="week-item">
-                                                                <div className="weeks-item-label week-label likedLeast">liked Least</div>
-                                                                <div className="item-body">{week.likedLeast}</div>
+                                                                <div className="small-titles dark-label week-label likedLeast">liked Least</div>
+                                                                <div className="small-titles light-label item-body">{week.likedLeast}</div>
                                                         </div>
                                                         <div className="week-item">
-                                                                <div className="weeks-item-label week-label likedMost">Liked Most</div>
-                                                                <div className="item-body">{week.likedMost}</div>
+                                                                <div className="small-titles dark-label week-label likedMost">Liked Most</div>
+                                                                <div className="small-titles light-label item-body">{week.likedMost}</div>
                                                         </div>
                                                 </li>
                                                 <li className="week-row">
                                                         <div className="week-item">
-                                                                <div className="weeks-item-label week-label mostDifficult">Most Difficult</div>
-                                                                <div className="item-body">{week.mostDifficult}</div>
+                                                                <div className="small-titles dark-label week-label mostDifficult">Most Difficult</div>
+                                                                <div className="small-titles light-label item-body">{week.mostDifficult}</div>
                                                         </div>
                                                         <div className="week-item">
-                                                                <div className="weeks-item-label week-label leastDifficult">Least Difficult</div>
-                                                                <div className="item-body">{week.leastDifficult}</div>
+                                                                <div className="small-titles dark-label week-label leastDifficult">Least Difficult</div>
+                                                                <div className="small-titles light-label item-body">{week.leastDifficult}</div>
                                                         </div>
                                                 </li>
                                         </ul>
-                                        <div className="section-head color-dark">Courses and Grades</div>
+                                        <h5>Courses and Grades</h5>
                                         <div className="weeks-row">
 
-                                                {this.props.currenttermgrades.filter(grade => grade.week === week.weekNum )
+                                                {this.props.thistermgrades.filter(grade => grade.week === week.weekNum )
                                                                 //grade.course === course.courseName
                                                 .map(grade => {
                                                                 return (
                                                                         <div className="grade-container-green fivepx-margin" key={index}>
-                                                                                <div className="course-title">{grade.course}</div>
-                                                                                <div className="course-grade">{grade.gradeNum}</div>
+                                                                                <div className="small-titles dark-label week-label course-title">{grade.course}</div>
+                                                                                <div className="small-titles light-label item-body course-grade">{grade.gradeNum}</div>
                                                                         </div>
                                                                 );
                                                 })
@@ -75,15 +76,16 @@ export default class Weeks extends React.Component {
                                 <NavBar {...this.props}/>
                                 <div className="">
                                         <RightSideDrawer
+                                                {...this.props}
                                                 user={this.props.currentusername}
-                                                click={this.props.rightdrawertoggleclickhandler}
-                                                show={this.props.rightSideDrawerOpen}
+                                                rightdrawertoggleclickhandler={this.props.rightdrawertoggleclickhandler}
+                                                rightSideDrawerOpen={this.props.rightSideDrawerOpen}
                                                 submitlogout={this.props.submitlogout}
                                         />
                                 </div>
                                 {backdrop}
                                 <div>
-                                        {(this.props.currentweeks.length === 0) ? (
+                                        {(this.props.thistermweeks.length === 0) ? (
                                                 <div className="dashboard-no-data">
                                                         <div className="instructions-large">
                                                         You have not set up your Profile, yet, for {this.props.currentterm}.  Either choose another term from the dropdown or
@@ -92,8 +94,8 @@ export default class Weeks extends React.Component {
                                                 </div>
                                         ) : (
                                         <div className="content-sub-container">
-                                                <h3>Your Weeks</h3>
-                                                <h3>{this.props.currentterm}</h3>
+                                                <h2>Your Weeks</h2>
+                                                <h3>Term:  {this.props.currentterm}</h3>
                                                 <div className="section-container">
                                                         <div className="list-vertical this-week-weeks">
                                                                 {weeks}

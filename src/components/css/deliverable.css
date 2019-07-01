@@ -6,7 +6,7 @@
 
 .deliverable-sub-section li {
     background-color:var(--off-white-color);
-    color: var(--darker-blue-color);
+    color: var(--navy-color);
 }
 
 
@@ -41,6 +41,15 @@
             display: flex;
             flex-direction: row;
             width: 100%;
+        }
+
+        .course-name{
+            font-family: var(--body-font-family);
+            color: var( --navy-color);
+            padding: 3px;
+            margin: 5px;
+            font-size:16px;
+            width: 96%;
         }
 
         

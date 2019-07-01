@@ -12,9 +12,7 @@ export default class AddDeliverableForm extends React.Component {
             fields: {
                 dueDate:"",
                 deliverableName:"",
-                impact:"",
                 desc: "",
-                prephrs: ""
             },
             errors: {}
         }
@@ -28,47 +26,111 @@ export default class AddDeliverableForm extends React.Component {
         e.currentTarget.type = "text";
         e.currentTarget.placeholder = "Enter a Date";
     }
+   
+    handleChange(field,e){
+        let fields = this.state.fields;
+        fields[field] = e.target.value;
+        this.setState({fields});
+        console.log('handleChange', this.state.fields["dueDate"]);
+    }
 
-    addDeliverableSubmit(e) {
-        e.preventDefault();
-        const newDeliverable = {
-            termDesc: this.props.currentterm,
-            courseName: this.props.currentcoursename,
-            dueDate: this.state.fields.dueDate,
-            deliverableName: this.state.fields.deliverableName,
-            impact: this.state.fields.impact,
-            desc: this.state.fields.desc,
-            prephrs: this.state.fields.prephrs
+    setEditing(editing) {
+        this.setState({
+            editing
+        });
+    }
+/****** DO I NEED THIS?? 
+    handleValidation() {
+        console.log('made it to handleValidation');
+        let fields = this.state.fields;
+        let errors={};
+        let formIsValid = true;
+
+        if(!fields["courseName"] || !fields["dueDate"] || !fields["deliverableName"] || !fields["impact"] || !fields["prephrs"]) {
+                console.log('one of the fields is false', this.state.fields);
+                formIsValid = false;
+                errors["emptyFields"] = "All the following information is required:  Course Name, Due Date, Deliverable Name, Grade Impact and Prep Hours Needed.";
         }
 
         this.setState({
-            fields:{
-                dueDate:"",
-                deliverableName:"",
-                impact:"",
-                desc: "",
-                prephrs: ""
-            }
+                errors:errors
+        });
+
+        return formIsValid;
+       
+
+}
+*/
+
+    addDeliverableSubmit(e) {
+        e.preventDefault();
+        let impactValue;
+        let prephrsValue;
+        switch(this.state.deliverableName) {
+            case "Quiz":
+                    impactValue = "moderate";
+                    prephrsValue = 6;
+              break;
+            case "Test":
+                            impactValue = "high";
+                            prephrsValue = 16;
+              break;
+            case "Midterm Exam":
+                            impactValue = "high-plus";
+                            prephrsValue = 20;
+              break;
+            case "Final Exam":
+                            impactValue = "high-plus";
+                            prephrsValue = 20;
+              break;
+            case "Lab/Essay":
+                            impactValue = "moderate";
+                            prephrsValue = 2;
+              break;
+            case "Term Paper/Group Project Final":
+                            impactValue = "high-plus";
+                            prephrsValue = 20;
+              break;
+            case "Term Paper/Group-Project Checkpoint":
+                            impactValue = "moderate";
+                            prephrsValue = 6;
+              break;
+            case "Homework":
+                            impactValue = "low";
+                            prephrsValue = 2;
+              break;
+            case "Participation":
+                            impactValue = "low";
+                            prephrsValue = 2;
+            default:
+                            impactValue = "moderate";
+                            prephrsValue = 6;
+          }
+          console.log('handleChange: this.state', this.state);
+
+        const newDeliverable = {
+            termDesc: this.props.currentterm,
+            courseName: this.props.currentcoursename,
+            dueDate: this.state.fields["dueDate"],
+            deliverableName: this.state.fields["deliverableName"],
+            impact: impactValue,
+            desc: this.state.fields["desc"],
+            prephrs: prephrsValue
+        }
+
+        this.setState({
+            dueDate:"",
+            deliverableName:"",
+            desc: ""
         });
 
         this.setEditing(false);
         this.props.submitadddeliverable(newDeliverable);
     }
 
-    handleChange(field, e) {
-        let fields = this.state.fields;
-        fields[field] = e.target.value;
-        this.setState({fields});
-    }
     
-    setEditing(editing) {
-        this.setState({
-            editing
-        });
-    }
     
     render() {
-
         const delNames = this.props.deliverableNames.map((delname, index) => {
             return (
                     <option 
@@ -77,17 +139,6 @@ export default class AddDeliverableForm extends React.Component {
                     >
                             {delname}
                     </option>
-            );
-        });
-
-        const prephrsoptions = this.props.prephrs.map((option, index) => {
-            return (
-                <option 
-                        key = {index}
-                        value={option}
-                    >
-                            {option}
-                </option>
             );
         });
 
@@ -106,8 +157,6 @@ export default class AddDeliverableForm extends React.Component {
                 )
             }
 
-       
-        //console.log('add-deliverable-form, this.props', this.props);
         return (
                 <div className="add-deliverable-form">
                     <form className="del-form" onSubmit={this.addDeliverableSubmit.bind(this)}>
@@ -127,7 +176,7 @@ export default class AddDeliverableForm extends React.Component {
                                                 onFocus={this._onFocus}
                                                 onBlur={this._onBlur}
                                                 onChange={this.handleChange.bind(this, "dueDate")}
-                                                value={this.state.fields["duedate"]}
+                                                value={this.state.fields["dueDate"]}
                                                 aria-label="dueDate"
                                         />
                                         <select 
@@ -141,49 +190,11 @@ export default class AddDeliverableForm extends React.Component {
                                                     {delNames}
                                         </select>
 
-
-                                        <select 
-                                                className="del-unit-container fivepx-margin prephrs color-dark" 
-                                                defaultValue="DEFAULT"
-                                                type="number"
-                                                onChange={this.handleChange.bind(this, "prephrs")}
-                                                aria-label="prephrs"
-                                                >
-                                                    <option className="default-value" value="DEFAULT" disabled>How many hours of prep do you need? Make a choice.</option>
-                                                    {prephrsoptions}
-                                        </select>
                                 </li>
                                 <li className="del-row">
-                                        <select 
-                                                className="del-unit-container fivepx-margin impact color-dark" 
-                                                defaultValue="DEFAULT" 
-                                                type="text"
-                                                onChange={this.handleChange.bind(this, "impact")}
-                                                aria-label="impact"
-                                                >
-                                                        <option className="default-value" value="DEFAULT" disabled>How will it impact your grade?  Make a choice.</option> 
-                                                        <option 
-                                                                key = "1"
-                                                                value='low'
-                                                                >
-                                                                Low Impact: less than 5% of final grade
-                                                        </option>
-                                                        <option 
-                                                                key = "2"
-                                                                value='moderate'
-                                                                >
-                                                                Moderate Impact: about 10% of final grade
-                                                        </option>
-                                                        <option 
-                                                                key = "3"
-                                                                value='high'
-                                                                >
-                                                                High Impact: 15% or greater of final grade
-                                                        </option>
-                                        </select>
                                         <input 
                                                 className="del-unit-container fivepx-margin desc"
-                                                placeholder="Study chapters..."
+                                                placeholder="Describe what needs to be prepped(i.e. study chapters...)"
                                                 type="text"
                                                 onChange={this.handleChange.bind(this, "desc")}
                                                 aria-label="deliverable-desc"

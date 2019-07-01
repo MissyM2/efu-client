@@ -86,13 +86,6 @@ ul {
 }
 
 
-.course-title,
-.course-grade {
-    color: white;
-    padding: 4px;
-    border: 1px solid;
-}
-
 .week-summary {
     margin-top: 20px;
     margin-bottom: 20px;
@@ -125,8 +118,6 @@ ul {
 }
 
 .week-label {
-    background-color:var(--darker-off-white-color);
-    color: var(--darker-blue-color);
     border: 1px solid var( --darkest-color);
     border-radius:4px 4px 0 0 ;
 }
@@ -134,9 +125,6 @@ ul {
 .item-body {
     border: 1px solid var( --darkest-color);
     border-radius: 0 0 4px 4px;
-    color: var( --off-white-color);
-    padding-top:5px;
-    padding-bottom:5px;
     margin-bottom: 8px;
 }
 
@@ -161,10 +149,7 @@ select {
     /* Custom, iPhone Retina */ 
     @media only screen and (min-width : 320px) {
 
-        .weeks-row {
-            display:flex;
-            flex-direction:column;
-        }
+        
 
         .grade-container-green {
             position:relative;
@@ -189,18 +174,6 @@ select {
             filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#93A28F, endColorstr=#687864);
         }
 
-        .week-row {
-            display:block;
-            width: 100%;
-            padding-left: 5px;
-            padding-right: 5px;
-        }
-
-        .week-item {
-            width: 100%;
-            margin: 8px;
-        }
-
         .weeks-section {
             flex-direction: column;
         }
@@ -210,25 +183,10 @@ select {
     @media only screen and (min-width : 480px) {
         .grade-container-green {
             width: 45%;
-            height: 90px;
+            /*height: 90px;*/
             vertical-align: top;
         }
-
         
-        .weeks-row {
-            flex-direction:row;
-            flex-wrap: wrap;
-        }
-
-        .week-row {
-            display:flex;
-            width: 100%;
-        }
-
-        .week-item {
-            width: 50%;
-        }
-
         .course-title {
             height: 2.5rem;
         }
@@ -246,7 +204,7 @@ select {
     @media only screen and (min-width : 768px) {
         .grade-container-green {
             width: 31%;
-            height: 75px;
+           /* height: 75px;*/
         }
 
         .top-week-container {
@@ -259,14 +217,9 @@ select {
             flex-direction: row;
         }
 
-        
-
         .course-title {
             height: initial;
         }
-
-       
-        
 
         .weeks-section {
             flex-direction: row;
@@ -288,10 +241,6 @@ select {
 
     /* Large Devices, Wide Screens */
     @media only screen and (min-width : 1200px) {
-
-        .week-row {
-            flex-direction:row;
-        }
 
         .weeks-section {
             flex-direction: row;

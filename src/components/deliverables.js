@@ -5,10 +5,9 @@ import NavBar from "./navbar";
 import RightSideDrawer from './right-side-drawer';
 import Backdrop from './backdrop';
 import BackdropWhite from './backdrop-white';
-import BackdropBlack from './backdrop-black';
+
 import AddDeliverableForm from './add-deliverable-form';
-import ModalAddDeliverableComplete from './modal-add-deliverable-complete';
-import Deliverable from './deliverable';
+import DeliverableFromMenu from './deliverable';
 
 
 
@@ -18,28 +17,24 @@ export default class Deliverables extends React.Component {
                 super(props);
                 this.state = {
                         courseSelected: "",
+                        courseIsChanged:false,
                         fields:{},
                         errors:{},
                         delMessage: '',
                         deliverableIsChanged:false,
-                        addMessage:"Deliverable has been added."
+                        addMessage:"Deliverable has been added.",
+                        updateMessage: "Deliverable has been updated.",
+                        deleteMessage: "Deliverable has been deleted."
+
                 }
-                this.handleChange = this.handleChange.bind(this);
                 this.setSelectedCourse = this.setSelectedCourse.bind(this);
-                this.setDeliverableIsChanged = this.setDeliverableIsChanged.bind(this);
         }
 
         componentDidMount() {
-                console.log('deliverables: this is within componentdidmount');
                 this.props.setcourseanddeliverableflags();
         }
 
-        setDeliverableIsChanged = (bool) => {
-                this.setState({
-                    deliverableIsChanged: bool
-                });
-            
-        }
+        
 
         canceldeldelete() {
                 console.log('inside canceldeldelete', this.props);
@@ -65,91 +60,54 @@ export default class Deliverables extends React.Component {
                 }
             }
 
-        handleValidation() {
-                console.log('made it to handleValidation');
-                let fields = this.state.fields;
-                let errors={};
-                let formIsValid = true;
-
-                if(!fields["courseName"] || !fields["dueDate"] || !fields["deliverableName"] || !fields["impact"] || !fields["prephrs"]) {
-                        console.log('one of the fields is false', this.state.fields);
-                        formIsValid = false;
-                        errors["emptyFields"] = "All the following information is required:  Course Name, Due Date, Deliverable Name, Grade Impact and Prep Hours Needed.";
-                }
-
-                this.setState({
-                        errors:errors
-                });
-
-                return formIsValid;
-               
-
-        }
+        
 
         setSelectedCourse(e) {
                 e.preventDefault();
                 this.props.setdeliverableadded(false);
                 this.setState({
-                    courseSelected: e.target.value
+                    courseSelected: e.target.value,
+                    courseIsChanged:true
                 }, () => {
-                    console.log('deliverables: this.setSelectedCourse, this.state.courseSelected', this.state.courseSelected);
                         this.props.setcurrentcoursename(this.state.courseSelected);
                 });
         
             }
-
-        handleChange(field, e) {
-                
-                console.log('this.state', this.state);
-                let fields = this.state.fields;
-                fields[field]= e.target.value;
-                this.setState({fields});
-        }
-
-        addDeliverable(e) {
-                console.log('got to adddeliverable');
-                e.preventDefault();
-
-                let newDeliverable = {
-                        termDesc: this.props.currentterm,
-                        courseName: this.state.fields["courseName"],
-                        dueDate: this.state.fields["dueDate"],
-                        deliverableName: this.state.fields["deliverableName"],
-                        impact: this.state.fields["impact"],
-                        desc: this.state.fields["desc"],
-                        prephrs: this.state.fields["prephrs"]
-                };
-                
-
-                if(this.handleValidation()) {
-                        this.setState({
-                                fields:{}
-                        });
-                        console.log('headed to handleValidation');
-                        this.props.submitadddeliverable(newDeliverable);
-                                
-                } else {
-                        console.log("add deliverable form is false", this.handleValidation());
-                }       
-        }
 
         
         render() {
                 let backdrop;
 
                 if(this.props.sideDrawerOpen) {
-                    backdrop = <Backdrop click={this.props.backdropclickhandler} />
+                    backdrop = <Backdrop rightbackdropclickhandler={this.props.rightbackdropclickhandler} />
                 } else {
                         backdrop = <BackdropWhite />
                 }
 
-                const thistermdeliverables = this.props.thistermdeliverables.map((deliverable, index) => {
-                        console.log('deliverables: mydeliverables, deliverable', deliverable);
+                const thiscoursedeliverables = this.props.thiscoursedeliverables.map((deliverable, index) => {
                         return (
                                 <ul key={index} className="row-deliverable tenpx-bottom-margin ">
-                                        <Deliverable
+                                        <DeliverableFromMenu
                                                 {...deliverable}
-                                                setDeliverableIsChanged={this.setDeliverableIsChanged}
+                                                {...this.props}
+                                                {...this.state}
+                                                submitupdatedeliverable={this.props.submitupdatedeliverable}
+                                                deletedeliverable={this.props.deletedeliverable}
+                                        />   
+                                </ul>
+                        );
+                });
+
+                
+
+                const thistermdeliverables = this.props.thistermdeliverables.map((deliverable, index) => {
+                        return (
+                                <ul key={index} className="row-deliverable tenpx-bottom-margin ">
+                                        <DeliverableFromMenu
+                                                {...deliverable}
+                                                {...this.props}
+                                                {...this.state}
+                                                setdeliverableischanged={this.setdeliverableischanged}
                                                 submitupdatedel={this.props.submitupdatedel}
                                                 deletedel={this.props.deletedeliverable}
                                         />   
@@ -157,7 +115,7 @@ export default class Deliverables extends React.Component {
                         );
                 })
 
-                const mycoursedropdown = this.props.currentcourses.map((course, index) => {
+                const mycoursedropdown = this.props.thistermcourses.map((course, index) => {
                         return (
                             <option 
                                 key={index}
@@ -168,8 +126,7 @@ export default class Deliverables extends React.Component {
                             </option>
                         );
                     });
-                    console.log('deliverables, this.props', this.props);
-                    //console.log('deliverables, this.state', this.state);
+                console.log('deliverables: this.props', this.props);
                 return (
                         <div className="content-container">
                                 <div className="">
@@ -177,9 +134,10 @@ export default class Deliverables extends React.Component {
                                 </div>
                                 <div className="">
                                         <RightSideDrawer 
+                                                {...this.props}
                                                 user={this.props.currentusername} 
-                                                click={this.props.rightdrawertoggleclickhandler} 
-                                                show={this.props.rightSideDrawerOpen} 
+                                                rightdrawertoggleclickhandler={this.props.rightdrawertoggleclickhandler} 
+                                                rightSideDrawerOpen={this.props.rightSideDrawerOpen} 
                                                 submitlogout={this.props.submitlogout} 
                                         />
                                 </div>
@@ -219,16 +177,23 @@ export default class Deliverables extends React.Component {
                                                                 <AddDeliverableForm
                                                                         {...this.props}
                                                                         submitadddeliverable={this.props.submitadddeliverable}
-                                                                        setdeliverableischanged={this.setDeliverableIsChanged}
+                                                                        setdeliverableischanged={this.setdeliverableischanged}
                                                                 />
                                                         ) : (
                                                                 <div></div>
                                                         )
                                                 }
-                                                
-                                                <div>
-                                                        {thistermdeliverables}
-                                                </div>  
+                                                {(this.state.courseIsChanged === true) ?  (
+                                                        <div>
+                                                                {thiscoursedeliverables}
+                                                        </div>
+                                                ) : (
+                                                        <div>
+                                                                {thistermdeliverables}
+                                                        </div>
+                                                )
+                                                }
+                                                       
                                         </div>
                         </div>
                         

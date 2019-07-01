@@ -108,13 +108,13 @@
             background-image: linear-gradient(to bottom, #77b3d0, #31708E);
         }
 */
-        .add-form {
+        .add-course-form {
             width: 75%;
             margin:15px auto;
 
         }
 
-        .add-form form {
+        .add-course-form form {
             text-align:left;
             width: 100%;
             margin:0 auto;
@@ -125,7 +125,7 @@
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
         }
 
-        .add-form h3 {
+        .add-course-form h3 {
             text-align:center;
         }
 
@@ -145,7 +145,7 @@
 
 
     @media only screen and (min-width : 480px) {
-        .add-form form {
+        .add-course-form form {
             width: 80%;
         }
 
@@ -197,7 +197,7 @@
             background-image: linear-gradient(to bottom, #83bad4, #3E8EB4);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#83bad4, endColorstr=#3E8EB4);
           }
 
-          .add-form form {
+          .add-course-form form {
             width: 50%;
         }
 

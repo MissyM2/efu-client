@@ -8,7 +8,7 @@ import BackdropBlack from './backdrop-black';
 import BackdropWhite from './backdrop-white';
 import ModalDeleteCourse from './modal-delete-course';
 
-import AddForm from './add-form';
+import AddCourseForm from './add-course-form';
 import Course from './course';
 
 
@@ -57,13 +57,13 @@ export default class Courses extends React.Component {
 
         let backdrop;
 
-        if(this.props.sideDrawerOpen) {
+        if(this.props.rightSideDrawerOpen) {
             backdrop = <Backdrop click={this.props.backdropclickhandler} />
         } else {
             backdrop = <BackdropWhite />
         }
 
-        const mycourses = this.props.currentcourses.map((course, index) => {
+        const mycourses = this.props.thistermcourses.map((course, index) => {
            // console.log('courses: this.props', this.props);
             return (
                 <li className="" key={index}>
@@ -85,9 +85,10 @@ export default class Courses extends React.Component {
             </div>
             <div className="">
                 <RightSideDrawer 
+                    {...this.props}
                     user={this.props.currentusername} 
-                    click={this.props.rightdrawertoggleclickhandler} 
-                    show={this.props.rightSideDrawerOpen} 
+                    rightdrawertoggleclickhandler={this.props.rightdrawertoggleclickhandler} 
+                    rightSideDrawerOpen={this.props.rightSideDrawerOpen} 
                     submitlogout={this.props.submitlogout} 
                 />
             </div>
@@ -109,10 +110,11 @@ export default class Courses extends React.Component {
 
                 
                 <div className="content-sub-container">
-                        <h3>My courses for {this.props.currentterm}</h3>
+                        <h2>My courses</h2>
+                        <h3>Term:  {this.props.currentterm}</h3>
                         <div>
                             <div className="error-msg">{this.state.message}</div>
-                            <AddForm 
+                            <AddCourseForm 
                                 type="course" 
                                 {...this.props} 
                                 submitaddcourse={this.props.submitaddcourse}

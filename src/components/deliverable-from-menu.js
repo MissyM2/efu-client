@@ -2,7 +2,7 @@ import React from 'react';
 
 import './css/deliverable.css';
 
-export default class Deliverable extends React.Component {
+export default class DeliverableFromMenu extends React.Component {
     constructor(props) {
         super(props);
         this.state= {
@@ -145,8 +145,7 @@ export default class Deliverable extends React.Component {
                     </option>
             );
         });
-
-    console.log('deliverable: this.props', this.props);
+    console.log('deliverablefrommenu: this.props', this.props);
     return (
             
                 <div>
@@ -198,7 +197,7 @@ export default class Deliverable extends React.Component {
                                                                 defaultValue={this.state["oldDeliverableName"]}
                                                                 aria-label="DeliverableName"
                                                         >
-                                                            {delNames}
+                                                            {/*{delNames}*/}Missy
                                                         </select>
                                                     </div> 
                                         </div>
