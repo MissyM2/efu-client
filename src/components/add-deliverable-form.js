@@ -64,49 +64,62 @@ export default class AddDeliverableForm extends React.Component {
 
     addDeliverableSubmit(e) {
         e.preventDefault();
-        let impactValue;
-        let prephrsValue;
-        switch(this.state.deliverableName) {
+        console.log('made it to adddeliverablesubmit, deliverableName)', this.state.fields.deliverableName);
+        let impactValue = "";
+        let prephrsValue = 0;
+        switch(this.state.fields.deliverableName) {
             case "Quiz":
+                console.log('Quiz');
                     impactValue = "moderate";
                     prephrsValue = 6;
               break;
             case "Test":
+                    console.log('Test');
                             impactValue = "high";
                             prephrsValue = 16;
               break;
-            case "Midterm Exam":
+            case "Midterm":
+                    console.log('Midterm');
                             impactValue = "high-plus";
                             prephrsValue = 20;
               break;
-            case "Final Exam":
+            case "Final":
+                    console.log('Final');
                             impactValue = "high-plus";
                             prephrsValue = 20;
               break;
             case "Lab/Essay":
+                    console.log('Lab/Essay');
                             impactValue = "moderate";
                             prephrsValue = 2;
               break;
             case "Term Paper/Group Project Final":
+                    console.log('Term Paper/Group Project Final');
                             impactValue = "high-plus";
                             prephrsValue = 20;
               break;
             case "Term Paper/Group-Project Checkpoint":
+                    console.log('Term Paper/Group-Project Checkpoint');
                             impactValue = "moderate";
                             prephrsValue = 6;
               break;
             case "Homework":
+                    console.log('Homework');
                             impactValue = "low";
                             prephrsValue = 2;
               break;
             case "Participation":
+                    console.log('Participation');
                             impactValue = "low";
                             prephrsValue = 2;
+                            console.log('prephrsValue', prephrsValue);
+                break;
             default:
                             impactValue = "moderate";
                             prephrsValue = 6;
           }
-          console.log('handleChange: this.state', this.state);
+
+          console.log('prephrsValue', prephrsValue);
 
         const newDeliverable = {
             termDesc: this.props.currentterm,
@@ -117,6 +130,7 @@ export default class AddDeliverableForm extends React.Component {
             desc: this.state.fields["desc"],
             prephrs: prephrsValue
         }
+        console.log('newDeliverable', newDeliverable);
 
         this.setState({
             dueDate:"",
@@ -161,7 +175,7 @@ export default class AddDeliverableForm extends React.Component {
                 <div className="add-deliverable-form">
                     <form className="del-form" onSubmit={this.addDeliverableSubmit.bind(this)}>
 
-                        <div className="error-msg">
+                        <div className="message-style">
                                 {this.state.errors["emptyFields"]}
                         </div>
 

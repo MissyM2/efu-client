@@ -10,6 +10,7 @@ export default class Course extends React.Component {
         this.state = {
             oldCourseName: this.props.courseName,
             oldCourseDesc: this.props.courseDesc,
+            courseUpdatingId:"",
             gradeCount:0,
             deliverableCount:0,
             fields:{
@@ -22,27 +23,8 @@ export default class Course extends React.Component {
         this.prepDelete = this.prepDelete.bind(this);
     }
 
-
-    prepDelete() {
-         // find out if there are grades for the selected course
-         let course = this.courseName.value;
-         this.props.setcurrentcoursename(course);
-         const tempGrades = this.props.thistermgrades.filter(grade => {
-            return grade.course === course && grade.gradeNum > 0;
-        });
-        const tempDeliverables = this.props.currenttermdeliverables.filter(deliverable => {
-            return deliverable.course === course;
-        });
-        this.setState({
-            gradeCount:tempGrades.length,
-            deliverableCount:tempDeliverables.length
-        });
-        this.props.setcoursedeletemodal(true);
-    }
-
     handleChange(field, e) {
-
-        this.props.setCourseIsChanged(false);
+        //this.props.setCourseIsChanged(false);
         let fields = this.state.fields;
         fields[field] = e.target.value;
         this.setState({
@@ -51,11 +33,48 @@ export default class Course extends React.Component {
         
     }
 
+
+    prepDelete() {
+         // find out if there are grades for the selected course
+         let course = this.courseName.value;
+         this.props.setcurrentcoursename(course);
+
+         if (this.props.thistermgrades !== 0 ) {
+            const tempGrades = this.props.thistermgrades.filter(grade => {
+                return grade.course === course && grade.gradeNum > 0;
+            });
+            this.setState({
+                gradeCount:tempGrades.length
+            })
+
+         }
+         
+        if(this.props.thistermdeliverables.length !== 0) {
+            const tempDeliverables = this.props.thistermdeliverables.filter(deliverable => {
+                return deliverable.course === course;
+            });
+            this.setState({
+                 deliverableCount:tempDeliverables.length
+             });
+        }
+        
+        this.props.setcoursedeletemodal(true);
+
+    }
+
+    
+
     updateSubmit(e) {
-        console.log('this.props.courseIsChanged', this.props.courseIsChanged);
         e.preventDefault();
+        this.setState({
+            courseUpdatingId:this.props.id
+        }, () => {
+            //console.log("this.state.courseUpdatingId", this.state.courseUpdatingId);
+        });
+
         let course;
         let courseDesc;
+
         if(this.state.fields["newCourseName"]) {
             course=this.state.fields["newCourseName"];
         } else {
@@ -74,6 +93,7 @@ export default class Course extends React.Component {
             newCourseName:course,
             newCourseDesc:courseDesc
         };
+
         this.props.submitupdatecourse(updateCourse);
         this.props.setCourseIsChanged(true);
         this.setState({
@@ -87,11 +107,10 @@ export default class Course extends React.Component {
     render () {
         return (
             <div>
-                
                 <form onSubmit={this.updateSubmit.bind(this)}>
-                    <div className="course-container-blue tenpx-bottom-margin">
-                        {(this.props.courseIsChanged) ? (
-                            <div className="error-msg">Your course has been updated.</div>
+                    <div className="course-container-blue tenpx-margin">
+                        {(this.props.id === this.state.courseUpdatingId) ? (
+                            <div className="message-style">Your course has been updated.</div>
                             ):(
                                ""
                             )}

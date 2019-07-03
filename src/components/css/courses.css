@@ -1,46 +1,46 @@
-
-.profile-header {
-    margin-top: 150px;
-}
-
-.profile-nav {
-    display:flex;
-    flex-direction: row;
-    padding: 1% 0;
-    background-color: #aaa;
-   
-}
-
-.term-menu {
-    margin: 0 auto;
-}
-
-.course-section {
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
-}
-
-
-
-.profile-row {
-    display:flex;
-    flex-direction: row;
-    flex-wrap:wrap;
-    justify-content: center;
-    list-style-type: none;
-  }
-
-
-.profile-list {
-    list-style-type: square;
-}
-
-
 /*==========  Mobile First Method  ==========*/
 
     /* Custom, iPhone Retina */ 
     @media only screen and (min-width : 320px) {
+
+        .tenpx-margin {
+            margin: 10px;
+        }
+        .profile-header {
+            margin-top: 150px;
+        }
+
+        .profile-nav {
+            display:flex;
+            flex-direction: row;
+            padding: 1% 0;
+            background-color: #aaa;
+        
+        }
+
+        .term-menu {
+            margin: 0 auto;
+        }
+
+        .course-section {
+            display: flex;
+            flex-direction: column;
+            margin: 0 auto;
+        }
+
+        .profile-row {
+            display:flex;
+            flex-direction: row;
+            flex-wrap:wrap;
+            justify-content: center;
+            list-style-type: none;
+        }
+
+
+        .profile-list {
+            list-style-type: square;
+        }
+
         .courses-container {
             width: 90%;
             margin: 160px auto;
@@ -90,24 +90,7 @@
         .courseDesc{
             width: 85%;
         }
-/*
-        .add-course-div {
-            width: 75%;
-            border: 1px solid #6093b2;
-            border-radius: 3px;
-            font-size: 14px;
-            font-family: 'Imprima', sans-serif;
-            font-family: var(--body-font-family);
-            padding: 10px 10px 10px 10px;
-            margin: 12px 5px;
-            text-decoration: none;
-            display: inline-block;
-            text-shadow: -1px -1px 0 rgba(0,0,0,0.3);
-            color: #F7F9FB;
-            background-color: #77b3d0;
-            background-image: linear-gradient(to bottom, #77b3d0, #31708E);
-        }
-*/
+
         .add-course-form {
             width: 75%;
             margin:15px auto;

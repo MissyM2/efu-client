@@ -38,7 +38,7 @@
 }
 
 .homepage-tagline {
-    padding: 10px 50px;
+    padding: 0px 50px;
     text-align: center;
     font-family: var(--body-font-family);
 }
@@ -49,7 +49,7 @@
 }
 
 .input-unit input {
-    font-size: 14px;
+    font-size: 20px;
     padding: 5px;
 }
 
@@ -86,14 +86,12 @@
     @media only screen and (min-width : 320px) {
 
         .login-reg-container {
-            width: 75%;
+            width: 90%;
             padding: 10px;
             z-index: 200;
             background-color: var(--off-white-color);
             position: relative;
-            padding: 20px;
-            margin-top: 30px;
-            margin-bottom: 50px;
+            padding: 15px;
             text-align: center;
             margin: 0 auto;
             -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
@@ -131,7 +129,7 @@
         }
 
         .title-div {
-            margin-top: 75px;
+            margin-top: 65px;
         }
 
         .test-user-unit {
@@ -154,18 +152,14 @@
         .input-unit{
             display:flex;
             width: 100%;
-            margin-bottom: 5px;
         }
+
         .input-unit {
             flex-direction:column;
         }
 
         .input-label-unit {
             display:none;
-        }
-
-        .input-unit input {
-            width: 100%;
         }
 
         .homepage-content {
@@ -176,19 +170,21 @@
         }
 
         .homepage-welcome {
-            padding-left: 100px;
+            padding-left: 120px;
             font-size: 18px;
             font-style: oblique;
+            padding-top:15px;
         }
         
         .homepage-title {
-            padding-left: 135px;
+            padding-left: 145px;
             font-size: 24px;
             font-weight: bold;
+            padding-bottom:15px
         }
 
         .logo-image {
-            height: 125px;
+            height: 150px;
         }
 
         .title-container {
@@ -209,7 +205,9 @@
 
     /* Extra Small Devices, Phones */ 
     @media only screen and (min-width : 480px) {
-        
+       .test-user-unit {
+           width: 75%;
+       }
     }
 
 
@@ -322,7 +320,8 @@
         }
 
         .test-user-unit {
-            width: 100%;
+            width: 50%;
+            margin-top: 15px;
         }
 
        

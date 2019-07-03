@@ -62,8 +62,12 @@ class App extends React.Component {
             selectingterm:false,
             selectingweek:false,
             showNavButtons:true,
-            setcoursedeletemodal: false,
-            setdeliverabledeletemodal: false,
+            showcoursedeletemodal: false,
+            dashboardFlag:false,
+            weeksFlag:false,
+            reviewWeekFlag:false,
+            coursesFlag:false,
+            deliverablesFlag:false,
             SpringFall:16,
             SummerLong:8,
             SummerShort:4,
@@ -107,9 +111,9 @@ class App extends React.Component {
         this.setdeliverableischanged=this.setdeliverableischanged.bind(this);
         this.setcoursedeletemodal=this.setcoursedeletemodal.bind(this);
         this.setdeliverabletobedeleted=this.setdeliverabletobedeleted.bind(this);
-        this.setdeliverabledeletemodal=this.setdeliverabledeletemodal.bind(this);
         this.setdeliverableadded=this.setdeliverableadded.bind(this);
         this.setcourseanddeliverableflags=this.setcourseanddeliverableflags.bind(this);
+        this.setPageFlags=this.setPageFlags.bind(this);
 
         // for event handlers
         this.rightdrawertoggleclickhandler=this.rightdrawertoggleclickhandler.bind(this);
@@ -146,7 +150,7 @@ class App extends React.Component {
         this.getcurrentgrades=this.getcurrentgrades.bind(this);
         this.generategradesforcourse=this.generategradesforcourse.bind(this);
         this.submitupdategrade=this.submitupdategrade.bind(this);
-        this.submitdeletegrades=this.submitdeletegrades.bind(this);
+        this.submitdeletecoursegrades=this.submitdeletecoursegrades.bind(this);
 
         // for deliverables AJAX functions
         this.getthistermdeliverables=this.getthistermdeliverables.bind(this);
@@ -190,11 +194,7 @@ class App extends React.Component {
 
         //get today
         var now = new Date();
-        let thisday=new Date(now.getFullYear(), now.getMonth(), now.getDate());
-        //console.log(thisday);
-
         let newDate = new Date();
-        //console.log('newDate', newDate);
         let newDay = newDate.getDate();
         let newMonth = newDate.getMonth() + 1;
         let newYear = newDate.getFullYear();
@@ -202,21 +202,12 @@ class App extends React.Component {
         this.setState({
             currentdate: todayDate
         });
-
-
-/*
-        this.setState({
-            currentdate: thisday
-        }, () => {
-            console.log('this.state.currentdate', this.state.currentdate);
-        });
-        */
+        
         let today=new Date(now.getFullYear(), now.getMonth(), now.getDate());
         let todayDayName=days[now.getDay()];
         let todayDay = today.getDate();
         let todayMonth = today.getMonth() + 1;
         let todayMonthName = monthShortNames[todayMonth];
-        //let todayYear = today.getFullYear();
         let todayFormatted =`${todayDayName}, ${todayMonthName} ${todayDay}`;
         let pToday = Date.parse(today);
         this.setState({
@@ -380,6 +371,79 @@ class App extends React.Component {
             });
     }
 
+    setPageFlags(page) {
+        switch(page) {
+            case "Dashboard":
+                    this.setState({
+                        dashboardFlag:true,
+                        weeksFlag:false,
+                        reviewWeekFlag:false,
+                        coursesFlag:false,
+                        deliverablesFlag:false
+                    }, () => {
+                        //console.log('this.state.dashboardFlag', this.state.dashboardFlag);
+                    });
+              break;
+            case "Weeks":
+                this.setState({
+                    dashboardFlag:false,
+                    weeksFlag:true,
+                    reviewWeekFlag:false,
+                    coursesFlag:false,
+                    deliverablesFlag:false
+                }, () => {
+                    //console.log('this.state.weeksFlag', this.state.weeksFlag);
+                });
+              break;
+            case "ReviewWeek":
+                this.setState({
+                    dashboardFlag:false,
+                    weeksFlag:false,
+                    reviewWeekFlag:true,
+                    coursesFlag:false,
+                    deliverablesFlag:false
+                }, () => {
+                    //console.log('this.state.reviewWeekFlag', this.state.reviewWeekFlag);
+                });
+              break;
+            case "Courses":
+                this.setState({
+                    dashboardFlag:false,
+                    weeksFlag:false,
+                    reviewWeekFlag:false,
+                    coursesFlag:true,
+                    deliverablesFlag:false,
+                }, () => {
+                    //console.log('this.state.coursesFlag', this.state.coursesFlag);
+                });
+              break;
+            case "Deliverables":
+                this.setState({
+                    dashboardFlag:false,
+                    weeksFlag:false,
+                    reviewWeekFlag:false,
+                    coursesFlag:false,
+                    deliverablesFlag:true
+                }, () => {
+                    console.log('this.state.deliverablesFlag', this.state.deliverablesFlag);
+                });
+              break;
+           
+            default:
+                    this.setState({
+                        dashboardFlag:false,
+                        weeksFlag:false,
+                        reviewWeekFlag:false,
+                        coursesFlag:false,
+                        deliverablesFlag:false
+                    }, () => {
+                        console.log('this.state.dashboardFlag', this.state);
+                    });
+
+                           
+          }
+    }
+
     setcoursedeletemodal(bool) {
         //console.log('made it to the setcoursedeletemodal');
         this.setState({
@@ -395,6 +459,7 @@ class App extends React.Component {
         });
     }
     setdeliverabletobedeleted(deliverable) {
+        console.log('inside setdeliverabletobedeleted', deliverable);
         this.setState({
             deliverabletobedeleted:{
                 termDesc: deliverable.termDesc,
@@ -407,17 +472,10 @@ class App extends React.Component {
             }
           },() => {
               console.log('this.state.deliverabletobedeleted should be set properly', this.state.deliverabletobedeleted);
-              this.setdeliverabledeletemodal(true);
           });
     }
-    setdeliverabledeletemodal(bool) {
-        console.log('made it to the setdeliverabledeletemodal');
-        this.setState({
-          showDeliverableDeleteModal:bool
-        },() => {
-            console.log('this.state.showDeliverableDeleteModal should be set properly', this.state.showDeliverableDeleteModal);
-        });
-    }
+
+   
 
     setcurrentweek = (week) => {
         this.setState(
@@ -481,33 +539,25 @@ class App extends React.Component {
         this.getcurrentsuggestion();
 
         //create promise for getting the courses
-        let coursesPromise = new Promise((resolve, reject) => {
+        new Promise((resolve, reject) => {
             this.getthistermcourses(resolve, reject);
             })
             .then(res => {
-                //console.log('getcurrenttermdetails:  did I get thistermcourses', this.state.thistermcourses);
-
                 return this.getthistermweeks();
             })
             .then(res => {
-                //console.log('getcurrenttermdetails:  did I get thistermweeks', this.state.thistermweeks);
-
                 return this.getcurrentgrades();
             })
             .then(res => {
-                //console.log('getcurrenttermdetails:  did I get currentgrades', this.state.currentgrades);
                 return this.getthistermdeliverables(); 
             })
             .then(res => {
-                //console.log('getcurrenttermdetails:  did I get currentdeliverables', this.state.currentdeliverables);
                 return this.setcurrentweek(1);
             })
             .then(res => {
-                //console.log('getcurrenttermdetails:  did I get currentweek', this.state.currentweek);
                 return this.getthisweekdetails();
             })
             .then(res => {
-                //console.log('getcurrenttermdetails:  did I get currentgrades', this.state.currentgrades);
                 return console.log('getcurrentterms routine is complete');
             })
             .catch(err => {
@@ -537,7 +587,6 @@ class App extends React.Component {
             const thisweek = this.state.thistermweeks.filter(week => {
                 return week.weekNum ===this.state.currentweek;
             });
-            //console.log('thisweek is ', thisweek);
 
             const thisweekgrades = grades.filter(grade => {
                     return grade.term === this.state.currentterm && grade.week === this.state.currentweek;
@@ -611,14 +660,12 @@ class App extends React.Component {
     }
 
     rightdrawertoggleclickhandler = () => {
-        console.log('made it rightdrawertoggleclickhandler');
             this.setState((prevState) => {
                 return {rightSideDrawerOpen: !prevState.rightSideDrawerOpen}
             });
     }
 
     rightbackdropclickhandler = () => {
-        console.log('made it rightbackdropclickhandler');
         this.setState({
             rightSideDrawerOpen: false
         });
@@ -726,8 +773,6 @@ class App extends React.Component {
     }
 
     getcurrentgrades() {
-        //console.log('made it to getcurrentgrades');
-        //console.log('this.state.currentweek', this.state.currentweek);
         fetch(`${API_BASE_URL}/grades`, {
             method: 'GET',
             headers: {
@@ -755,7 +800,7 @@ class App extends React.Component {
                 }); 
         })
         .catch((err) => {
-            console.log(err);
+            console.log('there are no grades', err);
         });
     }
 
@@ -777,6 +822,7 @@ class App extends React.Component {
         })
         .then(responseJSON => {
             // get deliverables for the term
+            console.log('getthistermdeliverables: responseJSON', responseJSON);
                     const temptermdeliverables = responseJSON.filter(deliverable => {
                         return deliverable.termDesc === this.state.currentterm;
                     });
@@ -1086,34 +1132,88 @@ class App extends React.Component {
 
     /******************************************
      *      DELETE FUNCTIONS
-     *      (user deleted course, auto deleted grades)
-     *      (user deleted week)
+     *      
      *******************************************/
 
     deletecoursedetails = () => {
-        //console.log('made it to deletecoursedetails');
-        //console.log('selected course is', this.state.currentcoursename);
-        this.setcoursedeletemodal(false)
-        let gradesPromise = new Promise((resolve, reject) => {
-            console.log('deleting grades for course first');
-            this.submitdeletegrades(resolve, reject);
-        });
+        this.setcoursedeletemodal(false);
+        if (this.state.thistermdeliverables.length !== 0) {
+                this.submitdeletedeliverables();
+        }
 
-        let deliverablesPromise = new Promise((resolve, reject) => {
-             console.log('deleting deliverables for course second');
-             this.submitdeletedeliverables(resolve, reject);
-         })
-
-        let coursePromise = new Promise((resolve, reject) => {
-            //console.log('deleting course');
-            this.submitdeletecourse(resolve, reject);
-        })
-        this.getcurrenttermdetails();
-
+        if (this.state.thistermgrades.length !== 0) {
+            this.submitdeletecoursegrades();
+        }
+       
+        this.submitdeletecourse();
     }
 
-    submitdeletecourse = (resolve, reject)  => {
-        // console.log('made it to submitdeletecourse');
+    submitdeletedeliverables = () => {
+        const coursedeliverablesForDeletion = {
+            termDesc: this.state.currentterm,
+            courseName: this.state.currentcoursename
+        }
+       
+        fetch(`${API_BASE_URL}/deliverables`, {
+                method: 'DELETE',
+                headers: {
+                    Authorization: `Bearer ${this.state.authToken}`,
+                    'Content-Type': 'application/json'},
+                body: JSON.stringify(coursedeliverablesForDeletion)
+            })
+            .then(response => {
+                console.log('deletedeliverables response', response);
+                if(response.ok) {
+                        return response.json()
+                }
+                throw new Error(response.text)
+            })
+            .then(responseJSON => {
+               console.log('responseJSON after deleting deliverables', responseJSON);
+                this.setState({
+                   thiscoursedeliverables: [],
+                }, () => {
+                    console.log('finished deleting course deliverables');
+                });
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+
+    submitdeletecoursegrades = () => {
+        const coursegradesForDeletion = {
+            termDesc: this.state.currentterm,
+            courseName: this.state.currentcoursename
+        }
+       
+        fetch(`${API_BASE_URL}/grades`, {
+                method: 'DELETE',
+                headers: {
+                    Authorization: `Bearer ${this.state.authToken}`,
+                    'Content-Type': 'application/json'},
+                body: JSON.stringify(coursegradesForDeletion)
+            })
+            .then(response => {
+                if(response.ok) {
+                        return response.json()
+                }
+                throw new Error(response.text)
+            })
+            .then(responseJSON => {
+                this.setState({
+                    currentgrades: [],
+                }, () => {
+                    console.log('deleted grades');
+                });
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+
+
+    submitdeletecourse = ()  => {
          const courseForDeletion = {
              termDesc: this.state.currentterm,
              courseName: this.state.currentcoursename
@@ -1127,7 +1227,6 @@ class App extends React.Component {
                  body: JSON.stringify(courseForDeletion)
              })
              .then(response => {
-                 //console.log('deletecourse response', response);
                  if(response.ok) {
                          return response.json()
                  }
@@ -1141,130 +1240,51 @@ class App extends React.Component {
                      thistermcourses: tempcourses,
                      courseDeleted: true
                  }, () => {
-                     resolve({message: 'finished coursePromise'})
+                     console.log('finished deleting course');
                  });
              })
              .catch((err) => {
                  console.log(err);
-                 reject();
              });
              
      }
 
-     submitdeletedeliverable = (selectedDel)  => {
-         console.log('made it to submitdeletedeliverable, selectedDel',  selectedDel);
-        
+     submitdeletedeliverable = (deliverable)  => {
         fetch(`${API_BASE_URL}/deliverables`, {
                  method: 'DELETE',
                  headers: {
                      Authorization: `Bearer ${this.state.authToken}`,
                      'Content-Type': 'application/json'},
-                 body: JSON.stringify(selectedDel)
+                 body: JSON.stringify(deliverable)
              })
              .then(response => {
-                 console.log('deletedeliverable response', response);
                  if(response.ok) {
                          return response.json()
                  }
                  throw new Error(response.text)
              })
              .then(responseJSON => {
+                 this.setState({
+                     delDeleted:true
+                 });
+
                  const tempdeliverables = responseJSON.filter(deliverable => {
                          return deliverable.termDesc === this.state.currentterm;
                  });
                  this.setState({
-                     currentdeliverables: tempdeliverables,
-                     delDeleted: true
+                     currentdeliverables: tempdeliverables
                  }, () => {
-                     console.log('deleted deliverable.  Now, getting currentdeliverables');
                      this.getthistermdeliverables();
                  });
              })
              .catch((err) => {
                  console.log(err);
-             });
-             
+             });  
      }
 
-    submitdeletegrades = (resolve, reject) => {
-        
-       // console.log('made it to submitdeletegrades');
+    
 
-        const coursegradesForDeletion = {
-            termDesc: this.state.currentterm,
-            courseName: this.state.currentcoursename
-        }
-       
-        //console.log('coursegradesForDeletion is', coursegradesForDeletion);
-    // delete all grades for the selected course
-       
-        fetch(`${API_BASE_URL}/grades`, {
-                method: 'DELETE',
-                headers: {
-                    Authorization: `Bearer ${this.state.authToken}`,
-                    'Content-Type': 'application/json'},
-                body: JSON.stringify(coursegradesForDeletion)
-            })
-            .then(response => {
-                //console.log('deletegrades response', response);
-                if(response.ok) {
-                        return response.json()
-                }
-                throw new Error(response.text)
-            })
-            .then(responseJSON => {
-               //console.log('responseJSON after deleting grades', responseJSON);
-                this.setState({
-                    currentgrades: [],
-                }, () => {
-                    resolve({message: 'finished gradesPromise'})
-                });
-            })
-            .catch((err) => {
-                console.log(err);
-                reject();
-            });
-    }
-
-    submitdeletedeliverables = (resolve, reject) => {
-        
-         console.log('made it to submitdeletedeliverables');
- 
-         const coursedeliverablesForDeletion = {
-             termDesc: this.state.currentterm,
-             courseName: this.state.currentcoursename
-         }
-        
-         console.log('coursedeliverablesForDeletion is', coursedeliverablesForDeletion);
-     // delete all grades for the selected course
-        
-         fetch(`${API_BASE_URL}/deliverables`, {
-                 method: 'DELETE',
-                 headers: {
-                     Authorization: `Bearer ${this.state.authToken}`,
-                     'Content-Type': 'application/json'},
-                 body: JSON.stringify(coursedeliverablesForDeletion)
-             })
-             .then(response => {
-                 console.log('deletedeliverables response', response);
-                 if(response.ok) {
-                         return response.json()
-                 }
-                 throw new Error(response.text)
-             })
-             .then(responseJSON => {
-                console.log('responseJSON after deleting deliverables', responseJSON);
-                 this.setState({
-                    thiscoursedeliverables: [],
-                 }, () => {
-                     resolve({message: 'finished deliverablesPromise'})
-                 });
-             })
-             .catch((err) => {
-                 console.log(err);
-                 reject();
-             });
-     }
+    
 
     submitdeleteweek = (selectedweek) => {
         //console.log('made it to delete Week selectedweek ', selectedweek)
@@ -1415,7 +1435,7 @@ class App extends React.Component {
     }
 
     submitupdatedeliverable = (updateddeliverable) => {
-        console.log('submitupdatedeliverable:updatedeliverable!', updateddeliverable);
+        console.log('made it to submitupdatedeliverable', updateddeliverable);
         fetch(`${API_BASE_URL}/deliverables`, {
             method: 'PUT',
             headers: {
@@ -1425,15 +1445,16 @@ class App extends React.Component {
             body: JSON.stringify(updateddeliverable)
         })
         .then(response => {
-            console.log('submitupdatedeliverable: response', response);
+            console.log('response is ', response);
             if(response.ok) {
                     return response.json()
             }
             throw new Error(response.text)
         })
         .then(responseJSON =>  {
-            console.log('responseJSON, about to get term details!', responseJSON);
-            this.getcurrenttermdetails();          
+            console.log('responseJSON', responseJSON);
+            this.setdeliverableischanged(true);
+            return this.getthistermdeliverables();          
         })
         .then(response => {
             if(response.ok){
@@ -1474,6 +1495,7 @@ class App extends React.Component {
                                                         />} /> 
                         <Route exact path="/dashboard" render={() => <Dashboard {...this.state}
                                                         setloadingflag={(bool) => this.setloadingflag(bool)}
+                                                        setPageFlags={(page) => this.setPageFlags(page)}
                                                         setcurrentterm = {(term) => this.setcurrentterm(term)}
                                                         setcurrentweek = {(week) => this.setcurrentweek(week)}
                                                         setdeliverableischanged = {(bool) => this.setdeliverableischanged(bool)}
@@ -1500,6 +1522,7 @@ class App extends React.Component {
                         
                         <Route exact path="/weeks" render={() => <Weeks {...this.state}
                                                         setloadingflag={(bool) => this.setloadingflag(bool)}
+                                                        setPageFlags={(page) => this.setPageFlags(page)}
                                                         setcurrentterm = {(term) => this.setcurrentterm(term)}
                                                         getcurrenttermdetails={(selectedterm) => this.getcurrenttermdetails(selectedterm)}
                                                         getthistermweeks = {() => this.getthistermweeks()}
@@ -1512,6 +1535,7 @@ class App extends React.Component {
                                                         />} /> 
                         <Route exact path="/courses" render={() => <Courses {...this.state}
                                                         setloadingflag={(bool) => this.setloadingflag(bool)}
+                                                        setPageFlags={(page) => this.setPageFlags(page)}
                                                         setcurrentterm = {(term) => this.setcurrentterm(term)}
                                                         getcurrenttermdetails={(selectedterm) => this.getcurrenttermdetails(selectedterm)}
                                                         setcourseanddeliverableflags={() => this.setcourseanddeliverableflags()}
@@ -1532,6 +1556,7 @@ class App extends React.Component {
                                                         />} /> 
                         <Route exact path="/deliverables" render={() => <Deliverables {...this.state}
                                                         setloadingflag={(bool) => this.setloadingflag(bool)}
+                                                        setPageFlags={(page) => this.setPageFlags(page)}
                                                         setcourseanddeliverableflags={() => this.setcourseanddeliverableflags()}
                                                         setcurrentterm = {(term) => this.setcurrentterm(term)}
                                                         setcurrentcoursename = {(course) => this.setcurrentcoursename(course)}
@@ -1548,6 +1573,7 @@ class App extends React.Component {
                                                         />} /> 
                         <Route exact path="/review-current-week" render={() => <ReviewCurrentWeek {...this.state}
                                                         setloadingflag={(bool) => this.setloadingflag(bool)}
+                                                        setPageFlags={(page) => this.setPageFlags(page)}
                                                         setcurrentterm = {(term) => this.setcurrentterm(term)}
                                                         setcurrentweek={(week) => this.setcurrentweek(week)}
                                                         submitupdateweek={(updatedweek) => this.submitupdateweek(updatedweek)}

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import DrawerToggleButton from './drawer-toggle-button';
+import Suggestion from './suggestion';
 
 import './css/navbar.css';
 import { Link } from 'react-router-dom';
@@ -11,6 +12,7 @@ export default class NavBar extends React.Component {
         this.state = {
                 termSelected:''
         }
+        this.setSelectedTerm = this.setSelectedTerm.bind(this);
         this.setSelectedTerm = this.setSelectedTerm.bind(this);
 }
 
@@ -32,6 +34,22 @@ export default class NavBar extends React.Component {
 
     render(){
 
+
+        let weeksLinkClasses;
+        if(this.props.weeksFlag) {
+            weeksLinkClasses = "green-navbar-btn btn-onefifty fivepx-margin weeks-showing" ;
+        } else {
+            weeksLinkClasses = "green-navbar-btn btn-onefifty fivepx-margin" ;
+        }
+
+        let reviewweekLinkClasses;
+        if(this.props.reviewWeekFlag) {
+            reviewweekLinkClasses = "green-navbar-btn btn-onefifty fivepx-margin reviewweek-showing" ;
+        } else {
+            reviewweekLinkClasses = "green-navbar-btn btn-onefifty fivepx-margin"; 
+        }
+
+
         let availabletermsclasses = 'available-terms-unit navbar-positioning';
         const allterms = this.props.terms.map((term, index) => {
             return (
@@ -48,7 +66,7 @@ export default class NavBar extends React.Component {
         return (
             <header className="navbar">
             <nav className="navbar_navigation" role="navigation" aria-label="navbar_navigation">
-                <div className="navbar-positioning">
+                <div className="logo-navbar-positioning">
                         <div className="navbar-item navbar_logo ">
                                 <Link className="logo-group link logo" to="/dashboard">
                                     <div className="logo-nav">
@@ -60,16 +78,19 @@ export default class NavBar extends React.Component {
                                         
                                 </Link>
                         </div>
+                        <div className="navbar-positioning spacer" />
+                        <Suggestion {...this.props} />
                 </div>
-                <div className="navbar-positioning spacer" />
+                
                 <div className="navbar-positioning">
                     {this.props.loggedIn === true ? (
                         <div className="navbar_navigation-items terms">
                             <ul className="nav-ul">
                                 <li className="navbar-item term-unit">
                                     <div className={availabletermsclasses}>
-                                        <div className="hundredpercent-width">
+                                        <div className="hundredpercent-width fivepx-margin">
                                                 <select
+                                                    className="hundredpercent-width"
                                                     defaultValue="DEFAULT" 
                                                     onChange={this.setSelectedTerm}
                                                 >
@@ -83,7 +104,7 @@ export default class NavBar extends React.Component {
                                 <li className="navbar-item review-unit">
                                     <div className="navbar-cell review-link">
                                         <Link 
-                                            className="green-btn btn-onefifty fivepx-margin" 
+                                            className={reviewweekLinkClasses}
                                             to={{
                                                 pathname: '/review-current-week'
                                                 }
@@ -94,7 +115,7 @@ export default class NavBar extends React.Component {
                                     </div>
                                     <div className="navbar-cell weeks-link">
                                         <Link 
-                                            className="green-btn btn-onefifty fivepx-margin" 
+                                            className={weeksLinkClasses}
                                             to={{
                                                 pathname: '/weeks'
                                                 }

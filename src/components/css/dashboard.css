@@ -1,164 +1,65 @@
-.dashboard-container {
-    height: 100%;
-}
-
-.dashboard-content {
-    width: 100%;
-    border:1px solid #7f8f79; 
-    -webkit-border-radius: 3px; 
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-    font-size:14px;
-    font-family:var( --body-font-family); 
-    padding: 10px 10px 10px 10px; 
-    text-decoration:none; 
-    display:inline-block;
-    font-weight:bold; 
-    color: var(--darker-blue-color);
-    background-color: #9ca998; 
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#9ca998), to(#C0C8BD));
-    background-image: -webkit-linear-gradient(top, #9ca998, #C0C8BD);
-    background-image: -moz-linear-gradient(top, #9ca998, #C0C8BD);
-    background-image: -ms-linear-gradient(top, #9ca998, #C0C8BD);
-    background-image: -o-linear-gradient(top, #9ca998, #C0C8BD);
-    background-image: linear-gradient(to bottom, #9ca998, #C0C8BD);
-    filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#9ca998, endColorstr=#C0C8BD);
-}
-
-
-
-
-.row-deliverable,
-.row-week-list-labels,
-.row-section{
-    display:flex;
-    flex-direction: row;
-    list-style-type: none;
-  }
-
-.row-deliverable,
-.row-week-list-labels {
-    width: 100%;
-}
-
-.row-week-list-labels {
-    font-size: 14px;
-    border-radius: 3px;
-}
-
-.skills-suggestion {
-    color: var( --pale-green-accent-color);
-    font-size:18px;
-    font-weight: bold;
-    width: 75%;
-    position: relative;
-	padding: 10px;
-	margin: 8px auto;
-    background-color: var(--off-white-color);
-	-webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
-	-moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
-	box-shadow: 0 0 5px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
-  }
-
-
-
-.row-deliverable {
-    margin-top:4px;
-    border: 2px solid var(--light-gray-color);
-    border-radius: 3px;
-}
-
-
-.deliverable-label {
-    font-family: var(--body-font-family);
-    color: var( --darker-blue-color);
-    background-color: var(--off-white-color);
-    font-weight: bold;
-    font-size: 16px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-
-
-
-
-
-
-.column-item {
-    width: 100%;
-}
-
-
-
 /*==========  Mobile First Method  ==========*/
 
     /* Custom, iPhone Retina */ 
     @media only screen and (min-width : 320px) {
-        .dashboard-container {
-            width: 90%;
-            margin: 190px auto;
-            padding: 20px;
-            text-align: center;
-        }
 
-        .deliverables-container {
-            margin-bottom: 8px;
-            font-size:18px;
-            font-weight: bold;
+        .row-week-list-labels {
+            display:flex;
+            flex-direction: row;
+            list-style-type: none;
             width: 100%;
-            position: relative;
-            padding: 5px;
-            margin: 25px auto;
-            background-color: var(--off-white-color);
-            -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
-            -moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
+            font-size: 14px;
+            border-radius: 3px;
         }
 
-        
-
-        .row-deliverable {
-            flex-direction: column;
+        .row-week-list-labels {
+            display: none;
         }
 
-        .column-item {
-            width: 50%;
+        .whats-due {
+            position:relative;
+            font-family: var(--header-font-family);
+            color: var(--navy-color);
+            font-weight: bold;
+            font-size: 20px;
+            text-align:center;
+            margin-bottom: 12px;
+        }
+
+        .deliverable-container-green {
+            position:relative;
+            width: 100%;
+            border:1px solid #7f8f79; 
+            text-decoration:none; 
+            display:inline-block;
+            color: var(--darker-blue-color);
+            border:1px solid #768871; -webkit-border-radius: 3px; 
+            -moz-border-radius: 3px;
+            border-radius:3px;
+            font-size:14px;
+            font-family:var(--body-font-family); 
+            padding: 10px 10px 10px 10px; 
+            color: #FFFFFF;
+            background-color: #93A28F; background-image: -webkit-gradient(linear, left top, left bottom, from(#93A28F), to(#687864));
+            background-image: -webkit-linear-gradient(top, #93A28F, #687864);
+            background-image: -moz-linear-gradient(top, #93A28F, #687864);
+            background-image: -ms-linear-gradient(top, #93A28F, #687864);
+            background-image: -o-linear-gradient(top, #93A28F, #687864);
+            background-image: linear-gradient(to bottom, #93A28F, #687864);
+            filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#93A28F, endColorstr=#687864);
         }
 
         .week {
             margin-bottom: 10px;
         }
 
-        .dueDate {
-            font-weight: bold;
-            color: var(--off-white-color);
-            background-color: var(--mossy-green-color);
-        }
-    
-        .row-week-list-labels {
-            display: none;
-        }
-
-        .column-item {
-            width: 50%;
-        }
-
-        .instructions-small {
-            display:none;
-        }
-/*
-        .dropdown.week {
-            width: 50%;
-            margin-bottom: 10px;
-        }
-*/
         .dels-label {
             font-size:18px;
-          }
+        }
     
         .dels-date {
-        font-size: 16px;
-        margin: 4px auto;
+            font-size: 16px;
+            margin: 4px auto;
         }
 
         .dels-header {
@@ -168,9 +69,15 @@
         .dels-subhead{
             display:flex;
             flex-direction:row;
-          }
+        }
 
-        
+        .message-subtext {
+            color:var(--navy-color);
+            font-size: 18px;
+            text-align:left;
+            padding-left: 25px;
+        }
+
 
     }
 
@@ -182,28 +89,6 @@
 
     /* Small Devices, Tablets */
     @media only screen and (min-width : 768px) {
-        .dashboard-container {
-            width: 90%;
-            top: 60px;
-        }
-
-        .deliverables-container {
-            margin-bottom: 8px;
-            font-size:18px;
-            font-weight: bold;
-            width: 100%;
-            padding: 20px;
-            position: relative;
-            margin: 25px auto;
-                    }
-
-        .row-deliverable {
-            flex-direction: row;
-        }
-    
-        .column-item {
-            width: 50%;
-        }
         .dueDate {
             font-weight: bold;
             color: var(--off-white-color);
@@ -213,14 +98,6 @@
         .row-week-list-labels {
             display: none;
         }
-
-        .dashboard-no-data {
-            width: 40%;
-            padding: 10px;
-            margin: 0 auto;      
-        }
-        
-
     }
 
     /* Medium Devices, Desktops */

@@ -78,8 +78,8 @@ class LoginPage extends React.Component {
                     <div className="login-reg-content">
                             <div className="login-reg-unit">
                                 <form action="/" onSubmit={this.loginSubmit.bind(this)} >
-                                    <h3 className="heading">Login</h3>
-                                    <div className={this.props.error ? "error-msg" : ""}>{this.props.error}</div>
+                                    <h2 className="heading">Login</h2>
+                                    <div className={this.props.error ? "message-style" : ""}>{this.props.error}</div>
                                     <div className="input-row">
                                         <div className="input-unit">
                                                 <input
@@ -92,7 +92,7 @@ class LoginPage extends React.Component {
                                                     value={this.state.fields["username"]}
                                                     aria-label="username"
                                                 />
-                                                <div className="error-msg">{this.state.errors["username"]}</div>
+                                                <div className="message-style">{this.state.errors["username"]}</div>
                                         </div>
                                     </div>
                                     <div className="input-row">
@@ -108,16 +108,10 @@ class LoginPage extends React.Component {
                                                     value={this.state.fields["password"]}
                                                     aria-label="password"
                                                 />
-                                                <div className="error-msg">{this.state.errors["password"]}</div>
+                                                <div className="message-style">{this.state.errors["password"]}</div>
                                         </div>
                                     </div>
-                                    <div className="test-user-unit">
-                                        <div className="test-user-title">Test User:  </div>
-                                        <div className="test-user-info">
-                                            <div>username:  sarah@gmail.com</div>
-                                            <div>password:  sarah9515</div>
-                                        </div>
-                                    </div>
+                                    
                                     <div className="button-row">
                                         <button type="submit" className="green-btn btn-small fivepx-margin">Login</button>
                                     </div>
@@ -132,8 +126,16 @@ class LoginPage extends React.Component {
                                             </button>      
                                         </div>
                                     </div>
-                        </div>
+                            </div>
                     </div>
+                    <div className="test-user-unit">
+                                <div className="test-user-title">Test User:  </div>
+                                <div className="test-user-info">
+                                    <div>username:  sarah@gmail.com</div>
+                                    <div>password:  sarah9515</div>
+                                </div>
+                    </div>
+                    
                 </div>
                 
             ); 

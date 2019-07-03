@@ -1,18 +1,16 @@
-
 /*==========  Mobile First Method  ==========*/
 
     /* Custom, iPhone Retina */ 
     @media only screen and (min-width : 320px) {
-
         .deliverable-sub-section li {
             background-color:var(--off-white-color);
             color: var(--navy-color);
         }
-
+        
         .week-list-label {
             text-align:center;
         }
-        
+
         .deliverable-sub-section {
             display:flex;
             flex-direction:row;
@@ -28,33 +26,38 @@
             font-weight: bold;
         }
 
-        .sec-one,
-        .sec-two,
-        .sec-three{
+        .three-items-top,
+        .three-items-bottom{
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
             width: 100%;
             padding: 5px;
         }
 
-        .sec-one {
-            border-top:1px solid var(--off-white-color);
-            border-right:1px solid var(--off-white-color);
-            border-left:1px solid var(--off-white-color);
-            border-radius: 4px 4px 0px 0px
+        .three-items-bottom {
+            border-top: 1px solid var(--off-white-color);
+            margin-top: 5px;
         }
 
-        .sec-three {
-            border-right:1px solid var(--off-white-color);
-            border-left:1px solid var(--off-white-color);
+        .select-prephrs,
+        .select-impact,
+        .input-desc {
+            text-align:center;
+            margin:0 auto;
         }
 
-        .sec-two {
-            border-bottom:1px solid var(--off-white-color);
-            border-right:1px solid var(--off-white-color);
-            border-left:1px solid var(--off-white-color);
-            border-radius: 0px 0px 4px 4px
+        .select-prephrs {
+            width: 20%;
         }
+
+        .select-impact {
+            width: 30%;
+        }
+
+        .input-desc {
+            width: 48%;
+        }
+
         .deliverable-field {
             font-family: var(--body-font-family);
             padding: 3px;
@@ -65,16 +68,13 @@
             width: 96%;
         }
 
-        .course-name,
-        .dueDateFormatted {
-            color: var( --off-white-color);
-            font-size:20px;
-            font-weight:bold;
+        .del-read-only {
+            color: var( --navy-color);
+            font-size:16px;
 
         }
 
         .prephrs,
-        .deliverableName,
         .desc,
         .impact {
             color: var( --navy-color);
@@ -91,12 +91,20 @@
 
     /* Extra Small Devices, Phones */ 
     @media only screen and (min-width : 480px) {
+        .three-items-top {
+            display: flex;
+            flex-direction: row;
+        }
        
 
     }
 
     /* Small Devices, Tablets */
     @media only screen and (min-width : 768px) {
+        .three-items-bottom {
+            display: flex;
+            flex-direction: row;
+        }
         
 
     

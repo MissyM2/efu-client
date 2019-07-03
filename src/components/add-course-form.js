@@ -65,7 +65,7 @@ export default class AddCourseForm extends React.Component {
             <div className="add-course-form">
                     <form onSubmit={this.addformSubmit.bind(this)}>
                         <h2 className="heading">Add Your Course</h2>
-                        <div className={this.props.error ? "error-msg" : ""}>{this.props.error}</div>
+                        <div className={this.props.error ? "message-style" : ""}>{this.props.error}</div>
                         <div className="courseName-unit">
                                 <input
                                     className={this.state.errors["courseName"] ? "course-item field error": "course-item field"}
@@ -78,7 +78,7 @@ export default class AddCourseForm extends React.Component {
                                     value = {this.state.fields["courseName"]}
                                     aria-label="courseName"
                                 />
-                                <div className="error-msg">{this.state.errors["courseName"]}</div>
+                                <div className="message-style">{this.state.errors["courseName"]}</div>
                         </div>
                         <div className="courseDesc-unit">
 
@@ -96,7 +96,7 @@ export default class AddCourseForm extends React.Component {
                                     value = {this.state.fields["courseDesc"]}
                                     aria-label="CourseDesc"
                                 />
-                                <div className="error-msg">{this.state.errors["courseDesc"]}</div>
+                                <div className="message-style">{this.state.errors["courseDesc"]}</div>
                         </div>
                         <div className="action-btns">
                             <button type="submit" className="blue-btn btn-small fivepx-margin">Add </button>

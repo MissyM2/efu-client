@@ -24,6 +24,7 @@ export default class Courses extends React.Component {
 
     componentDidMount() {
         this.props.setcourseanddeliverableflags();
+        this.props.setPageFlags("Courses");
     }
 
     setCourseIsChanged = (bool) => {
@@ -34,7 +35,6 @@ export default class Courses extends React.Component {
     }
 
     cancelcoursedelete() {
-        console.log('inside cancelcoursedelete', this.props);
         this.props.setcoursedeletemodal(false);
     }
 
@@ -64,9 +64,8 @@ export default class Courses extends React.Component {
         }
 
         const mycourses = this.props.thistermcourses.map((course, index) => {
-           // console.log('courses: this.props', this.props);
             return (
-                <li className="" key={index}>
+                <li className="" key={index} id={course.id}>
                     <Course 
                         {...course} 
                         {...this.props} 
@@ -110,10 +109,13 @@ export default class Courses extends React.Component {
 
                 
                 <div className="content-sub-container">
+                    <header className="page-header">
                         <h2>My courses</h2>
                         <h3>Term:  {this.props.currentterm}</h3>
+                    </header>
+                        
                         <div>
-                            <div className="error-msg">{this.state.message}</div>
+                            <div className="message-style">{this.state.message}</div>
                             <AddCourseForm 
                                 type="course" 
                                 {...this.props} 

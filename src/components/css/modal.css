@@ -1,43 +1,44 @@
 
-.modal__header {
-    padding-top:10px;
-    padding-bottom: 10px;
-    background: var(  --med-blue-color);
-    color: var( --off-white-color);
-    font-size: 20px;
-}
-
-.modal__header h1 {
-    margin: 0;
-    font-size: 1.25rem;
-}
-
-.modal__content {
-    padding: 1rem;
-}
-
-
-
 /*==========  Mobile First Method  ==========*/
 
     /* Custom, iPhone Retina */ 
     @media only screen and (min-width : 320px) {
         .modal {
-            width: 75%;
+            width: 95%;
             background: var( --off-white-color);
             box-shadow:0 2px 8px rgba(0, 0, 0.26);
             position: fixed;
-            top: 40vh;
+            top: 38vh;
             z-index: 200;
-            left: 15%;
         }
 
-    
+        .modal__header {
+            padding-top:10px;
+            padding-bottom: 10px;
+            background: var(  --med-blue-color);
+            color: var( --off-white-color);
+            font-size: 24px;
+        }
+
+        .modal__header h1 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        .modal__content {
+            padding: 8px;
+        }
 
     }
 
     /* Extra Small Devices, Phones */ 
     @media only screen and (min-width : 480px) {
+        .modal {
+            width: 75%;
+            left:15%;
+            top: 43vh;
+        }
+            
        
     }
 
@@ -46,6 +47,7 @@
         .modal {
             width: 50%;
             left: 25%;
+            top: 30vh;
         }  
 
     }

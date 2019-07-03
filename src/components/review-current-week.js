@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { Link } from 'react-router-dom';
-
 import NavBar from "./navbar";
 import RightSideDrawer from './right-side-drawer';
 import Backdrop from './backdrop';
@@ -26,6 +24,10 @@ export default class ReviewCurrentWeek extends React.Component {
         this.setWeekIsUpdated = this.setWeekIsUpdated.bind(this);
         this.setGradeIsUpdated = this.setGradeIsUpdated.bind(this);
         this.handleUpdate = this.handleUpdate.bind(this);
+    }
+
+    componentDidMount() {
+        this.props.setPageFlags("ReviewWeek");
     }
 
 
@@ -58,7 +60,6 @@ export default class ReviewCurrentWeek extends React.Component {
         this.setState({
             [field]: e.target.value
           });
-          console.log('this field should be changing', this.state);
     }
 
     handleUpdate = (e) => {
@@ -136,17 +137,26 @@ export default class ReviewCurrentWeek extends React.Component {
                 </div>
                 {backdrop}
                 {(this.props.thistermweeks.length === 0) ? (
-                        <div className="dashboard-no-data">
-                                <div className="instructions-large">
-                                You have not set up your Profile, yet, for {this.props.currentterm}.  Either choose another term from the dropdown or
-                                select Profile, select your term and add your first class.  This will generate the appropriate number of weeks.
+                        <div className="modal">
+                        <header className="modal__header"> No Profile</header>
+                        <section className="modal__content">
+                                <h2>{this.props.currentterm}</h2>
+                                <div className="message">
+                                <div className="message-subtext">Your <em className="key-emphasis">Profile</em>, has not been set up.</div>
+                                <div className="message-subtext"><i className="fas fa-asterisk"></i>  Choose another term</div>
+                                <div className="message-subtext"><i className="fas fa-asterisk"></i>  Select <em className="key-emphasis">Profile</em>, then add your first class.</div>
                                 </div>
-                        </div>
+                        
+                        </section>
+                </div>
                 ) : (
                         <div className="content-sub-container">
+                            <header className="page-header">
                                 <h2>Review Last Week</h2>
                                 <h3>Term:  {this.props.currentterm}</h3>
                                 <h3>Week {this.props.currentweek}</h3>
+                            </header>
+                                
                                 <div className="instructions-small">
                                     Select from the dropdown to select a different week.
                                 </div>
@@ -224,7 +234,7 @@ export default class ReviewCurrentWeek extends React.Component {
                                                                             </li>
                                                             </ul>
                                                             {(this.state.weekIsUpdated) ? (
-                                                                <div className="error-msg">Week {this.props.currentweek} has been updated.</div>
+                                                                <div className="message-style">Week {this.props.currentweek} has been updated.</div>
                                                             ):(
                                                                 ""
                                                             )}

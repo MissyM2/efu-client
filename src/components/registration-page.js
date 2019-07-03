@@ -101,8 +101,8 @@ class RegistrationPage extends React.Component {
                 <div className="login-reg-content">
                             <div className="login-reg-unit">
                                     <form action="/" onSubmit={this.registrationSubmit.bind(this)}>
-                                            <h3 className="heading">Register</h3>
-                                            <div className={this.props.error ? "error-msg" : ""}>{this.props.error}</div>
+                                            <h2 className="heading">Register</h2>
+                                            <div className={this.props.error ? "message-style" : ""}>{this.props.error}</div>
                                             <div className="input-row">
                                                 <div className="input-unit">
                                                             <input
@@ -114,7 +114,7 @@ class RegistrationPage extends React.Component {
                                                                 value={this.state.fields["firstName"]}
                                                                 aria-label="firstName"
                                                             />
-                                                            <div className="error-msg">
+                                                            <div className="message-style">
                                                                 {this.state.errors["firstName"]}
                                                             </div>
                                                 </div>
@@ -130,7 +130,7 @@ class RegistrationPage extends React.Component {
                                                                 value={this.state.fields["lastName"]}
                                                                 aria-label="lastName"
                                                             />
-                                                            <div className="error-msg">
+                                                            <div className="message-style">
                                                                 {this.state.errors["lastName"]}
                                                             </div>
                                                 </div>
@@ -146,7 +146,7 @@ class RegistrationPage extends React.Component {
                                                                 value={this.state.fields["username"]}
                                                                 aria-label="username"
                                                             />
-                                                            <div className="error-msg">
+                                                            <div className="message-style">
                                                                 {this.state.errors["username"]}
                                                             </div>
                                                 </div>
@@ -162,7 +162,7 @@ class RegistrationPage extends React.Component {
                                                                 value={this.state.fields["password"]}
                                                                 aria-label="password"
                                                             />
-                                                            <div className="error-msg">
+                                                            <div className="message-style">
                                                                 {this.state.errors["username"]}
                                                             </div>
                                                 </div>

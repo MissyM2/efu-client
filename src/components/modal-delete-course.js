@@ -11,21 +11,16 @@ export default class ModalDeleteCourse extends React.Component {
     }
 
     cancelModal(e) {
-        //debugger;
         e.preventDefault();
-        console.log('cancelModal', this.state);
        this.setState({
            modalOpen:false
        }, () => {
-           console.log('modalOPen')
-        this.props.setcoursedeletemodal(false);
+            this.props.setcoursedeletemodal(false);
        });
        
    }
 
     render() {
-        console.log('modal-delete-course, this.props', this.props);
-        console.log('modal-deletecourse, this.state', this.state);
         return (
             <div className="modal">
                     <header className="modal__header">There are grades for this course</header>

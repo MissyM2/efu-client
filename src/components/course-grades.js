@@ -46,7 +46,7 @@ export default class CourseGrades extends React.Component {
                             <div className="small-titles light-label item-body course-grade">Current Grade:  {this.props.gradeNum}</div>
                             <form onSubmit={(e) => {this.onSubmit(e)}}>
                                 {(this.props.gradeIsUpdated) ? (
-                                        <div className="error-msg">Grade updated.</div>
+                                        <div className="message-style">Grade updated.</div>
                                         ):(
                                         ""
                                         )}

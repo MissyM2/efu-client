@@ -7,7 +7,7 @@ import Backdrop from './backdrop';
 import BackdropWhite from './backdrop-white';
 
 import AddDeliverableForm from './add-deliverable-form';
-import DeliverableFromMenu from './deliverable';
+import DeliverableProfile from './deliverable-profile';
 
 
 
@@ -20,8 +20,7 @@ export default class Deliverables extends React.Component {
                         courseIsChanged:false,
                         fields:{},
                         errors:{},
-                        delMessage: '',
-                        deliverableIsChanged:false,
+                        //deliverableIsChanged:false,
                         addMessage:"Deliverable has been added.",
                         updateMessage: "Deliverable has been updated.",
                         deleteMessage: "Deliverable has been deleted."
@@ -32,18 +31,19 @@ export default class Deliverables extends React.Component {
 
         componentDidMount() {
                 this.props.setcourseanddeliverableflags();
+                this.props.setPageFlags("Deliverables");
         }
 
         
-
+/*
         canceldeldelete() {
-                console.log('inside canceldeldelete', this.props);
+                //console.log('inside canceldeldelete', this.props);
                 this.props.setdeldeletemodal(false);
         }
 
         deletedeliverable(e) {
                 e.preventDefault();
-                console.log('made it to deletedeliverable')
+                //console.log('made it to deletedeliverable')
                 let selectedDel = {
                     termDesc: this.props.currentterm,
                     courseName:this.props.currentcoursename,
@@ -60,7 +60,7 @@ export default class Deliverables extends React.Component {
                 }
             }
 
-        
+      */  
 
         setSelectedCourse(e) {
                 e.preventDefault();
@@ -86,14 +86,13 @@ export default class Deliverables extends React.Component {
 
                 const thiscoursedeliverables = this.props.thiscoursedeliverables.map((deliverable, index) => {
                         return (
-                                <ul key={index} className="tenpx-bottom-margin ">
-                                        <DeliverableFromMenu
+                                <ul key={index} id={deliverable.id} className="deliverable-width tenpx-bottom-margin ">
+                                        <DeliverableProfile
                                                 {...deliverable}
                                                 {...this.props}
                                                 {...this.state}
-                                                setdeliverableischanged={this.setdeliverableischanged}
                                                 submitupdatedeliverable={this.props.submitupdatedeliverable}
-                                                deletedeliverable={this.props.deletedeliverable}
+                                                submitdeletedeliverable={this.props.deletedeliverable}
                                         />   
                                 </ul>
                         );
@@ -103,14 +102,13 @@ export default class Deliverables extends React.Component {
 
                 const thistermdeliverables = this.props.thistermdeliverables.map((deliverable, index) => {
                         return (
-                                <ul key={index} className="tenpx-bottom-margin ">
-                                        <DeliverableFromMenu
+                                <ul key={index} id={deliverable.id} className="deliverable-width tenpx-bottom-margin ">
+                                        <DeliverableProfile
                                                 {...deliverable}
                                                 {...this.props}
                                                 {...this.state}
-                                                setdeliverableischanged={this.setdeliverableischanged}
-                                                submitupdatedel={this.props.submitupdatedel}
-                                                deletedel={this.props.deletedeliverable}
+                                                submitupdatedeliverable={this.props.submitupdatedeliverable}
+                                                submitdeletedeliverable={this.props.submitdeletedeliverable}
                                         />   
                                 </ul>
                         );
@@ -127,7 +125,6 @@ export default class Deliverables extends React.Component {
                             </option>
                         );
                     });
-                console.log('deliverables: this.props', this.props);
                 return (
                         <div className="content-container">
                                 <div className="">
@@ -145,8 +142,23 @@ export default class Deliverables extends React.Component {
                                 {backdrop}
                                         
                                         <div className="content-sub-container">
-                                                <h3>My deliverables for {this.props.currentterm}</h3>
-                                                {this.props.thistermdeliverables.length === 0 ? (
+                                                <header className="page-header">
+                                                        <h2>My Deliverables</h2>
+                                                        <h3>Term: {this.props.currentterm}</h3>
+                                                        <ul className="impact-key"> 
+                                                                <li>
+                                                                        <div className="key-emphasis">Key to Impact on Your Grade</div> 
+                                                                </li>
+                                                                <li className="indent-twelvepx">
+                                                                        <div className="key-option"><em className="key-emphasis">Low</em> less than 5% of final grade</div>
+                                                                        <div className="key-option"><em className="key-emphasis">Moderate</em> about 10% of final grade</div>
+                                                                        <div className="key-option"><em className="key-emphasis">High</em> at least 15% of final grade</div>
+                                                                        <div className="key-option"><em className="key-emphasis">High Plus</em> at least 35% of final grade</div>
+
+                                                                </li>
+                                                        </ul> 
+
+                                                        {this.props.thistermdeliverables.length === 0 ? (
                                                                 <div>
                                                                         <h4>There are no deliverables currently set up for this term.</h4>
                                                                         <h4>Select a course to add deliverables for that course.</h4>
@@ -156,7 +168,8 @@ export default class Deliverables extends React.Component {
                                                                         <h4>Select a course to add deliverables for that course.</h4>
                                                                 </div>
                                                         )
-                                                }
+                                                        }
+                                                </header>
                                                 
                                                 <select
                                                         type="text"
@@ -169,27 +182,31 @@ export default class Deliverables extends React.Component {
                                                 </select>
 
                                                 {(this.props.deliverableAdded === true) ? (
-                                                        <div className="error-msg">{this.state.addMessage}</div>
+                                                        <div className="message-style">{this.state.addMessage}</div>
                                                 ) : (
                                                         <div></div>
                                                 )}
+                                                {(this.props.deliverableIsChanged) ? (
+                                                            <div className="msg-style">{this.state.deleteMessage}</div>
+                                                            ):(
+                                                        ""
+                                                    )}
                                                 
                                                 {(this.props.currentcoursename) !== "" ? (
                                                                 <AddDeliverableForm
                                                                         {...this.props}
                                                                         submitadddeliverable={this.props.submitadddeliverable}
-                                                                        setdeliverableischanged={this.props.setdeliverableischanged}
                                                                 />
                                                         ) : (
                                                                 <div></div>
                                                         )
                                                 }
                                                 {(this.state.courseIsChanged === true) ?  (
-                                                        <div>
+                                                        <div className="deliverable-flex">
                                                                 {thiscoursedeliverables}
                                                         </div>
                                                 ) : (
-                                                        <div>
+                                                        <div className="deliverable-flex">
                                                                 {thistermdeliverables}
                                                         </div>
                                                 )

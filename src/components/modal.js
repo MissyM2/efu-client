@@ -1,7 +1,7 @@
 import React from 'react';
 import './css/modal.css';
 
-class Modal extends React.Component {
+export default class Modal extends React.Component {
 
     constructor(props) {
         super(props);
@@ -17,7 +17,7 @@ class Modal extends React.Component {
             termSelected: e.target.value
         }, () => {
             this.props.setcurrentterm(this.state.termSelected);
-
+            this.props.setPageFlags("Dashboard");
         });
     }
 
@@ -37,10 +37,11 @@ class Modal extends React.Component {
         });
         return (
             <div className="modal">
-                    <header className="modal__header">{this.props.title}</header>
+                    <header className="modal__header">Term</header>
                     <section className="modal__content">
-                        <div className="hundredpercent-width">
+                        <div className="hundredpercent-width fivepx-margin">
                             <select
+                                className="hundredpercent-width"
                                 defaultValue={'DEFAULT'}
                                 onChange={this.setSelectedTerm}
                                 >
@@ -57,5 +58,3 @@ class Modal extends React.Component {
         )
     }
 }
-
-export default Modal;

@@ -5,8 +5,7 @@ import './css/right-side-drawer.css';
 import { Link } from 'react-router-dom';
 
 export default class RightSideDrawer extends React.Component {
-
-   
+    
     render() {
         let drawerClasses = 'right-side-drawer';
         if (this.props.rightSideDrawerOpen) {
@@ -18,31 +17,29 @@ export default class RightSideDrawer extends React.Component {
             return (
                     <div className={drawerClasses} >
                         <ul>
-                            <li className="link-div username-link" href="/"> 
-                                <div className="dropdown-username drawer-navitem">
+                            <li className="username-link username-background" href="/"> 
+                                <div className="dropdown-username">
                                     <div>You are signed in as</div>
-                                    <div>{this.props.user}</div>
+                                    <div>{this.props.currentusername}</div>
                                 </div>
                             </li>
-                            <li className="link-div courses-link" href="/">
+                            <li className="drawer-navitem" href="/">
                                 <div onClick={this.props.rightdrawertoggleclickhandler}>
                                     <Link 
-                                        className="drawer-navitem"
+                                        className="drawer-navlink"
                                         to={{
-                                            pathname: '/courses',
-                                            state: {
-                                                weekstatus: 'all'
-                                        }}}
+                                            pathname: '/courses'
+                                        }}
                                         >
                                         Your Courses
                                     </Link>
                                 </div>
                             
                             </li>
-                            <li className="link-div dels-link" href="/">
+                            <li className="drawer-navitem" href="/">
                                 <div onClick={this.props.rightdrawertoggleclickhandler}>
                                     <Link 
-                                        className="drawer-navitem"
+                                        className="drawer-navlink"
                                         to={{
                                             pathname: '/deliverables',
                                             }}
@@ -52,9 +49,9 @@ export default class RightSideDrawer extends React.Component {
                                 </div>
                             
                             </li>
-                            <li className="logout logout-link" href="/">
+                            <li className="drawer-logoutitem" href="/">
                                 <div onClick={this.props.rightdrawertoggleclickhandler}>
-                                    <Link className="link-logout" onClick={this.props.submitlogout} to="/">
+                                    <Link className="drawer-logoutlink" onClick={this.props.submitlogout} to="/">
                                         Log out
                                     </Link>
                                 </div>
