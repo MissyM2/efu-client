@@ -65,8 +65,11 @@ class LoginPage extends React.Component {
 
     loginSubmit(e) {
         e.preventDefault();
+        let username = this.state.fields.username.toLowerCase();
+        let password = this.state.fields.password;
+        username.toLowerCase()
         if(this.handleValidation()){
-            this.props.submitlogin(this.state.fields.username, this.state.fields.password);
+            this.props.submitlogin(username, password);
           }
 
     }
@@ -113,15 +116,15 @@ class LoginPage extends React.Component {
                                     </div>
                                     
                                     <div className="button-row">
-                                        <button type="submit" className="green-btn btn-small fivepx-margin">Login</button>
+                                        <button type="submit" className="green-btn btn-med fivepx-margin">Login</button>
                                     </div>
                                 </form>
                             </div>
                             <div className="login-other-unit">
-                                    <div className="login-reg-instruction">
-                                        <div>Don't have an account?</div>
+                                    <div className="login-reg-instructions">
+                                        <h4>Don't have an account?</h4>
                                         <div>
-                                            <button className="green-btn btn-small fivepx-margin" type="button" onClick={e => this.props.setlogin(e)}>
+                                            <button className="green-btn btn-med fivepx-margin" type="button" onClick={e => this.props.setlogin(e)}>
                                                 Create One
                                             </button>      
                                         </div>
