@@ -4,11 +4,13 @@
     /* Custom, iPhone Retina */ 
     @media only screen and (min-width : 320px) {
         .modal {
-            width: 95%;
+            width: 92%;
+            margin:0 auto;
             background: var( --off-white-color);
             box-shadow:0 2px 8px rgba(0, 0, 0.26);
             position: fixed;
-            top: 38vh;
+            left: 4%;
+            top: 250px;
             z-index: 200;
         }
 
@@ -20,13 +22,14 @@
             font-size: 24px;
         }
 
-        .modal__header h1 {
-            margin: 0;
-            font-size: 22px;
-        }
-
         .modal__content {
             padding: 8px;
+        }
+
+        .modal__content div {
+            width: 96%;
+            margin-top: 10px;
+            margin-bottom: 10px;
         }
 
     }

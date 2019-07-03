@@ -5,7 +5,8 @@ export default class CourseGrades extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            newGradeNum: 0
+            newGradeNum: 0,
+            gradeUpdatingId:""
         }
     }
 
@@ -19,6 +20,12 @@ export default class CourseGrades extends React.Component {
     onSubmit(e) {
         console.log('made it to handleupdate');
         e.preventDefault();
+        this.setState({
+            gradeUpdatingId:this.props.id
+        }, () => {
+            //console.log("this.state.courseUpdatingId", this.state.courseUpdatingId);
+        });
+
         const newGradeNum = this.state.newGradeNum;
         let updatedgrade = {
             termDesc: this.props.term,
@@ -27,8 +34,11 @@ export default class CourseGrades extends React.Component {
             oldgradeNum: this.props.gradeNum,
             newgradeNum:   newGradeNum
         }
+        this.setState({
+            newGradeNum:0
+        });
         this.props.submitupdategrade(updatedgrade);
-        this.props.setGradeIsUpdated(true);
+        //this.props.setGradeIsUpdated(true);
     }
 
 
@@ -41,15 +51,15 @@ export default class CourseGrades extends React.Component {
     render() {
         return (
                 <li className="week-row">
-                    <div className="week-item-grade grade-container-green fivepx-margin">
+                    <div className="grade-container-green">
                             <div className="small-titles dark-label week-label course-title" >Course:  {this.props.course}</div>
                             <div className="small-titles light-label item-body course-grade">Current Grade:  {this.props.gradeNum}</div>
                             <form onSubmit={(e) => {this.onSubmit(e)}}>
-                                {(this.props.gradeIsUpdated) ? (
-                                        <div className="message-style">Grade updated.</div>
-                                        ):(
-                                        ""
-                                        )}
+                                {(this.props.id === this.state.gradeUpdatingId) ? (
+                                <div className="message-style">Your grade has been updated.</div>
+                                ):(
+                                ""
+                                )}
                                 <div className="dd">
                                     <input
                                         type="number" 

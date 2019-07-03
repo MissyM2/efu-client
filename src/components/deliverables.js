@@ -24,7 +24,6 @@ export default class Deliverables extends React.Component {
                         addMessage:"Deliverable has been added.",
                         updateMessage: "Deliverable has been updated.",
                         deleteMessage: "Deliverable has been deleted."
-
                 }
                 this.setSelectedCourse = this.setSelectedCourse.bind(this);
         }
@@ -32,6 +31,7 @@ export default class Deliverables extends React.Component {
         componentDidMount() {
                 this.props.setcourseanddeliverableflags();
                 this.props.setPageFlags("Deliverables");
+                
         }
 
         
@@ -83,6 +83,14 @@ export default class Deliverables extends React.Component {
                 } else {
                         backdrop = <BackdropWhite />
                 }
+                let impactClasses;
+
+
+                if(this.props.thiscoursedeliverables.length === 0 || this.props.thistermdeliverables.length === 0) {
+                        impactClasses = "impact-key not-visible";
+                } else {
+                        impactClasses = "impact-key";
+                }
 
                 const thiscoursedeliverables = this.props.thiscoursedeliverables.map((deliverable, index) => {
                         return (
@@ -112,7 +120,8 @@ export default class Deliverables extends React.Component {
                                         />   
                                 </ul>
                         );
-                })
+                });
+
 
                 const mycoursedropdown = this.props.thistermcourses.map((course, index) => {
                         return (
@@ -145,30 +154,7 @@ export default class Deliverables extends React.Component {
                                                 <header className="page-header">
                                                         <h2>My Deliverables</h2>
                                                         <h3>Term: {this.props.currentterm}</h3>
-                                                        <ul className="impact-key"> 
-                                                                <li>
-                                                                        <div className="key-emphasis">Key to Impact on Your Grade</div> 
-                                                                </li>
-                                                                <li className="indent-twelvepx">
-                                                                        <div className="key-option"><em className="key-emphasis">Low</em> less than 5% of final grade</div>
-                                                                        <div className="key-option"><em className="key-emphasis">Moderate</em> about 10% of final grade</div>
-                                                                        <div className="key-option"><em className="key-emphasis">High</em> at least 15% of final grade</div>
-                                                                        <div className="key-option"><em className="key-emphasis">High Plus</em> at least 35% of final grade</div>
-
-                                                                </li>
-                                                        </ul> 
-
-                                                        {this.props.thistermdeliverables.length === 0 ? (
-                                                                <div>
-                                                                        <h4>There are no deliverables currently set up for this term.</h4>
-                                                                        <h4>Select a course to add deliverables for that course.</h4>
-                                                                </div>
-                                                        ) : (
-                                                                <div>
-                                                                        <h4>Select a course to add deliverables for that course.</h4>
-                                                                </div>
-                                                        )
-                                                        }
+                                                        <h4>{this.props.deliverableMessage}</h4>
                                                 </header>
                                                 
                                                 <select
@@ -180,6 +166,7 @@ export default class Deliverables extends React.Component {
                                                         <option value="DEFAULT" disabled>Choose a course</option>
                                                                 {mycoursedropdown}
                                                 </select>
+                                                
 
                                                 {(this.props.deliverableAdded === true) ? (
                                                         <div className="message-style">{this.state.addMessage}</div>
@@ -203,10 +190,38 @@ export default class Deliverables extends React.Component {
                                                 }
                                                 {(this.state.courseIsChanged === true) ?  (
                                                         <div className="deliverable-flex">
+                                                                <ul className={impactClasses}> 
+                                                                        <li>
+                                                                                <div className="key-emphasis">Impact</div> 
+                                                                                <div className="key-tagline">How does this affect your grade?</div>
+
+                                                                        </li>
+                                                                        <li className="indent-twelvepx">
+                                                                                <div className="key-option"><em className="key-emphasis">Low</em> less than 5% of final grade</div>
+                                                                                <div className="key-option"><em className="key-emphasis">Moderate</em> about 10% of final grade</div>
+                                                                                <div className="key-option"><em className="key-emphasis">High</em> at least 15% of final grade</div>
+                                                                                <div className="key-option"><em className="key-emphasis">High Plus</em> at least 35% of final grade</div>
+
+                                                                        </li>
+                                                                </ul> 
                                                                 {thiscoursedeliverables}
                                                         </div>
                                                 ) : (
                                                         <div className="deliverable-flex">
+                                                                <ul className={impactClasses}> 
+                                                                        <li>
+                                                                                <div className="key-emphasis">Impact</div> 
+                                                                                <div className="key-tagline">How does this affect your grade?</div>
+
+                                                                        </li>
+                                                                        <li className="indent-twelvepx">
+                                                                                <div className="key-option"><em className="key-emphasis">Low</em> less than 5% of final grade</div>
+                                                                                <div className="key-option"><em className="key-emphasis">Moderate</em> about 10% of final grade</div>
+                                                                                <div className="key-option"><em className="key-emphasis">High</em> at least 15% of final grade</div>
+                                                                                <div className="key-option"><em className="key-emphasis">High Plus</em> at least 35% of final grade</div>
+
+                                                                        </li>
+                                                                </ul>
                                                                 {thistermdeliverables}
                                                         </div>
                                                 )

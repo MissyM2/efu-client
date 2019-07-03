@@ -147,7 +147,7 @@ export default class Dashboard extends React.Component {
                                                     <div className="message">
                                                         <div className="message-subtext">has not been set up.</div>
                                                         <div className="message-subtext"><i className="fas fa-asterisk"></i>  Choose another term</div>
-                                                        <div className="message-subtext"><i className="fas fa-asterisk"></i>  Select <span className="accent-word">Profile</span>, then <span className="accent-word">Courses</span> to begin.</div>
+                                                        <div className="message-subtext"><i className="fas fa-asterisk"></i>  Select dropdown, then <span className="accent-word"> Your Courses</span> to begin.</div>
                                                     </div>
                                                   
                                             </section>

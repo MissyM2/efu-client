@@ -108,13 +108,12 @@ export default class Course extends React.Component {
         return (
             <div>
                 <form onSubmit={this.updateSubmit.bind(this)}>
-                    <div className="course-container-blue tenpx-margin">
+                    <div className="course-container-blue">
                         {(this.props.id === this.state.courseUpdatingId) ? (
                             <div className="message-style">Your course has been updated.</div>
                             ):(
                                ""
                             )}
-
                             <div className="column">
                                 <div>
                                     <label className="small-titles light-label">Course</label>

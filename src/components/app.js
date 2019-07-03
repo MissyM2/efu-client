@@ -42,9 +42,11 @@ class App extends React.Component {
             },
             deliverableNames:['Quiz', 'Test', 'Midterm', 'Final', 'Lab/Essay', 'Term Paper/Group Project Final', 'Term Paper/Group-Project Checkpoint', 'Homework', 'Participation'],
             deliverablesUpdated:false,
+            deliverableMessage:"",
             error:'',
             isError: false,
             islogin: true,
+            loginFailed:false,
             isModal: false,
             lastSunday:"",
             pLastSunday:0,
@@ -113,6 +115,7 @@ class App extends React.Component {
         this.setdeliverabletobedeleted=this.setdeliverabletobedeleted.bind(this);
         this.setdeliverableadded=this.setdeliverableadded.bind(this);
         this.setcourseanddeliverableflags=this.setcourseanddeliverableflags.bind(this);
+        this.setdeliverablemessage=this.setdeliverablemessage.bind(this);
         this.setPageFlags=this.setPageFlags.bind(this);
 
         // for event handlers
@@ -290,7 +293,7 @@ class App extends React.Component {
         .then(response => {
             if(response.ok) {
                 this.setloadingflag(false);
-            }
+            } 
             return response.json;
         })
         .catch(err => {
@@ -313,13 +316,19 @@ class App extends React.Component {
             body: JSON.stringify(registereduser)
         })
         .then(response => {
+            console.log(response);
             if(response.ok){
                 this.setState({
                     error: null,
                     isError:false,
-                })
-                return response.json();
-            } 
+                });
+            } else {
+                this.setState({
+                    error:'Login Error:  Either username or password is wrong.  Try again.',
+                    isError:true
+                });
+            }
+            return response.json();
         })
         .then(responseJSON => {
             this.setState({
@@ -336,7 +345,7 @@ class App extends React.Component {
             this.props.history.push('/dashboard');
         }) 
         .catch((err) => {
-            console.log(err);
+            console.log('login error', err);
         })
         
     }
@@ -425,7 +434,7 @@ class App extends React.Component {
                     coursesFlag:false,
                     deliverablesFlag:true
                 }, () => {
-                    console.log('this.state.deliverablesFlag', this.state.deliverablesFlag);
+                    //console.log('this.state.deliverablesFlag', this.state.deliverablesFlag);
                 });
               break;
            
@@ -457,6 +466,25 @@ class App extends React.Component {
         this.setState({
             deliverableIsChanged: bool
         });
+    }
+
+    setdeliverablemessage = () => {
+        console.log('got to delmessage', this.state.deliverableMessage);
+
+        if(this.state.thistermcourses.length === 0) {
+            this.setState({
+                    deliverableMessage: "There are no courses setup for this term.  Add a course first."
+            });
+        } else if (this.state.thistermcourses !== 0 && this.state.thistermdeliverables.length === 0) {
+            this.setState({
+                    deliverableMessage: "There are no deliverables set up for this term. Select a course from the dropdown first."
+            });
+    } else {
+            this.setState({
+                    deliverableMessage: "Select a course from the dropdown and add a deliverable."
+            });
+    }
+    console.log('this.state.deliverableMessage',this.state.deliverableMessage);
     }
     setdeliverabletobedeleted(deliverable) {
         console.log('inside setdeliverabletobedeleted', deliverable);
@@ -534,7 +562,6 @@ class App extends React.Component {
      ****************************************************/
 
     getcurrenttermdetails = () => {
-        console.log('made it to getcurrenttermdetails');
         this.getcurrentdates();
         this.getcurrentsuggestion();
 
@@ -556,6 +583,9 @@ class App extends React.Component {
             })
             .then(res => {
                 return this.getthisweekdetails();
+            })
+            .then(res => {
+                return this.setdeliverablemessage();
             })
             .then(res => {
                 return console.log('getcurrentterms routine is complete');

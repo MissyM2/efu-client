@@ -39,7 +39,7 @@ export default class Modal extends React.Component {
             <div className="modal">
                     <header className="modal__header">Term</header>
                     <section className="modal__content">
-                        <div className="hundredpercent-width fivepx-margin">
+                        <div>
                             <select
                                 className="hundredpercent-width"
                                 defaultValue={'DEFAULT'}

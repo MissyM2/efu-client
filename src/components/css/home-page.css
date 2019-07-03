@@ -1,90 +1,83 @@
-.homepage-container {
-    width: 100%;
-    display:flex;
-    flex-direction:column;
-    padding-top: 25px;
-    
-}
-
-.logo-container {
-    position:relative;
-    margin: 0 auto;
-    flex-direction: column; 
-    z-index: 200;
-}
-
-.logo-image-div {
-    position: absolute;
-    padding-left: 40px;
-    left: 0px;
-    top: 0px;
-    z-index: -1;
-}
-
-
-
-.test-user-info {
-    
-    padding-left: 10px;
-}
-
-.title-div {
-    text-align: left;
-    background-color: rgba(247, 249, 251, .3);
-}
-
-.homepage-title{
-    color: var( --dark-mossy-green-color);
-}
-
-.homepage-tagline {
-    padding: 0px 50px;
-    text-align: center;
-    font-family: var(--body-font-family);
-}
-
-.input-unit {
-    display:flex;
-    flex-direction: column;
-}
-
-.input-unit input {
-    font-size: 22px;
-    padding: 5px;
-}
-
-.input-label-unit {
-    display:flex;
-    flex-direction: row;
-}
-
-.input-label-unit label {
-    font-weight: bold;
-    font-size: 14px;
-    color: var( --dark-mossy-green-color);
-}
-
-
-.input-row {
-    margin:0 auto;
-}
-
-.login-reg-instructions h4 {
-    margin-bottom:2px;
-
-}
-
-
-
-
-
 /*==========  Mobile First Method  ==========*/
 
     /* Custom, iPhone Retina */ 
     @media only screen and (min-width : 320px) {
+        .homepage-container {
+            width: 100%;
+            display:flex;
+            flex-direction:column;
+            padding-top: 25px;
+            
+        }
+
+        .logo-container {
+            position:relative;
+            margin: 0 auto;
+            flex-direction: column; 
+            z-index: 200;
+        }
+
+        .logo-image-div {
+            position: absolute;
+            padding-left: 40px;
+            left: 0px;
+            top: 0px;
+            z-index: -1;
+        }
+
+        .test-user-info { 
+            padding-left: 10px;
+        }
+
+        .title-div {
+            text-align: left;
+            background-color: rgba(247, 249, 251, .3);
+        }
+
+        .homepage-title{
+            color: var( --dark-mossy-green-color);
+        }
+
+        .homepage-tagline {
+            padding: 0px 50px;
+            text-align: center;
+            font-family: var(--body-font-family);
+        }
+
+        .input-unit {
+            display:flex;
+            flex-direction:column;
+            width: 92%;
+            margin: 0 auto;
+        }
+
+        .input-unit input {
+            font-size: 22px;
+            padding: 5px;
+        }
+
+        .input-label-unit {
+            display:flex;
+            flex-direction: row;
+        }
+
+        .input-label-unit label {
+            font-weight: bold;
+            font-size: 14px;
+            color: var( --dark-mossy-green-color);
+        }
+
+        .input-row {
+            margin:0 auto;
+        }
+
+        .login-reg-instructions h4 {
+            margin-bottom:2px;
+        }
 
         .login-reg-container {
             width: 100%;
+            max-width: 400px;
             padding: 10px;
             z-index: 200;
             background-color: var(--off-white-color);
@@ -146,15 +139,6 @@
             display:flex;
             flex-direction: column;
             width: 100%;
-        }
-
-        .input-unit{
-            display:flex;
-            width: 100%;
-        }
-
-        .input-unit {
-            flex-direction:column;
         }
 
         .input-label-unit {
@@ -246,6 +230,7 @@
         
          .login-reg-container {
             width: 75%;
+            max-width: 900px;
             padding: 10px;
             z-index: 200;
             background-color: var(--off-white-color);
@@ -288,7 +273,6 @@
         .input-unit {
             display:flex;
             flex-direction: column;
-            width: 100%;
         }
         
         .input-label-unit {

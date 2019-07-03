@@ -37,16 +37,16 @@ export default class NavBar extends React.Component {
 
         let weeksLinkClasses;
         if(this.props.weeksFlag) {
-            weeksLinkClasses = "green-navbar-btn btn-onefifty fivepx-margin weeks-showing" ;
+            weeksLinkClasses = "green-navbar-btn weeks-showing" ;
         } else {
-            weeksLinkClasses = "green-navbar-btn btn-onefifty fivepx-margin" ;
+            weeksLinkClasses = "green-navbar-btn" ;
         }
 
         let reviewweekLinkClasses;
         if(this.props.reviewWeekFlag) {
-            reviewweekLinkClasses = "green-navbar-btn btn-onefifty fivepx-margin reviewweek-showing" ;
+            reviewweekLinkClasses = "green-navbar-btn reviewweek-showing" ;
         } else {
-            reviewweekLinkClasses = "green-navbar-btn btn-onefifty fivepx-margin"; 
+            reviewweekLinkClasses = "green-navbar-btn fivepx-margin"; 
         }
 
 
@@ -79,7 +79,10 @@ export default class NavBar extends React.Component {
                                 </Link>
                         </div>
                         <div className="navbar-positioning spacer" />
-                        <Suggestion {...this.props} />
+                        <div className="suggestion-div">
+                            <Suggestion {...this.props} />
+                        </div>
+                        
                 </div>
                 
                 <div className="navbar-positioning">
@@ -110,7 +113,7 @@ export default class NavBar extends React.Component {
                                                 }
                                             }
                                             >
-                                            Review Week
+                                            Update Week
                                         </Link>
                                     </div>
                                     <div className="navbar-cell weeks-link">
@@ -121,7 +124,7 @@ export default class NavBar extends React.Component {
                                                 }
                                             }
                                             >
-                                            Weeks
+                                            View All Weeks
                                         </Link>
                                     </div>
                                     <div className="navbar-cell spacer-hamburger"></div>

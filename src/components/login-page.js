@@ -16,6 +16,7 @@ class LoginPage extends React.Component {
         };
     }
 
+
     handleValidation() {
         let username = this.state.fields["username"];
         let pass = this.state.fields["password"];
@@ -65,8 +66,8 @@ class LoginPage extends React.Component {
 
     loginSubmit(e) {
         e.preventDefault();
-        let username = this.state.fields.username.toLowerCase();
-        let password = this.state.fields.password;
+        let username = this.state.fields.username.toLowerCase().trim();
+        let password = this.state.fields.password.trim();
         username.toLowerCase()
         if(this.handleValidation()){
             this.props.submitlogin(username, password);
@@ -82,6 +83,7 @@ class LoginPage extends React.Component {
                             <div className="login-reg-unit">
                                 <form action="/" onSubmit={this.loginSubmit.bind(this)} >
                                     <h2 className="heading">Login</h2>
+                                    <div className="message-style">{this.state.errors["loginFailed"]}</div>
                                     <div className={this.props.error ? "message-style" : ""}>{this.props.error}</div>
                                     <div className="input-row">
                                         <div className="input-unit">

@@ -113,7 +113,7 @@ export default class ReviewCurrentWeek extends React.Component {
         let mygrades = this.props.thisweekgrades;
         mygrades = mygrades.map((grade, index) => {
            return ( 
-                    <div>
+                    <div id={grade.id}>
                         <CourseGrades 
                             {...grade} 
                             {...this.state}
@@ -172,16 +172,17 @@ export default class ReviewCurrentWeek extends React.Component {
                                     <div className="section-container">
                                         <div className="unit-container-blue hundredpercent-width tenpx-bottom-margin">
                                                 <h3>How did you feel about your week?</h3>
-                                                <h5>Update week {this.props.currentweek} now.</h5>
+                                                <h4>Update week {this.props.currentweek} now.</h4>
                                                 <div className="list-vertical">
                                                         <form onSubmit={this.handleUpdate}>
                                                             <ul className="weeks-row">
                                                                         <li className="week-row">
-                                                                                <div className="week-item grade-container-green fivepx-margin">
+                                                                                <div className="grade-container-green">
                                                                                     <div className="small-titles dark-label week-label likedLeast">Liked Least</div>
                                                                                     <div className="small-titles light-label item-body">{this.props.thisweekLikedLeast}</div>
-                                                                                    <div className="hundredpercent-width">
+                                                                                    <div>
                                                                                         <select
+                                                                                            className="hundredpercent-width"
                                                                                             type="text"
                                                                                             defaultValue="DEFAULT"
                                                                                             onChange={e => this.handleChange(e, "likedLeast")}>
@@ -190,11 +191,12 @@ export default class ReviewCurrentWeek extends React.Component {
                                                                                         </select>
                                                                                     </div>
                                                                                 </div>
-                                                                                <div className="week-item grade-container-green fivepx-margin">
+                                                                                <div className="grade-container-green">
                                                                                     <div className="small-titles dark-label week-label likedMost">Liked Most</div>
                                                                                     <div className="small-titles light-label item-body">{this.props.thisweekLikedMost}</div>
-                                                                                    <div className="hundredpercent-width">
+                                                                                    <div>
                                                                                         <select
+                                                                                                className="hundredpercent-width"
                                                                                                 type="text"
                                                                                                 defaultValue="DEFAULT"
                                                                                                 onChange={e => this.handleChange(e, "likedMost")}>
@@ -205,11 +207,12 @@ export default class ReviewCurrentWeek extends React.Component {
                                                                                 </div>  
                                                                         </li>
                                                                         <li className="week-row">
-                                                                                <div className="week-item grade-container-green fivepx-margin">
+                                                                                <div className="grade-container-green">
                                                                                         <div className="small-titles dark-label week-label mostDifficult">Most Difficult</div>
                                                                                         <div className="small-titles light-label item-body">{this.props.thisweekMostDifficult}</div>
-                                                                                        <div className="hundredpercent-width">
+                                                                                        <div>
                                                                                             <select
+                                                                                                    className="hundredpercent-width"
                                                                                                     type="text"
                                                                                                     defaultValue="DEFAULT"
                                                                                                     onChange={e => this.handleChange(e, "mostDifficult")}>
@@ -218,11 +221,12 @@ export default class ReviewCurrentWeek extends React.Component {
                                                                                             </select>
                                                                                         </div>
                                                                                 </div>
-                                                                                <div className="week-item grade-container-green fivepx-margin">
+                                                                                <div className="grade-container-green">
                                                                                         <div className="small-titles dark-label week-label leastDifficult">Least Difficult</div>
                                                                                         <div className="small-titles light-label item-body">{this.props.thisweekLeastDifficult}</div>
-                                                                                        <div className="hundredpercent-width">
+                                                                                        <div>
                                                                                             <select
+                                                                                                    className="hundredpercent-width"
                                                                                                     type="text"
                                                                                                     defaultValue= "DEFAULT"
                                                                                                     onChange={e => this.handleChange(e, "leastDifficult")}>
@@ -244,11 +248,11 @@ export default class ReviewCurrentWeek extends React.Component {
                                                         </form>   
                                                 </div>
                                         </div>
-                                        <div className="unit-container-blue hundredpercent-width tenpx-bottom-margin">
+                                        <div className="unit-container-blue">
                                         <h3 >How were your grades this week?</h3>
-                                        <h5>Add grades for week {this.props.currentweek} now.</h5>
+                                        <h4>Add grades for week {this.props.currentweek} now.</h4>
                                         <div className="list-vertical">
-                                            <ul className="weeks-row-grade">
+                                            <ul className="weeks-row">
                                                 {mygrades}
                                             </ul>
                                         </div>

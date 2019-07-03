@@ -31,7 +31,7 @@ export default class Weeks extends React.Component {
                         return (
                                 <div className="unit-container-blue hundredpercent-width tenpx-bottom-margin" key={index + 100}>
                                         <h3>Week Number {week.weekNum}</h3>
-                                        <h5>Attitudes</h5>
+                                        <h4>Attitudes</h4>
                                         
                                         <ul key={index} className="weeks-row">
                                                 <li className="week-row">
@@ -55,7 +55,7 @@ export default class Weeks extends React.Component {
                                                         </div>
                                                 </li>
                                         </ul>
-                                        <h5>Courses and Grades</h5>
+                                        <h4>Courses and Grades</h4>
                                         <div className="weeks-row">
 
                                                 {this.props.thistermgrades.filter(grade => grade.week === week.weekNum )

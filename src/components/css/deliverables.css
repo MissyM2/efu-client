@@ -6,7 +6,7 @@
         .impact-key {
             color: var(--darker-blue-color);
             font-size:14px;
-            width: 100%;
+            width: 92%;
             position: relative;
             padding: 10px;
             text-align:left;
@@ -23,7 +23,16 @@
 
         .key-option {
             padding-top:2px;
-            padding-bottom:2px
+            padding-bottom:2px;
+            font-size: 18px;
+        }
+
+        .key-tagline {
+            padding-top:2px;
+            padding-bottom:7px;
+            border-bottom: 1px solid var(--darker-blue-color);
+            text-align:center;
+            font-size: 18px;
         }
 
         .indent-twelvepx {
@@ -84,7 +93,7 @@
         }
 
         .dropdown.course {
-            width: 100%;
+            width: 96%;
             margin: 0 auto;
             margin-bottom: 10px;
         }
