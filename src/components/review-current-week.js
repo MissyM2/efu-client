@@ -12,82 +12,154 @@ export default class ReviewCurrentWeek extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-                weekSelected:'',
-                likedLeast: this.props.thisweekLikedLeast,
-                likedMost: this.props.thisweekLikedMost,
-                mostDifficult: this.props.thisweekmostDifficult,
-                leastDifficult: this.props.thisweekleastDifficult,
-                weekIsUpdated: false,
-                gradeIsUpdated: false
+            weekSelected:'',
+            fields: {
+                newLikedLeast:"",
+                newLikedMost:"",
+                newMostDifficult:"",
+                newLeastDifficult:""
+            },
+            errors:{}
+
         }
+        this.initialState={...this.state}
+        this.newLikedLeast = React.createRef();
+        this.newLikedMost = React.createRef();
+        this.newMostDifficult = React.createRef();
+        this.newLeastDifficult = React.createRef();
         this.setSelectedWeek = this.setSelectedWeek.bind(this);
-        this.setWeekIsUpdated = this.setWeekIsUpdated.bind(this);
-        this.setGradeIsUpdated = this.setGradeIsUpdated.bind(this);
-        this.handleUpdate = this.handleUpdate.bind(this);
+        this.updateSubmit = this.updateSubmit.bind(this);
+        this.updateWeek = this.updateWeek.bind(this);
     }
 
     componentDidMount() {
         this.props.setPageFlags("ReviewWeek");
+        //this.props.changecurrentweek(1);
+        /*
+        let updateKeyValue="missy test2";
+        let field = "newLikedLeast";
+        console.log(field);
+        console.log("newLikedLeast");
+        this.setState({
+            field: updateKeyValue
+        });
+        console.log('thisafter compdidmount', this.state);
+        */
+        
     }
-
 
     setSelectedWeek(e) {
         e.preventDefault();
         this.setState({
-            weekIsUpdated: false,
-            gradeIsUpdate: false,
             weekSelected: e.target.value
         }, () => {
             this.props.setcurrentweek(this.state.weekSelected);
+            
+            //console.log('setSelectedWeek this,props', this.props);
+            //console.log('setSelectedWeek this.state', this.state);
         });
     }
 
-    setWeekIsUpdated = (bool) => {
-        this.setState({
-            weekIsUpdated: bool
-        });
-    
+    updateWeek = (field, e) => {
+        console.log('made it to updateweek', field);
+        switch(field) {
+            case "newLikedLeast":
+                this.setState({
+                    fields: Object.assign({}, this.state.fields, {newLikedLeast: e.target.value})
+                });
+                break;
+            case "newLikedMost":
+                this.setState({
+                    fields: Object.assign({}, this.state.fields, {newLikedMost: e.target.value})
+                });
+                break;
+            case "newMostDifficult":
+                this.setState({
+                    fields: Object.assign({}, this.state.fields, {newMostDifficult: e.target.value})
+                });
+                break;
+            case "newLeastDifficult":
+                this.setState({
+                    fields: Object.assign({}, this.state.fields, {newLeastDifficult: e.target.value})
+                });
+            break;
+            default:
+                console.log('field names did not match any of the options.');
+        }
+        
+        //console.log('this.state', this.state);
+
+
+       // submit item for update
+
+            
     }
 
-    setGradeIsUpdated = (bool) => {
-        this.setState({
-            gradeIsUpdated: bool
-        });
-    
-}
 
-    handleChange = (e, field) => {
-        this.setState({
-            [field]: e.target.value
-          });
-    }
-
-    handleUpdate = (e) => {
+    updateSubmit = (e) => {
         e.preventDefault();
-    
-        let updateWeek = {
-            termDesc: this.props.currentterm,
-            weekNum: this.props.currentweek,
-            likedLeast: this.state.likedLeast,
-            likedMost: this.state.likedMost,
-            mostDifficult: this.state.mostDifficult,
-            leastDifficult: this.state.leastDifficult,
-        };
+        console.log('this.state', this.state);
+            let likedLeast;
+            let likedMost;
+            let mostDifficult;
+            let leastDifficult;
 
-        this.props.submitupdateweek(updateWeek); 
-        this.setWeekIsUpdated(true);
+            if(this.state.fields.newLikedLeast === "" || this.state.fields.newLikedLeast === "no selection") {
+                likedLeast=this.props.weekdetailsold.likedLeast;
+            } else {
+                likedLeast=this.state.fields.newLikedLeast;
+            }
+            console.log('likedLeast', likedLeast);
+
+            if(this.state.fields.newLikedMost === "" || this.state.fields.newLikedMost === "no selection") {
+                likedMost=this.props.weekdetailsold.likedMost;
+            } else {
+                likedMost=this.state.fields.newLikedMost;
+            }
+            console.log('likedMost', likedMost);
+
+            if(this.state.fields.newMostDifficult === "" || this.state.fields.newMostDifficult === "no selection") {
+                mostDifficult=this.props.weekdetailsold.mostDifficult;
+            } else {
+                mostDifficult=this.state.fields.newMostDifficult;
+            }
+
+            console.log('mostDifficult', mostDifficult);
+
+            if(this.state.fields.newLeastDifficult === "" || this.state.fields.newLeastDifficult === "no selection") {
+                leastDifficult=this.props.weekdetailsold.leastDifficult;
+            } else {
+                leastDifficult=this.state.fields.newLeastDifficult;
+            }
+
+            console.log('leastDifficult', leastDifficult);
+    
+            let updateWeek = {
+                termDesc: this.props.currentterm,
+                weekNum: this.props.currentweek,
+                likedLeast: likedLeast,
+                likedMost: likedMost,
+                mostDifficult: mostDifficult,
+                leastDifficult: leastDifficult,
+            };
+
+            console.log('rcw: updateWeek', updateWeek);
+        /*   
+            this.setState({
+                newLikedLeast:"",
+                newLikedMost:"",
+                newMostDifficult:"",
+                newLeastDifficult:""
+            });
+            
+*/
+            this.props.submitupdateweek(updateWeek); 
+            this.props.getcurrentweekdetails();
     }
+
 
     
     render() {
-
-        const mycoursedropdown = this.props.thistermcourses.map((course, index) => {
-            return (
-                <option key={index} >
-                    {course.courseName}
-                </option>
-            );
-        });
 
         let backdrop;
         if(this.props.rightSideDrawerOpen) {
@@ -95,7 +167,6 @@ export default class ReviewCurrentWeek extends React.Component {
         }
 
         let weekClasses = 'dropdown unit-container-green';
-
         const allweeks = this.props.thistermweeks.map((week, index) => {
             return (
                 <option
@@ -110,10 +181,18 @@ export default class ReviewCurrentWeek extends React.Component {
             );
         });
 
+        const mycoursedropdown = this.props.thistermcourses.map((course, index) => {
+            return (
+                <option key={index} >
+                    {course.courseName}
+                </option>
+            );
+        });
+
         let mygrades = this.props.thisweekgrades;
         mygrades = mygrades.map((grade, index) => {
            return ( 
-                    <div id={grade.id}>
+                    <div id={grade.id} index={index + 5}>
                         <CourseGrades 
                             {...grade} 
                             {...this.state}
@@ -122,6 +201,10 @@ export default class ReviewCurrentWeek extends React.Component {
                     </div> 
            );
         });
+        //console.log('rcw, weekupdated, this.props', this.props.weekUpdated);
+        //console.log('rcw, weekupdated, this.props', this.props.weekdetailsold.likedLeast);
+        //console.log('rcw, weekupdated, this.props', this.props.weekdetailsold["likedLeast"]);
+        //console.log('rcw, before return', this.state);
         
         return (
             <div className="content-container">
@@ -150,105 +233,165 @@ export default class ReviewCurrentWeek extends React.Component {
                         </section>
                 </div>
                 ) : (
-                        <div className="content-sub-container">
+                    <div className="content-sub-container">
                             <header className="page-header">
                                 <h2>Review Last Week</h2>
                                 <h3>Term:  {this.props.currentterm}</h3>
                                 <h3>Week {this.props.currentweek}</h3>
                             </header>
-                                
-                                <div className="instructions-small">
-                                    Select from the dropdown to select a different week.
-                                </div>
-                                <div className="hundredpercent-width">
-                                    <select 
-                                        class="select-week-dd"
-                                        defaultValue='Week 1'
-                                        onChange={this.setSelectedWeek}>
-                                            {allweeks}
-                                    </select>
-                                    
-                                </div>
-                                    <div className="section-container">
-                                        <div className="unit-container-blue hundredpercent-width tenpx-bottom-margin">
-                                                <h3>How did you feel about your week?</h3>
-                                                <h4>Update week {this.props.currentweek} now.</h4>
-                                                <div className="list-vertical">
-                                                        <form onSubmit={this.handleUpdate}>
-                                                            <ul className="weeks-row">
-                                                                        <li className="week-row">
-                                                                                <div className="grade-container-green">
-                                                                                    <div className="small-titles dark-label week-label likedLeast">Liked Least</div>
-                                                                                    <div className="small-titles light-label item-body">{this.props.thisweekLikedLeast}</div>
-                                                                                    <div>
-                                                                                        <select
+                            <div className="hundredpercent-width">
+                                <select 
+                                    className="select-week-dd"
+                                    defaultValue={this.props.currentweek}
+                                    onChange={this.setSelectedWeek}>
+                                        {allweeks}
+                                </select>
+                            </div>
+
+                            <div className="section-container">
+
+                                <div className="unit-container-blue hundredpercent-width tenpx-bottom-margin">
+                                        <h3>How did you feel about your week?</h3>
+                                        <h4>Update week {this.props.currentweek} now.</h4>
+                                        <div className="list-vertical">
+                                                    {(this.props.weekUpdated) ? (
+                                                        <div className="message-style">Week {this.props.currentweek} has been updated.</div>
+                                                    ):(
+                                                        ""
+                                                    )}
+                                                
+                                                    <ul className="weeks-row">
+                                                                <li className="week-row">
+                                                                        <div className="weekdetail-container-green">
+
+                                                                            <form action="/" onSubmit={this.updateSubmit.bind(this)} >
+                                                                                <div className="small-titles dark-label week-label likedLeast">Liked Least</div>
+                                                                                {(this.props.weekdetailsold.likedLeast === '' || this.props.weekdetailsold.likedLeast === 'no selection') ? (
+                                                                                    <div className="small-titles light-label item-body red-background">Please update.</div>
+                                                                                ) : (
+                                                                                    <div className="small-titles light-label item-body">{this.props.weekdetailsold.likedLeast}</div>
+                                                                                )}
+                                                                                
+                                                                                <div>
+                                                                                    <select
+                                                                                        className="hundredpercent-width"
+                                                                                        ref={element => this.newLikedLeast = element}
+                                                                                        type="text"
+                                                                                        defaultValue="DEFAULT"
+                                                                                        onChange={this.updateWeek.bind(this, "newLikedLeast")}>
+                                                                                            <option value="DEFAULT" disabled>Select course.</option>
+                                                                                            {mycoursedropdown}
+                                                                                    </select>
+                                                                                </div>
+                                                                                <div className="item">
+                                                                                    <button
+                                                                                        className="blue-btn center-btn fivepx-margin"
+                                                                                        type="submit"
+                                                                                    >
+                                                                                        Save
+                                                                                    </button>
+                                                                                </div>
+                                                                            </form>
+                                                                        </div>
+                                                                        <div className="weekdetail-container-green">
+                                                                            <form action="/" onSubmit={this.updateSubmit.bind(this)} >
+                                                                                <div className="small-titles dark-label week-label likedMost">Liked Most</div>
+                                                                                {(this.props.weekdetailsold.likedMost === ''  || this.props.weekdetailsold.likedMost === 'no selection') ? (
+                                                                                    <div className="small-titles light-label item-body red-background">Please update.</div>
+                                                                                ) : (
+                                                                                    <div className="small-titles light-label item-body">{this.props.weekdetailsold.likedMost}</div>
+                                                                                )}
+                                                                                <div>
+                                                                                    <select
+                                                                                            ref={element => this.newLikedMost = element}
                                                                                             className="hundredpercent-width"
                                                                                             type="text"
                                                                                             defaultValue="DEFAULT"
-                                                                                            onChange={e => this.handleChange(e, "likedLeast")}>
-                                                                                                <option value="DEFAULT" disabled>Choose a course</option>
+                                                                                            onChange={this.updateWeek.bind(this, "newLikedMost")}>
+                                                                                                <option value="DEFAULT" disabled>Select course</option>
                                                                                                 {mycoursedropdown}
-                                                                                        </select>
-                                                                                    </div>
+                                                                                    </select>
                                                                                 </div>
-                                                                                <div className="grade-container-green">
-                                                                                    <div className="small-titles dark-label week-label likedMost">Liked Most</div>
-                                                                                    <div className="small-titles light-label item-body">{this.props.thisweekLikedMost}</div>
+                                                                                <div className="item">
+                                                                                    <button
+                                                                                        className="blue-btn center-btn fivepx-margin"
+                                                                                        type="submit"
+                                                                                        value="Update"
+                                                                                    >
+                                                                                        Save
+                                                                                    </button>
+                                                                                </div>
+                                                                            </form>
+                                                                        </div> 
+                                                                </li>
+                                                                <li className="week-row">
+                                                                        <div className="weekdetail-container-green">
+                                                                            <form action="/" onSubmit={this.updateSubmit.bind(this)} >
+                                                                                    <div className="small-titles dark-label week-label mostDifficult">Most Difficult</div>
+                                                                                    {(this.props.weekdetailsold.mostDifficult === '' || this.props.weekdetailsold.mostDifficult === 'no selection') ? (
+                                                                                        <div className="small-titles light-label item-body red-background">Please update.</div>
+                                                                                    ) : (
+                                                                                        <div className="small-titles light-label item-body">{this.props.weekdetailsold.mostDifficult}</div>
+                                                                                    )}
                                                                                     <div>
                                                                                         <select
+                                                                                                ref={element => this.newMostDifficult = element}
                                                                                                 className="hundredpercent-width"
                                                                                                 type="text"
                                                                                                 defaultValue="DEFAULT"
-                                                                                                onChange={e => this.handleChange(e, "likedMost")}>
-                                                                                                    <option value="DEFAULT" disabled>Choose a course</option>
+                                                                                                onChange={this.updateWeek.bind(this, "newMostDifficult")}>
+                                                                                                    <option value="DEFAULT" disabled>Select course</option>
                                                                                                     {mycoursedropdown}
                                                                                         </select>
                                                                                     </div>
-                                                                                </div>  
-                                                                        </li>
-                                                                        <li className="week-row">
-                                                                                <div className="grade-container-green">
-                                                                                        <div className="small-titles dark-label week-label mostDifficult">Most Difficult</div>
-                                                                                        <div className="small-titles light-label item-body">{this.props.thisweekMostDifficult}</div>
-                                                                                        <div>
-                                                                                            <select
-                                                                                                    className="hundredpercent-width"
-                                                                                                    type="text"
-                                                                                                    defaultValue="DEFAULT"
-                                                                                                    onChange={e => this.handleChange(e, "mostDifficult")}>
-                                                                                                        <option value="DEFAULT" disabled>Choose a course</option>
-                                                                                                        {mycoursedropdown}
-                                                                                            </select>
-                                                                                        </div>
+                                                                                    <div className="item">
+                                                                                    <button
+                                                                                        className="blue-btn center-btn fivepx-margin"
+                                                                                        type="submit"
+                                                                                        value="Update"
+                                                                                    >
+                                                                                        Save
+                                                                                    </button>
                                                                                 </div>
-                                                                                <div className="grade-container-green">
+                                                                            </form>
+                                                                        </div>
+                                                                        <div className="weekdetail-container-green">
+                                                                                <form action="/" onSubmit={this.updateSubmit.bind(this)} >
                                                                                         <div className="small-titles dark-label week-label leastDifficult">Least Difficult</div>
-                                                                                        <div className="small-titles light-label item-body">{this.props.thisweekLeastDifficult}</div>
+                                                                                        {(this.props.weekdetailsold.leastDifficult === '' || this.props.weekdetailsold.leastDifficult === 'no selection') ? (
+                                                                                            <div className="small-titles light-label item-body red-background">Please update.</div>
+                                                                                        ) : (
+                                                                                            <div className="small-titles light-label item-body">{this.props.weekdetailsold.leastDifficult}</div>
+                                                                                        )}
                                                                                         <div>
                                                                                             <select
+                                                                                                    ref={element => this.newLeastDifficult = element}
                                                                                                     className="hundredpercent-width"
                                                                                                     type="text"
                                                                                                     defaultValue= "DEFAULT"
-                                                                                                    onChange={e => this.handleChange(e, "leastDifficult")}>
-                                                                                                        <option value="DEFAULT" disabled>Choose a course</option>
+                                                                                                    onChange={this.updateWeek.bind(this, "newLeastDifficult")}>
+                                                                                                        <option value="DEFAULT" disabled>Select course</option>
                                                                                                         {mycoursedropdown}
                                                                                             </select>
                                                                                         </div>
-                                                                                </div>
-                                                                            </li>
-                                                            </ul>
-                                                            {(this.state.weekIsUpdated) ? (
-                                                                <div className="message-style">Week {this.props.currentweek} has been updated.</div>
-                                                            ):(
-                                                                ""
-                                                            )}
-                                                            <div className="item">
-                                                                    <button className="blue-btn center-btn fivepx-margin" type="submit" value="Submit">Save Your Selections</button>
-                                                            </div> 
-                                                        </form>   
-                                                </div>
+                                                                                        <div className="item">
+                                                                                            <button
+                                                                                                className="blue-btn center-btn fivepx-margin"
+                                                                                                type="submit"
+                                                                                                value="Update"
+                                                                                            >
+                                                                                                Save
+                                                                                            </button>
+                                                                                        </div>
+                                                                                </form>
+                                                                        </div>
+                                                                    </li>
+                                                    </ul>
+                                                      
                                         </div>
-                                        <div className="unit-container-blue">
+                                </div>
+
+                                <div className="unit-container-blue">
                                         <h3 >How were your grades this week?</h3>
                                         <h4>Add grades for week {this.props.currentweek} now.</h4>
                                         <div className="list-vertical">
@@ -257,12 +400,13 @@ export default class ReviewCurrentWeek extends React.Component {
                                             </ul>
                                         </div>
                                 </div>
-                                    </div>
-                        </div> 
+
+                            </div>
+                    </div> 
                 )}; 
             </div>
 
             
-            )
+            );
     }
 }

@@ -85,6 +85,7 @@
 
     .green-navbar-btn:hover{
       border:1px solid #606f5c;
+      color: var(--off-white-color);
       background-color: #788b73; background-image: -webkit-gradient(linear, left top, left bottom, from(#788b73), to(#505c4d));
       background-image: -webkit-linear-gradient(top, #788b73, #505c4d);
       background-image: -moz-linear-gradient(top, #788b73, #505c4d);
@@ -247,7 +248,7 @@
   /* Extra Small Devices, Phones */ 
   @media only screen and (min-width : 480px) {
     .navbar {
-      height: 310px;
+      height: 210px;
     }
 
     .navbar-item {

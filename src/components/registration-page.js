@@ -18,24 +18,33 @@ class RegistrationPage extends React.Component {
 
 
     handleValidation() {
+        let firstName = this.state.fields.firstName.trim();
+        let lastName = this.state.fields.lastName.trim();
+        let username = this.state.fields.username.toLowerCase().trim();
+        let password = this.state.fields.password.trim();
+        console.log('inside handleValidation', firstName + ' ' + lastName + ' ' + username + ' ' + password);
+        /*
         let firstname = this.state.fields["firstName"];
         let lastname = this.state.fields["lastName"];
         let username = this.state.fields["username"];
         let password = this.state.fields["password"];
+        */
+
+        console.log()
         let errors = {};
         let formIsValid = true;
         let regularExpression = /\S+@\S+\.\S+/;
 
         // Firstname
         errors["firstName"] = "";
-        if (!firstname) {
+        if (!firstName) {
             formIsValid = false;
             errors["firstName"] = "Firstname cannot be empty.";
         }
 
         // Lastname
         errors["lastName"] = "";
-        if (!lastname) {
+        if (!lastName) {
             formIsValid = false;
             errors["lastName"] = "Lastname cannot be empty.";
         }
@@ -49,7 +58,7 @@ class RegistrationPage extends React.Component {
         }
 
         if (typeof username !== "undefined") {
-            formIsValid = regularExpression.text(username.toLowerCase());
+            formIsValid = regularExpression.test(username.toLowerCase());
             if (!formIsValid) {
                 errors["username"]="Username must be in email format.";
             }
@@ -87,8 +96,13 @@ class RegistrationPage extends React.Component {
 
     registrationSubmit(e) {
         e.preventDefault();
+        let firstName = this.state.fields.firstName.trim();
+        let lastName = this.state.fields.lastName.trim();
+        let username = this.state.fields.username.toLowerCase().trim();
+        let password = this.state.fields.password.trim();
+        console.log('inside registrationSubmit', firstName + ' ' + lastName + ' ' + username + ' ' + password);
         if(this.handleValidation()){
-            this.props.submitregistration(this.state.fields.firstName, this.state.fields.lastName, this.state.fields.username, this.state.fields.password);
+            this.props.submitregistration(firstName, lastName, username, password);
           }else{
             console.log("form is : False", this.handleValidation());
          }

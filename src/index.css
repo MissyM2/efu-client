@@ -9,15 +9,16 @@
     --darker-blue-color: #31708E;
     --med-blue-color: #5085A5;
     --light-blue-color: #8FC1E3;
-    --red-color: red;
     --off-white-color: #F7F9FB;
     --darker-off-white-color: #dee0e2;
-    --orange-accent-color:#F28627;
+    --red-color: rgb(139, 0, 0);
+    --red-accent-color:rgba(139, 0, 0,.7);
     --pale-green-accent-color: #A9BF78;
     --navy-color: #144673;
     --header-font-family: 'Cantata One', serif;
     --body-font-family:'Imprima', sans-serif;
     --light-gray-color: #dee0e2;
+
    
 }
 
@@ -258,9 +259,13 @@
 
         em {
           font-weight: bold;
-          color: red;
+          color: var(--red-color);
           font-size: 10px;
           text-align:center;
+        }
+
+        .red-background {
+          background-color: var(--red-accent-color);
         }
 
         .wrapper{
@@ -716,9 +721,11 @@
 
 
     .message-style {
-      color:darkred;
+      color:var(--red-color);
       margin-bottom: 8px;
-      font-size:16px;
+      margin-top: 5px;
+      font-size:20px;
+      font-weight:bold;
     }
 
     .display-yes select {
@@ -893,6 +900,7 @@
         width: 100%;
         padding-left: 5px;
         padding-right: 5px;
+        margin-top:10px;
       }
       
 
@@ -904,10 +912,10 @@
 
     /* Extra Small Devices, Phones */ 
     @media only screen and (min-width : 480px) {
-      h2,
-      h3,
-      h5 {
-        text-align:left;
+      
+
+      .content-container {
+        margin: 210px auto;
       }
 
       .week-item {
@@ -923,10 +931,6 @@
       .week-row {
         display:flex;
         width: 100%;
-      }
-
-      .content-container {
-        margin: 350px auto;
       }
 
       .content-sub-container {
@@ -946,6 +950,12 @@
 
     /* Small Devices, Tablets */
     @media only screen and (min-width : 768px) {
+      h2,
+      h3,
+      h5 {
+        text-align:left;
+      }
+      
       .section-container {
         width: 90%;
       }

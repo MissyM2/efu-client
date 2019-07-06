@@ -38,6 +38,19 @@
             display:none;
         }
 
+        .drawer-column {
+            display:flex;
+            flex-direction:column;
+            justify-content:space-between;
+        }
+
+        .menu-item {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            font-family:var(--body-font-family);
+            font-size:20px;
+        }
+
         .side-drawer ul {
             height: 100%;
             list-style-type: none;
@@ -49,29 +62,7 @@
             
         }
 
-        .side-drawer li {
-            margin: 0;
-            
-        }
-
-        .link-logout:hover {
-            color: #31708E;
-            font-size: 14px;
-            font-weight: bold;
-
-        }
-
-        .dropdown-username {
-            text-align:center;
-            padding:10px;
-            font-size:20px;
-            display:flex;
-            flex-direction: column;
-            
-        }
         .username-background {
-            position:relative;
-            width:100%;
             opacity: .7;
             border:1px solid #7f8f79; 
             text-decoration:none; 
@@ -87,69 +78,37 @@
             filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#93A28F, endColorstr=#687864);
         }
 
+
         .drawer-navlink {
-            color: var(--darker-blue-color);
-            font-family:var(--body-font-family);
-            font-size: 20px;
-            padding:10px;
-            
+            color: var(--mossy-green-color);
         }
 
-        .drawer-navitem {
-            padding:10px;
-        }
         .drawer-navlink:hover {
-            color: var(--off-white-color);
-            background-color:var(--darker-blue-color); 
+            color:var(--darker-blue-color);
+            background-color:transparent;
+            font-size:24px;
+            font-weight:bold;
+
         }
-        
-        .drawer-navitem:hover {
-            color: var(--off-white-color);
-            background-color:var(--darker-blue-color);
-        }
-        
 
         .drawer-logoutlink {
-            padding: 15px;
-            width: 100%;
-            opacity: .7;
             color: var(--off-white-color);
-            background-color:var(--darker-blue-color);
-            font-family:var(--body-font-family);
-            font-size:20px;
-            display:inline-block;
             text-shadow: -1px -1px 0 rgba(0,0,0,0.3);
-            font-weight:bold; 
-            position: absolute;
-            bottom: 0;
-            left: 0;
+            padding-top: 20px;
+            padding-bottom: 20px;
         }
 
-        .drawer-logoutitem:hover {
-            opacity: 1;
-            color: var(--off-white-color);
+        .drawer-logoutlink-background {
             background-color:var(--darker-blue-color);
-
         }
 
         .drawer-logoutlink:hover {
-            opacity: 1;
+            background-color:transparent;
             color: var(--off-white-color);
-            background-color:var(--darker-blue-color);
-
         }
 
-        logout:hover {
-            text-decoration:none; 
-            display:inline-block;
-            background-color: #F7F9FB; 
-            background-image: -webkit-gradient(linear, left top, left bottom, from(#F7F9FB), to(#D5E0EA));
-            background-image: -webkit-linear-gradient(top, #F7F9FB, #D5E0EA);
-            background-image: -moz-linear-gradient(top, #F7F9FB, #D5E0EA);
-            background-image: -ms-linear-gradient(top, #F7F9FB, #D5E0EA);
-            background-image: -o-linear-gradient(top, #F7F9FB, #D5E0EA);
-            background-image: linear-gradient(to bottom, #F7F9FB, #D5E0EA);
-            filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#F7F9FB, endColorstr=#D5E0EA);
+        .drawer-logoutlink-background:hover {
+            background-color:var(--mossy-green-color);
         }
       
       }

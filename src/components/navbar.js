@@ -13,7 +13,6 @@ export default class NavBar extends React.Component {
                 termSelected:''
         }
         this.setSelectedTerm = this.setSelectedTerm.bind(this);
-        this.setSelectedTerm = this.setSelectedTerm.bind(this);
 }
 
     componentDidMount() {
@@ -124,7 +123,7 @@ export default class NavBar extends React.Component {
                                                 }
                                             }
                                             >
-                                            View All Weeks
+                                            View Weeks
                                         </Link>
                                     </div>
                                     <div className="navbar-cell spacer-hamburger"></div>

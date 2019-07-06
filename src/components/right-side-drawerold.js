@@ -9,20 +9,21 @@ export default class RightSideDrawer extends React.Component {
     render() {
         let drawerClasses = 'right-side-drawer';
         if (this.props.rightSideDrawerOpen) {
-            drawerClasses = 'right-side-drawer drawer-column open';
+            drawerClasses = 'right-side-drawer open';
         }  else {
             drawerClasses='right-side-drawer not-visible';
         }
 
             return (
                     <div className={drawerClasses} >
-                            <div className="menu-item username-background" href="/"> 
-                                <div className="">
+                        <ul className="drawer-column">
+                            <li className="username-link username-background" href="/"> 
+                                <div className="dropdown-username">
                                     <div>You are signed in as</div>
                                     <div>{this.props.currentusername}</div>
                                 </div>
-                            </div>
-                            <div className="menu-item" href="/">
+                            </li>
+                            <li className="drawer-navitem" href="/">
                                 <div onClick={this.props.rightdrawertoggleclickhandler}>
                                     <Link 
                                         className="drawer-navlink"
@@ -34,8 +35,8 @@ export default class RightSideDrawer extends React.Component {
                                     </Link>
                                 </div>
                             
-                            </div>
-                            <div className="menu-item" href="/">
+                            </li>
+                            <li className="drawer-navitem" href="/">
                                 <div onClick={this.props.rightdrawertoggleclickhandler}>
                                     <Link 
                                         className="drawer-navlink"
@@ -47,16 +48,16 @@ export default class RightSideDrawer extends React.Component {
                                     </Link>
                                 </div>
                             
-                            </div>
-                            <div className="menu-item drawer-logoutlink-background" href="/">
+                            </li>
+                            <li className="drawer-logoutitem" href="/">
                                 <div onClick={this.props.rightdrawertoggleclickhandler}>
-                                    <Link 
-                                        className="drawer-logoutlink"
-                                        onClick={this.props.submitlogout} to="/">
+                                    <Link className="drawer-logoutlink" onClick={this.props.submitlogout} to="/">
                                         Log out
                                     </Link>
                                 </div>
-                            </div>
+                            
+                            </li>
+                        </ul>
                     </div>
                 );
 

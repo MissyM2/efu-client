@@ -164,7 +164,7 @@ export default class AddDeliverableForm extends React.Component {
                             e.preventDefault();
                             this.setEditing(true);
                             this.props.setdeliverableadded(false);
-                            this.props.setdeliverableischanged(false);
+                            this.props.setdeliverableupdated(false);
                         }}>
                         <Link to='#'>{text}...</Link>
                     </div>

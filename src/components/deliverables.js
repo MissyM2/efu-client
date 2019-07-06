@@ -20,7 +20,7 @@ export default class Deliverables extends React.Component {
                         courseIsChanged:false,
                         fields:{},
                         errors:{},
-                        //deliverableIsChanged:false,
+                        //deliverableUpdated:false,
                         addMessage:"Deliverable has been added.",
                         updateMessage: "Deliverable has been updated.",
                         deleteMessage: "Deliverable has been deleted."
@@ -173,7 +173,7 @@ export default class Deliverables extends React.Component {
                                                 ) : (
                                                         <div></div>
                                                 )}
-                                                {(this.props.deliverableIsChanged) ? (
+                                                {(this.props.deliverableUpdated) ? (
                                                             <div className="msg-style">{this.state.deleteMessage}</div>
                                                             ):(
                                                         ""

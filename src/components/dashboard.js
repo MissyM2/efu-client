@@ -75,7 +75,7 @@ export default class Dashboard extends React.Component {
                     <Deliverable
                             {...deliverable}
                             allprephrs={this.props.allprephrs}
-                            setdeliverableischanged={this.props.setdeliverableischanged}
+                            setdeliverableupdated={this.props.setdeliverableupdated}
                             submitupdatedel={this.props.submitupdatedel}
                             deletedel={this.props.deletedeliverable}
                     />     
@@ -91,7 +91,7 @@ export default class Dashboard extends React.Component {
                         {...deliverable}
                         {...this.props}
                         {...this.state}
-                        setdeliverableischanged={this.props.setdeliverableischanged}
+                        setdeliverableupdated={this.props.setdeliverableupdated}
                         submitupdatedel={this.props.submitupdatedel}
                         deletedel={this.props.deletedeliverable} 
                     />                                                       

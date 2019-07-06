@@ -137,6 +137,10 @@ export default class DeliverableProfile extends React.Component {
                 );
         });
 
+        console.log('del-propfile', this.props);
+        console.log('del-propfile', this.state);
+
+
     return (  
                 <div>
                          <div className="course-container-blue tenpx-bottom-margin">
@@ -232,7 +236,7 @@ export default class DeliverableProfile extends React.Component {
                                                                 
                                                             </div>
                                                     </div>
-                                                    {(this.props.deliverableIsChanged &&
+                                                    {(this.props.deliverableupdated &&
                                                         this.props.id === this.state.delUpdatingId)
                                                              ? (
                                                             <div className="msg-style">{this.state.message}</div>
