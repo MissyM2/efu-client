@@ -16,6 +16,22 @@
             width: 20%;
         }
 
+        
+
+        .rcw-weeks-row {
+            display:flex;
+            flex-direction:column;
+        }
+
+        .rcw-week-row {
+            display:block;
+            width: 100%;
+            padding-left: 5px;
+            padding-right: 5px;
+            margin-top:10px;
+          }
+
+
         .unit-course-grade-blue {
             border:1px solid #59a3c6; 
             -webkit-border-radius: 3px; 
@@ -76,6 +92,16 @@
         .week-row .weekdetail-container-green {
             margin-bottom: 5px;
         }  
+
+        .grade-input {
+            width:30%;
+            text-align:center;
+        }
+
+        .grade-label {
+            border: 1px solid var( --darkest-color);
+            border-radius:4px 4px 0 0 ;
+        }
        
                     
                 
@@ -101,6 +127,25 @@
         .unit-course-grade-blue {
             width: 47%;
         }
+
+        .grade-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .rcw-grades-list {
+            display: flex;
+            flex-wrap:wrap;
+            justify-content: flex-start;
+        }
+
+        .rcw-week-row {
+            width: 48%;
+           
+          }
+          .grade-label {
+            height:55px;
+        }
         
             
       }
@@ -119,6 +164,11 @@
             .select-week-dd {
                 width:50%;
             }
+
+            .rcw-week-row {
+                width: 28%;
+               
+              }
         }
           
         

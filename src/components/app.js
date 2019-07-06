@@ -743,7 +743,11 @@ class App extends React.Component {
                 return this.getthistermweeks();
             })
             .then(res => {
-                console.log('set weekupdated, now get deliverables', this.state);
+                console.log('got weeks data, now get grades data');
+                return this.getcurrentgrades();
+            })
+            .then(res => {
+                console.log('got grades data, now get deliverables data', this.state);
                 return this.getthistermdeliverables(); 
             })
             .then(res => {

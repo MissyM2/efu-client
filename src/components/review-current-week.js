@@ -34,18 +34,6 @@ export default class ReviewCurrentWeek extends React.Component {
 
     componentDidMount() {
         this.props.setPageFlags("ReviewWeek");
-        //this.props.changecurrentweek(1);
-        /*
-        let updateKeyValue="missy test2";
-        let field = "newLikedLeast";
-        console.log(field);
-        console.log("newLikedLeast");
-        this.setState({
-            field: updateKeyValue
-        });
-        console.log('thisafter compdidmount', this.state);
-        */
-        
     }
 
     setSelectedWeek(e) {
@@ -54,9 +42,6 @@ export default class ReviewCurrentWeek extends React.Component {
             weekSelected: e.target.value
         }, () => {
             this.props.setcurrentweek(this.state.weekSelected);
-            
-            //console.log('setSelectedWeek this,props', this.props);
-            //console.log('setSelectedWeek this.state', this.state);
         });
     }
 
@@ -85,20 +70,12 @@ export default class ReviewCurrentWeek extends React.Component {
             break;
             default:
                 console.log('field names did not match any of the options.');
-        }
-        
-        //console.log('this.state', this.state);
-
-
-       // submit item for update
-
-            
+        }  
     }
 
 
     updateSubmit = (e) => {
         e.preventDefault();
-        console.log('this.state', this.state);
             let likedLeast;
             let likedMost;
             let mostDifficult;
@@ -109,14 +86,12 @@ export default class ReviewCurrentWeek extends React.Component {
             } else {
                 likedLeast=this.state.fields.newLikedLeast;
             }
-            console.log('likedLeast', likedLeast);
 
             if(this.state.fields.newLikedMost === "" || this.state.fields.newLikedMost === "no selection") {
                 likedMost=this.props.weekdetailsold.likedMost;
             } else {
                 likedMost=this.state.fields.newLikedMost;
             }
-            console.log('likedMost', likedMost);
 
             if(this.state.fields.newMostDifficult === "" || this.state.fields.newMostDifficult === "no selection") {
                 mostDifficult=this.props.weekdetailsold.mostDifficult;
@@ -124,15 +99,11 @@ export default class ReviewCurrentWeek extends React.Component {
                 mostDifficult=this.state.fields.newMostDifficult;
             }
 
-            console.log('mostDifficult', mostDifficult);
-
             if(this.state.fields.newLeastDifficult === "" || this.state.fields.newLeastDifficult === "no selection") {
                 leastDifficult=this.props.weekdetailsold.leastDifficult;
             } else {
                 leastDifficult=this.state.fields.newLeastDifficult;
             }
-
-            console.log('leastDifficult', leastDifficult);
     
             let updateWeek = {
                 termDesc: this.props.currentterm,
@@ -142,8 +113,6 @@ export default class ReviewCurrentWeek extends React.Component {
                 mostDifficult: mostDifficult,
                 leastDifficult: leastDifficult,
             };
-
-            console.log('rcw: updateWeek', updateWeek);
         /*   
             this.setState({
                 newLikedLeast:"",
@@ -192,18 +161,17 @@ export default class ReviewCurrentWeek extends React.Component {
         let mygrades = this.props.thisweekgrades;
         mygrades = mygrades.map((grade, index) => {
            return ( 
-                    <div id={grade.id} index={index + 5}>
+
+                <li className="rcw-week-row grade-container-green" id={grade.id} index={index + 5}>
                         <CourseGrades 
                             {...grade} 
                             {...this.state}
                             {...this.props}
                             setGradeIsUpdated={this.setGradeIsUpdated} /> 
-                    </div> 
+                </li> 
            );
         });
-        //console.log('rcw, weekupdated, this.props', this.props.weekUpdated);
-        //console.log('rcw, weekupdated, this.props', this.props.weekdetailsold.likedLeast);
-        //console.log('rcw, weekupdated, this.props', this.props.weekdetailsold["likedLeast"]);
+        //console.log('rcw, this.props', this.props);
         //console.log('rcw, before return', this.state);
         
         return (
@@ -391,11 +359,11 @@ export default class ReviewCurrentWeek extends React.Component {
                                         </div>
                                 </div>
 
-                                <div className="unit-container-blue">
+                                <div className="unit-container-blue hundredpercent-width tenpx-bottom-margin">
                                         <h3 >How were your grades this week?</h3>
                                         <h4>Add grades for week {this.props.currentweek} now.</h4>
-                                        <div className="list-vertical">
-                                            <ul className="weeks-row">
+                                        <div className="grade-container">
+                                            <ul className="rcw-grades-list">
                                                 {mygrades}
                                             </ul>
                                         </div>

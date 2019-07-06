@@ -50,9 +50,8 @@ export default class CourseGrades extends React.Component {
 
     render() {
         return (
-                <li className="week-row">
-                    <div className="grade-container-green">
-                            <div className="small-titles dark-label week-label course-title" >Course:  {this.props.course}</div>
+                    <div>
+                            <div className="small-titles dark-label grade-label course-title" >Course:  {this.props.course}</div>
                             <div className="small-titles light-label item-body course-grade">Current Grade:  {this.props.gradeNum}</div>
                             <form onSubmit={(e) => {this.onSubmit(e)}}>
                                 {(this.props.id === this.state.gradeUpdatingId) ? (
@@ -60,8 +59,9 @@ export default class CourseGrades extends React.Component {
                                 ):(
                                 ""
                                 )}
-                                <div className="dd">
+                                <div>
                                     <input
+                                        className="grade-input"
                                         type="number" 
                                         value={this.state.newGradeNum}
                                         onChange={e =>this.setNewGradeNum(e.target.value)}
@@ -78,9 +78,6 @@ export default class CourseGrades extends React.Component {
                                 </div>
                             </form>
                     </div>
-                    
-                </li>
-                    
             );
         };
 }
