@@ -181,12 +181,6 @@ export default class Deliverables extends React.Component {
                                                         ) : (
                                                                 <div></div>
                                                         )}
-                                                        {(this.props.deliverableAdded)  ? (
-                                                               <div className="message-style">Deliverable has been added.</div>
-                                                        ) : (
-                                                                <div></div>
-                                                        )}
-                                                        
                                                 </header>
                                                 <div className="deliverable-option-bar-full">
                                                         <div className="deliverable-option-bar">

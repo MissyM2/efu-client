@@ -7,7 +7,7 @@ import './css/add-deliverable-form.css';
 import NavBar from "./navbar";
 import RightSideDrawer from './right-side-drawer';
 import Backdrop from './backdrop';
-import BackdropWhite from './backdrop-white';
+import BackdropBlack from './backdrop-black';
 
 
 
@@ -24,11 +24,16 @@ export class AddDeliverableForm extends React.Component {
                 },
                 errors: {}
             }
+            this.initialState = {...this.state};
             this.setSelectedCourseForAdd = this.setSelectedCourseForAdd.bind(this);
             this.handleValidation = this.handleValidation.bind(this);
         }
     
-
+        returnToDeliverables = (e) => {
+                this.props.setdeliverableadding(false);
+                this.state = Object.assign({}, this.initialState);
+                this.props.history.push('/deliverables');
+        }
         _onFocus(e){
             e.currentTarget.type = "date";
         }
@@ -66,9 +71,7 @@ export class AddDeliverableForm extends React.Component {
         }
     
         setSelectedCourseForAdd = (e) => {
-                console.log("add-del, this.props", this.props);
             e.preventDefault();
-            console.log('setSelectedCourseForAdd');
             this.props.setdeliverableadded(false);
             this.props.setdeliverableupdated(false);
             let fields = this.state.fields;
@@ -79,8 +82,6 @@ export class AddDeliverableForm extends React.Component {
                 //courseName:e.target.value,
                 courseIsChanged:true
             }, () => {
-                console.log('this.state after selecting course', this.state);
-                console.log('this.props after selecting course', this.props);
                     this.props.setdeliverableadding(true);
                     
             });
@@ -157,15 +158,16 @@ export class AddDeliverableForm extends React.Component {
                 }
 
                 console.log('newDeliverable after prep', newDeliverable);
-                this.setState({
-                    dueDate:"",
-                    deliverableName:"",
-                    desc: ""
-                });
-                //this.props.adddeliverable(newDeliverable);
-                console.log('add-deliverable complete');
-                this.props.getcurrentweekdetails(this.props.adddeliverable(newDeliverable));
-                this.props.history.push("/deliverables");
+                
+                this.props.submitadddeliverable(newDeliverable);
+
+                let fields = this.state.fields;
+                fields["dueDate"] = "";
+                fields["deliverableName"] = "";
+                fields["desc"] = "";
+                this.setState({fields});
+                
+
             }
         }
             
@@ -176,7 +178,7 @@ export class AddDeliverableForm extends React.Component {
                 if(this.props.sideDrawerOpen) {
                     backdrop = <Backdrop rightbackdropclickhandler={this.props.rightbackdropclickhandler} />
                 } else {
-                        backdrop = <BackdropWhite />
+                        backdrop = <BackdropBlack />
                 }
                 let impactClasses;
 
@@ -210,7 +212,9 @@ export class AddDeliverableForm extends React.Component {
                             </option>
                         );
                     });
+                    console.log('add-del-form this.state', this.state);
                 return (
+                       
                         <div className="content-container">
                                 <div className="">
                                         <NavBar {...this.props} />
@@ -225,18 +229,27 @@ export class AddDeliverableForm extends React.Component {
                                         />
                                 </div>
                                 {backdrop}
+                                
                                         
-                                        <div className="content-sub-container">
-                                            <div className="add-deliverable-form">
+                                        <div className="content-sub-container add-del-form">
+                                                <section className="modal__content">
+                                                {/*<div className="add-deliverable-form"> */}
+                                                <header><h2>Add Deliverable</h2></header>
+                                       
                                                 <select
                                                         type="text"
-                                                        className="course-select"
+                                                        className="add-deliverable-course-select"
                                                         defaultValue='DEFAULT'
                                                         onChange={this.setSelectedCourseForAdd}
                                                         >
-                                                        <option value="DEFAULT" selected disabled>Choose a course</option>
+                                                        <option value="DEFAULT" disabled>Choose a course</option>
                                                                 {mycoursedropdown}
                                                 </select>
+                                                {(this.props.deliverableAdded)  ? (
+                                                               <div className="message-style">Deliverable has been added.  Finished adding?</div>
+                                                        ) : (
+                                                                <div></div>
+                                                        )}
                                                 <form className="del-form" onSubmit={this.addDeliverableSubmit.bind(this)}>
                                                     <div className="message-style">
                                                             {this.state.errors["emptyFields"]}
@@ -261,7 +274,7 @@ export class AddDeliverableForm extends React.Component {
                                                                             aria-label="deliverableName"
                                                                             required
                                                                             >
-                                                                                <option className="default-value" value="DEFAULT" disabled selected hidden>What kind of deliverable is this?  Make a choice.</option> 
+                                                                                <option className="default-value" value="DEFAULT" disabled selected>What kind of deliverable is this?  Make a choice.</option> 
                                                                                 {delNames}
                                                                     </select>
 
@@ -280,16 +293,17 @@ export class AddDeliverableForm extends React.Component {
                                                     <div className="action-btns">
                                                         <button type="submit" className="blue-btn btn-small fivepx-margin">Add </button>
                                                         
-                                                        <button className="blue-btn btn-small fivepx-margin" type="button">
-                                                                <Link to="/deliverables">
-                                                                Return     
-                                                                </Link>
+                                                        <button className="blue-btn btn-small fivepx-margin" type="button" onClick={this.returnToDeliverables.bind(this)}>
+                                                                Return
                                                         </button>    
                                                     </div>
                                                 </form> 
-                                            </div>
-                                         </div>
-                        </div>
+
+                                        </section>
+                                        
+                                        </div>
+                                        </div>
+                                        
                 );
         }      
 }

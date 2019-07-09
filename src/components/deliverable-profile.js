@@ -123,8 +123,6 @@ export default class DeliverableProfile extends React.Component {
            impact:impact
        };
 
-       console.log('submitupdatedeliverable: deliverable', deliverable);
-
        this.props.submitupdatedeliverable(deliverable);   
    }
 
@@ -138,8 +136,7 @@ export default class DeliverableProfile extends React.Component {
                                {option}
                     </option>
                 );
-        });;
-        console.log('deliverable-profile: this.props.', this.props);
+        });
     return (  
                 <div>
                          <div className="course-container-blue tenpx-bottom-margin">

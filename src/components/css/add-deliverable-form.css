@@ -1,65 +1,76 @@
-button {
-    margin: 0 auto;
-}
-.deliverable-section {
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
-}
-
-.single-deliverable {
-    display: flex;
-    flex-direction: row;
-    border: 1px solid;
-}
-
-.course-header {
-    font-weight: bold;
-    text-align: left;
-}
-
-.course-deliverables-field {
-    text-align: left;
-    padding-left: 60px;
-}
-
-.del-form li {
-    color: var(--off-white-color);
-    font-size: 14px;
-}
-
-.del-unit-container {
-        border:1px solid #59a3c6; 
-        -webkit-border-radius: 3px; 
-        -moz-border-radius: 3px;
-        border-radius: 3px;
-        font-size:14px;
-        font-family:var( --body-font-family); 
-        padding: 10px 10px 10px 10px; 
-        text-decoration:none; 
-        font-weight:bold;
-        
-}
-
-.ul-deliverable {
-    margin-bottom: 10px;
-}
-
-
-.add-deliverable {
-    margin: 0 auto;
-}
-
-
-
-
-
-
 
 /*==========  Mobile First Method  ==========*/
 
     /* Custom, iPhone Retina */ 
     @media only screen and (min-width : 320px) {
+        button {
+            margin: 0 auto;
+        }
+        .deliverable-section {
+            display: flex;
+            flex-direction: column;
+            margin: 0 auto;
+        }
+
+        .add-deliverable-course-select {
+            width: 75%;
+            color:var(--navy-color);
+        }
+
+        .del-unit-container {
+            color:var(--navy-color);
+        }
+
+        select option:disabled {
+            color: red;
+            font-weight: bold;
+        }
+
+        .add-del-form {
+            z-index: 200;
+        }
+
+        .single-deliverable {
+            display: flex;
+            flex-direction: row;
+            border: 1px solid;
+        }
+
+        .course-header {
+            font-weight: bold;
+            text-align: left;
+        }
+
+        .course-deliverables-field {
+            text-align: left;
+            padding-left: 60px;
+        }
+
+        .del-form li {
+            color: var(--off-white-color);
+            font-size: 14px;
+        }
+
+        .del-unit-container {
+                border:1px solid #59a3c6; 
+                -webkit-border-radius: 3px; 
+                -moz-border-radius: 3px;
+                border-radius: 3px;
+                font-size:14px;
+                font-family:var( --body-font-family); 
+                padding: 10px 10px 10px 10px; 
+                text-decoration:none; 
+                font-weight:bold;  
+        }
+
+        .ul-deliverable {
+            margin-bottom: 10px;
+        }
+
+        .add-deliverable {
+            margin: 0 auto;
+        }
+
         .del-form {
             display:flex;
             flex-direction:column;
@@ -83,8 +94,6 @@ button {
         .desc {
             width: 100%;
         }
-
-        
       
       }
   
@@ -99,6 +108,9 @@ button {
   
       /* Small Devices, Tablets */
       @media only screen and (min-width : 768px) {
+        .add-deliverable-course-select {
+            width: 50%;
+        }
         .del-row {
             display:flex;
             flex-direction: row;

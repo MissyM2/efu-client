@@ -246,7 +246,7 @@ class App extends React.Component {
         let newDay = newDate.getDate();
         let newMonth = newDate.getMonth() + 1;
         let newYear = newDate.getFullYear();
-        let todayDate =`${newYear}-${newMonth<10?`0${newMonth}`:`${newMonth}`}-${newDay}`;
+        let todayDate =`${newYear}-${newMonth<10?`0${newMonth}`:`${newMonth}`}-${newDay<10?`0${newDay}`:`${newDay}`}`;
         this.setState({
             currentdate: todayDate
         });
@@ -747,6 +747,7 @@ class App extends React.Component {
                     })
                 })
                 .catch(err => {
+                    console.log('error during GRADES PROMISE')
                     console.log('Error:' + err.reason + ' at ' + err.location);
                 })
             })
@@ -781,6 +782,7 @@ class App extends React.Component {
                     });
                 })
                 .catch(err => {
+                    console.log('error during DELIVERABLES PROMISE');
                     console.log('Error:' + err.reason + ' at ' + err.location);
                 })
             })
@@ -872,6 +874,7 @@ class App extends React.Component {
     }
 
     getthistermcourses(resolve = null, reject = null) {
+        console.log('step 1: getthistermcourses');
         fetch(`${API_BASE_URL}/courses`, {
             method: 'GET',
             headers: {
@@ -907,7 +910,7 @@ class App extends React.Component {
     }
 
     getthistermweeks = (resolve = null, reject = null) => {
-        //console.log('in promise:grades: step 1');
+        console.log('step 2: getthistermweeks');
         // fetching week data and committing it to state:  all weeks for term, then details for given week
         fetch(`${API_BASE_URL}/weeks`, {
             method: 'GET',
@@ -987,7 +990,7 @@ class App extends React.Component {
 
     // get grades for the term, week, and course 
     gettermgrades = (resolve = null, reject = null) => {
-        console.log('step 2:grades');
+        console.log('step 3:gettermgrades');
         let currentgrades;
         fetch(`${API_BASE_URL}/grades`, {
             method: 'GET',
@@ -1021,7 +1024,7 @@ class App extends React.Component {
     }
 
     getweekgrades = (resolve = null, reject = null) => {
-        //console.log('step 3: grades');
+        console.log('step 3A: getweekgrades');
             const tempweekgrades = this.state.thistermgrades.filter(grade => {
                 return grade.term === this.state.currentterm && grade.week === this.state.currentweek;
             });
@@ -1035,7 +1038,7 @@ class App extends React.Component {
     }
 
     getcoursegrades = () => {
-        //console.log('step 4: grades');
+        console.log('step 3B: getcoursegrades');
         let tempcoursegrades = 0;
             if (this.state.thistermgrades.length > 0) {
                 tempcoursegrades = this.state.thistermgrades.filter(grade => {
@@ -1052,11 +1055,18 @@ class App extends React.Component {
             });
     }
 
-    
+    sortByKey(array, key) {
+        console.log('array', array);
+        console.log('key', key);
+        return array.sort(function(a, b) {
+            var x = a[key]; var y = b[key];
+            return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+        });
+    } 
 
     // get all deliverables for the term
     gettermdeliverables(resolve = null, reject = null) {
-        console.log('step 1: gettermdeliverables')
+        console.log('step 4: gettermdeliverables')
         fetch(`${API_BASE_URL}/deliverables`, {
             method: 'GET',
             headers: {
@@ -1073,13 +1083,44 @@ class App extends React.Component {
 
         // get deliverables for the term
         .then(resJSON => {
-            //console.log('gettermdeliverables: resJSON', resJSON);
+            console.log('gettermdeliverables: resJSON', resJSON);
+/*
+            const sortedweeks = resJSON
+            .sort((a, b) => a.weekNum - b.weekNum)
+            .filter(week => {
+                    return week.termDesc === this.state.currentterm;
+            });
+            */
+
+
+
+
             let temptermdeliverables =[];
+            /*
+            let arrayOne = [
+                {num:40, dt:"04-08-2019"},
+                {num:18, dt:"06-01-2019"},
+                {num:10, dt: "09-10-2019"}, 
+                {num:60, dt: "04-01-2019"},
+                {num: 3, dt: "11-04-2019"} ,
+                {num: 29, dt: "01-01-2019"}
+            ];
+            //this.sortByKey(arrayOne, arrayOne.num);
+            //arrayOne.sort({ num: -1} );
+            console.log('arrayOne', arrayOne);
+*/
             if (resJSON.length > 0) {
                 temptermdeliverables = resJSON.filter(deliverable => {
                     return deliverable.termDesc === this.state.currentterm;
                 });
+                console.log('before sort', temptermdeliverables);
+
+                temptermdeliverables.sort((a,b)  => {
+                    console.log('a then b', a + "  " + b)
+                    return new Date(b.dueDate) - new Date(a.dueDate);
+                })
             }
+            console.log('temptermdeliverables', temptermdeliverables);
             return this.setState({
                 thistermdeliverables: temptermdeliverables
                 }, () => {
@@ -1096,7 +1137,7 @@ class App extends React.Component {
 
     // get deliverables for the week
     getweekdeliverables = (resolve = null, reject = null) => {
-        console.log('step 3: deliverables');
+        console.log('step 4B: getweekdeliverables');
         let tempweekdeliverables = [];
             if(this.state.thistermdeliverables.length > 0) {
                 console.log('this.state.thistermdeliverables', this.state.thistermdeliverables);
@@ -1116,7 +1157,7 @@ class App extends React.Component {
 
     // get prephrs for the week
     getweekprephrs = (resolve = null, reject = null)  => {
-        console.log('step 5: deliverables');
+        console.log('step 4C: getweekprephrs');
         let tempWeekPrephrs = 0;
             for (let i=0; i < this.state.thisweekdeliverables.length; i++) {
                 tempWeekPrephrs += this.state.thisweekdeliverables[i].prephrs;
@@ -1131,7 +1172,7 @@ class App extends React.Component {
 
     // get deliverables for the course
     getcoursedeliverables = () => {
-        console.log('step 2: coursedeliverables');
+        console.log('step 4A: getcoursedeliverables');
         let tempcoursedeliverables = [];
         if(this.state.currentcoursename !== "") {
             tempcoursedeliverables = this.state.thistermdeliverables.filter(deliverable => {
@@ -1149,20 +1190,20 @@ class App extends React.Component {
 
     // get deliverables for today
     gettodaydeliverables = () => {
-        console.log('step 4: todaydeliverables');
+        console.log('step 4C (new promise): gettodaydeliverables');
         let temptodaydeliverables = [];
         let todaydate = this.state.currentdate;
-        console.log('todaydate',todaydate);
        console.log('this.state.thistermdeliverables', this.state.thistermdeliverables);
         if (this.state.thistermdeliverables.length > 0) {
             console.log('this.state.thistermdeliverables.length', this.state.thistermdeliverables.length);
             temptodaydeliverables = this.state.thistermdeliverables.filter(deliverable => {
                 let deliverableDate = deliverable.dueDate.split('T')[0];
                 console.log('this.state.currentdate', this.state.currentdate);
-                console.log('deliverableDate', deliverableDate);
-                console.log('currdate matches', deliverableDate === todaydate);
+                console.log('deliverableDate=xx', deliverableDate,'xx');
+                console.log('todaydate=xx',todaydate,'xx');
+                console.log('currdate matches', deliverableDate == todaydate);
 
-                    return deliverableDate === todaydate;
+                    return deliverableDate == todaydate;
             });
         }
         console.log('gettodaydeliverables: temptodaydeliveravles', temptodaydeliverables);
@@ -1175,7 +1216,7 @@ class App extends React.Component {
                 
     // get prephrs for the day
     gettodayprephrs = () => {
-        //console.log('step 6:deliverables');
+        console.log('step 4D:gettodayprephrs');
             let tempPrephrs =0;
             for (let i =0; i < this.state.todaydeliverables.length; i++) {
                 tempPrephrs += this.state.todaydeliverables[i].prephrs;
@@ -1317,9 +1358,6 @@ class App extends React.Component {
                                             .then(res => {
                                                 this.gettodayprephrs();
                                                 
-                                            })
-                                            .then(res => {
-                                                this.props.history.push('/deliverables');
                                             })
                                             .catch(err => {
                                                 console.log('Error:' + err.reason + ' at ' + err.location);
@@ -1865,7 +1903,7 @@ class App extends React.Component {
                                                         setdeliverableadding = {(bool) => this.setdeliverableadding(bool)}
                                                         setdeliverableadded = {(bool) => this.setdeliverableadded(bool)}
                                                         setcurrentcoursename = {(course) => this.setcurrentcoursename(course)}
-                                                        adddeliverable = {(deliverable) => this.submitadddeliverable(deliverable)}
+                                                        submitadddeliverable = {(deliverable) => this.submitadddeliverable(deliverable)}
                                                         setcurrentcoursenameforaddingdeliverable= {(course) => this.setcurrentcoursenameforaddingdeliverable(course)}
                                                         rightbackdropclickhandler = {() => this.rightbackdropclickhandler()}
                                                         navbuttonstoggleclickhandler={() => this.navbuttonstoggleclickhandler()}
