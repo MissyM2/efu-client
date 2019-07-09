@@ -31,11 +31,15 @@ export class AddDeliverableForm extends React.Component {
     
         returnToDeliverables = (e) => {
                 this.props.setdeliverableadding(false);
+                this.props.setdeliverableadded(false);
+                this.props.getcurrentweekdetails();
                 this.state = Object.assign({}, this.initialState);
                 this.props.history.push('/deliverables');
         }
+        
         _onFocus(e){
             e.currentTarget.type = "date";
+           
         }
     
         _onBlur(e){
@@ -77,7 +81,7 @@ export class AddDeliverableForm extends React.Component {
             let fields = this.state.fields;
             let courseName=fields["courseName"];
             courseName = e.target.value;
-            this.props.setcurrentcoursename(courseName);;
+            this.props.setcurrentcoursenameforaddingdeliverable(courseName);;
             this.setState({
                 //courseName:e.target.value,
                 courseIsChanged:true
@@ -213,6 +217,7 @@ export class AddDeliverableForm extends React.Component {
                         );
                     });
                     console.log('add-del-form this.state', this.state);
+                    console.log('add-del-form this.props', this.props);
                 return (
                        
                         <div className="content-container">

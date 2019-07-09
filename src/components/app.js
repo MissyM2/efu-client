@@ -723,73 +723,73 @@ class App extends React.Component {
             });
             //console.log('should have gotten all courses', this.state.thistermcourses);
 
+        new Promise ((resolve, reject) => {
+            //console.log('in promise:deliverables: step 1 is next');
+            return this.gettermdeliverables(resolve, reject);
+        })
+        .then(res => {
             new Promise ((resolve, reject) => {
-                //console.log('in promise:grades: step 1 is next');
-                return this.getthistermweeks(resolve, reject);
+                //console.log('in promise:coursedeliverables: step 2 is next');
+                this.getcoursedeliverables();
+                //console.log('in promise:weekdeliverables: step 3 is next');
+                return this.getweekdeliverables(resolve, reject);
             })
             .then(res => {
-                //console.log('should have gotten all weeks', this.state.thistermweeks);
-                new Promise ((resolve, reject) => {
-                    //console.log('in promise:grades: step 2');
-                    return this.gettermgrades(resolve, reject);
+                new Promise((resolve, reject) => {
+                    //console.log('in promise:todaydeliverables: step 4 is next');
+                    this.gettodaydeliverables();
+                    //console.log('in promise:weekprephrsdeliverables: step 5 is next');
+                    return this.getweekprephrs(resolve, reject);
                 })
                 .then(res => {
-                    new Promise((resolve, reject) => {
-                        //console.log('in promise:grades: step 3');
-                        return this.getweekgrades(resolve, reject);
-                    })
-                    .then(res => {
-                        //console.log('in promise:grades: step 4');
-                        this.getcoursegrades()
-                    })
-                    .catch(err => {
-                        console.log('Error:' + err.reason + ' at ' + err.location);
-                    })
+                    //console.log('in promise:deliverables: step 6 is next');
+                    this.gettodayprephrs();
                 })
                 .catch(err => {
-                    console.log('error during GRADES PROMISE')
                     console.log('Error:' + err.reason + ' at ' + err.location);
-                })
+                });
             })
             .catch(err => {
-                console.log('there is an error with the grades', err);
-            });
-
-            new Promise ((resolve, reject) => {
-                //console.log('in promise:deliverables: step 1 is next');
-                return this.gettermdeliverables(resolve, reject);
-            })
-            .then(res => {
-                new Promise ((resolve, reject) => {
-                    //console.log('in promise:coursedeliverables: step 2 is next');
-                    this.getcoursedeliverables();
-                    //console.log('in promise:weekdeliverables: step 3 is next');
-                    return this.getweekdeliverables(resolve, reject);
-                })
-                .then(res => {
-                    new Promise((resolve, reject) => {
-                        //console.log('in promise:todaydeliverables: step 4 is next');
-                        this.gettodaydeliverables();
-                        //console.log('in promise:weekprephrsdeliverables: step 5 is next');
-                        return this.getweekprephrs(resolve, reject);
-                    })
-                    .then(res => {
-                        //console.log('in promise:deliverables: step 6 is next');
-                        this.gettodayprephrs();
-                    })
-                    .catch(err => {
-                        console.log('Error:' + err.reason + ' at ' + err.location);
-                    });
-                })
-                .catch(err => {
-                    console.log('error during DELIVERABLES PROMISE');
-                    console.log('Error:' + err.reason + ' at ' + err.location);
-                })
-            })
-            .catch(err => {
-
+                console.log('error during DELIVERABLES PROMISE');
                 console.log('Error:' + err.reason + ' at ' + err.location);
-            });  
+            })
+        })
+        .catch(err => {
+
+            console.log('Error:' + err.reason + ' at ' + err.location);
+        });  
+
+        new Promise ((resolve, reject) => {
+            //console.log('in promise:grades: step 1 is next');
+            return this.getthistermweeks(resolve, reject);
+        })
+        .then(res => {
+            //console.log('should have gotten all weeks', this.state.thistermweeks);
+            new Promise ((resolve, reject) => {
+                //console.log('in promise:grades: step 2');
+                return this.gettermgrades(resolve, reject);
+            })
+            .then(res => {
+                new Promise((resolve, reject) => {
+                    //console.log('in promise:grades: step 3');
+                    return this.getweekgrades(resolve, reject);
+                })
+                .then(res => {
+                    //console.log('in promise:grades: step 4');
+                    this.getcoursegrades()
+                })
+                .catch(err => {
+                    console.log('Error:' + err.reason + ' at ' + err.location);
+                })
+            })
+            .catch(err => {
+                console.log('error during GRADES PROMISE')
+                console.log('Error:' + err.reason + ' at ' + err.location);
+            })
+        })
+        .catch(err => {
+            console.log('there is an error with the grades', err);
+        });
     }
 
     deletecoursedetails = () => {
@@ -1114,11 +1114,12 @@ class App extends React.Component {
                     return deliverable.termDesc === this.state.currentterm;
                 });
                 console.log('before sort', temptermdeliverables);
-
+/*
                 temptermdeliverables.sort((a,b)  => {
                     console.log('a then b', a + "  " + b)
                     return new Date(b.dueDate) - new Date(a.dueDate);
                 })
+                */
             }
             console.log('temptermdeliverables', temptermdeliverables);
             return this.setState({
@@ -1181,8 +1182,9 @@ class App extends React.Component {
             });
         }
         this.setState({
-            thiscoursedeliverables: tempcoursedeliverables,
-            deliverableAdded: false
+            thiscoursedeliverables: tempcoursedeliverables
+
+            //deliverableAdded: false
         }, () => {
             console.log('thiscoursedeliverables', this.state.thiscoursedeliverables);
         });
@@ -1340,36 +1342,8 @@ class App extends React.Component {
 
     submitadddeliverable = (newDeliverable) => {
         //this.adddeliverable(newDeliverable);
-        //console.log('should have added deliverable', this.state);
-        new Promise ((resolve, reject) => {
             this.adddeliverable(newDeliverable);
-            return this.gettermdeliverables(resolve, reject);
-            })
-            .then(res => {
-                        new Promise ((resolve, reject) => {
-                            this.getcoursedeliverables();
-                            return this.getweekdeliverables(resolve, reject);
-                            })
-                            .then(res => {
-                                        new Promise((resolve, reject) => {
-                                            this.gettodaydeliverables();
-                                            return this.getweekprephrs(resolve, reject);
-                                            })
-                                            .then(res => {
-                                                this.gettodayprephrs();
-                                                
-                                            })
-                                            .catch(err => {
-                                                console.log('Error:' + err.reason + ' at ' + err.location);
-                                            });
-                            })
-                            .catch(err => {
-                                console.log('Error:' + err.reason + ' at ' + err.location);
-                            });
-            })     
-            .catch(err => {
-                console.log('Error:' + err.reason + ' at ' + err.location);
-            })
+            //this.getcurrentweekdetails();    
     }
 
 
@@ -1522,8 +1496,9 @@ class App extends React.Component {
             
     }
 
-    submitdeletedeliverable = (deliverable)  => {
-        //console.log('submitdeletedeliverable', deliverable);
+   
+   deletedeliverable = (deliverable)  => {
+        console.log('submitdeletedeliverable', deliverable);
         fetch(`${API_BASE_URL}/deliverables`, {
              method: 'DELETE',
              headers: {
@@ -1532,18 +1507,69 @@ class App extends React.Component {
              body: JSON.stringify(deliverable)
          })
          .then(res => {
+             console.log('finished with delete. is res=', res.ok);
              if(res.ok) {
                      return res.json()
              }
              throw new Error(res.text)
          })
-         .then(resJSON => {
-            this.setdeliverabledeleted(true);
-             return this.getcurrentweekdetails();
-         })
+         
          .catch((err) => {
              console.log(err);
          });  
+    }
+
+    submitdeletedeliverable = (deliverable)  => {
+
+        console.log('submitdeletedeliverable', deliverable);
+        this.setState({
+            deliverablesUpdated:false,
+            prephrstoday:0,
+            prephrsthisweek:0,
+            thistermdeliverables:[],
+            thiscoursedeliverables:[],
+            thisweekdeliverables:[],
+            todaydeliverables:[]
+        }, () => {
+            this.deletedeliverable(deliverable);
+        })
+        console.log('this.state.thistermdeliverables', this.state.thistermdeliverables);
+            
+        new Promise((resolve,reject) => {
+            this.setdeliverabledeleted(true);
+                return this.gettermdeliverables(resolve, reject);
+            })
+            .then(res => {
+                new Promise ((resolve, reject) => {
+                    console.log('in promise:coursedeliverables: step 2 is next');
+                    this.getcoursedeliverables();
+                    console.log('in promise:weekdeliverables: step 3 is next');
+                    return this.getweekdeliverables(resolve, reject);
+                })
+                .then(res => {
+                    new Promise((resolve, reject) => {
+                        console.log('in promise:todaydeliverables: step 4 is next');
+                        this.gettodaydeliverables();
+                        console.log('in promise:weekprephrsdeliverables: step 5 is next');
+                        return this.getweekprephrs(resolve, reject);
+                    })
+                    .then(res => {
+                        console.log('in promise:deliverables: step 6 is next');
+                        this.gettodayprephrs();
+                    })
+                    .catch(err => {
+                        console.log('Error:' + err.reason + ' at ' + err.location);
+                    });
+                })
+                .catch(err => {
+                    console.log('error during DELIVERABLES PROMISE');
+                    console.log('Error:' + err.reason + ' at ' + err.location);
+                })
+            })
+            .catch(err => {
+                console.log('Error:' + err.reason + ' at ' + err.location);
+            });  
+            this.props.history.push('/deliverables');
     }
 
     submitdeletecoursegrades = () => {

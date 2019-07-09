@@ -76,7 +76,9 @@ export default class DeliverableProfile extends React.Component {
             impact:this.props.impact
         };
         console.log('submitdeletedeliverable:deliverable to be deleted', deliverable);
+        console.log('this.props', this.props);
         this.props.submitdeletedeliverable(deliverable);
+        this.state = Object.assign({}, this.initialState);
         
    }
 

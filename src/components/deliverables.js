@@ -41,34 +41,6 @@ export default class Deliverables extends React.Component {
                 
         }
 
-        
-/*
-        canceldeldelete() {
-                //console.log('inside canceldeldelete', this.props);
-                this.props.setdeldeletemodal(false);
-        }
-
-        deletedeliverable(e) {
-                e.preventDefault();
-                //console.log('made it to deletedeliverable')
-                let selectedDel = {
-                    termDesc: this.props.currentterm,
-                    courseName:this.props.currentcoursename,
-                    dueDate: "01/01/2019",
-                    deliverableName:'testDeliverable', 
-                    impact:'low', 
-                    prephrs: 5
-                };
-                this.props.submitdeletedel(selectedDel); 
-                if(this.props.delDeleted) {
-                    this.setState({delMessage: `${selectedDel.delName} has been deleted`});
-                } else {
-                    this.setState({message: 'There was a problem with the deletion.'})
-                }
-            }
-
-      */  
-
         setSelectedCourseForView = (e) => {
                 e.preventDefault();
                 this.setState({
@@ -101,7 +73,7 @@ export default class Deliverables extends React.Component {
                 let backdrop;
 
                 if(this.props.sideDrawerOpen) {
-                    backdrop = <Backdrop rightbackdropclickhandler={this.props.rightbackdropclickhandler} />
+                    backdrop = <BackdropBlack rightbackdropclickhandler={this.props.rightbackdropclickhandler} />
                 } else {
                         backdrop = <BackdropWhite />
                 }
@@ -123,6 +95,7 @@ export default class Deliverables extends React.Component {
                                                 {...this.state}
                                                 submitupdatedeliverable={this.props.submitupdatedeliverable}
                                                 submitdeletedeliverable={this.props.deletedeliverable}
+                                                getcurrentweekdetails={this.props.getcurrentweekdetails}
                                         />   
                                 </ul>
                         );

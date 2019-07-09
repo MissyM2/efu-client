@@ -17,10 +17,6 @@
             color:var(--navy-color);
         }
 
-        .del-unit-container {
-            color:var(--navy-color);
-        }
-
         select option:disabled {
             color: red;
             font-weight: bold;
@@ -53,10 +49,11 @@
 
         .del-unit-container {
                 border:1px solid #59a3c6; 
+                color:gray;
                 -webkit-border-radius: 3px; 
                 -moz-border-radius: 3px;
                 border-radius: 3px;
-                font-size:14px;
+                font-size:18px;
                 font-family:var( --body-font-family); 
                 padding: 10px 10px 10px 10px; 
                 text-decoration:none; 
