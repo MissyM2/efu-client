@@ -19,6 +19,12 @@ export default class ReviewCurrentWeek extends React.Component {
                 newMostDifficult:"",
                 newLeastDifficult:""
             },
+            fieldBeingUpdated:{
+                newLikedLeast:false,
+                newLikedMost:false,
+                newMostDifficult:false,
+                newLeastDifficult:false
+            },
             errors:{}
 
         }
@@ -34,6 +40,7 @@ export default class ReviewCurrentWeek extends React.Component {
 
     componentDidMount() {
         this.props.setPageFlags("ReviewWeek");
+        this.state = Object.assign({}, this.initialState);
     }
 
     setSelectedWeek(e) {
@@ -82,24 +89,36 @@ export default class ReviewCurrentWeek extends React.Component {
             let leastDifficult;
 
             if(this.state.fields.newLikedLeast === "" || this.state.fields.newLikedLeast === "no selection") {
+                this.setState({
+                    fieldBeingUpdated: Object.assign({}, this.state.fields, {newLikedLeast: true})
+                });
                 likedLeast=this.props.weekdetailsold.likedLeast;
             } else {
                 likedLeast=this.state.fields.newLikedLeast;
             }
 
             if(this.state.fields.newLikedMost === "" || this.state.fields.newLikedMost === "no selection") {
+                this.setState({
+                    fieldBeingUpdated: Object.assign({}, this.state.fields, {newLikedMost: true})
+                });
                 likedMost=this.props.weekdetailsold.likedMost;
             } else {
                 likedMost=this.state.fields.newLikedMost;
             }
 
             if(this.state.fields.newMostDifficult === "" || this.state.fields.newMostDifficult === "no selection") {
+                this.setState({
+                    fieldBeingUpdated: Object.assign({}, this.state.fields, {newMostDifficult: true})
+                });
                 mostDifficult=this.props.weekdetailsold.mostDifficult;
             } else {
                 mostDifficult=this.state.fields.newMostDifficult;
             }
 
             if(this.state.fields.newLeastDifficult === "" || this.state.fields.newLeastDifficult === "no selection") {
+                this.setState({
+                    fieldBeingUpdated: Object.assign({}, this.state.fields, {newLeastDifficult: true})
+                });
                 leastDifficult=this.props.weekdetailsold.leastDifficult;
             } else {
                 leastDifficult=this.state.fields.newLeastDifficult;
@@ -113,17 +132,18 @@ export default class ReviewCurrentWeek extends React.Component {
                 mostDifficult: mostDifficult,
                 leastDifficult: leastDifficult,
             };
-        /*   
+           
             this.setState({
                 newLikedLeast:"",
                 newLikedMost:"",
                 newMostDifficult:"",
                 newLeastDifficult:""
+            }, () => {
+                console.log('rcw: look at state after update preparation', this.state);
             });
             
-*/
+
             this.props.submitupdateweek(updateWeek); 
-            this.props.getcurrentweekdetails();
     }
 
 
@@ -172,7 +192,7 @@ export default class ReviewCurrentWeek extends React.Component {
            );
         });
         //console.log('rcw, this.props', this.props);
-        //console.log('rcw, before return', this.state);
+        console.log('rcw, before return', this.state);
         
         return (
             <div className="content-container">
@@ -204,8 +224,7 @@ export default class ReviewCurrentWeek extends React.Component {
                     <div className="content-sub-container">
                             <header className="page-header">
                                 <h2>Review Last Week</h2>
-                                <h3>Term:  {this.props.currentterm}</h3>
-                                <h3>Week {this.props.currentweek}</h3>
+                                <h3>Term:  {this.props.currentterm}/ Week: {this.props.currentweek}</h3>
                             </header>
                             <div className="hundredpercent-width">
                                 <select 
@@ -234,7 +253,9 @@ export default class ReviewCurrentWeek extends React.Component {
 
                                                                             <form action="/" onSubmit={this.updateSubmit.bind(this)} >
                                                                                 <div className="small-titles dark-label week-label likedLeast">Liked Least</div>
-                                                                                {(this.props.weekdetailsold.likedLeast === '' || this.props.weekdetailsold.likedLeast === 'no selection') ? (
+                                                                                {(this.props.weekdetailsold.likedLeast === '' || 
+                                                                                    this.props.weekdetailsold.likedLeast === 'no selection' ||
+                                                                                    this.props.weekdetailsold.likedLeast === undefined) ? (
                                                                                     <div className="small-titles light-label item-body red-background">Please update.</div>
                                                                                 ) : (
                                                                                     <div className="small-titles light-label item-body">{this.props.weekdetailsold.likedLeast}</div>
@@ -251,7 +272,12 @@ export default class ReviewCurrentWeek extends React.Component {
                                                                                             {mycoursedropdown}
                                                                                     </select>
                                                                                 </div>
-                                                                                <div className="item">
+                                                                                <div className="item week-update-unit">
+                                                                                {(this.props.weekItemUpdated && this.state.fieldBeingUpdated.newLikedLeast) ? (
+                                                                                    <div className="message-style"><i class="fas fa-check"></i></div>
+                                                                                ):(
+                                                                                    ""
+                                                                                )}
                                                                                     <button
                                                                                         className="blue-btn center-btn fivepx-margin"
                                                                                         type="submit"
@@ -264,7 +290,9 @@ export default class ReviewCurrentWeek extends React.Component {
                                                                         <div className="weekdetail-container-green">
                                                                             <form action="/" onSubmit={this.updateSubmit.bind(this)} >
                                                                                 <div className="small-titles dark-label week-label likedMost">Liked Most</div>
-                                                                                {(this.props.weekdetailsold.likedMost === ''  || this.props.weekdetailsold.likedMost === 'no selection') ? (
+                                                                                {(this.props.weekdetailsold.likedMost === ''  || 
+                                                                                    this.props.weekdetailsold.likedMost === 'no selection' ||
+                                                                                    this.props.weekdetailsold.likedMost === undefined) ? (
                                                                                     <div className="small-titles light-label item-body red-background">Please update.</div>
                                                                                 ) : (
                                                                                     <div className="small-titles light-label item-body">{this.props.weekdetailsold.likedMost}</div>
@@ -280,7 +308,12 @@ export default class ReviewCurrentWeek extends React.Component {
                                                                                                 {mycoursedropdown}
                                                                                     </select>
                                                                                 </div>
-                                                                                <div className="item">
+                                                                                <div className="item week-update-unit">
+                                                                                {(this.props.weekItemUpdated && this.state.fieldBeingUpdated.newLikedMost) ? (
+                                                                                        <div className="message-style"><i class="fas fa-check"></i></div>
+                                                                                    ):(
+                                                                                        ""
+                                                                                    )}
                                                                                     <button
                                                                                         className="blue-btn center-btn fivepx-margin"
                                                                                         type="submit"
@@ -296,7 +329,9 @@ export default class ReviewCurrentWeek extends React.Component {
                                                                         <div className="weekdetail-container-green">
                                                                             <form action="/" onSubmit={this.updateSubmit.bind(this)} >
                                                                                     <div className="small-titles dark-label week-label mostDifficult">Most Difficult</div>
-                                                                                    {(this.props.weekdetailsold.mostDifficult === '' || this.props.weekdetailsold.mostDifficult === 'no selection') ? (
+                                                                                    {(this.props.weekdetailsold.mostDifficult === '' || 
+                                                                                        this.props.weekdetailsold.mostDifficult === 'no selection' ||
+                                                                                        this.props.weekdetailsold.mostDifficult === undefined ) ? (
                                                                                         <div className="small-titles light-label item-body red-background">Please update.</div>
                                                                                     ) : (
                                                                                         <div className="small-titles light-label item-body">{this.props.weekdetailsold.mostDifficult}</div>
@@ -312,7 +347,12 @@ export default class ReviewCurrentWeek extends React.Component {
                                                                                                     {mycoursedropdown}
                                                                                         </select>
                                                                                     </div>
-                                                                                    <div className="item">
+                                                                                    <div className="item week-update-unit">
+                                                                                    {(this.props.weekItemUpdated && this.state.fieldBeingUpdated.newMostDifficult) ? (
+                                                                                            <div className="message-style"><i class="fas fa-check"></i></div>
+                                                                                        ):(
+                                                                                            ""
+                                                                                        )}
                                                                                     <button
                                                                                         className="blue-btn center-btn fivepx-margin"
                                                                                         type="submit"
@@ -326,7 +366,9 @@ export default class ReviewCurrentWeek extends React.Component {
                                                                         <div className="weekdetail-container-green">
                                                                                 <form action="/" onSubmit={this.updateSubmit.bind(this)} >
                                                                                         <div className="small-titles dark-label week-label leastDifficult">Least Difficult</div>
-                                                                                        {(this.props.weekdetailsold.leastDifficult === '' || this.props.weekdetailsold.leastDifficult === 'no selection') ? (
+                                                                                        {(this.props.weekdetailsold.leastDifficult === '' || 
+                                                                                            this.props.weekdetailsold.leastDifficult === 'no selection' ||
+                                                                                            this.props.weekdetailsold.leastDifficult === undefined) ? (
                                                                                             <div className="small-titles light-label item-body red-background">Please update.</div>
                                                                                         ) : (
                                                                                             <div className="small-titles light-label item-body">{this.props.weekdetailsold.leastDifficult}</div>
@@ -342,7 +384,12 @@ export default class ReviewCurrentWeek extends React.Component {
                                                                                                         {mycoursedropdown}
                                                                                             </select>
                                                                                         </div>
-                                                                                        <div className="item">
+                                                                                        <div className="item week-update-unit">
+                                                                                        {(this.props.weekItemUpdated && this.state.fieldBeingUpdated.newLeastDifficult) ? (
+                                                                                                <div className="message-style"><i class="fas fa-check"></i></div>
+                                                                                            ):(
+                                                                                                ""
+                                                                                            )}
                                                                                             <button
                                                                                                 className="blue-btn center-btn fivepx-margin"
                                                                                                 type="submit"

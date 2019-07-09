@@ -37,21 +37,37 @@ export default class Weeks extends React.Component {
                                                 <li className="week-row">
                                                         <div className="week-item">
                                                                 <div className="small-titles dark-label week-label likedLeast">liked Least</div>
-                                                                <div className="small-titles light-label item-body">{week.likedLeast}</div>
+                                                                {(week.likedLeast === '' || week.likedLeast === 'no selection') ? (
+                                                                        <div className="small-titles light-label item-body red-background">Not updated.</div>
+                                                                ) : (
+                                                                        <div className="small-titles light-label item-body">{week.likedLeast}</div>
+                                                                )}
                                                         </div>
                                                         <div className="week-item">
                                                                 <div className="small-titles dark-label week-label likedMost">Liked Most</div>
-                                                                <div className="small-titles light-label item-body">{week.likedMost}</div>
+                                                                {(week.likedMost === '' || week.likedMost === 'no selection') ? (
+                                                                        <div className="small-titles light-label item-body red-background">Not updated.</div>
+                                                                ) : (
+                                                                        <div className="small-titles light-label item-body">{week.likedMost}</div>
+                                                                )}
                                                         </div>
                                                 </li>
                                                 <li className="week-row">
                                                         <div className="week-item">
                                                                 <div className="small-titles dark-label week-label mostDifficult">Most Difficult</div>
-                                                                <div className="small-titles light-label item-body">{week.mostDifficult}</div>
+                                                                {(week.mostDifficult === '' || week.mostDifficult === 'no selection') ? (
+                                                                        <div className="small-titles light-label item-body red-background">Not updated.</div>
+                                                                ) : (
+                                                                        <div className="small-titles light-label item-body">{week.mostDifficult}</div>
+                                                                )}
                                                         </div>
                                                         <div className="week-item">
                                                                 <div className="small-titles dark-label week-label leastDifficult">Least Difficult</div>
-                                                                <div className="small-titles light-label item-body">{week.leastDifficult}</div>
+                                                                {(week.leastDifficult === '' || week.leastDifficult === 'no selection') ? (
+                                                                        <div className="small-titles light-label item-body red-background">Not updated.</div>
+                                                                ) : (
+                                                                        <div className="small-titles light-label item-body">{week.leastDifficult}</div>
+                                                                )}
                                                         </div>
                                                 </li>
                                         </ul>

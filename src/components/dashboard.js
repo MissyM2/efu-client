@@ -26,6 +26,7 @@ export default class Dashboard extends React.Component {
     componentDidMount() {
         this.props.getcurrentterms();
         this.props.setPageFlags("Dashboard");
+        //this.props.getcurrentweekdetails();
     }
 
     setSelectedWeek(e) {
@@ -107,6 +108,7 @@ export default class Dashboard extends React.Component {
         //if (loading) {
        //     return <p>Loading ...</p>
         //}
+        //console.log('dashboard: this.state', this.props);
             return (
                 <div className="content-container">
                         {(this.props.selectingterm) ? (

@@ -25,9 +25,7 @@ class HomePage extends React.Component {
                             </h3>
                             
                     </div>
-                    {(this.props.loading === true) ? (
-                            <p>Loading ...</p>
-                    ) : (
+                    
                         <div>
                             {(this.props.islogin) ? (
                                 <LoginPage 
@@ -42,7 +40,6 @@ class HomePage extends React.Component {
                         
                             )}
                         </div>
-                    )}
                                 
                                     
                                     

@@ -111,6 +111,28 @@
             width: 100%;
         }
 
+        .course-select {
+            width: 75%;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        .view-deliverables-label {
+            padding-top:10px;
+            font-size:16px;
+        }
+
+        .add-deliverable-link-spacer,
+        .add-deliverable-link-spacer-impact {
+            border-top: 1px solid var(--off-white-color);
+            padding-top: 10px;
+        }
+
+        .show-impact {
+            border-bottom: 2px solid var(--off-white-color);
+ 
+        }
+
         
       
       }
@@ -121,6 +143,10 @@
         .impact-key {
             width: 75%;
             padding-left: 40px;
+        }
+
+        .tall-titles {
+            height: 48px;
         }
       
       }
@@ -162,22 +188,78 @@
         .desc {
             width: 70%;
         }
+
+        .tall-titles {
+            height: initial;
+        }
+
+        .deliverable-option-bar {
+            display:flex;
+            flex-direction:row;
+            width: 100%;
+
+        }
+        
+        .view-deliverables {
+            width: 58%;
+            margin: 5px;
+        }
+        
+        .view-deliverables-label {
+            border: 0;
+        }
+
+        .show-impact {
+            border-top: 1px solid var(--off-white-color);
+        }
+
+        .add-deliverable {
+            width: 38%;
+            margin: 5px;
+        }
+
+        .add-deliverable-link-spacer {
+            height: 40px;
+            border: 0;
+        }
+
+        .add-deliverable-link-spacer-impact {
+            height: 0;
+        }
       
       }
    
   
       /* Medium Devices, Desktops */
-      @media only screen and (min-width : 992px) {
-          .deliverable-flex {
-              display:flex;
-              flex-direction:row;
-              flex-wrap:wrap;
-          }
+      @media only screen and (min-width: 992px) {
+          
+            .deliverable-option-bar-full {
+                display:flex;
+                flex-direction:row;
+                width: 95%;
+                border-bottom: 1px solid var(--off-white-color);
+                margin-bottom: 10px;
+            }
+            
 
-          .deliverable-width {
-              width: 48%;
-              margin:5px;
-          }
+            .add-deliverable-link-spacer-impact {
+                height: 40px;
+                border-top: none;
+            }
+
+            .show-impact {
+                border: none;
+            }
+
+            .deliverable-flex {
+                display:flex;
+                flex-direction:row;
+                flex-wrap:wrap;
+            }
+
+            .action-btns {
+                width: 13%;
+            }
   
       }
   

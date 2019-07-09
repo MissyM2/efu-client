@@ -1,10 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './css/deliverables.css';
 
 import NavBar from "./navbar";
 import RightSideDrawer from './right-side-drawer';
 import Backdrop from './backdrop';
+
+import BackdropBlack from './backdrop-black';
 import BackdropWhite from './backdrop-white';
+import ModalImpact from './modal-impact';
 
 import AddDeliverableForm from './add-deliverable-form';
 import DeliverableProfile from './deliverable-profile';
@@ -18,14 +22,17 @@ export default class Deliverables extends React.Component {
                 this.state = {
                         courseSelected: "",
                         courseIsChanged:false,
+                        showImpactModal: false,
                         fields:{},
                         errors:{},
                         //deliverableUpdated:false,
                         addMessage:"Deliverable has been added.",
                         updateMessage: "Deliverable has been updated.",
-                        deleteMessage: "Deliverable has been deleted."
+                        deleteMessage: "Deliverable has been deleted.",
+                        setEditing:false
                 }
-                this.setSelectedCourse = this.setSelectedCourse.bind(this);
+                this.setSelectedCourseForView = this.setSelectedCourseForView.bind(this);
+                this.toggleimpact = this.toggleimpact.bind(this);
         }
 
         componentDidMount() {
@@ -62,18 +69,33 @@ export default class Deliverables extends React.Component {
 
       */  
 
-        setSelectedCourse(e) {
+        setSelectedCourseForView = (e) => {
                 e.preventDefault();
-                this.props.setdeliverableadded(false);
                 this.setState({
                     courseSelected: e.target.value,
-                    courseIsChanged:true
+                    courseIsChanged:true,
+                    setEditing: true
                 }, () => {
                         this.props.setcurrentcoursename(this.state.courseSelected);
                 });
         
-            }
+        }
 
+        toggleimpact(e) {
+                e.preventDefault();
+                if (this.state.showImpactModal === true) {
+                        this.setState({
+                                showImpactModal:false
+                        });
+                } else {
+                        this.setState({
+                                showImpactModal: true
+                        });
+                }
+                
+                console.log('toggleImpact', this.state);
+        
+            }
         
         render() {
                 let backdrop;
@@ -154,86 +176,104 @@ export default class Deliverables extends React.Component {
                                                 <header className="page-header">
                                                         <h2>My Deliverables</h2>
                                                         <h3>Term: {this.props.currentterm}</h3>
-                                                        <h4>{this.props.deliverableMessage}</h4>
+                                                        {(this.props.thistermdeliverables.length === 0 )  ? (
+                                                               <div className="message-style">{this.props.deliverableMessage}</div>
+                                                        ) : (
+                                                                <div></div>
+                                                        )}
+                                                        {(this.props.deliverableAdded)  ? (
+                                                               <div className="message-style">Deliverable has been added.</div>
+                                                        ) : (
+                                                                <div></div>
+                                                        )}
+                                                        
                                                 </header>
-                                                
-                                                <select
-                                                        type="text"
-                                                        className="dropdown unit-container-green fivepx-margin course"
-                                                        defaultValue='DEFAULT'
-                                                        onChange={this.setSelectedCourse}
-                                                        >
-                                                        <option value="DEFAULT" disabled>Choose a course</option>
-                                                                {mycoursedropdown}
-                                                </select>
-                                                
+                                                <div className="deliverable-option-bar-full">
+                                                        <div className="deliverable-option-bar">
+                                                                <div className="view-deliverables">
+                                                                        <div className="view-deliverables-label">View Deliverables by Course</div>
+                                                                        <select
+                                                                                type="text"
+                                                                                className="course-select"
+                                                                                defaultValue='DEFAULT'
+                                                                                onChange={this.setSelectedCourseForView}
+                                                                                >
+                                                                                <option value="DEFAULT" selected disabled>Choose a course</option>
+                                                                                        {mycoursedropdown}
+                                                                        </select>
+                                                                </div>
+                                                                <div className="add-deliverable">
+                                                                        <div className="add-deliverable-link-spacer"></div>
+                                                                        <div className="blue-btn btn-med tenpx-bottom-margin add-deliverable-link-div">
+                                                                                <Link 
+                                                                                        className="add-deliverable-link"
+                                                                                        to={{
+                                                                                                pathname: '/add-deliverable'
+                                                                                        }}
+                                                                                        >
+                                                                                                Add Deliverable
+                                                                                        
+                                                                                </Link>
+                                                                        </div>
+                                                                </div>
+                                                        </div>
+                                                        <div className="show-impact">
+                                                                <div className="add-deliverable-link-spacer-impact"></div>
+                                                                <button 
+                                                                        className="blue-btn btn-med tenpx-bottom-margin add-deliverable-link-div"
+                                                                        onClick={this.toggleimpact}>
+                                                                        What is 'Impact' mean?
+                                                                </button>
+                                                        </div>
+                                                </div>
+                                                {(this.state.showImpactModal === true) ? (
+                                                                <div>
+                                                                        <BackdropBlack />
+                                                                        <ModalImpact 
+                                                                                {...this.props}
+                                                                                toggleimpact={this.toggleimpact}
+                                                                        />
+                                                                </div>
+                                                                ) : (
+                                                                        null
+                                                                )}
+                                        
+                                        
+                                        {/*
 
                                                 {(this.props.deliverableAdded === true) ? (
                                                         <div className="message-style">{this.state.addMessage}</div>
                                                 ) : (
-                                                        <div></div>
+                                                        null
                                                 )}
-                                                {(this.props.deliverableUpdated) ? (
-                                                            <div className="msg-style">{this.state.deleteMessage}</div>
+                                                */}
+                                                {(this.props.deliverableDeleted) ? (
+                                                            <div className="message-style">{this.state.deleteMessage}</div>
                                                             ):(
-                                                        ""
-                                                    )}
+                                                        null
+                                                )}
                                                 
-                                                {(this.props.currentcoursename) !== "" ? (
+                                                {(this.props.currentcoursename !== "" && this.props.deliverableAdding === true) ? (
                                                                 <AddDeliverableForm
                                                                         {...this.props}
                                                                         submitadddeliverable={this.props.submitadddeliverable}
                                                                 />
-                                                        ) : (
-                                                                <div></div>
-                                                        )
-                                                }
-                                                {(this.state.courseIsChanged === true) ?  (
-                                                        <div className="deliverable-flex">
-                                                                <ul className={impactClasses}> 
-                                                                        <li>
-                                                                                <div className="key-emphasis">Impact</div> 
-                                                                                <div className="key-tagline">How does this affect your grade?</div>
-
-                                                                        </li>
-                                                                        <li className="indent-twelvepx">
-                                                                                <div className="key-option"><em className="key-emphasis">Low</em> less than 5% of final grade</div>
-                                                                                <div className="key-option"><em className="key-emphasis">Moderate</em> about 10% of final grade</div>
-                                                                                <div className="key-option"><em className="key-emphasis">High</em> at least 15% of final grade</div>
-                                                                                <div className="key-option"><em className="key-emphasis">High Plus</em> at least 35% of final grade</div>
-
-                                                                        </li>
-                                                                </ul> 
-                                                                {thiscoursedeliverables}
-                                                        </div>
                                                 ) : (
-                                                        <div className="deliverable-flex">
-                                                                <ul className={impactClasses}> 
-                                                                        <li>
-                                                                                <div className="key-emphasis">Impact</div> 
-                                                                                <div className="key-tagline">How does this affect your grade?</div>
-
-                                                                        </li>
-                                                                        <li className="indent-twelvepx">
-                                                                                <div className="key-option"><em className="key-emphasis">Low</em> less than 5% of final grade</div>
-                                                                                <div className="key-option"><em className="key-emphasis">Moderate</em> about 10% of final grade</div>
-                                                                                <div className="key-option"><em className="key-emphasis">High</em> at least 15% of final grade</div>
-                                                                                <div className="key-option"><em className="key-emphasis">High Plus</em> at least 35% of final grade</div>
-
-                                                                        </li>
-                                                                </ul>
-                                                                {thistermdeliverables}
+                                                        <div></div>
+                                                )}
+                                                        
+                                                {(this.state.courseIsChanged === true) ?  (
+                                                        <div className="deliverables-wrapper">
+                                                                {thiscoursedeliverables}  
                                                         </div>
-                                                )
-                                                }
-                                                       
+                                                ) : ( 
+                                                        <div className="deliverables-wrapper">
+                                                                {thistermdeliverables}    
+                                                        </div>   
+                                                )}
+                                                
                                         </div>
                         </div>
-                        
                 );
-
-
-        }       
-               
-        
+        }      
 }

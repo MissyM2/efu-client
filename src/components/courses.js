@@ -65,7 +65,7 @@ export default class Courses extends React.Component {
 
         const mycourses = this.props.thistermcourses.map((course, index) => {
             return (
-                <li className="" key={index} id={course.id}>
+                <li className="course-li" key={index} id={course.id}>
                     <Course 
                         {...course} 
                         {...this.props} 

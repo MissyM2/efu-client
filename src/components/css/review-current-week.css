@@ -102,6 +102,10 @@
             border: 1px solid var( --darkest-color);
             border-radius:4px 4px 0 0 ;
         }
+
+        .week-update-unit {
+            display: flex;
+        }
        
                     
                 
@@ -130,25 +134,25 @@
 
         .grade-container {
             display: flex;
-            justify-content: center;
         }
 
         .rcw-grades-list {
             display: flex;
             flex-wrap:wrap;
-            justify-content: flex-start;
+            width: 100%;
         }
-
-        .rcw-week-row {
-            width: 48%;
-           
-          }
           .grade-label {
             height:55px;
         }
         
             
       }
+      @media only screen and (min-width : 550px) {
+            .rcw-week-row {
+                width: 47%;
+                margin: 6px;
+            }
+        }
   
       /* Small Devices, Tablets */
       @media only screen and (min-width : 768px) {
@@ -166,7 +170,8 @@
             }
 
             .rcw-week-row {
-                width: 28%;
+                width: 30%;
+                margin: 8px;
                
               }
         }

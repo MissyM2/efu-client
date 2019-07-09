@@ -72,8 +72,8 @@
             display:flex;
             flex-direction: row;
             list-style-type: none;
-            justify-content:center;
             flex-wrap:wrap;
+            justify-content:center;
         
           }
 
@@ -121,6 +121,11 @@
             background-color: white;
             width: 100%;
         }
+
+        .course-li {
+            margin:8px;
+            text-align:left;
+        }
     
        
 
@@ -134,6 +139,18 @@
 
     
     }
+
+    @media only screen and (min-width : 675px) {
+        .course-row {
+            justify-content:flex-start;
+        }
+    
+
+    
+    }
+
+
+
 
     /* Small Devices, Tablets */
     @media only screen and (min-width : 768px) {
@@ -188,6 +205,9 @@
 
     /* Medium Devices, Desktops */
     @media only screen and (min-width : 992px) {
+        .course-li {
+            margin:3px;
+        }
 
     }
 

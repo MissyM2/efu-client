@@ -32,7 +32,6 @@ class LoginPage extends React.Component {
         }
 
         if (typeof username !== "undefined") {
-            console.log('regularExpression', regularExpression);
                 formIsValid = regularExpression.test(username.toLowerCase());
                 if (!formIsValid) {
                     errors["username"]="Username must be in email format.";

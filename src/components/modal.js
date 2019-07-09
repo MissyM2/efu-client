@@ -17,7 +17,7 @@ export default class Modal extends React.Component {
             termSelected: e.target.value
         }, () => {
             this.props.setcurrentterm(this.state.termSelected);
-            this.props.getcurrentweekdetails();
+            //this.props.getcurrentweekdetails();
             this.props.setPageFlags("Dashboard");
         });
     }

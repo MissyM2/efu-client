@@ -26,36 +26,50 @@
             font-weight: bold;
         }
 
-        .three-items-top,
-        .three-items-bottom{
+        .three-items-top{
             display: flex;
             flex-direction: column;
             width: 100%;
             padding: 5px;
         }
 
-        .three-items-bottom {
+        .two-items-middle {
+            width: 100%;
             border-top: 1px solid var(--off-white-color);
             margin-top: 5px;
+        }
+
+        .one-item-bottom {
+            margin-top: 5px;
+        }
+
+        .three-items-bottom {
+           width: 100%;
         }
 
         .select-prephrs,
         .select-impact,
         .input-desc {
             text-align:center;
-            margin:0 auto;
+            margin:4px;
         }
 
         .select-prephrs {
-            width: 20%;
-        }
-
-        .select-impact {
             width: 30%;
         }
 
+        .select-impact {
+            width: 70%;
+        }
+
         .input-desc {
-            width: 48%;
+            width: 98%;
+        }
+
+        .input-desc input,
+        .select-impact select,
+        .select-prephrs select{
+            width: 100%;
         }
 
         .deliverable-field {
@@ -101,10 +115,23 @@
 
     /* Small Devices, Tablets */
     @media only screen and (min-width : 768px) {
-        .three-items-bottom {
+
+        .two-items-bottom {
             display: flex;
             flex-direction: row;
+            border-top: 1px solid var(--off-white-color);
         }
+
+        .two-items-middle {
+            border-top:none;
+            width: 48%;
+        }
+
+        .one-item-bottom {
+            width:48%;
+        }
+
+       
         
 
     
@@ -113,6 +140,27 @@
 
     /* Medium Devices, Desktops */
     @media only screen and (min-width : 992px) {
+        
+        .deliverables-all-items {
+            display:flex;
+        }
+
+        .three-items-top{
+            width:35%;
+        }
+
+        .two-items-bottom {
+           width:53%;
+            border:none;
+        }
+
+        .tall-titles,
+        .sometimes-tall-titles {
+            height: 55px;
+        }
+
+
+
 
     }
 

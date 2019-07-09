@@ -6,8 +6,8 @@ export default class DeliverableProfile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            delUpdatingId:"",
-            delDeletingId:"",
+            deliverableUpdatingId:"",
+            deliDeletingId:"",
             oldPrephrs:this.props.prephrs,
             oldDesc: this.props.desc,
             oldImpact:this.props.impact,
@@ -61,8 +61,7 @@ export default class DeliverableProfile extends React.Component {
 
     deleteSubmit() {
         this.setState({
-            delDeletingId:this.props.id,
-            message: "Your deliverable has been deleted."
+            delDeletingId:this.props.id
         }, () => {
             console.log("this.state.deliverableDeletingId", this.state.delDeletingId);
         });
@@ -76,19 +75,21 @@ export default class DeliverableProfile extends React.Component {
             desc: this.props.desc,
             impact:this.props.impact
         };
-        console.log('prepDelete, delToBeDeletet', deliverable);
+        console.log('submitdeletedeliverable:deliverable to be deleted', deliverable);
         this.props.submitdeletedeliverable(deliverable);
         
    }
 
    updateSubmit(e) {
         e.preventDefault();
+        console.log('updateSubmit, this.props.id', this.props.id);
         this.setState({
-            delUpdatingId:this.props.id,
+            deliverableUpdatingId:this.props.id,
             message: "Your deliverable has been updated."
         }, () => {
-            //console.log("this.state.deliverableUpdatingId", this.state.delUpdatingId);
+            console.log("this.state.deliverableUpdatingId", this.state.deliverableUpdatingId);
         });
+
 
         let prephrs;
         let desc;
@@ -122,6 +123,8 @@ export default class DeliverableProfile extends React.Component {
            impact:impact
        };
 
+       console.log('submitupdatedeliverable: deliverable', deliverable);
+
        this.props.submitupdatedeliverable(deliverable);   
    }
 
@@ -135,35 +138,32 @@ export default class DeliverableProfile extends React.Component {
                                {option}
                     </option>
                 );
-        });
-
-        console.log('del-propfile', this.props);
-        console.log('del-propfile', this.state);
-
-
+        });;
+        console.log('deliverable-profile: this.props.', this.props);
     return (  
                 <div>
                          <div className="course-container-blue tenpx-bottom-margin">
                                 <div>
                                     <form onSubmit={this.updateSubmit.bind(this)}>
-                                            <div className="center">
+                                            <div className="center deliverables-all-items">
                                                     <div className="deliverable-sub-section three-items-top">
                                                             <div className="column">
-                                                                <label className="small-titles light-label"> Course Name</label>
+                                                                <label className="small-titles tall-titles light-label"> Course Name</label>
                                                                 <div className="del-read-only">{this.props.courseName}</div>
                                                             </div>
                                                             <div className="column">
-                                                                    <label className="small-titles light-label">Due Date</label>
+                                                                    <label className="small-titles tall-titles light-label">Due Date</label>
                                                                     <div className="del-read-only">{this.props.dueDateFormatted}</div>
                                                             </div>
                                                             <div className="column">
-                                                                    <label className="small-titles light-label"> Deliverable Name</label>
+                                                                    <label className="small-titles tall-titles  light-label"> Deliverable Name</label>
                                                                     <div className="del-read-only">{this.props.deliverableName}</div>
                                                                 </div> 
                                                     </div>
-                                                    <div className="deliverable-sub-section three-items-bottom">
-                                                            <div className="select-prephrs">
-                                                                                <label className="small-titles light-label">Prep Hours</label>
+                                                    <div className="two-items-bottom">
+                                                    <div className="deliverable-sub-section two-items-middle">
+                                                            <div className="column select-prephrs">
+                                                                                <label className="small-titles  sometimes-tall-titles light-label">Prep Hours</label>
                                                                                 <select
                                                                                     className="center"
                                                                                     ref={element => this.prephrs = element}
@@ -181,9 +181,9 @@ export default class DeliverableProfile extends React.Component {
                                                                                 </option>
                                                                                 {prephrsoptions}
                                                                                 </select>
-                                                                </div>
-                                                            <div className="select-impact">
-                                                                        <label className="small-titles light-label">Impact</label>
+                                                            </div>
+                                                            <div className="column select-impact">
+                                                                        <label className="small-titles  sometimes-tall-titles light-label">Impact</label>
                                                                         <select
                                                                                 ref={element => this.impact = element}
                                                                                 type="text"
@@ -224,8 +224,10 @@ export default class DeliverableProfile extends React.Component {
                                                                             </option>
                                                                         </select>
                                                                 </div>    
-                                                            <div className="input-desc">
-                                                                    <label className="small-titles light-label"> Description</label>
+                                                     </div>
+                                                     <div className="deliverable-sub-section one-item-bottom">
+                                                            <div className="column input-desc">
+                                                                    <label className="small-titles sometimes-tall-titles light-label"> Description</label>
                                                                     <input
                                                                             ref={element => this.desc = element}
                                                                             type="text"
@@ -236,13 +238,8 @@ export default class DeliverableProfile extends React.Component {
                                                                 
                                                             </div>
                                                     </div>
-                                                    {(this.props.deliverableupdated &&
-                                                        this.props.id === this.state.delUpdatingId)
-                                                             ? (
-                                                            <div className="msg-style">{this.state.message}</div>
-                                                            ):(
-                                                        ""
-                                                    )}
+
+                                                    </div>
                                                     <div className="action-btns">
                                                             <button 
                                                                 name="action-btn"
@@ -265,7 +262,14 @@ export default class DeliverableProfile extends React.Component {
                                             </div>
                                     </form>  
                                 </div>
-                        </div>   
+                                {(this.props.deliverableUpdated === true &&
+                                    this.props.id === this.state.deliverableUpdatingId) ? (
+                                        <div className="message-style">{this.state.message}</div>
+                                ):(
+                                        null
+                                )}  
+                        </div>
+                        
                 </div> 
             );
         } 

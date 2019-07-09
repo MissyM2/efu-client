@@ -30,9 +30,8 @@
     }
 
     .navbar-cell a {
-      width: 140px;
       margin: 5px;
-      font-size: 18px;
+      font-size: 16px;
     }
 
     .btn-twohundred {
@@ -251,6 +250,10 @@
       height: 210px;
     }
 
+    .navbar-cell a {
+      font-size: 18px;
+    }
+
     .navbar-item {
       margin:0;
       width: 100%;
@@ -260,7 +263,10 @@
 
     .navbar-logo {
       text-align:left;
+      font-size:18px;
     }
+
+    
   
   }
 
@@ -293,7 +299,7 @@
     }
 
     .term-unit {
-      width: 50%;
+      width: 100%;
     }
 
     .review-unit {
