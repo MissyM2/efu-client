@@ -40,7 +40,7 @@ export default class ReviewCurrentWeek extends React.Component {
 
     componentDidMount() {
         this.props.setPageFlags("ReviewWeek");
-        this.state = Object.assign({}, this.initialState);
+        this.setState = (this.initialState);
     }
 
     setSelectedWeek(e) {

@@ -351,7 +351,7 @@ class App extends React.Component {
     submitlogin(username, password) {
         //console.log('what is this.initialState look like', this.initialState);
         
-       this.state = Object.assign({}, this.initialState);
+       //this.setState = (this.initialState);
         //console.log('state before login', this.state);
 
         const registereduser = {
@@ -366,7 +366,7 @@ class App extends React.Component {
             body: JSON.stringify(registereduser)
         })
         .then(res => {
-            //console.log('submit login: res', res);
+            console.log('submit login: res', res);
             if(res.ok){
                 this.setState({
                     error: null,
@@ -406,7 +406,7 @@ class App extends React.Component {
 
     submitlogout() {
        // console.log('this initial state', this.state);
-       this.state = Object.assign({}, this.initialState);
+       this.setState = (this.initialState);
        //console.log('state after logout', this.state);
     }
 
@@ -991,7 +991,7 @@ class App extends React.Component {
     // get grades for the term, week, and course 
     gettermgrades = (resolve = null, reject = null) => {
         console.log('step 3:gettermgrades');
-        let currentgrades;
+        //let currentgrades;
         fetch(`${API_BASE_URL}/grades`, {
             method: 'GET',
             headers: {
@@ -1203,9 +1203,9 @@ class App extends React.Component {
                 console.log('this.state.currentdate', this.state.currentdate);
                 console.log('deliverableDate=xx', deliverableDate,'xx');
                 console.log('todaydate=xx',todaydate,'xx');
-                console.log('currdate matches', deliverableDate == todaydate);
+                console.log('currdate matches', deliverableDate === todaydate);
 
-                    return deliverableDate == todaydate;
+                    return deliverableDate === todaydate;
             });
         }
         console.log('gettodaydeliverables: temptodaydeliveravles', temptodaydeliverables);

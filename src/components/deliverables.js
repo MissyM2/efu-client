@@ -4,7 +4,6 @@ import './css/deliverables.css';
 
 import NavBar from "./navbar";
 import RightSideDrawer from './right-side-drawer';
-import Backdrop from './backdrop';
 
 import BackdropBlack from './backdrop-black';
 import BackdropWhite from './backdrop-white';
@@ -77,6 +76,7 @@ export default class Deliverables extends React.Component {
                 } else {
                         backdrop = <BackdropWhite />
                 }
+                /*
                 let impactClasses;
 
 
@@ -85,6 +85,7 @@ export default class Deliverables extends React.Component {
                 } else {
                         impactClasses = "impact-key";
                 }
+                */
 
                 const thiscoursedeliverables = this.props.thiscoursedeliverables.map((deliverable, index) => {
                         return (
@@ -165,7 +166,7 @@ export default class Deliverables extends React.Component {
                                                                                 defaultValue='DEFAULT'
                                                                                 onChange={this.setSelectedCourseForView}
                                                                                 >
-                                                                                <option value="DEFAULT" selected disabled>Choose a course</option>
+                                                                                <option value="DEFAULT" disabled>Choose a course</option>
                                                                                         {mycoursedropdown}
                                                                         </select>
                                                                 </div>

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { withRouter } from "react-router-dom";
 
 import './css/add-deliverable-form.css';
@@ -33,10 +32,10 @@ export class AddDeliverableForm extends React.Component {
                 this.props.setdeliverableadding(false);
                 this.props.setdeliverableadded(false);
                 this.props.getcurrentweekdetails();
-                this.state = Object.assign({}, this.initialState);
+                this.setState = (this.initialState);
                 this.props.history.push('/deliverables');
         }
-        
+
         _onFocus(e){
             e.currentTarget.type = "date";
            
@@ -184,6 +183,7 @@ export class AddDeliverableForm extends React.Component {
                 } else {
                         backdrop = <BackdropBlack />
                 }
+                /*
                 let impactClasses;
 
 
@@ -192,6 +192,7 @@ export class AddDeliverableForm extends React.Component {
                 } else {
                         impactClasses = "impact-key";
                 }
+                */
 
                 const delNames = this.props.deliverableNames.map((delname, index) => {
                     return (
