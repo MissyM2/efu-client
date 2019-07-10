@@ -61,16 +61,23 @@ The student sets up his/her profile which includes the current TERM, the student
 ## Screenshots
  -  [Home](#ExecutiveFollowUp)
 
-
+<table style="width:100%">
+  <tr>
+    <th><label>Mobile-Login Page</label></th>
+    <th><label>Mobile-Registration Page</label></th> 
+  </tr>
+  <tr>
+    <td><img src="/screenshots/m_login.png" width="250px" /></td>
+    <td><img src="/screenshots/m_reg.png" width="250px" /></td> 
+    <td>50</td>
+  </tr>
+  <tr>
+    <td>Eve</td>
+    <td>Jackson</td> 
+    <td>94</td>
+  </tr>
+</table>
      
-<div>
-     <label>Mobile-Login Page</label>
-     <img src="/screenshots/m_login.png" width="250px" />
-</div>
-<div>
-     <label>Mobile-Registration Page</label>
-     <img src="/screenshots/m_reg.png" width="250px" />
-</div>
 
     Mobile-Dashboard
     
