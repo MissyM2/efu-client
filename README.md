@@ -62,46 +62,7 @@ The student sets up his/her profile which includes the current TERM, the student
  -  [Home](#ExecutiveFollowUp)
 
 
-Mobile Screenshots
-
-<table style="width:100%">
-  <tr>
-     <th><label>Login Page</label></th>
-     <th><label>Registration Page</label></th>
-  </tr>
-  <tr>
-     <td><img src="/screenshots/m_login.png" width="375px" /></td>
-     <td><img src="/screenshots/m_reg.png" width="375px" /></td>
-  </tr>
-  <tr>
-     <th><label>Dashboard</label></th> 
-     <th><label>Dropdown Profile Menu</label></th>
-  </tr>
-  <tr>
-     <td><img src="/screenshots/m_dashboard.png" width="375px" /></td>
-     <td><img src="/screenshots/m_dropdown.png" width="375px" /></td>
-  </tr>
-  <tr>
-     <th><label>Courses</label></th> 
-     <th><label>Deliverables</label></th> 
-  </tr>
-  <tr>
-     <td><img src="/screenshots/m_courses.png" width="375px" /></td> 
-     <td><img src="/screenshots/m_deliverables.png" width="375px" /></td> 
-  </tr>
-  <tr>
-     <th><label>View Weeks</label></th>
-     <th><label>Update Week</label></th> 
-  </tr>
-  <tr>
-     <td><img src="/screenshots/m_view_weeks.png" width="375px" /></td>
-     <td><img src="/screenshots/m_update_week.png" width="375px" /></td>  
-  </tr>
-  
-</table>
-     
-
- Desktop Screenshots  
+ Mobile Screenshots  
 
 <table style="width:100%">
   <tr>
@@ -136,6 +97,48 @@ Mobile Screenshots
   </tr>
   
 </table>
+
+
+Desktop Screenshots
+
+<table style="width:100%">
+  <tr>
+     <th><label>Login Page</label></th>
+     <th><label>Registration Page</label></th>
+  </tr>
+  <tr>
+     <td><img src="/screenshots/d_login.png" width="250px" /></td>
+     <td><img src="/screenshots/d_reg.png" width="375px" /></td>
+  </tr>
+  <tr>
+     <th><label>Dashboard</label></th> 
+     <th><label>Dropdown Profile Menu</label></th>
+  </tr>
+  <tr>
+     <td><img src="/screenshots/d_dashboard.png" width="375px" /></td>
+     <td><img src="/screenshots/d_dropdown.png" width="375px" /></td>
+  </tr>
+  <tr>
+     <th><label>Courses</label></th> 
+     <th><label>Deliverables</label></th> 
+  </tr>
+  <tr>
+     <td><img src="/screenshots/d_courses.png" width="375px" /></td> 
+     <td><img src="/screenshots/d_deliverables.png" width="375px" /></td> 
+  </tr>
+  <tr>
+     <th><label>View Weeks</label></th>
+     <th><label>Update Week</label></th> 
+  </tr>
+  <tr>
+     <td><img src="/screenshots/d_view_weeks.png" width="375px" /></td>
+     <td><img src="/screenshots/d_update_week.png" width="375px" /></td>  
+  </tr>
+  
+</table>
+     
+
+
 
 
 
