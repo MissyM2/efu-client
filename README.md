@@ -71,9 +71,9 @@ The student sets up his/her profile which includes the current TERM, the student
      <th><label>Dashboard</label></th> 
   </tr>
   <tr>
-     <td><img src="/screenshots/d_login.png" width="250px" /></td>
-     <td><img src="/screenshots/d_reg.png" width="250px" /></td> 
-     <td><img src="/screenshots/d_dashboard.png" width="250px" /></td> 
+     <td><img src="/screenshots/m_login.png" width="250px" /></td>
+     <td><img src="/screenshots/m_reg.png" width="250px" /></td> 
+     <td><img src="/screenshots/m_dashboard.png" width="250px" /></td> 
   </tr>
      <tr>
      <th><label>Dropdown Profile Menu</label></th>
@@ -81,19 +81,19 @@ The student sets up his/her profile which includes the current TERM, the student
      <th><label>Deliverables</label></th> 
   </tr>
   <tr>
-     <td><img src="/screenshots/d_select_term.png" width="250px" /></td>
+     <td><img src="/screenshots/m_profile_menu.png" width="250px" /></td>
      <td><img src="/screenshots/m_courses.png" width="250px" /></td> 
      <td><img src="/screenshots/m_deliverables.png" width="250px" /></td> 
   </tr>
-     <tr>
+  <tr>
+     <th><label>Add Deliverable</label></th> 
      <th><label>View Weeks</label></th>
      <th><label>Update Week</label></th> 
-     <th><label>??</label></th> 
   </tr>
   <tr>
-     <td><img src="/screenshots/d_view_weeks.png" width="250px" /></td>
-     <td><img src="/screenshots/d_update_week.png" width="250px" /></td> 
-     <td><img src="/screenshots/d_dashboard.png" width="250px" /></td> 
+     <td><img src="/screenshots/m_add_del.png" width="250px" /></td>
+     <td><img src="/screenshots/m_view_weeks.png" width="250px" /></td>
+     <td><img src="/screenshots/m_update_week.png" width="250px" /></td>  
   </tr>
   
 </table>
@@ -132,7 +132,7 @@ Desktop Screenshots
   </tr>
   <tr>
      <td><img src="/screenshots/d_view_weeks.png" width="375px" /></td>
-     <td><img src="/screenshots/d_update_week.png" width="375px" /></td>  
+     <td><img src="/screenshots/d_update_current_week.png" width="375px" /></td>  
   </tr>
   
 </table>
