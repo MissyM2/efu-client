@@ -25,25 +25,27 @@ export default class ReviewCurrentWeek extends React.Component {
                 newMostDifficult:false,
                 newLeastDifficult:false
             },
-            errors:{}
+            errors:{},
+            missy: ""
 
         }
         this.initialState={...this.state}
+        //this.updateWeek = this.updateWeek.bind(this);
         this.newLikedLeast = React.createRef();
         this.newLikedMost = React.createRef();
         this.newMostDifficult = React.createRef();
         this.newLeastDifficult = React.createRef();
-        this.setSelectedWeek = this.setSelectedWeek.bind(this);
+        this.setselectedweek = this.setselectedweek.bind(this);
         this.updateSubmit = this.updateSubmit.bind(this);
-        this.updateWeek = this.updateWeek.bind(this);
+        //this.updateWeek = this.updateWeek.bind(this);
     }
 
     componentDidMount() {
         this.props.setPageFlags("ReviewWeek");
-        this.setState = (this.initialState);
+        //this.setState = (this.initialState);
     }
 
-    setSelectedWeek(e) {
+    setselectedweek = (e)  => {
         e.preventDefault();
         this.setState({
             weekSelected: e.target.value
@@ -52,28 +54,39 @@ export default class ReviewCurrentWeek extends React.Component {
         });
     }
 
-    updateWeek = (field, e) => {
+    updateweek(field, e){
+        console.log('this.state inside of updateWeek', this.state);
+        this.setState({
+            missy: "maloney"
+        });
+        console.log('this.state inside of updateWeek', this.state);
         console.log('made it to updateweek', field);
+        let fields = this.state.fields;
         switch(field) {
             case "newLikedLeast":
-                this.setState({
-                    fields: Object.assign({}, this.state.fields, {newLikedLeast: e.target.value})
-                });
+                    fields["newLikedLeast"] = e.target.value;
+                    this.setState({
+                        fields
+                    });
                 break;
             case "newLikedMost":
-                this.setState({
-                    fields: Object.assign({}, this.state.fields, {newLikedMost: e.target.value})
-                });
+                    fields["newLikedMost"] = e.target.value;
+                    this.setState({
+                        fields
+                    });
                 break;
             case "newMostDifficult":
-                this.setState({
-                    fields: Object.assign({}, this.state.fields, {newMostDifficult: e.target.value})
-                });
+                    fields["newMostDifficult"] = e.target.value;
+                    this.setState({
+                        fields
+                    });
+                   
                 break;
             case "newLeastDifficult":
-                this.setState({
-                    fields: Object.assign({}, this.state.fields, {newLeastDifficult: e.target.value})
-                });
+                    fields["newLeastDifficult"] = e.target.value;
+                    this.setState({
+                        fields
+                    });
             break;
             default:
                 console.log('field names did not match any of the options.');
@@ -83,6 +96,8 @@ export default class ReviewCurrentWeek extends React.Component {
 
     updateSubmit = (e) => {
         e.preventDefault();
+
+        console.log('did I make it so updateSubmit');
             let likedLeast;
             let likedMost;
             let mostDifficult;
@@ -142,7 +157,7 @@ export default class ReviewCurrentWeek extends React.Component {
                 console.log('rcw: look at state after update preparation', this.state);
             });
             
-
+            console.log('right before updatesubmitweek');
             this.props.submitupdateweek(updateWeek); 
     }
 
@@ -163,7 +178,7 @@ export default class ReviewCurrentWeek extends React.Component {
                     value={week.weekNum}
                     className={weekClasses}
                     data-identifier={week.weekNum}
-                    onChange={this.setSelectedWeek}
+                    onChange={this.setselectedweek}
                 >
                     Week {week.weekNum}
                 </option>                    
@@ -182,7 +197,7 @@ export default class ReviewCurrentWeek extends React.Component {
         mygrades = mygrades.map((grade, index) => {
            return ( 
 
-                <li className="rcw-week-row grade-container-green" id={grade.id} index={index + 5}>
+                <li className="rcw-week-row grade-container-green" id={grade.id} key={index + 5}>
                         <CourseGrades 
                             {...grade} 
                             {...this.state}
@@ -192,7 +207,7 @@ export default class ReviewCurrentWeek extends React.Component {
            );
         });
         //console.log('rcw, this.props', this.props);
-        console.log('rcw, before return', this.state);
+        //console.log('rcw, before return', this.state);
         
         return (
             <div className="content-container">
@@ -230,7 +245,7 @@ export default class ReviewCurrentWeek extends React.Component {
                                 <select 
                                     className="select-week-dd"
                                     defaultValue={this.props.currentweek}
-                                    onChange={this.setSelectedWeek}>
+                                    onChange={this.setselectedweek}>
                                         {allweeks}
                                 </select>
                             </div>
@@ -267,7 +282,7 @@ export default class ReviewCurrentWeek extends React.Component {
                                                                                         ref={element => this.newLikedLeast = element}
                                                                                         type="text"
                                                                                         defaultValue="DEFAULT"
-                                                                                        onChange={this.updateWeek.bind(this, "newLikedLeast")}>
+                                                                                        onChange={this.updateweek.bind(this, "newLikedLeast")}>
                                                                                             <option value="DEFAULT" disabled>Select course.</option>
                                                                                             {mycoursedropdown}
                                                                                     </select>
@@ -303,7 +318,7 @@ export default class ReviewCurrentWeek extends React.Component {
                                                                                             className="hundredpercent-width"
                                                                                             type="text"
                                                                                             defaultValue="DEFAULT"
-                                                                                            onChange={this.updateWeek.bind(this, "newLikedMost")}>
+                                                                                            onChange={this.updateweek.bind(this, "newLikedMost")}>
                                                                                                 <option value="DEFAULT" disabled>Select course</option>
                                                                                                 {mycoursedropdown}
                                                                                     </select>
@@ -327,7 +342,7 @@ export default class ReviewCurrentWeek extends React.Component {
                                                                 </li>
                                                                 <li className="week-row">
                                                                         <div className="weekdetail-container-green">
-                                                                            <form action="/" onSubmit={this.updateSubmit.bind(this)} >
+                                                                            <form action="/" onSubmit={this.updateSubmit} >
                                                                                     <div className="small-titles dark-label week-label mostDifficult">Most Difficult</div>
                                                                                     {(this.props.weekdetailsold.mostDifficult === '' || 
                                                                                         this.props.weekdetailsold.mostDifficult === 'no selection' ||
@@ -342,7 +357,7 @@ export default class ReviewCurrentWeek extends React.Component {
                                                                                                 className="hundredpercent-width"
                                                                                                 type="text"
                                                                                                 defaultValue="DEFAULT"
-                                                                                                onChange={this.updateWeek.bind(this, "newMostDifficult")}>
+                                                                                                onChange={this.updateweek.bind(this, "newMostDifficult")}>
                                                                                                     <option value="DEFAULT" disabled>Select course</option>
                                                                                                     {mycoursedropdown}
                                                                                         </select>
@@ -379,7 +394,7 @@ export default class ReviewCurrentWeek extends React.Component {
                                                                                                     className="hundredpercent-width"
                                                                                                     type="text"
                                                                                                     defaultValue= "DEFAULT"
-                                                                                                    onChange={this.updateWeek.bind(this, "newLeastDifficult")}>
+                                                                                                    onChange={this.updateweek.bind(this, "newLeastDifficult")}>
                                                                                                         <option value="DEFAULT" disabled>Select course</option>
                                                                                                         {mycoursedropdown}
                                                                                             </select>
