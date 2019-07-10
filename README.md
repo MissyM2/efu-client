@@ -1,12 +1,15 @@
 # ExecutiveFollowUp
-*  Live App:  https://serene-dawn-65763.herokuapp.com/
 
-     +  demo user: tester@gmail.com/tester1
+Improve your grades by keeping a tighter control over what is due, how much time is required and what your grades are each week.
+
+*  Live App:  https://nameless-inlet-97185.herokuapp.com/
+
+     +  demo user: sarah@gmail.com / password: sarah9515
 
 
 #### Table of Contents
 
- -  [Summary](#Summary)
+ -  [Background](#Background)
  -  [Screenshots](#screenshots)
  -  [Functions and Features](#functions-and-features)
  -  [Future Functions and Features](#functions-and-features)
@@ -20,10 +23,12 @@
  
  
  
-## Summary
+## Background
  -  [Home](#ExecutiveFollowUp)
 
-This app enables a student to get control over his or her academic responsibilities by keeping track on a weekly basis of grades and deliverables.  The student sets up his/her profile which includes the current TERM, the student's courses and the weeks of the term.  Each week the student records a brief reflection on their courses as well as their grades.  He/She, then proceeds to record the deliverables for the next week and includes such details as the due date, how much of his/her time will be required and how important the assignment is to the final grade.  At a glance, the student can see deliverables due for the day and the week when he/she logs in.  The student can add, update and delete terms, weeks, courses, gradesiThis app is a allows a user to log the items in their personal closet, compare it to an ideal closet as specified by Real Simple and make changes based on the analysis.  All persistent data are stored in MongoDB.
+My son has ADD.  He has been a pretty good student but, as the schoolwork becomes less controlled by the teacher, executive functioning skills become critical.  A student with ADD has challenges is this area (as most of us do!).  After trying a number of different methods of assistance, I settled on meeting with him once a week, reviewing each class to see which ones he liked/disliked and were more or less difficult for him.  Also, I asked on a weekly basis what his current grade was in the class.  Finally, we planned the next week.  What was due?  When?  I borrowed from the Alcohol Anonymous, Weight Watchers and Catholic Mass schedule method of improvement:  Meet each week, reflect on last week and plan for the next.  Above all, keep the goal and your progress right in front of you.  If you do this, you will likely see success.
+
+The student sets up his/her profile which includes the current TERM, the student's courses and the weeks of the term.  Each week the student records a brief reflection on their courses as well as their grades.  He/She, then proceeds to record the deliverables for the next week and includes such details as the due date, how much of his/her time will be required and how important the assignment is to the final grade.  At a glance, the student can see deliverables due for the day and the week when he/she logs in.  The student can add, update and delete terms, weeks, courses, gradesiThis app is a allows a user to log the items in their personal closet, compare it to an ideal closet as specified by Real Simple and make changes based on the analysis.  All persistent data are stored in MongoDB.
 
 
 
