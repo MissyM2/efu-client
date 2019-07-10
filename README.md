@@ -66,7 +66,7 @@ The student sets up his/her profile which includes the current TERM, the student
      
 ![Mobile - Login Page](/screenshots/m_login.png "Mobile-Login"))
 test
-<img src="https://github.com/MissyM2/efu-client/screenshots/m_login.png" align="left" height="200px" >
+<img src="https://github.com/MissyM2/efu-client/screenshots/m_login.png" align="left" width="150px" >
 
      Mobile-Registration Page
     
