@@ -37,12 +37,10 @@ export default class ReviewCurrentWeek extends React.Component {
         this.newLeastDifficult = React.createRef();
         this.setselectedweek = this.setselectedweek.bind(this);
         this.updateSubmit = this.updateSubmit.bind(this);
-        //this.updateWeek = this.updateWeek.bind(this);
     }
 
     componentDidMount() {
         this.props.setPageFlags("ReviewWeek");
-        //this.setState = (this.initialState);
     }
 
     setselectedweek = (e)  => {
@@ -55,12 +53,6 @@ export default class ReviewCurrentWeek extends React.Component {
     }
 
     updateweek(field, e){
-        console.log('this.state inside of updateWeek', this.state);
-        this.setState({
-            missy: "maloney"
-        });
-        console.log('this.state inside of updateWeek', this.state);
-        console.log('made it to updateweek', field);
         let fields = this.state.fields;
         switch(field) {
             case "newLikedLeast":
@@ -96,8 +88,6 @@ export default class ReviewCurrentWeek extends React.Component {
 
     updateSubmit = (e) => {
         e.preventDefault();
-
-        console.log('did I make it so updateSubmit');
             let likedLeast;
             let likedMost;
             let mostDifficult;
@@ -156,8 +146,6 @@ export default class ReviewCurrentWeek extends React.Component {
             }, () => {
                 console.log('rcw: look at state after update preparation', this.state);
             });
-            
-            console.log('right before updatesubmitweek');
             this.props.submitupdateweek(updateWeek); 
     }
 
@@ -206,8 +194,6 @@ export default class ReviewCurrentWeek extends React.Component {
                 </li> 
            );
         });
-        //console.log('rcw, this.props', this.props);
-        //console.log('rcw, before return', this.state);
         
         return (
             <div className="content-container">
@@ -289,7 +275,7 @@ export default class ReviewCurrentWeek extends React.Component {
                                                                                 </div>
                                                                                 <div className="item week-update-unit">
                                                                                 {(this.props.weekItemUpdated && this.state.fieldBeingUpdated.newLikedLeast) ? (
-                                                                                    <div className="message-style"><i class="fas fa-check"></i></div>
+                                                                                    <div className="message-style"><i className="fas fa-check"></i></div>
                                                                                 ):(
                                                                                     ""
                                                                                 )}

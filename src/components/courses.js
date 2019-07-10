@@ -40,7 +40,6 @@ export default class Courses extends React.Component {
 
     deletecourse(e) {
         e.preventDefault();
-        console.log('made it to deletecourse')
         let selectedCourse = {
             termDesc: this.props.termDesc,
             courseName:this.props.courseName

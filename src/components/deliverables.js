@@ -63,8 +63,6 @@ export default class Deliverables extends React.Component {
                                 showImpactModal: true
                         });
                 }
-                
-                console.log('toggleImpact', this.state);
         
             }
         
@@ -76,16 +74,7 @@ export default class Deliverables extends React.Component {
                 } else {
                         backdrop = <BackdropWhite />
                 }
-                /*
-                let impactClasses;
-
-
-                if(this.props.thiscoursedeliverables.length === 0 || this.props.thistermdeliverables.length === 0) {
-                        impactClasses = "impact-key not-visible";
-                } else {
-                        impactClasses = "impact-key";
-                }
-                */
+                
 
                 const thiscoursedeliverables = this.props.thiscoursedeliverables.map((deliverable, index) => {
                         return (

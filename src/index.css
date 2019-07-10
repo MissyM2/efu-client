@@ -1020,6 +1020,12 @@
     
    /* Medium Devices, Desktops */
    @media only screen and (min-width : 992px) {
+    .btn-small {
+      height: 50px;
+      margin-top: 40px;
+    }
+
+    
 
     .content-container {
       margin: 175px auto;

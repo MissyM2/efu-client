@@ -140,13 +140,22 @@
 
     /* Medium Devices, Desktops */
     @media only screen and (min-width : 992px) {
+
+        .select-prephrs,
+        .select-impact,
+        .input-desc {
+            margin:initial;
+        }
         
         .deliverables-all-items {
             display:flex;
         }
+        
 
         .three-items-top{
             width:35%;
+            padding-top:5px;
+            padding-right:0;
         }
 
         .two-items-bottom {

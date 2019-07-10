@@ -2,6 +2,13 @@
 
     /* Custom, iPhone Retina */ 
     @media only screen and (min-width : 320px) {
+        .course-btns {
+            display:flex;
+            flex-direction:row;
+            width: 100%;
+            justify-content:center;
+          }
+
         .tenpx-margin {
             margin: 10px;
         }
@@ -166,13 +173,7 @@
         .column-item {
             width: 50%;
         }
-        /*
-        .dueDate {
-            font-weight: bold;
-            color: var(--off-white-color);
-            background-color: var(--mossy-green-color);
-        }
-        */
+        
     
         .row-week-list-labels {
             display: none;
@@ -205,6 +206,14 @@
 
     /* Medium Devices, Desktops */
     @media only screen and (min-width : 992px) {
+
+        .course-btns {
+            display:flex;
+            flex-direction:row;
+            width: 100%;
+            justify-content:center;
+          }
+          
         .course-li {
             margin:3px;
         }

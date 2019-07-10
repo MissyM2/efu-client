@@ -38,7 +38,6 @@ export class AddDeliverableForm extends React.Component {
 
         _onFocus(e){
             e.currentTarget.type = "date";
-           
         }
     
         _onBlur(e){
@@ -50,21 +49,17 @@ export class AddDeliverableForm extends React.Component {
             let fields = this.state.fields;
             fields[field] = e.target.value;
             this.setState({fields});
-            console.log('handleChange', this.state.fields["dueDate"]);
         }
 
         handleValidation = () => {
-            console.log('made it to handleValidation');
             let fields = this.state.fields;
             let errors={};
             let formIsValid = true;
     
             if(!fields["dueDate"] || !fields["deliverableName"] ) {
-                    console.log('one of the fields is false', this.state.fields);
                     formIsValid = false;
                     errors["emptyFields"] = "All the following information is required:  Course Name, Due Date and Deliverable Name.";
             }
-            console.log('this.state after handling validation', this.state);
     
             this.setState({
                     errors:errors
@@ -95,56 +90,45 @@ export class AddDeliverableForm extends React.Component {
 
         addDeliverableSubmit = (e) => {
             e.preventDefault();
-            console.log('made it to adddeliverablesubmit, deliverableName)', this.state.fields.deliverableName);
             if(this.handleValidation()) {
                 let impactValue = "";
                 let prephrsValue = 0;
                 switch(this.state.fields.deliverableName) {
                     case "Quiz":
-                        console.log('Quiz');
                             impactValue = "moderate";
                             prephrsValue = 6;
                     break;
-                    case "Test":
-                            console.log('Test');
-                                    impactValue = "high";
-                                    prephrsValue = 16;
+                        case "Test":
+                        impactValue = "high";
+                        prephrsValue = 16;
                     break;
                     case "Midterm":
-                            console.log('Midterm');
                                     impactValue = "high-plus";
                                     prephrsValue = 20;
                     break;
                     case "Final":
-                            console.log('Final');
                                     impactValue = "high-plus";
                                     prephrsValue = 20;
                     break;
                     case "Lab/Essay":
-                            console.log('Lab/Essay');
                                     impactValue = "moderate";
                                     prephrsValue = 2;
                     break;
                     case "Term Paper/Group Project Final":
-                            console.log('Term Paper/Group Project Final');
                                     impactValue = "high-plus";
                                     prephrsValue = 20;
                     break;
                     case "Term Paper/Group-Project Checkpoint":
-                            console.log('Term Paper/Group-Project Checkpoint');
                                     impactValue = "moderate";
                                     prephrsValue = 6;
                     break;
                     case "Homework":
-                            console.log('Homework');
                                     impactValue = "low";
                                     prephrsValue = 2;
                     break;
                     case "Participation":
-                            console.log('Participation');
                                     impactValue = "low";
                                     prephrsValue = 2;
-                                    console.log('prephrsValue', prephrsValue);
                         break;
                     default:
                                     impactValue = "moderate";
@@ -159,8 +143,6 @@ export class AddDeliverableForm extends React.Component {
                     desc: this.state.fields["desc"],
                     prephrs: prephrsValue
                 }
-
-                console.log('newDeliverable after prep', newDeliverable);
                 
                 this.props.submitadddeliverable(newDeliverable);
 
@@ -183,16 +165,6 @@ export class AddDeliverableForm extends React.Component {
                 } else {
                         backdrop = <BackdropBlack />
                 }
-                /*
-                let impactClasses;
-
-
-                if(this.props.thiscoursedeliverables.length === 0 || this.props.thistermdeliverables.length === 0) {
-                        impactClasses = "impact-key not-visible";
-                } else {
-                        impactClasses = "impact-key";
-                }
-                */
 
                 const delNames = this.props.deliverableNames.map((delname, index) => {
                     return (
@@ -217,8 +189,6 @@ export class AddDeliverableForm extends React.Component {
                             </option>
                         );
                     });
-                    console.log('add-del-form this.state', this.state);
-                    console.log('add-del-form this.props', this.props);
                 return (
                        
                         <div className="content-container">
@@ -239,7 +209,6 @@ export class AddDeliverableForm extends React.Component {
                                         
                                         <div className="content-sub-container add-del-form">
                                                 <section className="modal__content">
-                                                {/*<div className="add-deliverable-form"> */}
                                                 <header><h2>Add Deliverable</h2></header>
                                        
                                                 <select
@@ -269,7 +238,7 @@ export class AddDeliverableForm extends React.Component {
                                                                             onFocus={this._onFocus}
                                                                             onBlur={this._onBlur}
                                                                             onChange={this.handleChange.bind(this, "dueDate")}
-                                                                            value={this.state.fields["dueDate"]}
+                                                                            defaultValue={this.props.currentdate}
                                                                             aria-label="dueDate"
                                                                     />
                                                                     <select 
@@ -280,7 +249,7 @@ export class AddDeliverableForm extends React.Component {
                                                                             aria-label="deliverableName"
                                                                             required
                                                                             >
-                                                                                <option className="default-value" value="DEFAULT" disabled selected>What kind of deliverable is this?  Make a choice.</option> 
+                                                                                <option className="default-value" defaultValue="DEFAULT" disabled>What kind of deliverable is this?  Make a choice.</option> 
                                                                                 {delNames}
                                                                     </select>
 
@@ -290,6 +259,7 @@ export class AddDeliverableForm extends React.Component {
                                                                             className="del-unit-container fivepx-margin desc"
                                                                             placeholder="Describe what needs to be prepped(i.e. study chapters...)"
                                                                             type="text"
+                                                                            defaultValue=""
                                                                             onChange={this.handleChange.bind(this, "desc")}
                                                                             aria-label="deliverable-desc"
                                                                     />

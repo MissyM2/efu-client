@@ -144,7 +144,7 @@ export default class Course extends React.Component {
                                         />
                                 </div>
                             </div>
-                            <div className="action-btns">
+                            <div className="course-btns">
                                 <button 
                                     className="green-btn btn-small fivepx-margin" 
                                     type="submit" 

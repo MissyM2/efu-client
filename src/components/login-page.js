@@ -90,7 +90,7 @@ class LoginPage extends React.Component {
                                                 <input
                                                     className={this.state.errors["username"] ? "error": ""}
                                                     ref="username"
-                                                    placeholder="Username"
+                                                    placeholder="your email address"
                                                     type="text"
                                                     size= "30"
                                                     onChange={this.handleChange.bind(this, "username")}
@@ -105,7 +105,7 @@ class LoginPage extends React.Component {
                                                 <input
                                                     className={this.state.errors["password"] ? "error": ""}
                                                     ref="password"
-                                                    placeholder="Password"
+                                                    placeholder="password"
                                                     type="password"
                                                     size="30"
                                                     name="password"

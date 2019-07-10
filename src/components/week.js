@@ -17,7 +17,6 @@ export default class Week extends React.Component {
 
     setDelete(e) {
         e.preventDefault();
-        console.log('week: setDelete');
         let selectedWeek = {
             termDesc: this.props.termDesc,
             weekNum:this.props.weekNum
@@ -28,8 +27,9 @@ export default class Week extends React.Component {
     handleChange(e, field) {
         this.setState({
             [field]: e.target.value
+          }, () => {
+            console.log('this field should be changing', this.state);
           });
-          console.log('this field should be changing', this.state);
     }
 
     handleUpdate(e) {
@@ -58,9 +58,6 @@ export default class Week extends React.Component {
         if(this.props.weekstatus === 'all') {
             deleteButton = <button className="btn delete-btn" onClick={(e) => this.setDelete(e)}>Delete Week</button>;
         };
-          console.log('this.props.thisweekdetails', this.props.thisweekdetails);
-          console.log('this.state', this.state);
-          console.log('this.props.thisweekdetails.likedLeast', this.props.thisweekdetails[0].likedLeast);
         return ( 
             <div className="column with-delete-btn flex-wrap-row">
                 <div>

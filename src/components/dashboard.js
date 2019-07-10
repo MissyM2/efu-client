@@ -99,16 +99,6 @@ export default class Dashboard extends React.Component {
                 </ul>
             );
         })
-
-        //const {suggestion, loading} = this.state;
-        //if (error) {
-        //    return <p>{error.message}</p>
-        //}
-
-        //if (loading) {
-       //     return <p>Loading ...</p>
-        //}
-        //console.log('dashboard: this.state', this.props);
             return (
                 <div className="content-container">
                         {(this.props.selectingterm) ? (

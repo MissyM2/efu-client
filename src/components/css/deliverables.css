@@ -232,6 +232,16 @@
   
       /* Medium Devices, Desktops */
       @media only screen and (min-width: 992px) {
+        .action-btns {
+            max-width: 20%;
+        }
+
+        .del-read-only,
+        .del-editable {
+            padding-top: 10px;
+            margin-top: 5px;
+            border-top: 1px solid var(--off-white-color);
+          }
           
             .deliverable-option-bar-full {
                 display:flex;
@@ -240,8 +250,6 @@
                 border-bottom: 1px solid var(--off-white-color);
                 margin-bottom: 10px;
             }
-            
-
             .add-deliverable-link-spacer-impact {
                 height: 40px;
                 border-top: none;
@@ -257,9 +265,7 @@
                 flex-wrap:wrap;
             }
 
-            .action-btns {
-                width: 13%;
-            }
+            
   
       }
   

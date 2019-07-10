@@ -22,15 +22,6 @@ class RegistrationPage extends React.Component {
         let lastName = this.state.fields.lastName.trim();
         let username = this.state.fields.username.toLowerCase().trim();
         let password = this.state.fields.password.trim();
-        console.log('inside handleValidation', firstName + ' ' + lastName + ' ' + username + ' ' + password);
-        /*
-        let firstname = this.state.fields["firstName"];
-        let lastname = this.state.fields["lastName"];
-        let username = this.state.fields["username"];
-        let password = this.state.fields["password"];
-        */
-
-        console.log()
         let errors = {};
         let formIsValid = true;
         let regularExpression = /\S+@\S+\.\S+/;
@@ -100,7 +91,6 @@ class RegistrationPage extends React.Component {
         let lastName = this.state.fields.lastName.trim();
         let username = this.state.fields.username.toLowerCase().trim();
         let password = this.state.fields.password.trim();
-        console.log('inside registrationSubmit', firstName + ' ' + lastName + ' ' + username + ' ' + password);
         if(this.handleValidation()){
             this.props.submitregistration(firstName, lastName, username, password);
           }else{
@@ -122,7 +112,7 @@ class RegistrationPage extends React.Component {
                                                             <input
                                                                 className={this.state.errors["firstName"] ? "error": ""}
                                                                 refs="firstName"
-                                                                placeholder="Firstname"
+                                                                placeholder="first name"
                                                                 type="text"
                                                                 onChange={this.handleChange.bind(this, "firstName")}
                                                                 value={this.state.fields["firstName"]}
@@ -138,7 +128,7 @@ class RegistrationPage extends React.Component {
                                                             <input
                                                                 className={this.state.errors["lastName"] ? "error":""}
                                                                 refs="lastName"
-                                                                placeholder="Lastname"
+                                                                placeholder="last name"
                                                                 type="text"
                                                                 onChange={this.handleChange.bind(this, "lastName")}
                                                                 value={this.state.fields["lastName"]}

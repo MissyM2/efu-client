@@ -98,7 +98,7 @@ export default class AddCourseForm extends React.Component {
                                 />
                                 <div className="message-style">{this.state.errors["courseDesc"]}</div>
                         </div>
-                        <div className="action-btns">
+                        <div className="course-btns">
                             <button type="submit" className="blue-btn btn-small fivepx-margin">Add </button>
                             <button className="blue-btn btn-small fivepx-margin" type="button" onClick={() => this.setEditing(false)}>
                                 Cancel

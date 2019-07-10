@@ -11,14 +11,12 @@ export default class CourseGrades extends React.Component {
     }
 
     setNewGradeNum(newGradeNum) {
-        console.log('made it to handlechange');
         this.setState({
             newGradeNum
           });
     } 
 
     onSubmit(e) {
-        console.log('made it to handleupdate');
         e.preventDefault();
         this.setState({
             gradeUpdatingId:this.props.id
@@ -38,7 +36,6 @@ export default class CourseGrades extends React.Component {
             newGradeNum:0
         });
         this.props.submitupdategrade(updatedgrade);
-        //this.props.setGradeIsUpdated(true);
     }
 
 

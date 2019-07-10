@@ -36,7 +36,7 @@ export default class Weeks extends React.Component {
                                         <ul key={index} className="weeks-row">
                                                 <li className="week-row">
                                                         <div className="week-item">
-                                                                <div className="small-titles dark-label week-label likedLeast">liked Least</div>
+                                                                <div className="small-titles dark-label week-label likedLeast">Liked Least</div>
                                                                 {(week.likedLeast === '' || week.likedLeast === 'no selection') ? (
                                                                         <div className="small-titles light-label item-body red-background">Not updated.</div>
                                                                 ) : (

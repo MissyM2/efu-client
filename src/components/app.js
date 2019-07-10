@@ -272,7 +272,6 @@ class App extends React.Component {
         let lastSundayDayName=days[lastSunday.getDay()];
         let lastSundayMonth = lastSunday.getMonth() + 1;
         let lastSundayMonthName = monthShortNames[lastSundayMonth];
-        //let lastSundayYear = lastSunday.getFullYear();
         let lastSundayFormatted =`${lastSundayDayName}, ${lastSundayMonthName} ${lastSundayDay}`;
         let pLastSunday = Date.parse(lastSunday);
         this.setState({
@@ -316,7 +315,7 @@ class App extends React.Component {
             body: JSON.stringify(newuser)
         })
         .then(res => {
-            //console.log('insidesumreg, res', res);
+            //('insidesumreg, res', res);
             if(res.ok){
                 this.setState({
                     error:null,
@@ -349,11 +348,6 @@ class App extends React.Component {
 
 
     submitlogin(username, password) {
-        //console.log('what is this.initialState look like', this.initialState);
-        
-       //this.setState = (this.initialState);
-        //console.log('state before login', this.state);
-
         const registereduser = {
             username: username,
             password: password
@@ -366,7 +360,6 @@ class App extends React.Component {
             body: JSON.stringify(registereduser)
         })
         .then(res => {
-            console.log('submit login: res', res);
             if(res.ok){
                 this.setState({
                     error: null,
@@ -405,9 +398,7 @@ class App extends React.Component {
     }
 
     submitlogout() {
-       // console.log('this initial state', this.state);
-       //this.setState = (this.initialState);
-       //console.log('state after logout', this.state);
+       window.location = "/";
     }
 
     /********************************
@@ -415,7 +406,6 @@ class App extends React.Component {
      *********************************/
 
     setloadingflag = (bool) => {
-        //console.log('made it to setloadingflag');
         this.setState({
             loading: bool
         })
@@ -498,7 +488,7 @@ class App extends React.Component {
                         coursesFlag:false,
                         deliverablesFlag:false
                     }, () => {
-                        console.log('this.state.dashboardFlag', this.state);
+                        //console.log('this.state.dashboardFlag', this.state);
                     });
 
                            
@@ -517,7 +507,6 @@ class App extends React.Component {
 
     // setters for week
     setcurrentweek = (week) => {
-        //console.log('setting current week for week: ', week)
         this.setState(
             {
             currentweek:parseInt(week),
@@ -525,7 +514,6 @@ class App extends React.Component {
             weekUpdated:false,
             selectingweek:false
             }, () => {
-                //console.log('App: setcurrentweek, this.state.weekUpdated',this.state.weekUpdated);
                 this.getcurrentweekdetails();
             }
         );
@@ -533,7 +521,6 @@ class App extends React.Component {
     
     //setters for courses
     setcoursedeletemodal(bool) {
-        //console.log('made it to the setcoursedeletemodal');
         this.setState({
           showCourseDeleteModal:bool
         },() => {
@@ -545,7 +532,7 @@ class App extends React.Component {
         this.setState({
             currentcoursename: course
         },  () => {
-                console.log('selected coursename for adding deliverable');
+               //console.log('selected coursename for adding deliverable');
             }
         );
     }
@@ -580,12 +567,9 @@ class App extends React.Component {
     }
 
     setcoursemessage = () => {
-        //console.log('got to delcourse', this.state.courseMessage);
-        /// put logic here
             this.setState({
                     courseMessage: "Select a course from the dropdown and add a deliverable."
             });
-        //console.log('this.state.courseMessage',this.state.courseMessage);
     }
 
     //setters for deliverables
@@ -618,8 +602,6 @@ class App extends React.Component {
     }
 
     setdeliverablemessage = () => {
-        //console.log('got to delmessage', this.state.deliverableMessage);
-
         if(this.state.thistermcourses.length === 0) {
             this.setState({
                     deliverableMessage: "There are no courses setup for this term.  Add a course first."
@@ -636,7 +618,6 @@ class App extends React.Component {
     }
 
     setdeliverabletobedeleted(deliverable) {
-        //console.log('inside setdeliverabletobedeleted', deliverable);
         this.setState({
             currentdeliverable:{
                 termDesc: deliverable.termDesc,
@@ -715,34 +696,24 @@ class App extends React.Component {
     // get weeks for the term and grades for the week
     getcurrentweekdetails = () => {
 
-       // this.getthistermweeks(this.getthistermcourses());
-        //console.log('this.state', this.state);
-
         new Promise ((resolve, reject) => {
             this.getthistermcourses(resolve, reject);
             });
-            //console.log('should have gotten all courses', this.state.thistermcourses);
 
         new Promise ((resolve, reject) => {
-            //console.log('in promise:deliverables: step 1 is next');
             return this.gettermdeliverables(resolve, reject);
         })
         .then(res => {
             new Promise ((resolve, reject) => {
-                //console.log('in promise:coursedeliverables: step 2 is next');
                 this.getcoursedeliverables();
-                //console.log('in promise:weekdeliverables: step 3 is next');
                 return this.getweekdeliverables(resolve, reject);
             })
             .then(res => {
                 new Promise((resolve, reject) => {
-                    //console.log('in promise:todaydeliverables: step 4 is next');
                     this.gettodaydeliverables();
-                    //console.log('in promise:weekprephrsdeliverables: step 5 is next');
                     return this.getweekprephrs(resolve, reject);
                 })
                 .then(res => {
-                    //console.log('in promise:deliverables: step 6 is next');
                     this.gettodayprephrs();
                 })
                 .catch(err => {
@@ -750,7 +721,6 @@ class App extends React.Component {
                 });
             })
             .catch(err => {
-                console.log('error during DELIVERABLES PROMISE');
                 console.log('Error:' + err.reason + ' at ' + err.location);
             })
         })
@@ -760,22 +730,17 @@ class App extends React.Component {
         });  
 
         new Promise ((resolve, reject) => {
-            //console.log('in promise:grades: step 1 is next');
             return this.getthistermweeks(resolve, reject);
         })
         .then(res => {
-            //console.log('should have gotten all weeks', this.state.thistermweeks);
             new Promise ((resolve, reject) => {
-                //console.log('in promise:grades: step 2');
                 return this.gettermgrades(resolve, reject);
             })
             .then(res => {
                 new Promise((resolve, reject) => {
-                    //console.log('in promise:grades: step 3');
                     return this.getweekgrades(resolve, reject);
                 })
                 .then(res => {
-                    //console.log('in promise:grades: step 4');
                     this.getcoursegrades()
                 })
                 .catch(err => {
@@ -783,7 +748,6 @@ class App extends React.Component {
                 })
             })
             .catch(err => {
-                console.log('error during GRADES PROMISE')
                 console.log('Error:' + err.reason + ' at ' + err.location);
             })
         })
@@ -874,11 +838,9 @@ class App extends React.Component {
     }
 
     getthistermcourses(resolve = null, reject = null) {
-        //console.log('step 1: getthistermcourses');
         fetch(`${API_BASE_URL}/courses`, {
             method: 'GET',
             headers: {
-                // Provide our auth token as credentials
                 Authorization: `Bearer ${this.state.authToken}`
                 }
         })
@@ -910,8 +872,6 @@ class App extends React.Component {
     }
 
     getthistermweeks = (resolve = null, reject = null) => {
-        //console.log('step 2: getthistermweeks');
-        // fetching week data and committing it to state:  all weeks for term, then details for given week
         fetch(`${API_BASE_URL}/weeks`, {
             method: 'GET',
             headers: {
@@ -932,16 +892,13 @@ class App extends React.Component {
                                 });
             this.setState({
                 thistermweeks: sortedweeks,
-                thistermweekcount: sortedweeks.length,
-                //weekUpdated: false
+                thistermweekcount: sortedweeks.length
             }, () => {
                 //console.log('state.thistermweeks, count and updated', this.state.thistermweeks);
                 return sortedweeks;
             });
         })
         .then(res => {
-            //console.log('just for fun res', res);
-            //console.log('what is the currentweek', this.state.currentweek);
             let thisweek={};
             if (this.state.thistermweeks.length !== 0){
                 thisweek = this.state.thistermweeks.filter(week => {
@@ -949,8 +906,6 @@ class App extends React.Component {
                 });
                 //console.log('thisweek should be set', thisweek);
             }
-            //console.log("thisweek[0].likedLeast", thisweek[0].likedLeast);
-            //console.log("is likedleast not equal to nothing, so somthing", thisweek[0].likedLeast !== "" );
             if(thisweek[0].likedLeast !== "" &&
                 thisweek[0].likedMost !== ""  &&
                 thisweek[0].leastDifficult !== "" &&
@@ -977,8 +932,6 @@ class App extends React.Component {
                 })
             },() => {
                     this.setweekupdated();
-                    //console.log('this weekdetails should be set', this.state.weekdetailsold);
-                    //console.log('this.state.weekUpdated',this.state.weekUpdated);
                     resolve({message: 'weeks promise is complete'});
                 }); 
         })
@@ -990,8 +943,6 @@ class App extends React.Component {
 
     // get grades for the term, week, and course 
     gettermgrades = (resolve = null, reject = null) => {
-        //console.log('step 3:gettermgrades');
-        //let currentgrades;
         fetch(`${API_BASE_URL}/grades`, {
             method: 'GET',
             headers: {
@@ -1013,7 +964,6 @@ class App extends React.Component {
                 thistermgrades: temptermgrades,
                 thistermgradecount: temptermgrades.length
             }, () => {
-                ////console.log('thistermgrades/thistermgradecount', this.state);
                 resolve({message: 'promise is complete'});
             });
         })
@@ -1024,7 +974,6 @@ class App extends React.Component {
     }
 
     getweekgrades = (resolve = null, reject = null) => {
-        //console.log('step 3A: getweekgrades');
             const tempweekgrades = this.state.thistermgrades.filter(grade => {
                 return grade.term === this.state.currentterm && grade.week === this.state.currentweek;
             });
@@ -1038,7 +987,6 @@ class App extends React.Component {
     }
 
     getcoursegrades = () => {
-        //console.log('step 3B: getcoursegrades');
         let tempcoursegrades = 0;
             if (this.state.thistermgrades.length > 0) {
                 tempcoursegrades = this.state.thistermgrades.filter(grade => {
@@ -1051,13 +999,10 @@ class App extends React.Component {
                 thisweekcoursegrades:tempcoursegrades
             }, () => {
                 //console.log('this.state after grades promise', this.state);
-                //console.log('setting this course grades.  SHOULD NOT BE ZERO', this.state.thisweekcoursegrades);
             });
     }
 
     sortByKey(array, key) {
-        //console.log('array', array);
-        //console.log('key', key);
         return array.sort(function(a, b) {
             var x = a[key]; var y = b[key];
             return ((x < y) ? -1 : ((x > y) ? 1 : 0));
@@ -1066,7 +1011,6 @@ class App extends React.Component {
 
     // get all deliverables for the term
     gettermdeliverables(resolve = null, reject = null) {
-        //console.log('step 4: gettermdeliverables')
         fetch(`${API_BASE_URL}/deliverables`, {
             method: 'GET',
             headers: {
@@ -1083,54 +1027,19 @@ class App extends React.Component {
 
         // get deliverables for the term
         .then(resJSON => {
-            //console.log('gettermdeliverables: resJSON', resJSON);
-/*
-            const sortedweeks = resJSON
-            .sort((a, b) => a.weekNum - b.weekNum)
-            .filter(week => {
-                    return week.termDesc === this.state.currentterm;
-            });
-            */
-
-
-
-
             let temptermdeliverables =[];
-            /*
-            let arrayOne = [
-                {num:40, dt:"04-08-2019"},
-                {num:18, dt:"06-01-2019"},
-                {num:10, dt: "09-10-2019"}, 
-                {num:60, dt: "04-01-2019"},
-                {num: 3, dt: "11-04-2019"} ,
-                {num: 29, dt: "01-01-2019"}
-            ];
-            //this.sortByKey(arrayOne, arrayOne.num);
-            //arrayOne.sort({ num: -1} );
-            console.log('arrayOne', arrayOne);
-*/
             if (resJSON.length > 0) {
                 temptermdeliverables = resJSON.filter(deliverable => {
                     return deliverable.termDesc === this.state.currentterm;
                 });
-                //console.log('before sort', temptermdeliverables);
-/*
-                temptermdeliverables.sort((a,b)  => {
-                    console.log('a then b', a + "  " + b)
-                    return new Date(b.dueDate) - new Date(a.dueDate);
-                })
-                */
             }
-            //console.log('temptermdeliverables', temptermdeliverables);
             return this.setState({
                 thistermdeliverables: temptermdeliverables
                 }, () => {
-                    //console.log('DID WE GET THISTERMDELIVERABLES', this.state.thistermdeliverables);
                     resolve({message: 'thistermdeliverables is set'});
                 });
         })
         .catch((err) => {
-            //console.log(err);
             reject({message: 'getdeliverables promise failed'});
         });
 
@@ -1138,10 +1047,8 @@ class App extends React.Component {
 
     // get deliverables for the week
     getweekdeliverables = (resolve = null, reject = null) => {
-        //console.log('step 4B: getweekdeliverables');
         let tempweekdeliverables = [];
             if(this.state.thistermdeliverables.length > 0) {
-                //console.log('this.state.thistermdeliverables', this.state.thistermdeliverables);
                 tempweekdeliverables = this.state.thistermdeliverables.filter(deliverable => {
                     var pTempDueDate = Date.parse(deliverable.dueDate);
                     return (pTempDueDate <= this.state.pNextSunday && pTempDueDate >= this.state.pLastSunday) && 
@@ -1151,14 +1058,12 @@ class App extends React.Component {
         this.setState({
                 thisweekdeliverables: tempweekdeliverables
             }, () => {
-                //console.log('DID WE GET THISWEEKDELIVERABLES', this.state.thisweekdeliverables);
                 resolve({message: 'thisweekdeliverables should be set'});
             });
     }
 
     // get prephrs for the week
     getweekprephrs = (resolve = null, reject = null)  => {
-        //console.log('step 4C: getweekprephrs');
         let tempWeekPrephrs = 0;
             for (let i=0; i < this.state.thisweekdeliverables.length; i++) {
                 tempWeekPrephrs += this.state.thisweekdeliverables[i].prephrs;
@@ -1166,14 +1071,12 @@ class App extends React.Component {
         this.setState({
                 prephrsthisweek:tempWeekPrephrs
             }, () => {
-                //console.log('DID WE GET prephrsthisweek', this.state.prephrsthisweek);
                 resolve({message: 'promise resolved'});
             });
     }
 
     // get deliverables for the course
     getcoursedeliverables = () => {
-        //console.log('step 4A: getcoursedeliverables');
         let tempcoursedeliverables = [];
         if(this.state.currentcoursename !== "") {
             tempcoursedeliverables = this.state.thistermdeliverables.filter(deliverable => {
@@ -1183,8 +1086,6 @@ class App extends React.Component {
         }
         this.setState({
             thiscoursedeliverables: tempcoursedeliverables
-
-            //deliverableAdded: false
         }, () => {
             //console.log('thiscoursedeliverables', this.state.thiscoursedeliverables);
         });
@@ -1192,23 +1093,14 @@ class App extends React.Component {
 
     // get deliverables for today
     gettodaydeliverables = () => {
-        //console.log('step 4C (new promise): gettodaydeliverables');
         let temptodaydeliverables = [];
         let todaydate = this.state.currentdate;
-       //console.log('this.state.thistermdeliverables', this.state.thistermdeliverables);
         if (this.state.thistermdeliverables.length > 0) {
-            //console.log('this.state.thistermdeliverables.length', this.state.thistermdeliverables.length);
             temptodaydeliverables = this.state.thistermdeliverables.filter(deliverable => {
                 let deliverableDate = deliverable.dueDate.split('T')[0];
-                //console.log('this.state.currentdate', this.state.currentdate);
-                //console.log('deliverableDate=xx', deliverableDate,'xx');
-                //console.log('todaydate=xx',todaydate,'xx');
-                //console.log('currdate matches', deliverableDate === todaydate);
-
                     return deliverableDate === todaydate;
             });
         }
-        //console.log('gettodaydeliverables: temptodaydeliveravles', temptodaydeliverables);
         this.setState({
             todaydeliverables:temptodaydeliverables
         }, () => {
@@ -1218,7 +1110,6 @@ class App extends React.Component {
                 
     // get prephrs for the day
     gettodayprephrs = () => {
-        //console.log('step 4D:gettodayprephrs');
             let tempPrephrs =0;
             for (let i =0; i < this.state.todaydeliverables.length; i++) {
                 tempPrephrs += this.state.todaydeliverables[i].prephrs;
@@ -1227,7 +1118,6 @@ class App extends React.Component {
                 prephrstoday:tempPrephrs
             }, () => {
                 //console.log('this.state after deliverables promise', this.state);
-                //console.log('state should be set for prephrstoday', this.state.prephrstoday);
             }); 
 
     }
@@ -1240,7 +1130,6 @@ class App extends React.Component {
 
 
     submitaddterm = (newterm) => {
-        //console.log('made it to  submitaddterm', newterm);
             fetch(`${API_BASE_URL}/terms`, {
                 method: 'POST',
                 headers: {
@@ -1268,7 +1157,6 @@ class App extends React.Component {
     }
          
     submitaddcourse = (newcourse) => {
-        //console.log('submitaddcourse: newcourse', newcourse);
         this.setState({
             currentcourseName: newcourse.courseName
         });
@@ -1330,7 +1218,6 @@ class App extends React.Component {
                 throw new Error(res.text)
         })
         .then(resJSON => {
-            //console.log('deliverableadded', resJSON);
             this.setdeliverableadding(false);
             this.setdeliverableadded(true);
         })
@@ -1341,9 +1228,7 @@ class App extends React.Component {
     }
 
     submitadddeliverable = (newDeliverable) => {
-        //this.adddeliverable(newDeliverable);
-            this.adddeliverable(newDeliverable);
-            //this.getcurrentweekdetails();    
+            this.adddeliverable(newDeliverable); 
     }
 
 
@@ -1359,7 +1244,6 @@ class App extends React.Component {
                 } else if (term === 'Summer (4 weeks)') {
                     termWeeks = this.state.SummerShort
                 }
-               // console.log('genweeks: termWeeks', termWeeks);
                 for(let i = 1; i <= termWeeks; i++) {
                     let newweek = {
                         termDesc: this.state.currentterm,
@@ -1437,22 +1321,11 @@ class App extends React.Component {
                             }
                             throw new Error(res.text)
                         })
-                        //.then(grade => {
-                         //   this.setState({
-                        //        currentgrades: [...this.state.currentgrades, grade],
-                         //       thistermgradecount: this.state.thistermgradecount + 1
-                         //       }, () => {
-                         //           console.log('this.is after the addition of one grade to the state, currentggrades', this.state.currentgrades);
-                         //       });
-                        //})
-                        
                         .catch((err) => {
                             console.log(err);
                         }); 
             
                     }
-                    //console.log('this.state.currentgrades, next getcurrentgrades', this.state.currentgrades);
-                    //this.getcurrentgrades(); 
     }
 
     /******************************************
@@ -1498,7 +1371,6 @@ class App extends React.Component {
 
    
    deletedeliverable = (deliverable)  => {
-        //console.log('submitdeletedeliverable', deliverable);
         fetch(`${API_BASE_URL}/deliverables`, {
              method: 'DELETE',
              headers: {
@@ -1507,7 +1379,6 @@ class App extends React.Component {
              body: JSON.stringify(deliverable)
          })
          .then(res => {
-             //console.log('finished with delete. is res=', res.ok);
              if(res.ok) {
                      return res.json()
              }
@@ -1520,8 +1391,6 @@ class App extends React.Component {
     }
 
     submitdeletedeliverable = (deliverable)  => {
-
-        //console.log('submitdeletedeliverable', deliverable);
         this.setState({
             deliverablesUpdated:false,
             prephrstoday:0,
@@ -1533,7 +1402,6 @@ class App extends React.Component {
         }, () => {
             this.deletedeliverable(deliverable);
         })
-        //console.log('this.state.thistermdeliverables', this.state.thistermdeliverables);
             
         new Promise((resolve,reject) => {
             this.setdeliverabledeleted(true);
@@ -1541,20 +1409,15 @@ class App extends React.Component {
             })
             .then(res => {
                 new Promise ((resolve, reject) => {
-                    //console.log('in promise:coursedeliverables: step 2 is next');
                     this.getcoursedeliverables();
-                    //console.log('in promise:weekdeliverables: step 3 is next');
                     return this.getweekdeliverables(resolve, reject);
                 })
                 .then(res => {
                     new Promise((resolve, reject) => {
-                        //console.log('in promise:todaydeliverables: step 4 is next');
                         this.gettodaydeliverables();
-                        //console.log('in promise:weekprephrsdeliverables: step 5 is next');
                         return this.getweekprephrs(resolve, reject);
                     })
                     .then(res => {
-                        //console.log('in promise:deliverables: step 6 is next');
                         this.gettodayprephrs();
                     })
                     .catch(err => {
@@ -1562,7 +1425,6 @@ class App extends React.Component {
                     });
                 })
                 .catch(err => {
-                    //console.log('error during DELIVERABLES PROMISE');
                     console.log('Error:' + err.reason + ' at ' + err.location);
                 })
             })
@@ -1617,14 +1479,12 @@ class App extends React.Component {
                 body: JSON.stringify(coursedeliverablesForDeletion)
             })
             .then(res => {
-                //console.log('deletedeliverables res', res);
                 if(res.ok) {
                         return res.json()
                 }
                 throw new Error(res.text)
             })
             .then(resJSON => {
-               //console.log('resJSON after deleting deliverables', resJSON);
                 this.setState({
                    thiscoursedeliverables: [],
                 }, () => {
@@ -1637,7 +1497,6 @@ class App extends React.Component {
     }
 
     submitdeleteweek = (selectedweek) => {
-        //console.log('made it to delete Week selectedweek ', selectedweek)
         fetch(`${API_BASE_URL}/weeks`, {
                 method: 'DELETE',
                 headers: {
@@ -1646,7 +1505,6 @@ class App extends React.Component {
                 body: JSON.stringify(selectedweek)
             })
             .then(res => {
-                //console.log('res', res);
                 if(res.ok) {
                         return res.json()
                 }
@@ -1719,7 +1577,6 @@ class App extends React.Component {
             throw new Error(res.text)
         })
         .then(resJSON =>  {
-            //console.log('upweek, resJSON', resJSON);
             const tempweeks = resJSON.filter(week => {
                 return week.termDesc === this.state.currentterm && week.weekNum === this.state.currentweek;
             });
@@ -1736,7 +1593,6 @@ class App extends React.Component {
     }
         
     submitupdateweek = (updatedweek) => {
-        //console.log('made it to updated week', updatedweek);
         new Promise ((resolve, reject) => {
             this.updateweek(updatedweek);
             return this.getthistermweeks(resolve, reject);
@@ -1790,7 +1646,6 @@ class App extends React.Component {
     }
 
     submitupdatedeliverable = (deliverable) => {
-        //console.log('made it to submitupdatedeliverable', deliverable);
         fetch(`${API_BASE_URL}/deliverables`, {
             method: 'PUT',
             headers: {
@@ -1800,14 +1655,12 @@ class App extends React.Component {
             body: JSON.stringify(deliverable)
         })
         .then(res => {
-            //console.log('res is ', res);
             if(res.ok) {
                     return res.json()
             }
             throw new Error(res.text)
         })
         .then(resJSON =>  {
-            //console.log('resJSON', resJSON);
             this.setdeliverableupdated(true);
             return this.getcurrentweekdetails();          
         })

@@ -54,7 +54,6 @@ export default class DeliverableProfile extends React.Component {
                     });
                 break;
             default:
-                console.log('field names did not match any of the options.');
         }
      
     }
@@ -75,8 +74,6 @@ export default class DeliverableProfile extends React.Component {
             desc: this.props.desc,
             impact:this.props.impact
         };
-        console.log('submitdeletedeliverable:deliverable to be deleted', deliverable);
-        console.log('this.props', this.props);
         this.props.submitdeletedeliverable(deliverable);
         this.setState = (this.initialState);
         
@@ -84,7 +81,6 @@ export default class DeliverableProfile extends React.Component {
 
    updateSubmit(e) {
         e.preventDefault();
-        console.log('updateSubmit, this.props.id', this.props.id);
         this.setState({
             deliverableUpdatingId:this.props.id,
             message: "Your deliverable has been updated."
@@ -163,32 +159,38 @@ export default class DeliverableProfile extends React.Component {
                                                     <div className="deliverable-sub-section two-items-middle">
                                                             <div className="column select-prephrs">
                                                                                 <label className="small-titles  sometimes-tall-titles light-label">Prep Hours</label>
-                                                                                <select
-                                                                                    className="center"
-                                                                                    ref={element => this.prephrs = element}
-                                                                                    delPrepHrs = {this.props.prephrs}
-                                                                                    type="number"
-                                                                                    onChange={this.handleChange.bind(this, "prephrs")}
-                                                                                    defaultValue={this.props.prephrs}
-                                                                                    aria-label="prephrs"
-                                                                                >
-                                                                                <option
-                                                                                    key="1"
-                                                                                    value={this.props.prephrs}
-                                                                                >
-                                                                                    {this.props.prephrs}
-                                                                                </option>
-                                                                                {prephrsoptions}
-                                                                                </select>
+                                                                                <div className="del-editable">
+                                                                                        <select
+                                                                                            className="center"
+                                                                                            ref={element => this.prephrs = element}
+                                                                                            delprephrs = {this.props.prephrs}
+                                                                                            type="number"
+                                                                                            onChange={this.handleChange.bind(this, "prephrs")}
+                                                                                            //defaultValue={this.props.prephrs}
+                                                                                            value={this.props.prephrs}
+                                                                                            aria-label="prephrs"
+                                                                                        >
+                                                                                        <option
+                                                                                            key="1"
+                                                                                            value={this.props.prephrs}
+                                                                                        >
+                                                                                            {this.props.prephrs}
+                                                                                        </option>
+                                                                                        {prephrsoptions}
+                                                                                        </select>
+
+                                                                                </div>
+                                                                               
                                                             </div>
                                                             <div className="column select-impact">
                                                                         <label className="small-titles  sometimes-tall-titles light-label">Impact</label>
-                                                                        <select
+                                                                        <div className="del-editable">
+                                                                            <select
                                                                                 ref={element => this.impact = element}
                                                                                 type="text"
                                                                                 value={this.props.impact}
                                                                                 onChange={this.handleChange.bind(this, "impact")}
-                                                                                defaultValue={this.props.impact}
+                                                                                //defaultValue={this.props.impact}
                                                                                 aria-label="Impact"
                                                                         >
                                                                             <option
@@ -222,18 +224,25 @@ export default class DeliverableProfile extends React.Component {
                                                                                 High-Plus
                                                                             </option>
                                                                         </select>
-                                                                </div>    
+
+                                                                        </div>
+                                                                                                                                        </div>    
                                                      </div>
                                                      <div className="deliverable-sub-section one-item-bottom">
                                                             <div className="column input-desc">
                                                                     <label className="small-titles sometimes-tall-titles light-label"> Description</label>
-                                                                    <input
-                                                                            ref={element => this.desc = element}
-                                                                            type="text"
-                                                                            onChange={this.handleChange.bind(this, "desc")}
-                                                                            defaultValue={this.props.desc}
-                                                                            aria-label="Desc"
-                                                                        />
+                                                                    <div className="del-editable">
+                                                                        <input
+                                                                                className="center"
+                                                                                ref={element => this.desc = element}
+                                                                                type="text"
+                                                                                onChange={this.handleChange.bind(this, "desc")}
+                                                                                value={this.props.desc}
+                                                                                aria-label="Desc"
+                                                                            />
+
+                                                                    </div>
+                                                                    
                                                                 
                                                             </div>
                                                     </div>
