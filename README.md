@@ -62,17 +62,17 @@ The student sets up his/her profile which includes the current TERM, the student
  -  [Home](#ExecutiveFollowUp)
 
 
-     Mobile-Home page
+     Mobile-Login Page
      
-![Mobile - Login/Home Page](/docimages/m1.png "Mobile-Login/Home Page")
+![Mobile - Login Page](/screenshots/m_login.png "Mobile-Login")
 
      Mobile-Registration Page
     
-![Mobile - Registration Page](/docimages/reg.png "Mobile-Registration Page")
+![Mobile - Registration Page](/screenshots/m_reg.png "Mobile-Registration Page")
 
-    Mobile-Main Options Page
+    Mobile-Dashboard
     
-![Mobile - Main Options Page](/docimages/m2.png "Mobile-Main Options Page")
+![Mobile - Dashboard](/screenshots/m-dashboard.png "Mobile-Dashboard")
 
     Mobile-Ideal Closet
     
