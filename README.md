@@ -61,90 +61,79 @@ The student sets up his/her profile which includes the current TERM, the student
 ## Screenshots
  -  [Home](#ExecutiveFollowUp)
 
+
+Mobile Screenshots
+
 <table style="width:100%">
   <tr>
-    <th><label>Mobile-Login Page</label></th>
-    <th><label>Mobile-Registration Page</label></th> 
+     <th><label>Login Page</label></th>
+     <th><label>Registration Page</label></th> 
+     <th><label>Dashboard</label></th> 
   </tr>
   <tr>
-    <td><img src="/screenshots/m_login.png" width="250px" /></td>
-    <td><img src="/screenshots/m_reg.png" width="250px" /></td> 
-    <td>50</td>
+     <td><img src="/screenshots/m_login.png" width="250px" /></td>
+     <td><img src="/screenshots/m_reg.png" width="250px" /></td> 
+     <td><img src="/screenshots/m_dashboard.png" width="250px" /></td> 
+  </tr>
+     <tr>
+     <th><label>Dropdown Profile Menu</label></th>
+     <th><label>Courses</label></th> 
+     <th><label>Deliverables</label></th> 
   </tr>
   <tr>
-    <td>Eve</td>
-    <td>Jackson</td> 
-    <td>94</td>
+     <td><img src="/screenshots/m_dropdown.png" width="250px" /></td>
+     <td><img src="/screenshots/m_courses.png" width="250px" /></td> 
+     <td><img src="/screenshots/m_deliverables.png" width="250px" /></td> 
   </tr>
+     <tr>
+     <th><label>View Weeks</label></th>
+     <th><label>Update Week</label></th> 
+     <th><label>??</label></th> 
+  </tr>
+  <tr>
+     <td><img src="/screenshots/m_view_weeks.png" width="250px" /></td>
+     <td><img src="/screenshots/m_update_week.png" width="250px" /></td> 
+     <td><img src="/screenshots/m_dashboard.png" width="250px" /></td> 
+  </tr>
+  
 </table>
      
 
-    Mobile-Dashboard
-    
-![Mobile - Dashboard](/screenshots/m-dashboard.png "Mobile-Dashboard")
+ Desktop Screenshots  
 
-    Mobile-Ideal Closet
-    
-![Mobile - Ideal Closet](/docimages/m3.png "Mobile-Ideal Closet")
-
-    Mobile-Ideal Closet - look at details
-    
-![Mobile - Ideal Closet: look at details](/docimages/m4.png "Mobile-Ideal Closet: look at details")
-
-    Mobile-My Closet
-    
-![Mobile - My Closet](/docimages/m5.png "Mobile-My Closet")
-
-    Mobile-My closet: Add New Item
-    
-![Mobile - My Closet:  Add Item](/docimages/m6.png "Mobile-My Closet:  Add Item")
-
-    Mobile-My closet: Edit/Update Item
-     
-![Mobile - Edit/Update Item](/docimages/mEdit.png "Mobile-Edit/Update Item")
-
-    Mobile-Donation Closet
-    
-![Mobile - Donation Closet](/docimages/m8.png "Mobile-Donation Closet")
-
-     Mobile-Share Closet
-    
-![Mobile - Share Closet](/docimages/mShare.png "Mobile-Share Closet")
-
-    Mobile-Analyze It!
-    
-![Mobile - Analyze It](/docimages/m7.png "Mobile-Analyze It")
-
-    Logout
-    
-![Mobile - Logout](/docimages/m10.png "Mobile-Logout")
-
-     Desktop-My Closet  
-    
-![Desktop - My Closet](/docimages/dMy.png "Desktop-My Closet")
-
-     Desktop-Ideal Closet  
-    
-![Desktop - Ideal Closet](/docimages/dIdeal.png "Desktop-Ideal Closet")
-
-     Desktop-Share Closet  
-    
-![Desktop - Share Closet](/docimages/dShare.png "Desktop-Share Closet")
-
-     Desktop-Donation Closet  
-    
-![Desktop - Donation Closet](/docimages/dDonation.png "Desktop-Donation Closet")
-
-     Desktop-Analyze It!  
-    
-![Desktop - Analyze It!](/docimages/dAnalyze.png "Desktop-Analyze It!")
-
-
-
-
-
-
-
+<table style="width:100%">
+  <tr>
+     <th><label>Login Page</label></th>
+     <th><label>Registration Page</label></th> 
+     <th><label>Dashboard</label></th> 
+  </tr>
+  <tr>
+     <td><img src="/screenshots/d_login.png" width="250px" /></td>
+     <td><img src="/screenshots/d_reg.png" width="250px" /></td> 
+     <td><img src="/screenshots/d_dashboard.png" width="250px" /></td> 
+  </tr>
+     <tr>
+     <th><label>Dropdown Profile Menu</label></th>
+     <th><label>Courses</label></th> 
+     <th><label>Deliverables</label></th> 
+  </tr>
+  <tr>
+     <td><img src="/screenshots/d_select_term.png" width="250px" /></td>
+     <td><img src="/screenshots/m_courses.png" width="250px" /></td> 
+     <td><img src="/screenshots/m_deliverables.png" width="250px" /></td> 
+  </tr>
+     <tr>
+     <th><label>View Weeks</label></th>
+     <th><label>Update Week</label></th> 
+     <th><label>??</label></th> 
+  </tr>
+  <tr>
+     <td><img src="/screenshots/d_view_weeks.png" width="250px" /></td>
+     <td><img src="/screenshots/d_update_week.png" width="250px" /></td> 
+     <td><img src="/screenshots/d_dashboard.png" width="250px" /></td> 
+  </tr>
+  
+</table>
 
 
 
