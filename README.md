@@ -62,78 +62,81 @@ The student sets up his/her profile which includes the current TERM, the student
  -  [Home](#ExecutiveFollowUp)
 
 
-     Mobile-Home page
+ Mobile Screenshots  
+
+<table style="width:100%">
+  <tr>
+     <th><label>Login Page</label></th>
+     <th><label>Registration Page</label></th> 
+     <th><label>Dashboard</label></th> 
+  </tr>
+  <tr>
+     <td><img src="/screenshots/m_login.png" width="250px" /></td>
+     <td><img src="/screenshots/m_reg.png" width="250px" /></td> 
+     <td><img src="/screenshots/m_dashboard.png" width="250px" /></td> 
+  </tr>
+     <tr>
+     <th><label>Dropdown Profile Menu</label></th>
+     <th><label>Courses</label></th> 
+     <th><label>Deliverables</label></th> 
+  </tr>
+  <tr>
+     <td><img src="/screenshots/m_profile_menu.png" width="250px" /></td>
+     <td><img src="/screenshots/m_courses.png" width="250px" /></td> 
+     <td><img src="/screenshots/m_deliverables.png" width="250px" /></td> 
+  </tr>
+  <tr>
+     <th><label>Add Deliverable</label></th> 
+     <th><label>View Weeks</label></th>
+     <th><label>Update Week</label></th> 
+  </tr>
+  <tr>
+     <td><img src="/screenshots/m_add_del.png" width="250px" /></td>
+     <td><img src="/screenshots/m_view_weeks.png" width="250px" /></td>
+     <td><img src="/screenshots/m_update_week.png" width="250px" /></td>  
+  </tr>
+  
+</table>
+
+
+Desktop Screenshots
+
+<table style="width:100%">
+  <tr>
+     <th><label>Login Page</label></th>
+     <th><label>Registration Page</label></th>
+  </tr>
+  <tr>
+     <td><img src="/screenshots/d_login.png" width="250px" /></td>
+     <td><img src="/screenshots/d_reg.png" width="375px" /></td>
+  </tr>
+  <tr>
+     <th><label>Dashboard</label></th> 
+     <th><label>Dropdown Profile Menu</label></th>
+  </tr>
+  <tr>
+     <td><img src="/screenshots/d_dashboard.png" width="375px" /></td>
+     <td><img src="/screenshots/d_dropdown.png" width="375px" /></td>
+  </tr>
+  <tr>
+     <th><label>Courses</label></th> 
+     <th><label>Deliverables</label></th> 
+  </tr>
+  <tr>
+     <td><img src="/screenshots/d_courses.png" width="375px" /></td> 
+     <td><img src="/screenshots/d_deliverables.png" width="375px" /></td> 
+  </tr>
+  <tr>
+     <th><label>View Weeks</label></th>
+     <th><label>Update Week</label></th> 
+  </tr>
+  <tr>
+     <td><img src="/screenshots/d_view_weeks.png" width="375px" /></td>
+     <td><img src="/screenshots/d_update_current_week.png" width="375px" /></td>  
+  </tr>
+  
+</table>
      
-![Mobile - Login/Home Page](/docimages/m1.png "Mobile-Login/Home Page")
-
-     Mobile-Registration Page
-    
-![Mobile - Registration Page](/docimages/reg.png "Mobile-Registration Page")
-
-    Mobile-Main Options Page
-    
-![Mobile - Main Options Page](/docimages/m2.png "Mobile-Main Options Page")
-
-    Mobile-Ideal Closet
-    
-![Mobile - Ideal Closet](/docimages/m3.png "Mobile-Ideal Closet")
-
-    Mobile-Ideal Closet - look at details
-    
-![Mobile - Ideal Closet: look at details](/docimages/m4.png "Mobile-Ideal Closet: look at details")
-
-    Mobile-My Closet
-    
-![Mobile - My Closet](/docimages/m5.png "Mobile-My Closet")
-
-    Mobile-My closet: Add New Item
-    
-![Mobile - My Closet:  Add Item](/docimages/m6.png "Mobile-My Closet:  Add Item")
-
-    Mobile-My closet: Edit/Update Item
-     
-![Mobile - Edit/Update Item](/docimages/mEdit.png "Mobile-Edit/Update Item")
-
-    Mobile-Donation Closet
-    
-![Mobile - Donation Closet](/docimages/m8.png "Mobile-Donation Closet")
-
-     Mobile-Share Closet
-    
-![Mobile - Share Closet](/docimages/mShare.png "Mobile-Share Closet")
-
-    Mobile-Analyze It!
-    
-![Mobile - Analyze It](/docimages/m7.png "Mobile-Analyze It")
-
-    Logout
-    
-![Mobile - Logout](/docimages/m10.png "Mobile-Logout")
-
-     Desktop-My Closet  
-    
-![Desktop - My Closet](/docimages/dMy.png "Desktop-My Closet")
-
-     Desktop-Ideal Closet  
-    
-![Desktop - Ideal Closet](/docimages/dIdeal.png "Desktop-Ideal Closet")
-
-     Desktop-Share Closet  
-    
-![Desktop - Share Closet](/docimages/dShare.png "Desktop-Share Closet")
-
-     Desktop-Donation Closet  
-    
-![Desktop - Donation Closet](/docimages/dDonation.png "Desktop-Donation Closet")
-
-     Desktop-Analyze It!  
-    
-![Desktop - Analyze It!](/docimages/dAnalyze.png "Desktop-Analyze It!")
-
-
-
-
-
 
 
 
