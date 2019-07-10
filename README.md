@@ -62,14 +62,15 @@ The student sets up his/her profile which includes the current TERM, the student
  -  [Home](#ExecutiveFollowUp)
 
 
-     Mobile-Login Page
-
-<img src="/screenshots/m_login.png" width="250px" />
-
-     Mobile-Registration Page
-    
-
-<img src="/screenshots/m_reg.png" width="250px" />
+     
+<div>
+     <label>Mobile-Login Page</label>
+     <img src="/screenshots/m_login.png" width="250px" />
+</div>
+<div>
+     <label>Mobile-Registration Page</label>
+     <img src="/screenshots/m_reg.png" width="250px" />
+</div>
 
     Mobile-Dashboard
     
