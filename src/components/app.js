@@ -406,7 +406,7 @@ class App extends React.Component {
 
     submitlogout() {
        // console.log('this initial state', this.state);
-       this.setState = (this.initialState);
+       //this.setState = (this.initialState);
        //console.log('state after logout', this.state);
     }
 
