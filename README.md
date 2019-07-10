@@ -63,14 +63,13 @@ The student sets up his/her profile which includes the current TERM, the student
 
 
      Mobile-Login Page
-     
-![Mobile - Login Page](/screenshots/m_login.png "Mobile-Login")
-test
-<img src="/screenshots/m_login.png" width="150px" />
+
+<img src="/screenshots/m_login.png" width="250px" />
 
      Mobile-Registration Page
     
-![Mobile - Registration Page](/screenshots/m_reg.png "Mobile-Registration Page")
+
+<img src="/screenshots/m_reg.png" width="250px" />
 
     Mobile-Dashboard
     
