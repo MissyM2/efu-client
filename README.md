@@ -1,7 +1,7 @@
 # ExecutiveFollowUp
-*  Live App:  https://serene-dawn-65763.herokuapp.com/
+*  Live App:  https://nameless-inlet-97185.herokuapp.com/
 
-     +  demo user: tester@gmail.com/tester1
+     +  demo user: sarah@gmail.com / password: sarah9515
 
 
 #### Table of Contents
