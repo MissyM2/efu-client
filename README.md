@@ -127,19 +127,20 @@ Desktop Screenshots
   </tr>
   <tr>
      <th><label>Dashboard</label></th> 
-     <th><label>Dropdown Profile Menu</label></th>
+     <th><label>Courses</label></th>
   </tr>
   <tr>
      <td><img src="/screenshots/d_dashboard.png" width="375px" /></td>
-     <td><img src="/screenshots/d_dropdown.png" width="375px" /></td>
+     <td><img src="/screenshots/d_courses.png" width="375px" /></td>
+     <td><img src="/screenshots/d_select_term.png" width="375px" /></td> 
   </tr>
   <tr>
-     <th><label>Courses</label></th> 
      <th><label>Deliverables</label></th> 
+     <th><label>Add Deliverable</label></th> 
   </tr>
   <tr>
      <td><img src="/screenshots/d_deliverables.png" width="375px" /></td> 
-     <td><img src="/screenshots/d_add_del.png" width="375px" /></td> 
+     <td><img src="/screenshots/d_courses.png" width="375px" /></td>
   </tr>
   <tr>
      <th><label>View Weeks</label></th>
