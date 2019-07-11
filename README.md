@@ -138,8 +138,8 @@ Desktop Screenshots
      <th><label>Deliverables</label></th> 
   </tr>
   <tr>
-     <td><img src="/screenshots/d_courses.png" width="375px" /></td> 
      <td><img src="/screenshots/d_deliverables.png" width="375px" /></td> 
+     <td><img src="/screenshots/d_add_del.png" width="375px" /></td> 
   </tr>
   <tr>
      <th><label>View Weeks</label></th>
