@@ -36,8 +36,9 @@ executiveFollowUp is my attempt to create an automated tool that will yield more
 ## Description
  -  [Home](#ExecutiveFollowUp)
 
-This app is a tool to be used by students in upper middle school through college to monitor academic performance.  It will be most helpful if a student is working with a mentor once a week to gather data on each of the student's courses and coursework.  
-The will start by setting up his/her profile which includes the current TERM, the student's courses and the weeks of the term.  He/she, then proceeds to record the deliverables for each course and includes such details as the due date, how much of his/her time will be required and how important the assignment is to the final grade.
+This app is a tool to be used by students in upper middle school through college to monitor academic performance.  It will be most helpful if a student is working with a mentor once a week to gather data on each of the student's courses and coursework. 
+
+The student will start by setting up his/her profile which includes the current TERM, the student's courses and the weeks of the term.  He/she, then proceeds to record the deliverables for each course and includes such details as the due date, how much of his/her time will be required and how important the assignment is to the final grade.
 
 Each week the student records a brief reflection on their courses as well as their grades. 
 
@@ -162,14 +163,6 @@ Desktop Screenshots
  -  [Home](#ExecutiveFollowUp)
  
 
-
-
-
-  ###  Tech Stack Overview
-  -  [Home](#ExecutiveFollowUp)
-  
-The backend for this app uses NodeJS with express. Authentication is handled using JWTs with passport. BcryptJS is used to hash passwords. The database is a mongo database. It's hosted on mLab. The client uses HTML, CSS, Javascript and React. The server and client are both hosted on Heroku.
-
  
  
 #####  Front-End Technologies
@@ -202,20 +195,6 @@ The backend for this app uses NodeJS with express. Authentication is handled usi
    1.  Git & GitHub:  a development platform that allows storage and revision management
    2.  Heroku:  a cloud platform for deploying apps  
    
-
-
-
-
-
-
-
-###  Code Base Overview
-  -  [Home](#ExecutiveFollowUp)
-  
-  
-  
-ExecutiveFollowUp app is made up of efu-client, the client-side user interface and efu-app, the API.  It is a single page application (SPA). The primary CRUD operations occur on 'users', 'weeks', 'courses', 'deliverables' through a series of routers and data models in the API.  Authentication and of users takes place through the use of JSON Web Tokens (JWT), obtained on login as well as a requirement to refresh.  Security of the password is maintained through the use of a hashing algorithm and encryption with bcrypt.
-
 
 
 
