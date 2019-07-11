@@ -126,17 +126,16 @@ Desktop Screenshots
      <td><img src="/screenshots/d_reg.png" width="375px" /></td>
   </tr>
   <tr>
-     <th><label>Dashboard</label></th> 
-     <th><label>Courses</label></th>
+     <th><label>Select Term</label></th> 
+     <th><label>Dashboard</label></th>
   </tr>
   <tr>
-     <td><img src="/screenshots/d_dashboard.png" width="375px" /></td>
-     <td><img src="/screenshots/d_courses.png" width="375px" /></td>
      <td><img src="/screenshots/d_select_term.png" width="375px" /></td> 
+     <td><img src="/screenshots/d_dashboard.png" width="375px" /></td>
   </tr>
   <tr>
      <th><label>Deliverables</label></th> 
-     <th><label>Add Deliverable</label></th> 
+     <th><label>Courses</label></th> 
   </tr>
   <tr>
      <td><img src="/screenshots/d_deliverables.png" width="375px" /></td> 
