@@ -137,9 +137,9 @@ export default class Dashboard extends React.Component {
                                             <section className="modal__content">
                                                     <h2>{this.props.currentterm}</h2>
                                                     <div className="message">
-                                                        <div className="message-subtext">has not been set up.</div>
+                                                        <div className="message-subtext">has not been set up.  Do one of the following:</div>
                                                         <div className="message-subtext"><i className="fas fa-asterisk"></i>  Choose another term</div>
-                                                        <div className="message-subtext"><i className="fas fa-asterisk"></i>  Select dropdown, then <span className="accent-word"> Your Courses</span> to begin.</div>
+                                                        <div className="message-subtext"><i className="fas fa-asterisk"></i>  Select Right Side Dropdown, then <span className="accent-word"> Your Courses</span> to begin.</div>
                                                     </div>
                                                   
                                             </section>

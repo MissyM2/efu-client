@@ -64,7 +64,8 @@ export default class Deliverables extends React.Component {
                         });
                 }
         
-            }
+        }
+
         
         render() {
                 let backdrop;
@@ -74,6 +75,7 @@ export default class Deliverables extends React.Component {
                 } else {
                         backdrop = <BackdropWhite />
                 }
+
                 
 
                 const thiscoursedeliverables = this.props.thiscoursedeliverables.map((deliverable, index) => {
@@ -177,9 +179,9 @@ export default class Deliverables extends React.Component {
                                                         <div className="show-impact">
                                                                 <div className="add-deliverable-link-spacer-impact"></div>
                                                                 <button 
-                                                                        className="blue-btn btn-med tenpx-bottom-margin add-deliverable-link-div"
+                                                                        className="simple-btn tenpx-bottom-margin add-deliverable-link-div"
                                                                         onClick={this.toggleimpact}>
-                                                                        What is 'Impact' mean?
+                                                                        Click to understand 'Impact'
                                                                 </button>
                                                         </div>
                                                 </div>

@@ -35,7 +35,7 @@ export default class Deliverable extends React.Component {
                                             </div>
                                             <div className="column">
                                                     <label className="small-titles light-label"> Impact</label>
-                                                    <div className="deliverable-field inpact">{this.props.inpact}</div>
+                                                    <div className="deliverable-field impact">{this.props.impact}</div>
                                             </div>    
                                 </div>
                                 

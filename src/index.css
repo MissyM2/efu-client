@@ -213,7 +213,7 @@
         }
 
         .hundredpercent-width {
-          width: 100%;
+          width: 97%;
         }
         .unit-container-blue {
           border:1px solid #59a3c6; 
@@ -918,6 +918,20 @@
         padding-right: 5px;
       }
       
+      .tall-titles,
+      .sometimes-tall-titles {
+          height: 55px;
+      }
+
+      .grade-titles {
+        height: 75px;
+      }
+
+      .simple-btn {
+        font-size: 18px;
+        color:darkred;
+        
+      }
 
       
     

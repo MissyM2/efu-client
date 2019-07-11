@@ -78,7 +78,7 @@ export default class Weeks extends React.Component {
                                                 .map((grade, index) => {
                                                                 return (
                                                                         <div key={index + 1} className="grade-container-green fivepx-margin">
-                                                                                <div className="small-titles dark-label week-label course-title">{grade.course}</div>
+                                                                                <div className="small-titles grade-titles dark-label week-label course-title">{grade.course}</div>
                                                                                 <div className="small-titles light-label item-body course-grade">{grade.gradeNum}</div>
                                                                         </div>
                                                                 );

@@ -24,7 +24,6 @@ export default class Course extends React.Component {
     }
 
     handleChange(field, e) {
-        //this.props.setCourseIsChanged(false);
         let fields = this.state.fields;
         fields[field] = e.target.value;
         this.setState({
@@ -110,7 +109,7 @@ export default class Course extends React.Component {
                 <form onSubmit={this.updateSubmit.bind(this)}>
                     <div className="course-container-blue">
                         {(this.props.id === this.state.courseUpdatingId) ? (
-                            <div className="message-style">Your course has been updated.</div>
+                            <div className="message-style"><div className="message-style"><i className="fas fa-check"></i></div></div>
                             ):(
                                ""
                             )}
@@ -118,6 +117,7 @@ export default class Course extends React.Component {
                                 <div>
                                     <label className="small-titles light-label">Course</label>
                                     <input
+                                        className="hundredpercent-width"
                                         ref={element => this.courseName = element}
                                         type="text"
                                         onChange={this.handleChange.bind(this,"newCourseName")}

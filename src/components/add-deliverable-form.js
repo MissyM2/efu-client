@@ -32,6 +32,7 @@ export class AddDeliverableForm extends React.Component {
         returnToDeliverables = (e) => {
                 this.props.setdeliverableadding(false);
                 this.props.setdeliverableadded(false);
+                this.props.setshowadddeliverable(true);
                 this.props.getcurrentweekdetails();
                 this.setState = (this.initialState);
                 this.props.history.push('/deliverables');

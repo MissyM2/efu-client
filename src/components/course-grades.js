@@ -48,11 +48,11 @@ export default class CourseGrades extends React.Component {
     render() {
         return (
                     <div>
-                            <div className="small-titles dark-label grade-label course-title" >Course:  {this.props.course}</div>
+                            <div className="small-titles grade-titles dark-label grade-label course-title" >Course:  {this.props.course}</div>
                             <div className="small-titles light-label item-body course-grade">Current Grade:  {this.props.gradeNum}</div>
                             <form onSubmit={(e) => {this.onSubmit(e)}}>
                                 {(this.props.id === this.state.gradeUpdatingId) ? (
-                                <div className="message-style">Your grade has been updated.</div>
+                                <div className="message-style"><div className="message-style"><i className="fas fa-check"></i></div></div>
                                 ):(
                                 ""
                                 )}

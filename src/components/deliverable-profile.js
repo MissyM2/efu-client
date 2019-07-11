@@ -161,7 +161,6 @@ export default class DeliverableProfile extends React.Component {
                                                                                 <label className="small-titles  sometimes-tall-titles light-label">Prep Hours</label>
                                                                                 <div className="del-editable">
                                                                                         <select
-                                                                                            className="center"
                                                                                             ref={element => this.prephrs = element}
                                                                                             delprephrs = {this.props.prephrs}
                                                                                             type="number"
@@ -233,7 +232,6 @@ export default class DeliverableProfile extends React.Component {
                                                                     <label className="small-titles sometimes-tall-titles light-label"> Description</label>
                                                                     <div className="del-editable">
                                                                         <input
-                                                                                className="center"
                                                                                 ref={element => this.desc = element}
                                                                                 type="text"
                                                                                 onChange={this.handleChange.bind(this, "desc")}

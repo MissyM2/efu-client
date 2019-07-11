@@ -27,8 +27,8 @@ export default class ModalImpact extends React.Component {
                             <div className="key-option"><em className="key-emphasis">High</em>at least 15% of final grade</div>
                             <div className="key-option"><em className="key-emphasis">High Plus</em>at least 35% of final grade`</div>
                         </div>
-                        <div className="content-sub-container action-links">
-                            <button className="link navitem item blue-btn tenpx-bottom-margin" onClick={this.props.toggleimpact}>Return</button>
+                        <div>
+                            <button className="link navitem blue-btn small-btn tenpx-bottom-margin" onClick={this.props.toggleimpact}>Return</button>
                         </div>   
 
                 </section>
