@@ -17,7 +17,7 @@ export class AddDeliverableForm extends React.Component {
                 editing: false,
                 fields: {
                     courseName:"",
-                    dueDate:"",
+                    dueDate:this.props.currentdate,
                     deliverableName:"",
                     desc: "",
                 },
@@ -26,6 +26,7 @@ export class AddDeliverableForm extends React.Component {
             this.initialState = {...this.state};
             this.setSelectedCourseForAdd = this.setSelectedCourseForAdd.bind(this);
             this.handleValidation = this.handleValidation.bind(this);
+            this.addanotherdel = this.addanotherdel.bind(this);
         }
     
         returnToDeliverables = (e) => {
@@ -38,6 +39,7 @@ export class AddDeliverableForm extends React.Component {
 
         _onFocus(e){
             e.currentTarget.type = "date";
+
         }
     
         _onBlur(e){
@@ -83,8 +85,6 @@ export class AddDeliverableForm extends React.Component {
                     this.props.setdeliverableadding(true);
                     
             });
-                    
-    
         }
 
 
@@ -93,6 +93,7 @@ export class AddDeliverableForm extends React.Component {
             if(this.handleValidation()) {
                 let impactValue = "";
                 let prephrsValue = 0;
+                let descValue = this.state.fields["desc"];
                 switch(this.state.fields.deliverableName) {
                     case "Quiz":
                             impactValue = "moderate";
@@ -134,26 +135,32 @@ export class AddDeliverableForm extends React.Component {
                                     impactValue = "moderate";
                                     prephrsValue = 6;
                 }
+
                 const newDeliverable = {
                     termDesc: this.props.currentterm,
                     courseName: this.props.currentcoursename,
                     dueDate: this.state.fields["dueDate"],
                     deliverableName: this.state.fields["deliverableName"],
                     impact: impactValue,
-                    desc: this.state.fields["desc"],
+                    desc: descValue,
                     prephrs: prephrsValue
                 }
-                
-                this.props.submitadddeliverable(newDeliverable);
 
                 let fields = this.state.fields;
                 fields["dueDate"] = "";
                 fields["deliverableName"] = "";
-                fields["desc"] = "";
+                //fields["desc"] = "";
                 this.setState({fields});
+               
                 
+                this.props.submitadddeliverable(newDeliverable);
 
             }
+        }
+
+        addanotherdel = () => {
+                this.props.setshowadddeliverable(true); 
+                this.props.setdeliverableadded(false); 
         }
             
         
@@ -189,6 +196,7 @@ export class AddDeliverableForm extends React.Component {
                             </option>
                         );
                     });
+
                 return (
                        
                         <div className="content-container">
@@ -209,73 +217,84 @@ export class AddDeliverableForm extends React.Component {
                                         
                                         <div className="content-sub-container add-del-form">
                                                 <section className="modal__content">
-                                                <header><h2>Add Deliverable</h2></header>
-                                       
-                                                <select
-                                                        type="text"
-                                                        className="add-deliverable-course-select"
-                                                        defaultValue='DEFAULT'
-                                                        onChange={this.setSelectedCourseForAdd}
-                                                        >
-                                                        <option value="DEFAULT" disabled>Choose a course</option>
-                                                                {mycoursedropdown}
-                                                </select>
-                                                {(this.props.deliverableAdded)  ? (
-                                                               <div className="message-style">Deliverable has been added.  Finished adding?</div>
-                                                        ) : (
-                                                                <div></div>
+                                                        <header><h2>Add Deliverable</h2></header>
+                                        
+                                                        <select
+                                                                type="text"
+                                                                className="add-deliverable-course-select"
+                                                                defaultValue='DEFAULT'
+                                                                onChange={this.setSelectedCourseForAdd}
+                                                                >
+                                                                <option value="DEFAULT" disabled>Choose a course</option>
+                                                                        {mycoursedropdown}
+                                                        </select>
+                                                        {(this.props.deliverableAdded)  ? (
+                                                                <div className="message-style">Deliverable has been added.  Finished adding?</div>
+                                                                ) : (
+                                                                        <div></div>
+                                                                )}
+                                                        {(this.props.showAddDeliverable === false) ? (
+                                                                <div>
+                                                                        <button className="blue-btn btn-small fivepx-margin" type="button" onClick={this.addanotherdel}>
+                                                                                Add Another
+                                                                        </button>
+                                                                        <button className="blue-btn btn-small fivepx-margin" type="button" onClick={this.returnToDeliverables.bind(this)}>
+                                                                                Return
+                                                                        </button>       
+                                                                </div>
+                                                        ):(
+                                                                <form className="del-form" onSubmit={this.addDeliverableSubmit.bind(this)}>
+                                                        <div className="message-style">
+                                                                {this.state.errors["emptyFields"]}
+                                                        </div>
+                                                        <ul className="unit-container-blue ul-deliverable">
+                                                                <li className="del-row">
+                                                                        <input 
+                                                                                className="del-unit-container fivepx-margin duedate"
+                                                                                placeholder="Due Date"
+                                                                                type="text"
+                                                                                onFocus={this._onFocus}
+                                                                                onBlur={this._onBlur}
+                                                                                onChange={this.handleChange.bind(this, "dueDate")}
+                                                                                defaultValue={this.props.currentdate}
+                                                                                aria-label="dueDate"
+                                                                        />
+                                                                        <select 
+                                                                                className="del-unit-container fivepx-margin delname" 
+                                                                                defaultValue="DEFAULT"
+                                                                                type="text"
+                                                                                onChange={this.handleChange.bind(this, "deliverableName")}
+                                                                                aria-label="deliverableName"
+                                                                                required
+                                                                                >
+                                                                                        <option className="default-value" defaultValue="DEFAULT" disabled>What kind of deliverable is this?  Make a choice.</option> 
+                                                                                        {delNames}
+                                                                        </select>
+
+                                                                </li>
+                                                                <li className="del-row">
+                                                                        <input 
+                                                                                className="del-unit-container fivepx-margin desc"
+                                                                                placeholder="Describe what needs to be prepped(i.e. study chapters...)"
+                                                                                type="text"
+                                                                                defaultValue=""
+                                                                                onChange={this.handleChange.bind(this, "desc")}
+                                                                                aria-label="deliverable-desc"
+                                                                        />
+                                                                </li>
+                                                                
+                                                        </ul>
+                                                        <div className="action-btns">
+                                                                <button type="submit" className="blue-btn btn-small fivepx-margin">Add </button>
+                                                                
+                                                                <button className="blue-btn btn-small fivepx-margin" type="button" onClick={this.returnToDeliverables.bind(this)}>
+                                                                        Return
+                                                                </button>    
+                                                        </div>
+                                                        </form> 
+
                                                         )}
-                                                <form className="del-form" onSubmit={this.addDeliverableSubmit.bind(this)}>
-                                                    <div className="message-style">
-                                                            {this.state.errors["emptyFields"]}
-                                                    </div>
-                                                    <ul className="unit-container-blue ul-deliverable">
-                                                            <li className="del-row">
-                                                                    <input 
-                                                                            className="del-unit-container fivepx-margin duedate"
-                                                                            placeholder="Due Date"
-                                                                            type="text"
-                                                                            onFocus={this._onFocus}
-                                                                            onBlur={this._onBlur}
-                                                                            onChange={this.handleChange.bind(this, "dueDate")}
-                                                                            defaultValue={this.props.currentdate}
-                                                                            aria-label="dueDate"
-                                                                    />
-                                                                    <select 
-                                                                            className="del-unit-container fivepx-margin delname" 
-                                                                            defaultValue="DEFAULT"
-                                                                            type="text"
-                                                                            onChange={this.handleChange.bind(this, "deliverableName")}
-                                                                            aria-label="deliverableName"
-                                                                            required
-                                                                            >
-                                                                                <option className="default-value" defaultValue="DEFAULT" disabled>What kind of deliverable is this?  Make a choice.</option> 
-                                                                                {delNames}
-                                                                    </select>
-
-                                                            </li>
-                                                            <li className="del-row">
-                                                                    <input 
-                                                                            className="del-unit-container fivepx-margin desc"
-                                                                            placeholder="Describe what needs to be prepped(i.e. study chapters...)"
-                                                                            type="text"
-                                                                            defaultValue=""
-                                                                            onChange={this.handleChange.bind(this, "desc")}
-                                                                            aria-label="deliverable-desc"
-                                                                    />
-                                                            </li>
-                                                            
-                                                    </ul>
-                                                    <div className="action-btns">
-                                                        <button type="submit" className="blue-btn btn-small fivepx-margin">Add </button>
-                                                        
-                                                        <button className="blue-btn btn-small fivepx-margin" type="button" onClick={this.returnToDeliverables.bind(this)}>
-                                                                Return
-                                                        </button>    
-                                                    </div>
-                                                </form> 
-
-                                        </section>
+                                                </section>
                                         
                                         </div>
                                         </div>

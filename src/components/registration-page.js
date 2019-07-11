@@ -144,7 +144,7 @@ class RegistrationPage extends React.Component {
                                                             <input
                                                                 className={this.state.errors["username"] ? "error":""}
                                                                 refs="username"
-                                                                placeholder="Username"
+                                                                placeholder="your email address"
                                                                 type="text"
                                                                 onChange={this.handleChange.bind(this, "username")}
                                                                 value={this.state.fields["username"]}
@@ -160,7 +160,7 @@ class RegistrationPage extends React.Component {
                                                             <input
                                                                 className={this.state.errors["password"] ? "error":""}
                                                                 refs="password"
-                                                                placeholder="Password"
+                                                                placeholder="password"
                                                                 type="password"
                                                                 onChange={this.handleChange.bind(this, "password")}
                                                                 value={this.state.fields["password"]}

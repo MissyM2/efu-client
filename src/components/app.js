@@ -88,7 +88,7 @@ class App extends React.Component {
             thistermcourses: [],
 
             // state: deliverables info
-            
+            showAddDeliverable:true,
             deliverableAdding: false,
             deliverableAdded: false,
             deliverableUpdated:false,
@@ -139,7 +139,6 @@ class App extends React.Component {
         this.setcurrentcoursename = this.setcurrentcoursename.bind(this);
         this.setcurrentterm = this.setcurrentterm.bind(this);
         this.setcurrentweek=this.setcurrentweek.bind(this);
-        //this.changecurrentweek=this.changecurrentweek.bind(this);
         this.setloadingflag=this.setloadingflag.bind(this);
         this.setdeliverableupdated=this.setdeliverableupdated.bind(this);
         this.setcoursedeletemodal=this.setcoursedeletemodal.bind(this);
@@ -148,6 +147,7 @@ class App extends React.Component {
         this.setdeliverableadded=this.setdeliverableadded.bind(this);
         this.setcourseanddeliverableflags=this.setcourseanddeliverableflags.bind(this);
         this.setweekupdated=this.setweekupdated.bind(this);
+        this.setshowadddeliverable=this.setshowadddeliverable.bind(this);
         this.setdeliverablemessage=this.setdeliverablemessage.bind(this);
         this.setPageFlags=this.setPageFlags.bind(this);
 
@@ -570,6 +570,9 @@ class App extends React.Component {
             this.setState({
                     courseMessage: "Select a course from the dropdown and add a deliverable."
             });
+    }
+    setshowadddeliverable = (bool) => {
+        this.setState({showAddDeliverable:(bool)});        
     }
 
     //setters for deliverables
@@ -1104,7 +1107,7 @@ class App extends React.Component {
         this.setState({
             todaydeliverables:temptodaydeliverables
         }, () => {
-            console.log('state should be set for todaydeliverables, either none or more', this.state.todaydeliverables);
+            //console.log('state should be set for todaydeliverables, either none or more', this.state.todaydeliverables);
         })
     }
                 
@@ -1220,6 +1223,7 @@ class App extends React.Component {
         .then(resJSON => {
             this.setdeliverableadding(false);
             this.setdeliverableadded(true);
+            this.setshowadddeliverable(false);
         })
         .catch((err) => {
             console.log(err);
@@ -1784,6 +1788,7 @@ class App extends React.Component {
                                                         setcurrentcoursename = {(course) => this.setcurrentcoursename(course)}
                                                         submitadddeliverable = {(deliverable) => this.submitadddeliverable(deliverable)}
                                                         setcurrentcoursenameforaddingdeliverable= {(course) => this.setcurrentcoursenameforaddingdeliverable(course)}
+                                                        setshowadddeliverable = {(bool) => this.setshowadddeliverable(bool)}
                                                         rightbackdropclickhandler = {() => this.rightbackdropclickhandler()}
                                                         navbuttonstoggleclickhandler={() => this.navbuttonstoggleclickhandler()}
                                                         submitlogout= {() => this.submitlogout()}
