@@ -2,12 +2,8 @@
 
 Improve your grades by keeping a tighter control over what is due, how much time is required and what your grades are each week.
 
-*  Live App:  https://nameless-inlet-97185.herokuapp.com/
-*  Live API: https://secure-mountain-70428.herokuapp.com/
 *  Github - Client:  https://github.com/MissyM2/efu-client
 *  Github - API:  https://github.com/MissyM2/efu-app
-
-     +  demo user: sarah@gmail.com / password: sarah9515
 
 
 #### Table of Contents
